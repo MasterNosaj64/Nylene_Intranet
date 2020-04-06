@@ -8,20 +8,20 @@ $dbConnection = setConnectionInfo();
 
 
 if (isset($_POST['submit'])) {
-    
+
     if (isset($_POST['shippingSameAsBilling'])) {
-        
+
         $_POST['shippingStreet'] = $_POST['billingStreet'];
         $_POST['shippingCity'] = $_POST['billingCity'];
         $_POST['shippingState'] = $_POST['billingState'];
         $_POST['shippingPostalCode'] = $_POST['billingPostalCode'];
         $_POST['shippingCountry'] = $_POST['billingCountry'];
     }
-    
+
     // check if company was already added
     $validateCompanyQuery = "SELECT count(*) FROM nylene.company WHERE company_name = '".$_POST['name']."'";
     $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn();
-    
+
     //if it doesn't exist, add it to the database
     if ($validationResult == 0) {
 
@@ -32,30 +32,32 @@ if (isset($_POST['submit'])) {
 
         $result = $dbConnection->query($sqlQuery);
         $company_id = $dbConnection->lastInsertId();
-        
+
         //store company_id in session for further use then redirect user to next page
         $_SESSION["company_id"] = $company_id;
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ./addCustomer.php\" />;";
-        exit();		
-        
+        exit();
+
     } else {
         //set boolean to trigger error message
         //$validationBOOL = false;
         echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
     }
 //     if ($validationBOOL == false) {
-       
+
 //     }
 }
 
 ?>
 
 
-
+<html><head>
+  <link rel="stylesheet" href="table.css">
+</head>
 <body>
 	<form method="post" action=addCompany.php name="add_company">
 		<input type="reset" value="Clear">
-		<table border=5>
+		<table class ="form-table" border=5>
 			<tr>
 				<td colspan=2><h2>Company</h2></td>
 				<td colspan=2><h2>Description</h2></td>
@@ -118,3 +120,4 @@ if (isset($_POST['submit'])) {
 		<input type="submit" name="submit" value="Submit">
 	</form>
 </body>
+</html>

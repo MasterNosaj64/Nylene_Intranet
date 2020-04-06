@@ -27,13 +27,13 @@ body {
   outline: none;
   color: white;
   padding: 25px 25px;
-  background-color: inherit;
+  background-color: #333;
   font-family: inherit;
   margin: 0;
 }
 
 .navigation a:hover, .dropdown:hover .dropbtn {
-  background-color: grey;
+  background-color: #ddd;
 }
 
 .dropdown-content {
