@@ -1,0 +1,42 @@
+/*
+    Theme Name: Nylene Theme
+    Author: Team8
+*/
+p
+{
+   
+    width:100%;
+}
+
+
+input[type=text] 
+{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: lightblue;
+    margin:0px;
+}
+
+th
+{
+    background-color: darkblue;
+    color: white;
+}
+
+div
+{
+	height: 100%;
+}
+
+#info
+{
+    background-color: lightgray;
+}
+
+html, body
+{
+	height:100%;
+	width:100%;
+	margin:0;
+}
