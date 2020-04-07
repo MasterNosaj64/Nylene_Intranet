@@ -1,8 +1,7 @@
 <?php include 'navigation.php';?>
 <html>
 <body>
-
-<p>This is a Homepage.</p>
+<link rel="stylesheet" href="login.css">
 
 
 </body>

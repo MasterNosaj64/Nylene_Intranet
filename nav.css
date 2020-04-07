@@ -5,6 +5,7 @@ body {
 .navigation {
   overflow: hidden;
   background-color: #333;
+  border-radius: 6px;
 }
 
 .navigation a {
