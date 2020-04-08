@@ -1,6 +1,4 @@
 <?php
-	session_start();
-
 	//$_SESSION["userid"] = 2;
 
 	$userid   = $_SESSION["userid"];

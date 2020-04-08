@@ -12,7 +12,8 @@ if(isset($_POST['submit'])){
                 SET 
                 customer_name = '". $_POST['firstName'] ." ". $_POST['lastName'] . "',
                 customer_email = '". $_POST['email'] ."', 
-                customer_phone = '". $_POST['phone'] ."'
+                customer_phone = '". $_POST['phone'] ."',
+                customer_fax = '". $_POST['fax']."'
                 WHERE customer_id =".$_POST['customer_id'];
    
     $result = $dbConnection->query($sqlQuery);
@@ -55,6 +56,10 @@ else {
 			<td><input type="email" value="<?php echo $customerInfo['customer_email'];?>" required  name="email"></td>
 			<td>Phone:</td>
 			<td><input type="tel" value="<?php echo $customerInfo['customer_phone'];?>" name="phone"></td>
+		</tr>
+		<tr>
+			<td>Fax:</td>
+			<td><input type="tel" value="<?php echo $customerInfo['customer_fax'];?>" name="fax"></td>
 		</tr>
 		
 	</table>

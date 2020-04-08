@@ -10,8 +10,8 @@ if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
     
 $t = time();    
     //, assigned_to, date_created, created_by)
-    $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone)
-VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email'] . "','" . date("Y-m-d",$t) . "','" . $_POST['phone']."')"; //16
+    $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
+VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email'] . "','" . date("Y-m-d",$t) . "','" . $_POST['phone']."','" . $_POST['fax']."')"; //16
     
     $result = $dbConnection->query($sqlQuery);
     
@@ -47,6 +47,10 @@ VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email
 			<td><input type="email" required  name="email"></td>
 			<td>Phone:</td>
 			<td><input type="tel" name="phone"></td>
+		</tr>
+		<tr>
+			<td>Fax:</td>
+			<td><input type="tel" name="fax"></td>
 		</tr>
 		
 	</table>

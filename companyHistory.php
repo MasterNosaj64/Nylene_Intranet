@@ -1,6 +1,4 @@
 <?php
-//Session_start();
-//include 'menu.php';
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
@@ -10,7 +8,7 @@ if($_SESSION['company_id'] != ""){
 //Get Interactions for Company by customer_id
     $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC";
 $result = $dbConnection->query($sqlquery);
-$test = $dbConnection->query($sqlquery);
+//$test = $dbConnection->query($sqlquery);
 echo "<h1>Company History</h1>";
 
 //Get company info
@@ -31,14 +29,16 @@ $companyAddress = $companyInfo["billing_address_street"].", ".$companyInfo["bill
 //   exit;  
 //}
 }
+else{
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
+    exit();
+}
 ?>
 
-<?php 
-
-
-?>
-
-
+<form method="post" action="AddInteraction.php">
+<input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
+<input type="submit" value="Create Interaction"/>
+</form>
 
 <table border=5>
 	<tr>

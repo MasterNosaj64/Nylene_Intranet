@@ -63,6 +63,7 @@ exit();
 		<td><h2>Name</h2></td>
 		<td><h2>Email</h2></td>
 		<td><h2>Phone</h2></td>
+		<td><h2>Fax</h2></td>
 		<td><h2>Date Created</h2></td>
 		<td><h2>Manage</h2></td>
 	</tr>
@@ -72,7 +73,7 @@ exit();
 	while($cx = $customers->fetch(PDO::FETCH_ASSOC)){
 	    $sqlGetCustomerDataQuery = "SELECT * FROM nylene.customer WHERE customer_id = ".$cx["customer_id"];
 	    $customerData = $dbConnection->query($sqlGetCustomerDataQuery)->fetch(PDO::FETCH_ASSOC);
-        echo "<tr><td>".$customerData["customer_name"]."</td><td><a href=\"mailto: ".$customerData["customer_email"]."\">".$customerData["customer_email"]."</td><td>".$customerData["customer_phone"]."</td><td>".$customerData['date_created']."</td><td> 
+        echo "<tr><td>".$customerData["customer_name"]."</td><td><a href=\"mailto: ".$customerData["customer_email"]."\">".$customerData["customer_email"]."</td><td>".$customerData["customer_phone"]."</td><td>".$customerData['customer_fax']."</td><td>".$customerData['date_created']."</td><td> 
 <form method=\"post\" action=\"editCustomer.php\">
 <input hidden type=\"text\" name=\"customer_id\" value=\"".$cx["customer_id"]."\">
 <input type=\"submit\" value=\"edit\"/>
