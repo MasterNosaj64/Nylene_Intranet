@@ -1,7 +1,7 @@
 <?php
 	//$_SESSION["userid"] = 2;
 
-	$userid   = $_SESSION["userid"];
+	//$userid   = $_SESSION["userid"];
 	$host     = "localhost";
 	$username = "root";
 	$password = "";

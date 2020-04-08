@@ -4,6 +4,7 @@ if($_SESSION['userid'] == ""){
     echo "No user logged in";
     echo "<meta http-equiv = \"refresh\" content = \"5; url = ./login.php\" />;";
     exit();
+   
 }
 /* if (!session_id()) {
 session_start();
@@ -20,6 +21,8 @@ session_start();
 <div class="navigation">
 
   <a href="homepage.php">Nylene</a>
+  
+  <a href="sample.php">Sample</a>
 
  <?php //$image_url='Nylene.png'; ?>
 
