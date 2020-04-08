@@ -8,17 +8,17 @@ $dbConnection = setConnectionInfo();
 $_SESSION['company_id'] = "";
 
 if(isset($_POST['search_By_Name'])){
-    
+
     $sqlquery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
     $result = $dbConnection->query($sqlquery);
-    
-    
+
+
 }else if(isset($_POST['search_By_Website'])){
-    
+
     $sqlquery = "SELECT * FROM nylene.company WHERE website = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
     $result = $dbConnection->query($sqlquery);
     $test = $dbConnection->query($sqlquery);
-    
+
 }else{
 
     $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC";
@@ -27,14 +27,18 @@ if(isset($_POST['search_By_Name'])){
 
 if(!$test->fetch()){
     echo "The company database is empty";
-  exit;  
+  exit;
 }
 }
 ?>
+<html>
+<head>
+  <link rel="stylesheet" href="table.css">
+</head>
 
 <!-- Company Search -->
 
-<table border=5>
+<table class ="form-table" border=5>
 	<tr>
 	<form method="post" action=searchCompany.php name="search_companyName">
 		<td>Name: </td>
@@ -54,17 +58,20 @@ if(!$test->fetch()){
 
 
 
-<table border=5>
+<table class= "form-table" border=5>
+  <thead>
 	<tr>
-		<td><h2>Name</h2></td>
-		<td><h2>Website</h2></td>
-		<td><h2>Email</h2></td>
-		<td><h2>Billing Street</h2></td>
-		<td><h2>Billing City</h2></td>
-		<td><h2>Billing State</h2></td>
-		<td><h2>Menu</h2></td>
+		<td>Name</td>
+		<td>Website</td>
+		<td>Email</td>
+		<td>Billing Street</td>
+		<td>Billing City</td>
+		<td>Billing State</td>
+		<td>Menu</td>
 	</tr>
-	<?php 
+</thead>
+<!-- </head> </html> -->
+	<?php
 	while($row = $result->fetch(PDO::FETCH_ASSOC)){
 	    echo "<tr><td>" . $row["company_name"] . "</td><td><a href=\"". $row["website"] ."\">"  . $row["website"] . "</a></td><td><a href =\"mailto: ".$row["company_email"]."\">" . $row["company_email"] . "</a></td><td>" . $row["billing_address_street"] . "</td><td>" . $row["billing_address_city"] . "</td><td>". $row["billing_address_state"] . "</td>
 <td><form action=\"./editCompany.php\" method=\"post\">
@@ -82,5 +89,6 @@ if(!$test->fetch()){
    </td></tr>";
 	}
 	?>
-	
+
 </table>
+</html>
