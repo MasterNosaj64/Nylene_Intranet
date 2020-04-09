@@ -37,6 +37,16 @@ session_start();
     </div>
   </div>
 
+<?php 
+if(isset($_SESSION['company_id'])){
+    echo "<a href=\"viewCompany.php\">View Company</a>";
+}
+if(isset($_SESSION['interaction_id'])){
+    echo "<a href=\"companyHistory.php\">Company History</a>";
+}
+	?>
+	
+
 
 <!--   <div class="dropdown"> -->
 <!--     <button class="dropbtn">Clients -->

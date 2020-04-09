@@ -36,6 +36,8 @@ session_start();
 		$customerRow = mysqli_fetch_array($customerResult);
 		
 		$dbConnection->close();
+		
+		echo var_dump($customerRow);
 	}
 ?>
 <html>

@@ -1,8 +1,8 @@
 <?php 
 session_start();
 
-	$_SESSION['customer_id'] = '1';
-	$_SESSION['company_id'] = '1';
+// 	$_SESSION['customer_id'] = '1';
+// 	$_SESSION['company_id'] = '1';
 
 	include 'db_config.php';
 

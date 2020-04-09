@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$_SESSION['interaction_id'] = '36';
+// 	$_SESSION['interaction_id'] = '36';
 
 	include 'db_config.php';
 	
@@ -78,6 +78,8 @@
 		}
 
 		$dbConnection->close();
+		echo "<meta http-equiv = \"refresh\" content = \"0; url = ./companyHistory.php\" />;";
+		exit();
 	}
 
 ?>

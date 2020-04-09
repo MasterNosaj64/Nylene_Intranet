@@ -30,12 +30,14 @@ session_start();
 										INNER JOIN company ON company.company_id = company_relational_customer.company_id
 											INNER JOIN interaction ON interaction.company_id = company.company_id
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
-													INNER JOIN ltl_quote ON ltl_quote.tl_quote_id = interaction_relational_form.form_id
+													INNER JOIN tl_quote ON tl_quote.tl_quote_id = interaction_relational_form.form_id
 														WHERE interaction_relational_form.form_type = 3 AND interaction_relational_form.form_id =". $_POST['id'];
+		
 		$customerResult = $dbConnection->query($customerInformation); 
 		$customerRow = mysqli_fetch_array($customerResult);
 		
 		$dbConnection->close();
+		
 	}
 ?>
 <html>

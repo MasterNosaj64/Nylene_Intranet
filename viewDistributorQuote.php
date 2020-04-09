@@ -1,6 +1,6 @@
 <?php 
 session_start();
-	$_POST['id'] = '47';
+	//$_POST['id'] = '47';
 
 	include 'db_config.php';
 
