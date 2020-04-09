@@ -77,27 +77,39 @@ exit();
 </head>
 
 -->
+<table>
+<tr>
+<td>
 <form method="post" action="addCustomer.php">
 <input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
 <input type="submit" value="Add Customer"/>
 </form>
+</td>
+<td>
 <form method="post" action="companyHistory.php">
 <input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
 <input type="submit" value="View History"/>
 </form>
+</td>
+</tr>
 
-
+<tr><td>
 <!-- Customers List -->
 <form method="post" action="viewCompany.php">
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
 <input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
 <input type="submit" value="Previous 10"/>
 </form>
+</td>
+<td>
 <form method="post" action="viewCompany.php">
 <input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
 <input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
 <input type="submit" value="Next 10"/>
 </form>
+</td>
+</tr>
+</table>
 <table class = "form-table" border=5>
 	<tr>
 		<td><h2>Name</h2></td>
