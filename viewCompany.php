@@ -2,13 +2,14 @@
 Session_start();
 
 unset($_SESSION['interaction_id']);
+unset($_SESSION['company_id']);
 
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
 
 
-if(isset($_POST['company_id_view']) || $_SESSION['company_id'] != ""){
+if(isset($_POST['company_id_view'])){
 
 
     if(isset($_POST['company_id_view'])){
