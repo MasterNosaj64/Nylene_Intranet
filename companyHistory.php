@@ -8,8 +8,26 @@ $dbConnection = setConnectionInfo();
 
 if($_SESSION['company_id'] != ""){
 
-//Get Interactions for Company by customer_id
-    $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC";
+    if(!isset($_POST['offset'])){
+        $_POST['offset'] = 0;
+    }
+    
+    if(isset($_POST['next10'])){
+        $_POST['offset'] += 10;
+    }
+    
+    if(isset($_POST['previous10'])){
+        $_POST['offset'] -= 10;
+        
+        if($_POST['offset'] < 0){
+            $_POST['offset'] = 0;
+        }
+    }
+    
+    
+    
+//Get Interactions for Company by company_id
+    $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
 $result = $dbConnection->query($sqlquery);
 //$test = $dbConnection->query($sqlquery);
 echo "<h1>Company History</h1>";
@@ -41,6 +59,15 @@ else{
 <form method="post" action="AddInteraction.php">
 <input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
 <input type="submit" value="Create Interaction"/>
+</form>
+<form method="post" action="companyHistory.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Next 10"/>
+</form>
+
+<form method="post" action="companyHistory.php">
+<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Previous 10"/>
 </form>
 
 <table border=5>
