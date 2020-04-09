@@ -1,4 +1,7 @@
 <?php
+session_start();
+unset($_SESSION['interaction_id']);
+
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();

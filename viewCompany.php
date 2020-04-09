@@ -1,6 +1,8 @@
 <?php
-//Session_start();
-//include 'menu.php';
+Session_start();
+
+unset($_SESSION['interaction_id']);
+
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();

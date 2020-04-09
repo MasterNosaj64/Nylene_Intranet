@@ -1,10 +1,12 @@
 <?php
+session_start();
+$_SESSION['interaction_id'] = $_POST['interaction_id'];
 include 'navigation.php';
 include 'databaseConnection.php';
 
-if(!isset($_SESSION['interaction_id'])){
-    $_SESSION['interaction_id'] = $_POST["interaction_id"];
-}
+
+
+
 
 $dbConnection = setConnectionInfo();
 
@@ -44,6 +46,8 @@ $dbConnection = setConnectionInfo();
 		<td><h2>Date Created:</h2></td><td><?php echo $viewInteractionData['date_created'];?></td>
 		<td><h2>Form: </h2></td><td>
 		<?php 
+		
+		if($viewInteractionForm != null){
 		//Sample Form
 		if($viewInteractionForm['form_type'] == 1){
 
@@ -84,6 +88,7 @@ $dbConnection = setConnectionInfo();
                    <input hidden type=\"text\" name=\"id\" value=\"".$viewInteractionForm['form_id']."\">
                         <input type=\"submit\" value=\"View Market Request Form\"/>
                     </form>";
+		}
 		}
 		else{
 		    echo "--";

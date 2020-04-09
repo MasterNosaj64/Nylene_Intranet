@@ -1,6 +1,5 @@
 <?php
-//session_start();
-//include 'menu.php';
+session_start();
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();

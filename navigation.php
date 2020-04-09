@@ -1,5 +1,4 @@
 <?php
-session_start();
 if($_SESSION['userid'] == ""){
     echo "No user logged in";
     echo "<meta http-equiv = \"refresh\" content = \"5; url = ./login.php\" />;";
@@ -39,10 +38,14 @@ session_start();
 
 <?php 
 if(isset($_SESSION['company_id'])){
+if($_SESSION['company_id'] != ""){
     echo "<a href=\"viewCompany.php\">View Company</a>";
 }
-if(isset($_SESSION['interaction_id'])){
+}
+if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id'])){
+if($_SESSION['interaction_id'] != ""){
     echo "<a href=\"companyHistory.php\">Company History</a>";
+}
 }
 	?>
 	
