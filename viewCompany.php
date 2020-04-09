@@ -13,12 +13,19 @@ if(isset($_SESSION['customer_created'])){
     unset($_SESSION['customer_created']);
 }
 
-if(isset($_POST['company_id_view'])){
+if(isset($_POST['company_id_view']) || isset($_SESSION['companyHistoryPage'])){
 
 
     if(isset($_POST['company_id_view'])){
         $_SESSION['company_id'] = $_POST['company_id_view'];
     }
+    else {
+        $_SESSION['company_id'] = $_SESSION['companyHistoryPage'];
+        $_POST['company_id_view'] = $_SESSION['companyHistoryPage'];
+        unset($_SESSION['companyHistoryPage']);
+    }
+    
+    
 
     if(!isset($_POST['offset'])){
         $_POST['offset'] = 0;
@@ -45,14 +52,9 @@ $companyInfo = $dbConnection->query($companysqlquery)->fetch(PDO::FETCH_ASSOC);
 $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = ".$_SESSION['company_id'] ." LIMIT 10 OFFSET ".$_POST['offset'];
 $customers = $dbConnection->query($customersqlquery);
 
-//$sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET ".$_POST['offset'];
-
 echo "<h1>Company View</h1>";
 
 //Get company info
-
-
-
 $companyAddress = $companyInfo["billing_address_street"].", ".$companyInfo["billing_address_city"].", "
     .$companyInfo["billing_address_state"].", ".$companyInfo["billing_address_country"].", ".$companyInfo["billing_address_postalcode"];
 
@@ -66,7 +68,7 @@ $companyShippingAddress = $companyInfo["shipping_address_street"].", ".$companyI
     echo "</table>";
 }
 else{
-echo "<meta http-equiv = \"refresh\" content = \"0; url = ./searchCompany.php\" />;";
+echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
 exit();
 }
 

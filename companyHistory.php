@@ -24,7 +24,7 @@ if($_SESSION['company_id'] != ""){
         }
     }
     
-    
+    $_SESSION['companyHistoryPage'] = $_SESSION['company_id'];
     
 //Get Interactions for Company by company_id
     $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
