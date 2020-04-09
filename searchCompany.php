@@ -9,6 +9,24 @@ include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
 
 
+if(!isset($_POST['offset'])){
+    $_POST['offset'] = 0;
+}
+
+if(isset($_POST['next10'])){
+    $_POST['offset'] += 10;
+}
+
+if(isset($_POST['previous10'])){
+    $_POST['offset'] -= 10;
+    
+    if($_POST['offset'] < 0){
+        $_POST['offset'] = 0;
+    }
+}
+
+
+
 if(isset($_POST['search_By_Name'])){
     //begining of search modifications
     $length = strlen($_POST['search_By_Name']);
@@ -34,7 +52,8 @@ if(isset($_POST['search_By_Name'])){
 
 }else{
 
-    $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC";
+    //$sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
+    $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET ".$_POST['offset'];
     $result = $dbConnection->query($sqlquery);
     $test = $dbConnection->query($sqlquery);
 
@@ -66,6 +85,17 @@ if(!$test->fetch()){
 	<form method="post" action=searchCompany.php name=reset>
 		<td><input type="submit" value="Reset"/></td>
 	</form>
+	</tr>
+	<tr>
+		<td><form method="post" action="searchCompany.php">
+<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Previous 10"/>
+</form></td>
+		<td><form method="post" action="searchCompany.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Next 10"/>
+</form></td>
+		
 	</tr>
 </table>
 
