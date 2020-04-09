@@ -21,6 +21,8 @@ VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email
 
      $result = $dbConnection->query($sqlRelationQuery);
 
+     $_SESSION['customer_created'] = $_SESSION['company_id'];
+     
      echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
      exit();
 }
