@@ -10,16 +10,27 @@ $dbConnection = setConnectionInfo();
 
 
 if(isset($_POST['search_By_Name'])){
-
-    $sqlquery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
+    //begining of search modifications
+    $length = strlen($_POST['search_By_Name']);
+    
+    $sqlquery = "SELECT * FROM nylene.company WHERE SUBSTRING(company_name,1,".$length.") = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
     $result = $dbConnection->query($sqlquery);
+    
+//     $sqlquery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
+//     $result = $dbConnection->query($sqlquery);
 
 
 }else if(isset($_POST['search_By_Website'])){
 
-    $sqlquery = "SELECT * FROM nylene.company WHERE website = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
+    
+    $length = strlen($_POST['search_By_Website']);
+    
+    $sqlquery = "SELECT * FROM nylene.company WHERE SUBSTRING(website,1,".$length.") = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
     $result = $dbConnection->query($sqlquery);
-    $test = $dbConnection->query($sqlquery);
+    
+//     $sqlquery = "SELECT * FROM nylene.company WHERE website = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
+//     $result = $dbConnection->query($sqlquery);
+//     $test = $dbConnection->query($sqlquery);
 
 }else{
 

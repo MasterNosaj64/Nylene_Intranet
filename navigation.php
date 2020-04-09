@@ -21,7 +21,7 @@ session_start();
 
   <a href="homepage.php">Nylene</a>
   
-  <a href="sample.php">Sample</a>
+<!--  <a href="sample.php">Sample</a> -->
 
  <?php //$image_url='Nylene.png'; ?>
 
@@ -47,8 +47,8 @@ if($_SESSION['interaction_id'] != ""){
     echo "<a href=\"companyHistory.php\">Company History</a>";
 }
 }
-	?>
-	
+?>
+
 
 
 <!--   <div class="dropdown"> -->
