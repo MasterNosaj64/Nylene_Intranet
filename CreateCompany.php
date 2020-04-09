@@ -80,7 +80,7 @@ if(
         echo json_encode(array("message" => "Unable to create Company."));
     }
     }
-}
+
   
 // tell the user data is incomplete
 else{
