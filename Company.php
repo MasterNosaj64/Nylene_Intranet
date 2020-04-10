@@ -108,10 +108,10 @@ echo "1";
     $stmt->bindParam(":created_by", $this->created_by);
 	$stmt->bindParam(":company_name", $this->company_name);
 	echo "2";
-    if($stmt->execute($this->website,)){
-		return true;
-		echo "3";
-    }
+    // if($stmt->execute($this->website,)){
+	// 	return true;
+	// 	echo "3";
+    // }
   
     return false;
       
@@ -126,7 +126,7 @@ function delete(){
     $stmt = $this->conn->prepare($query);
   
     // sanitize
-    $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->id=htmlspecialchars(strip_tags($this->company_id));
   
     // bind id of record to delete
     $stmt->bindParam(1, $this->id);
