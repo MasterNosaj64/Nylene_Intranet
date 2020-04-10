@@ -33,6 +33,7 @@ session_start();
     <div class="dropdown-content">
       <a href="./searchCompany.php">Search Company</a>
       <a href="./addCompany.php">Add Company</a>
+<a href="./createUser.html">Create User</a>
     </div>
   </div>
 
