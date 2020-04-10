@@ -1,7 +1,7 @@
 <?php 
 session_start();
-	//$_POST['id'] = '47';
-
+	
+    include 'navigation.php';
 	include 'db_config.php';
 
 	//Check the connection

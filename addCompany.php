@@ -42,13 +42,10 @@ if (isset($_POST['submit'])) {
         exit();
 
     } else {
-        //set boolean to trigger error message
-        //$validationBOOL = false;
+
         echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
     }
-//     if ($validationBOOL == false) {
 
-//     }
 }
 
 ?>

@@ -1,9 +1,7 @@
 <?php 
 	session_start();
 
-// 	$_SESSION['customer_id'] = '1';
-// 	$_SESSION['company_id'] = '1';
-	
+    include 'navigation.php';	
 	include 'db_config.php';
 
 	//Check the connection

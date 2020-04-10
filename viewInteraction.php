@@ -4,10 +4,6 @@ $_SESSION['interaction_id'] = $_POST['interaction_id'];
 include 'navigation.php';
 include 'databaseConnection.php';
 
-
-
-
-
 $dbConnection = setConnectionInfo();
 
   

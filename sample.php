@@ -1,9 +1,7 @@
 <?php
     session_start();
 
-	//$_SESSION['customer_id'] = 2;
-	//$_SESSION['company_id'] = 1;
-
+    include 'navigation.php';
 	include 'connect.php';
 
 	if (mysqli_connect_error())

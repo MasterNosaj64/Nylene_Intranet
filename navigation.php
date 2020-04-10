@@ -5,11 +5,6 @@ if($_SESSION['userid'] == ""){
     exit();
    
 }
-/* if (!session_id()) {
-session_start();
-
-} */
-
 ?>
 
 <html>

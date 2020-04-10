@@ -1,7 +1,5 @@
 <?php
 	session_start();
-// 	$_SESSION['interaction_id'] = '36';
-
 	include 'db_config.php';
 	
 	//Check connection
