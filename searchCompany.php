@@ -85,7 +85,11 @@ if(!$test->fetch()){
 	<form method="post" action=searchCompany.php name=reset>
 		<td><input type="submit" value="Reset"/></td>
 	</form>
+	
+
 	</tr>
+	
+	<!-- 
 	<tr>
 		<td><form method="post" action="searchCompany.php">
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
@@ -97,6 +101,8 @@ if(!$test->fetch()){
 </form></td>
 		
 	</tr>
+	
+	-->
 </table>
 
 
@@ -113,6 +119,7 @@ if(!$test->fetch()){
 		<td>Menu</td>
 	</tr>
 </thead>
+
 <!-- </head> </html> -->
 	<?php
 	while($row = $result->fetch(PDO::FETCH_ASSOC)){
@@ -132,6 +139,14 @@ if(!$test->fetch()){
    </td></tr>";
 	}
 	?>
-
+<table class= "form-table" border=0 align: center;>
+		<td><form method="post" action="searchCompany.php">
+<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Previous 10"/>
+</form></td>
+		<td><form method="post" action="searchCompany.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Next 10"/>
+</form></td>
 </table>
 </html>

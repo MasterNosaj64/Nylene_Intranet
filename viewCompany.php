@@ -95,8 +95,10 @@ exit();
 </td>
 </tr>
 
+<!-- 
 <tr><td>
-<!-- Customers List -->
+
+
 <form method="post" action="viewCompany.php">
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
 <input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
@@ -111,15 +113,18 @@ exit();
 </form>
 </td>
 </tr>
+
+ -->
+
 </table>
 <table class = "form-table" border=5>
 	<tr>
-		<td><h2>Name</h2></td>
-		<td><h2>Email</h2></td>
-		<td><h2>Phone</h2></td>
-		<td><h2>Fax</h2></td>
-		<td><h2>Date Created</h2></td>
-		<td><h2>Manage</h2></td>
+		<td>Name</td>
+		<td>Email</td>
+		<td>Phone</td>
+		<td>Fax</td>
+		<td>Date Created</td>
+		<td>Manage</td>
 	</tr>
 
 	<?php
@@ -135,5 +140,22 @@ exit();
 </td></tr>";
 	}
 	?>
+	
+	
+<!-- Customers List -->
+<table class= "form-table" border=0 align: center;>
+<td><form method="post" action="viewCompany.php">
+<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
+<input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
+<input type="submit" value="Previous 10"/>
+</form></td>
+<td>
+<form method="post" action="viewCompany.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
+<input type="submit" value="Next 10"/>
+</form>
+</td>
+
 </table>
 </html>

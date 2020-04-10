@@ -39,8 +39,8 @@ $companyInfo = $getCompanyInfo->fetch(PDO::FETCH_ASSOC);
 
 $companyAddress = $companyInfo["billing_address_street"].", ".$companyInfo["billing_address_city"].", "
     .$companyInfo["billing_address_state"].", ".$companyInfo["billing_address_country"].", ".$companyInfo["billing_address_postalcode"];
-    
-    echo "<table border=5>";
+    echo "<link rel=\"stylesheet\" href=\"table.css\">";
+    echo "<table class =\"form-table\" border=5>";
     echo "<tr><td>Company:</td><td>".$companyInfo["company_name"]."</td><td>Address:</td><td>$companyAddress</td></tr>";
     echo "<tr><td>Website:</td><td><a href=\"".$companyInfo["website"]."\">".$companyInfo["website"]."</a></td><td>Email:</td><td><a href=\"mailto: ".$companyInfo["company_email"]."\">".$companyInfo["company_email"]."</a></td></tr>";
     echo "</table>";
@@ -55,11 +55,16 @@ else{
     exit();
 }
 ?>
+<html><head>
+<link rel="stylesheet" href="table.css">
+</head>
 
 <form method="post" action="AddInteraction.php">
 <input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
 <input type="submit" value="Create Interaction"/>
 </form>
+
+<!-- 
 <form method="post" action="companyHistory.php">
 <input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
 <input type="submit" value="Next 10"/>
@@ -69,16 +74,18 @@ else{
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
 <input type="submit" value="Previous 10"/>
 </form>
+ -->
 
-<table border=5>
+<table class ="form-table" border=5>
+<thead>
 	<tr>
-		<td><h2>Date</h2></td>
-		<td><h2>Customer</h2></td>
-		<td><h2>Reason</h2></td>
-		<td><h2>Notes</h2></td>
-		<td><h2>Manage</h2></td>
+		<td>Date</td>
+		<td>Customer</td>
+		<td>Reason</td>
+		<td>Notes</td>
+		<td>Manage</td>
 	</tr>
-	
+	</thead>
 	<?php 
 	
 	while($row = $result->fetch(PDO::FETCH_ASSOC)){
@@ -96,5 +103,17 @@ else{
 </td></tr>";
 	}
 	?>
+<table class= "form-table" border=0 align: center;>
+<td>
+<form method="post" action="companyHistory.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Next 10"/>
+</form></td>
+<td>
+<form method="post" action="companyHistory.php">
+<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Previous 10"/>
+</form></td>
 
 </table>
+</html>

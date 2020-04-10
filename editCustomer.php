@@ -35,13 +35,15 @@ else {
 }
 ?>
 
-
+<html><head>
+  <link rel="stylesheet" href="table.css">
+</head>
 
 <body>
 <form method="post" action=editCustomer.php name="edit_customer">
 <input type="reset" value="Clear">
 <input hidden name="customer_id" value="<?php echo $customerInfo['customer_id'];?>"/>
-	<table border=5>
+	<table class= "form-table" border=5>
 		<tr>
 		<td colspan=4><h2>Customer</h2></td>
 		</tr>
@@ -66,3 +68,4 @@ else {
 	<input type="submit" name="submit" value="Submit" >
 </form>
 </body>
+</html>

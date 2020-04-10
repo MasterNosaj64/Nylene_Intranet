@@ -82,19 +82,20 @@ if ($_POST['company_id'] != "") {
 ?>
 
 <html>
+  <link rel="stylesheet" href="table.css">
 <body>
 <h1>Interaction</h1>
 
 <form method="post" action=AddInteraction.php name="add_interaction">
 <input type="reset" value="Clear">
-<table border = 5>
+<table class= "form-table" border = 5>
   <tr>
-  		<td><h2>Company:</h2></td><td><?php echo $viewCompanyData['company_name'];?></td>
-  		<td><h2>Address:</h2></td><td><?php echo $companyAddress;?></td>
-  		<td><h2>Company Email:</h2></td><td><a href="mailto:<?php echo $viewCompanyData['company_email'];?>"><?php echo $viewCompanyData['company_email'];?></a></td>
+  		<td>Company:</td><td><?php echo $viewCompanyData['company_name'];?></td>
+  		<td>Address:</td><td><?php echo $companyAddress;?></td>
+  		<td>Company Email:</td><td><a href="mailto:<?php echo $viewCompanyData['company_email'];?>"><?php echo $viewCompanyData['company_email'];?></a></td>
   </tr>
   <tr>
-		<td><h2>Customer:</h2></td><td>
+		<td>Customer:</td><td>
 		<select required name="customer_id">
 		<option></option>
 		<?php 
@@ -110,7 +111,7 @@ if ($_POST['company_id'] != "") {
 		
  </tr>
  <tr>
-		<td><h2>Reason:</h2></td>
+		<td>Reason:</td>
 		<td>
 		<select required name="reason">
 		<option></option>
@@ -126,7 +127,7 @@ if ($_POST['company_id'] != "") {
 		<option value="Truckload Quote">Truckload Quote</option>
 		</select>
 		</td>
-		<td><h2>Form (if applicable): </h2></td><td>
+		<td>Form (if applicable):</td><td>
 		<select name="form">
 		<option value="0"></option>
 		<option value="5">Marketing Request</option>

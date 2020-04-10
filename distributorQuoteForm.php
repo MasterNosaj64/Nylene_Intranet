@@ -33,16 +33,17 @@ session_start();
 <html>
 	<head>
 		<title>Distributor Quote Form</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+			<link rel="stylesheet" href="form.css">
 	</head>
 	
 	<body>
 	
 	<form name="distributorQuoteForm" action="newDistributorQuote.php" method="post" >
-		<table border="1" cellspacing="0" cellpadding="1" align="center">
+		<table class = "form-table" border="1" cellspacing="0" cellpadding="1" align="center">
+		<thead>
 		<tr>
 			<th colspan="4">Distributor Quote Form</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td ><label for="date_created"> Date </label></td>
 			<td ><input type="date" id="date_created" name="date_created" required></td>
@@ -52,10 +53,10 @@ session_start();
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
 		
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Employee Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>		
 			<!--Employee first name-->
 			<td><label for="first_name"> First Name </label></td>
@@ -86,10 +87,10 @@ session_start();
 			<td><label for="title"> Your Title </label></td>
 			<td><input type="text" id="title" readonly value="<?php echo $row['title'];?>"></td>
 		</tr>
-		
+		<thead>
 		<tr>
 			<th colspan="2" id="info">- Customer Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<!--Customer's Company-->
 			<td><label> Customer Company </label></td>
@@ -111,9 +112,10 @@ session_start();
 			<td id="info"><label> Customer Email </label></td>
 			<td ><input type="text" readonly value="<?php echo $customerRow['customer_email'];?>"></td>
 		</tr>
+		<thead>
 		<tr>
 			<th colspan="2">- Product Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td><label for="product_name"> Product Name </label></td>
 			<td><input type="text" id="product_name" name="product_name" required></td>
@@ -139,10 +141,10 @@ session_start();
 			<td><input type="text" id="truck_load" name="truck_load"></td>
 		</tr>
 		
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td> Payment terms are USD $ Funds, Net </td>
 			<td><select id="payment_terms" name="payment_terms">

@@ -33,15 +33,16 @@
 <html>
 	<head>
 		<title>LTL Quote Form</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="form.css">
 	</head>
 	
 	<body>
 	<form name="ltlQuoteForm" action="newLtlQuote.php" method="post" >
-		<table border="1" cellspacing="0" cellpadding="1" align="center">
+		<table class = "form-table" border="1" cellspacing="0" cellpadding="1" align="center">
+		<thead>
 		<tr>
 			<th colspan="4">LTL Quote Form</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td ><label for="date_created"> Date </label></td>
 			<td ><input type="date" id="date_created" name="date_created" required></td>
@@ -50,10 +51,10 @@
 			<td ><label for="quote_num"> Quote Name/Number </label></td>
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Employee Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>		
 			<!--Employee first name-->
 			<td><label for="first_name"> First Name </label></td>
@@ -85,9 +86,10 @@
 			<td><input type="text" id="title" name="title" readonly value="<?php echo $row['title'];?>"></td>
 		</tr>
 		
+		<thead>
 		<tr>
 			<th colspan="2">- Customer Information -</th>
-		<tr>
+		<tr></thead>
 			<!--Customer's Company-->
 			<td><label for="company_name"> Customer Company </label></td>
 			<td><input type="text" readonly value="<?php echo $companyRow['company_name'];?>"></td>
@@ -107,13 +109,15 @@
 			<td><label for="customer_email"> Customer Email </label></td>
 			<td><input type="text" readonly value="<?php echo $customerRow['customer_email'];?>"></td>
 		</tr>
+		<thead>
 		<tr>
 			<th colspan="2">- Product Information -</th>
 		</tr>
+		</thead>
 		<tr>
 			<td><label for="product_name"> Product Name </label></td>
 			<td><input type="text" id="product_name" name="product_name" required></td>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td><label for="product_desc"> Description </label></td>
 			<td><input type="text" id="product_desc" name="product_desc"></td>
@@ -134,10 +138,10 @@
 			<td><label for="truck_load"> TL Price </label></td>
 			<td><input type="text" id="truck_load" name="truck_load"></td>
 		</tr>
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td>Payment terms are USD $ Funds, Net:</td>
 			<td><select id="payment_terms" name="payment_terms">

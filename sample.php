@@ -33,7 +33,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="styleForm.css">
+        <link rel="stylesheet" type="text/css" href="form.css">
 
 		<script>
             function validateForm ()
@@ -242,14 +242,15 @@
 	<body height="100%" width="100%">
     <div>
 	<form name="sample_form" action="insert.php" method="POST" onsubmit="validateForm()">
-        <table border=1 cellspacing="0" cellpadding="3" align="center">
+        <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
+             <thead>
              <tr>
                 <th colspan="7" align="left">
                     Business Contact Information
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
-                <td id="info"> Submitted By: </td>
+                <td  id="info"> Submitted By: </td>
 
                 <td colspan="2">  <input name="submittedBy" type="text" readonly value="<?php echo $row['first_name'] . " " . $row['last_name']; ?>"> </td>
    
@@ -293,6 +294,7 @@
                 <td id="info"> Credit Application Submitted: </td>
                 <td colspan="1"> <input type="checkbox" name="credit_app_submitted" value="1"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="4" align="left">
                     Business Case for Sample
@@ -300,7 +302,7 @@
                 <th colspan="2" align="left">
                     Match To
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td colspan="4" rowspan="3" style="height:80px;"> <input type="text" name="business_case"> </td>
                 <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1> Sample Submission  </td>
@@ -311,15 +313,18 @@
             <tr>
                 <td colspan="2"> <input type="checkbox" name="match_descr" value=1> Description  </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Material Description, Special Handling or Label Request </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td colspan="6"> <input type="text" name="material_descr"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Additional Information </th>
             </tr>
+            </thead>
             <tr>
                 <td id="info"> Customer Process </td>
                 <td colspan="2"> <input type="text" name="customer_proc"> </td>
@@ -374,9 +379,11 @@
                 <td id="info"> Color Specifications </td>
                 <td colspan="5"> <input type="text" name="color_specs"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Type Of Response Needed By: <input type="date" name="response_date"> </th>
             </tr>
+            </thead>
             <tr>
                 <td> <input type="checkbox" name="prod_rec" value=1> Product Recommendation  </td>
                 <td> <input type="checkbox" name="stock_prod_qty", value=1>Stock Product QTY  </td>
@@ -399,9 +406,11 @@
             <tr>
                 <td colspan="6" id="info" align="center"> ---Note: SDS Sent With All Samples---</td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Distribution List (Other Contacts) </th>
             </tr>
+            </thead>
             <tr> 
 				<td colspan="2" id="info"> Other Contact 1: </td>
                 <td colspan="4"><input type="text" name="other_contact1"> </td>
