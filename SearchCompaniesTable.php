@@ -8,10 +8,10 @@ include_once 'Company.php';
 // instantiate database and onject
 $database = new Database();
 $db = $database->getConnection();
-  
+$keywords=isset($_GET["s"]) ? $_GET["s"] : "";
 // initialize object
 $company = new Company($db);
-$stmt = $company->read();
+$stmt = $company->search($keywords);
 $num = $stmt->rowCount();
   
 // check if more than 0 record found

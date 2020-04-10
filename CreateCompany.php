@@ -28,12 +28,20 @@ if(
     !empty($data->billing_address_state)&&
     !empty($data->billing_address_postalcode) &&
     !empty($data->billing_address_country) &&
+    !empty($data->shipping_address_country) &&
+    !empty($data->shipping_address_postalcode) &&
+    !empty($data->shipping_address_state) &&
+    !empty($data->shipping_address_city)&&
+    !empty($data->shipping_address_street) &&
+    !empty($data->description) &&
+    !empty($data->type)&&
+    !empty($data->industry) &&
+    !empty($data->assigned_to) &&
 	!empty($data->company_name)
 ){
   
     // set company property values
 	 $Company->website=	$data->website;
-   
     $Company->shipping_address_street= $data->shipping_address_street;
 	$Company->shipping_address_city=$data->shipping_address_city;
 	$Company->shipping_address_state=$data->shipping_address_state;
@@ -51,14 +59,9 @@ if(
 	$Company->date_created= date('Y-m-d');; 
 	 
 	$Company->created_by= 	"PostMan"; 
-	$Company->company_name= $data->data_name; 
+	$Company->company_name= $data->company_name; 
 	
-	
-    $Company->name = $data->name;
-    $Company->price = $data->price;
-    $Company->description = $data->description;
-    $Company->category_id = $data->category_id;
-    $Company->created = date('Y-m-d');
+
   
     // create the company
     if($Company->create()){
