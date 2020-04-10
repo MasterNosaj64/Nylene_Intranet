@@ -21,7 +21,7 @@ $Company = new Company($db);
 $data = json_decode(file_get_contents("php://input"));
   
 // set Company id to be deleted
-$Company->id = $data->id;
+$Company->company_id = $data->company_id;
   
 // delete the Company
 if($Company->delete()){
