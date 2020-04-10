@@ -1,6 +1,5 @@
 <?php
-//session_start();
-//include 'menu.php';
+session_start();
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
@@ -10,9 +9,9 @@ if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
 
 $t = time();
     //, assigned_to, date_created, created_by)
-    $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone)
-VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email'] . "','" . date("Y-m-d",$t) . "','" . $_POST['phone']."')"; //16
-
+    $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
+VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email'] . "','" . date("Y-m-d",$t) . "','" . $_POST['phone']."','" . $_POST['fax']."')"; //16
+    
     $result = $dbConnection->query($sqlQuery);
 
     $customer_id = $dbConnection->lastInsertId();
@@ -22,6 +21,8 @@ VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email
 
      $result = $dbConnection->query($sqlRelationQuery);
 
+     $_SESSION['customer_created'] = $_SESSION['company_id'];
+     
      echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
      exit();
 }
@@ -51,7 +52,11 @@ VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email
 			<td>Phone:</td>
 			<td><input type="tel" name="phone"></td>
 		</tr>
-
+		<tr>
+			<td>Fax:</td>
+			<td><input type="tel" name="fax"></td>
+		</tr>
+		
 	</table>
 	<input type="submit" name="submit" value="Submit" >
 </form>

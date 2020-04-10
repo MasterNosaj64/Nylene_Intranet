@@ -1,11 +1,10 @@
 <?php
-    //session_start();
-    
-    include 'navigation.php';
-	include 'connect.php';
+    session_start();
 
-	$_SESSION['company_id'] = 1;
-	$_SESSION['customer_id'] = 1;
+	//$_SESSION['customer_id'] = 2;
+	//$_SESSION['company_id'] = 1;
+
+	include 'connect.php';
 
 	if (mysqli_connect_error())
 	{
@@ -13,24 +12,22 @@
 	}
 	else
 	{
-		$username = "SELECT first_name, last_name FROM employee WHERE employee_id =" .$_SESSION['user_id'] ;
+		$username = "SELECT first_name, last_name FROM employee WHERE employee_id = " . $_SESSION['userid'];
+
+		$customer = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
+		$customer_info = $conn->query($customer);
+		$customer_info_row = mysqli_fetch_array($customer_info);
+
+		$company = "SELECT * FROM company WHERE company_id = " . $_SESSION['company_id'];
+		$company_info = $conn->query($company);
+		$company_info_row = mysqli_fetch_array($company_info);
+
+
+		$companies = "SELECT * FROM company";
+		$company_result = $conn->query($companies); 
 
 		$result = $conn->query($username); 
 		$row = mysqli_fetch_array($result);
-
-		$company = "SELECT company_name, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode FROM company
-					WHERE company_id=" . $_SESSION['company_id'];
-
-		$result2 = $conn->query($company);
-		$company_row = mysqli_fetch_array($result2);
-
-		 $address = $company_row['billing_address_street'] . ", " . $company_row['billing_address_city'] . ", " .  $company_row['billing_address_state'] . ", " . $company_row['billing_address_postalcode'];
-
-		 $customer = "SELECT customer_name, customer_phone, customer_fax, customer_email FROM customer
-					WHERE customer_id=" . $_SESSION['customer_id'];
-
-		$result3 = $conn->query($customer);
-		$customer_row = mysqli_fetch_array($result3);
 	}
 ?>
 
@@ -39,9 +36,55 @@
         <link rel="stylesheet" type="text/css" href="form.css">
 
 		<script>
-			
-			//Create The Dropdown Menu for Companies
-			getCompanies();
+            function validateForm ()
+			{
+				var company = document.forms["sample_form"]["company_id"].value;
+
+				if (document.getElementById("customer_id"))
+					var customer = document.forms["sample_form"]["customer_id"].value;
+
+				var reply_date = document.forms["sample_form"]["response_date"].value;
+
+				var supply_by = document.forms["sample_form"]["sample_req_date"].value;
+
+				var today = new Date().toJSON().slice(0, 10);
+
+				alert("Validating");
+
+				if (company == -1)
+				{
+					alert("You have to select a company!");
+					return false; 
+				}
+
+				if (customer == -1)
+				{
+					alert("You have to select a customer!");
+					return false; 
+				}
+
+				if (reply_date < today)
+				{
+					alert("Choose a future date for when the request is needed!");
+					return false;
+				}
+
+				const customer_id = document.createElement("input");
+				customer_id.type  = "hidden";
+				customer_id.id    = "customer_id";
+				customer_id.value = document.forms["sample_form"]["customer_id"].value;
+
+				document.getElementById("sample_form").Add(customer_id);
+
+				const company_id = document.createElement("input");
+				company_id.type  = "hidden";
+				company_id.id    = "company_id";
+				company_id.value = document.forms["sample_form"]["company"].value;
+
+				document.getElementById("sample_form").Add(company_id);
+
+				return true; 
+			}
 
 			/*
 				Uses PHP to query the database for all of the companies and creates
@@ -71,7 +114,7 @@
 			function generateDropDownContacts (str)
 			{
 				//Clear info when the user switches companies
-				document.getElementById("dropdown_popup_clients").innerHTML;
+				document.getElementById("dropdown_popup_clients").innerHTML = this.responseText;
 				document.getElementById("fax").innerHTML = "<p> </p>";
 				document.getElementById("phone_num").innerHTML = "<p> </p>";
 				document.getElementById("email").innerHTML = "<p> </p>";
@@ -193,60 +236,21 @@
 				xhttp.send();
 			}
 
-			function validateForm ()
-			{
-				var company = document.forms["sample_form"]["company"].value;
-				var customer = document.forms["sample_form"]["customer_id"].value;
-				var reply_date = document.forms["sample_form"]["response_date"].value;
-				var supply_by = document.forms["sample_form"]["sample_req_date"].value;
-				var today = new Date().toJSON().slice(0, 10);
-
-				if (company == "-1")
-				{
-					alert("You have to select a company!");
-					return false;
-				}
-				
-				if (customer == "-1")
-				{
-					alert("You have to select a customer!");
-					return false;
-				}
-
-				if (reply_date < today)
-				{
-					alert("Choose a future date for when the request is needed!");
-					return false;
-				}
-
-				const customer_id = document.createElement("input");
-				customer_id.type  = "hidden";
-				customer_id.id    = "customer_id";
-				customer_id.value = document.forms["sample_form"]["customer_id"].value;
-
-				document.getElementById("sample_form").Add(customer_id);
-
-				const company_id = document.createElement("input");
-				company_id.type  = "hidden";
-				company_id.id    = "company_id";
-				company_id.value = document.forms["sample_form"]["company"].value;
-
-				document.getElementById("sample_form").Add(company_id);
-			}
-		</script>
+			</script>
 	</head>
 
 	<body height="100%" width="100%">
     <div>
-	<form name="sample_form" action="insert.php" method="POST" onsubmit="return validateForm()">
-        <table border=1 cellspacing="0" cellpadding="3" align="center">
+	<form name="sample_form" action="insert.php" method="POST" onsubmit="validateForm()">
+        <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
+             <thead>
              <tr>
                 <th colspan="7" align="left">
                     Business Contact Information
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
-                <td id="info"> Submitted By: </td>
+                <td  id="info"> Submitted By: </td>
 
                 <td colspan="2">  <input name="submittedBy" type="text" readonly value="<?php echo $row['first_name'] . " " . $row['last_name']; ?>"> </td>
    
@@ -269,27 +273,28 @@
                 <td id="info"> Company: </td>
 				
                 <td colspan="6"> 
-					<p style="background-color:lightblue"> <?php echo $company_row['company_name']; ?> </p>
+					<input type="hidden" id="comapny_id" value="<?php echo $company_info_row['company_id']; ?>"> <p style="background-color:lightblue;"> <?php echo $company_info_row['company_name']; ?> </p>
 				</td>
             </tr>
             <tr>
                 <td id="info"> Company Address: </td>
-                <td colspan="3"> <p style="background-color:lightblue"> <?php echo $address; ?> </p> </td>
+                <td colspan="3"> <p style="background-color:lightblue;"> <?php echo $company_info_row['billing_address_street'] . ", " . $company_info_row['billing_address_city'] . ", " .  $company_info_row['billing_address_state'] . ", " . $company_info_row['billing_address_postalcode'] ?> </p> </div> </td>
                 <td id="info"> Primary Contact: </td>
-                <td colspan="1"> <p style="background-color:lightblue"> <?php echo $customer_row['customer_name']; ?> </p> </td>
+                <td colspan="1"> <input type="hidden" value="<?php echo $company_info_row['company_id'];?>"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_name']; ?> </p> </td>
             </tr>
             <tr>
                 <td id="info"> Phone Number:
-                <td colspan="3"> <p style="background-color:lightblue"> <?php echo $customer_row['customer_phone']; ?> </p> </td>
+                <td colspan="3"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_phone']; ?> </p> </td>
                 <td id="info"> Email Address: </td>
-                <td colspan="1"> <p style="background-color:lightblue"> <?php echo $customer_row['customer_email']; ?> </p> </td>
+                <td colspan="1"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_email']; ?> </p> </td>
             </tr>
             <tr>
                 <td id="info"> Fax Number: </td>
-                <td colspan="3"> <p style="background-color:lightblue"> <?php echo $customer_row['customer_fax']; ?> </p> </td>
+                <td colspan="3"><p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_fax']; ?> </p> </td>
                 <td id="info"> Credit Application Submitted: </td>
                 <td colspan="1"> <input type="checkbox" name="credit_app_submitted" value="1"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="4" align="left">
                     Business Case for Sample
@@ -297,7 +302,7 @@
                 <th colspan="2" align="left">
                     Match To
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td colspan="4" rowspan="3" style="height:80px;"> <input type="text" name="business_case"> </td>
                 <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1> Sample Submission  </td>
@@ -308,15 +313,18 @@
             <tr>
                 <td colspan="2"> <input type="checkbox" name="match_descr" value=1> Description  </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Material Description, Special Handling or Label Request </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td colspan="6"> <input type="text" name="material_descr"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Additional Information </th>
             </tr>
+            </thead>
             <tr>
                 <td id="info"> Customer Process </td>
                 <td colspan="2"> <input type="text" name="customer_proc"> </td>
@@ -371,9 +379,11 @@
                 <td id="info"> Color Specifications </td>
                 <td colspan="5"> <input type="text" name="color_specs"> </td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Type Of Response Needed By: <input type="date" name="response_date"> </th>
             </tr>
+            </thead>
             <tr>
                 <td> <input type="checkbox" name="prod_rec" value=1> Product Recommendation  </td>
                 <td> <input type="checkbox" name="stock_prod_qty", value=1>Stock Product QTY  </td>
@@ -396,9 +406,11 @@
             <tr>
                 <td colspan="6" id="info" align="center"> ---Note: SDS Sent With All Samples---</td>
             </tr>
+            <thead>
             <tr>
                 <th colspan="6" align="left"> Distribution List (Other Contacts) </th>
             </tr>
+            </thead>
             <tr> 
 				<td colspan="2" id="info"> Other Contact 1: </td>
                 <td colspan="4"><input type="text" name="other_contact1"> </td>

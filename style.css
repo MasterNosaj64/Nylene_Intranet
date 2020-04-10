@@ -1,51 +1,12 @@
-﻿input[type=text] {
-    border: none;
-    width: 100%;
-    height: 100%;
-    background-color: lightblue;
-    padding: 5px;
-    margin: 0px;
-}
-
-#heading1 {
-    background-color: darkblue;
-    color: white;
-}
-
-#heading2
+th
 {
-    background-color: lightblue;
-    font-size: 20px;
+    background-color: lightgrey;
     color: black;
+	text-align: center;
 }
 
-#heading3{
-    background-color: lightgray;
-    color: black;
-}
 
-h2
+input[type=text]
 {
-    background-color: darkblue;
-    color: white;
-}
-
-th {
-    background-color: lightblue;
-    color: white;
-}
-
-div {
-    height: 100%;
-}
-
-#info {
-    background-color: lightgray;
-}
-
-html, body {
-    height: 100%;
-    width: 100%;
-    padding: 10;
-    margin: 0;
+	width: 100%;
 }

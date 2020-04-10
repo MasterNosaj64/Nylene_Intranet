@@ -1,12 +1,7 @@
 <?php
-session_start();
-
-//default value for now! please change
-$_SESSION['company_id'] = 1;
-$_SESSION['customer_id'] = 1;
-
-if($_SESSION['user_id'] == ""){
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./login.php\" />;";
+if($_SESSION['userid'] == ""){
+    echo "No user logged in";
+    echo "<meta http-equiv = \"refresh\" content = \"5; url = ./login.php\" />;";
     exit();
    
 }
@@ -26,7 +21,7 @@ session_start();
 
   <a href="homepage.php">Nylene</a>
   
-  <a href="sample.php">Sample</a>
+<!--  <a href="sample.php">Sample</a> -->
 
  <?php //$image_url='Nylene.png'; ?>
 
@@ -40,6 +35,20 @@ session_start();
       <a href="./addCompany.php">Add Company</a>
     </div>
   </div>
+
+<?php 
+if(isset($_SESSION['company_id'])){
+if($_SESSION['company_id'] != ""){
+    echo "<a href=\"viewCompany.php\">View Company</a>";
+}
+}
+if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id'])){
+if($_SESSION['interaction_id'] != ""){
+    echo "<a href=\"companyHistory.php\">Company History</a>";
+}
+}
+?>
+
 
 
 <!--   <div class="dropdown"> -->

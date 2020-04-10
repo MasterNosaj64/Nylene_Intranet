@@ -1,8 +1,5 @@
 <?php
-	//session_start();
-include 'navigation.php';
-	$customer_id = $_SESSION['company_id'];
-	$company_id = $_SESSION['customer_id'];
+	session_start();
 
 	if (isset($_POST['credit_app_submitted']))
 	{
@@ -109,6 +106,8 @@ include 'navigation.php';
 	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
 	$dateSubmitted		= date("Y/M/D");
 	$marketCode			= $_POST['mCode'];
+	$customer_id        = $_SESSION['customer_id'];
+	$company_id         = $_SESSION['company_id'];
 	$business_case		= $_POST['business_case'];
 	$material_descr		= $_POST['material_descr'];
 	$customer_proc		= $_POST['customer_proc'];
@@ -159,47 +158,51 @@ include 'navigation.php';
 				'$other_contact1', '$other_contact2', '$other_contact3', '$other_contact4')";
 
 		if ($conn->query($insert_into_forms_table) === TRUE) {
-
+		
 		}		
 		else {
 			echo "Error: " . $insert_into_forms_table . "<br>" . $conn->error;
 		}
 
-		$insert_into_interaction_table = "INSERT INTO interaction (
-			company_id, employee_id, comments, date_created) values (
-			'$company_id', 
-			" . $_SESSION['user_id'] . ", 
-			'Sample Form', 
-			'$dateSubmitted')";
+// 		$insert_into_interaction_table = "INSERT INTO interaction (
+// 			company_id, employee_id, comments, date_created) values (
+// 			'$company_id', 
+// 			" . $_SESSION['userid'] . ", 
+// 			'Sample Form', 
+// 			'$dateSubmitted')";
 
-		if ($conn->query($insert_into_interaction_table) === TRUE) {
+// 		if ($conn->query($insert_into_interaction_table) === TRUE) {
+		
+// 		}		
+// 		else {
+// 			echo "Error: " . $insert_into_interaction_table . "<br>" . $conn->error;
+// 		}
 
-		}		
-		else {
-			echo "Error: " . $insert_into_interaction_table . "<br>" . $conn->error;
-		}
+// 		$getInteractionId = "SELECT interaction_id FROM interaction ORDER BY interaction_id DESC";
+// 		$interactionId = $conn->query($getInteractionId);
 
-		$getInteractionId = "SELECT interaction_id FROM interaction ORDER BY interaction_id DESC";
-		$interactionId = $conn->query($getInteractionId);
+// 		$id = mysqli_fetch_array($interactionId);
 
-		$id = mysqli_fetch_array($interactionId);
-
+		//Modified by Jason, to take Interaction_id generated previously
+		$id = $_SESSION['interaction_id'];
+		
+		
 		$getFormId = "SELECT sample_form_id FROM sample_form ORDER BY sample_form_id DESC";
 		$formId = $conn->query($getFormId);
 		$idf = mysqli_fetch_array($formId);
 
 		$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
 			interaction_id, form_id, form_type) values (
-			" . $id['interaction_id'] . ", " . $idf['sample_form_id'] . ", '1')";
+			" . $id . ", " . $idf['sample_form_id'] . ", '1')";
 
 		if ($conn->query($insert_into_interaction_relational_manager_table) === TRUE) {
-
+		  
+		    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./companyHistory.php\" />;";
+		    exit();
 		}		
 		else {
 			echo "Error: " . $insert_into_interaction_relational_manager_table . "<br>" . $conn->error;
 		}		
 	}
-
-	mysqli_close($conn);
 ?>
 

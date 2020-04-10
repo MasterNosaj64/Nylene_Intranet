@@ -1,7 +1,7 @@
 <?php
-			include "connect.php";
+			session_start();
 
-			$id = $_POST['id'];
+			include "connect.php";
 
 			if (mysqli_connect_error())
 			{
@@ -17,7 +17,7 @@
 				$company_address = "SELECT ";
 			}
 
-			$query_samples	= "SELECT * FROM sample_form WHERE sample_form_id = " . $id;
+			$query_samples	= "SELECT * FROM sample_form WHERE sample_form_id = " . $_POST['id'];
 			$query_samples_results = $conn->query($query_samples);								
 			$qsr = mysqli_fetch_array($query_samples_results);
 
@@ -31,7 +31,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="styleForm.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 
 	<body height="100%" width="100%">
@@ -40,21 +40,16 @@
         <table border=1 cellspacing="0" cellpadding="3" align="center">
              <tr>
                 <th colspan="7" align="left">
-                    Form#: <?php echo $qsr['sample_form_id'];  ?>
-                </th>
-            </tr>
-			 <tr>
-                <th colspan="7" align="left">
                     Business Contact Information
                 </th>
             </tr>
             <tr>
                 <td id="info"> Submitted By: </td>
 
-                <td colspan="2"> <?php echo $row['first_name'] . " " . $row['last_name']; ?> </td>
+                <td colspan="2">  <input name="submittedBy" type="text" readonly value="<?php echo $row['first_name'] . " " . $row['last_name']; ?>"> </td>
      
                 <td id="info"> Date Created: </td>
-                <td> <?php echo $qsr['date_submitted']; ?> </td>
+                <td> <input name="dateSubmitted" type="text" readonly value="<?php echo $qsr['date_submitted']; ?>"> </td>
                 <td>
                     Market Code:
                    
@@ -85,7 +80,7 @@
             </tr>
             <tr>
                 <td id="info"> Fax Number: </td>
-                <td colspan="3"> <?php echo $gcr['fax_num'] ?> </td>
+                <td colspan="3"> <?php echo $gcr['customer_fax'] ?> </td>
                 <td id="info"> Credit Application Submitted: </td>
                 <td colspan="1"> <input type="checkbox" name="credit_app_submitted" value="1" <?php if($qsr['credit_app_submitted'] == 1) {echo "checked";} ?>> </td>
             </tr>
@@ -111,7 +106,7 @@
                 <th colspan="6" align="left"> Material Description, Special Handling or Label Request </th>
             </tr>
             <tr>
-                <td colspan="6"> <?php echo $qsr['material_description']; if ($qsr['other_contact_1'] == "") {echo "<br/>";}?> </td>
+                <td colspan="6"> <?php echo $qsr['material_description'] ?> </td>
             </tr>
             <tr>
                 <th colspan="6" align="left"> Additional Information </th>
@@ -196,24 +191,16 @@
                 <td colspan="6" id="info" align="center"> ---Note: SDS Sent With All Samples---</td>
             </tr>
             <tr>
-                <th colspan="6" align="left"> Distribution List (Other Contacts) </th>
+                <th colspan="6" align="left"> Distribution List </th>
             </tr>
-			<tr> 
-				<td colspan="2" id="info"> Other Contact 1: </td>
-                <td colspan="4"> <?php echo $qsr['other_contact_1']; if ($qsr['other_contact_1'] == "") {echo "<br/>";} ?> </td>
-            </tr>
-            <tr> 
-				<td colspan="2" id="info"> Other Contact 2: </td>
-                <td colspan="4"> <?php echo $qsr['other_contact_2']; if ($qsr['other_contact_2'] == "") {echo "<br/>";} ?> </td>
-            </tr>
-			<tr> 
-				<td colspan="2" id="info"> Other Contact 3: </td>
-                <td colspan="4"> <?php echo $qsr['other_contact_3']; if ($qsr['other_contact_3'] == "") {echo "<br/>";} ?> </td>
-            </tr>
-			<tr> 
-				<td colspan="2" id="info"> Other Contact 4: </td>
-                <td colspan="4"> <?php echo $qsr['other_contact_4']; if ($qsr['other_contact_4'] == "") {echo "<br/>";} ?> </td>
-            </tr>
+            <tr>
+                <td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_1'] ?> </td>
+				<td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_2'] ?> </td>
+			</tr>
+			<tr>
+                <td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_3']; if ($qsr['other_contact_3'] == "") {echo "<br/>";} ?> </td>
+				<td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_4'] ?> </td>
+			</tr>
         </table>
 	</form>
 	</body>

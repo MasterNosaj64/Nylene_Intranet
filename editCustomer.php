@@ -1,6 +1,6 @@
 <?php
-//session_start();
-//include 'menu.php';
+session_start();
+
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
@@ -12,7 +12,8 @@ if(isset($_POST['submit'])){
                 SET 
                 customer_name = '". $_POST['firstName'] ." ". $_POST['lastName'] . "',
                 customer_email = '". $_POST['email'] ."', 
-                customer_phone = '". $_POST['phone'] ."'
+                customer_phone = '". $_POST['phone'] ."',
+                customer_fax = '". $_POST['fax']."'
                 WHERE customer_id =".$_POST['customer_id'];
    
     $result = $dbConnection->query($sqlQuery);
@@ -34,13 +35,15 @@ else {
 }
 ?>
 
-
+<html><head>
+  <link rel="stylesheet" href="table.css">
+</head>
 
 <body>
 <form method="post" action=editCustomer.php name="edit_customer">
 <input type="reset" value="Clear">
 <input hidden name="customer_id" value="<?php echo $customerInfo['customer_id'];?>"/>
-	<table border=5>
+	<table class= "form-table" border=5>
 		<tr>
 		<td colspan=4><h2>Customer</h2></td>
 		</tr>
@@ -56,8 +59,13 @@ else {
 			<td>Phone:</td>
 			<td><input type="tel" value="<?php echo $customerInfo['customer_phone'];?>" name="phone"></td>
 		</tr>
+		<tr>
+			<td>Fax:</td>
+			<td><input type="tel" value="<?php echo $customerInfo['customer_fax'];?>" name="fax"></td>
+		</tr>
 		
 	</table>
 	<input type="submit" name="submit" value="Submit" >
 </form>
 </body>
+</html>
