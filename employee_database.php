@@ -10,8 +10,8 @@
 
 
     $DB_HOST = "localhost";
-    $DB_USER = "root";
-    $DB_PASSWORD = "";
+    $DB_USER = "Madhav	";
+    $DB_PASSWORD = "yA956952";
     $DB_DATABASE = "nylene";
 
     $connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD);
@@ -75,9 +75,9 @@ $emergency_contact_phone=$_POST['EmergencyContactPhone'];
     echo (mysqli_error($connect)) ;
 	echo "           fail";
 }
-else{ echo   "  Success   ";
-echo '<a href="./Homepage.php">    Click here</a>';
- }
+else{ echo "      Success </br> ";
+    echo "<a href=\"Homepage.php\">Homepage</a>";
+}
  
  
  // $query=mysqli_query($connect,"INSERT INTO employee(First_Name,Last_Name,Email_Address,DOB,MobilePhone,HomePhone,Address1,Address2,City,PostalCode,StartDate,EmployeeNumber,SIN,Department,VacationDays,VacationPercent,PayRate,EmergencyContactName,EmergencyContactPhone) VALUES('$first_name','$last_name','$email','$dob','$mobile_phone','$home_phone','$address1','$address2','$city','$postal_code','$start_date','$employee_number','$sin','$department','$vacation_days','$vacation_percent','$pay_rate','$emergency_contact_name,'$emergency_contact_phone')");
