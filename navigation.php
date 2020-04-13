@@ -33,7 +33,14 @@ session_start();
     <div class="dropdown-content">
       <a href="./searchCompany.php">Search Company</a>
       <a href="./addCompany.php">Add Company</a>
-<a href="./createUser.php">Create User</a>
+
+
+<?php
+if($_SESSION['role'] == "admin"){
+
+	echo "<a href=\"createUser.php\">Create User</a>";
+}
+?>
     </div>
   </div>
 
@@ -66,7 +73,7 @@ if($_SESSION['interaction_id'] != ""){
 
   <div class="dropdown">
 
-    <button class="dropbtn"> Hello <?php echo $_SESSION['name']?>
+    <button class="dropbtn"> Hello <?php $_SESSION['name']?>
     </button>
     <div class="dropdown-content">
       <a href="./logout.php">Log Out</a>

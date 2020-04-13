@@ -2,7 +2,8 @@
 session_start();
     include 'databaseConnection.php';
     $dbConnection = setConnectionInfo();
-
+	//$userQuery = mysqli_query($conn,"SELECT * FROM nylene.employee WHERE user_name='" . $_POST["userName"] . "' and password = '". $_POST["password"]."'");
+	//$userQuery = "SELECT * FROM nylene.employee WHERE username = " . $_POST['username'];
 	$userQuery = "SELECT * FROM nylene.employee WHERE username = '" .$_POST['username']."'";
     
 	$result = $dbConnection->query($userQuery);
@@ -10,12 +11,19 @@ session_start();
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 	
 	$password1 = $_POST['password'];
-	$password1=password_hash($password1,PASSWORD_DEFAULT);
+	//$password1=password_hash($password1,PASSWORD_DEFAULT);
 	
 	$password2 = $row['password'];
+	/**/
 	
-	if(password_verify($password2, $password1)){
-	    $_SESSION['name'] = $row['first_name']." ".$row['last_name'];
+	
+	
+	
+	//if(!strcmp($password1, $password2)){	
+	if(password_verify( $password1 , $password2 )){
+
+	
+	  $_SESSION['name'] = $row['first_name']." ".$row['last_name'];
 	    $_SESSION['role'] = $row['title'];
 	    $_SESSION['userid'] = $row['employee_id'];
 	    
@@ -25,5 +33,9 @@ session_start();
 	    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./login.php\" />;";
 	    exit();
 	}
+// if(isset($_SESSION["id"])) {
+// header("Location:index.php");
+// }
+
 			
 ?>
