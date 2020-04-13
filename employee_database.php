@@ -39,6 +39,8 @@ $is_administrator=$_POST['is_administrator'];
 $STATUS=$_POST['STATUS'];
 $employee_email=$_POST['employee_email'];
 $password=$_POST['password'];
+	$password=password_hash($password,PASSWORD_DEFAULT);
+
 
 
 /**
