@@ -103,7 +103,7 @@ x[1].value = today;
 
 <select name="reports_to">
 		<?php 
-		   $connect = mysqli_connect("localhost", "Madhav", "yA956952");
+		   $connect = mysqli_connect("localhost", "root", "");
   $db=mysqli_select_db($connect,"nylene");
 $sql = "SELECT * FROM employee";
 $query = mysqli_query($connect,$sql);
