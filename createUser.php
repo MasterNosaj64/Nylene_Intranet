@@ -130,7 +130,7 @@ x[1].value = today;
 
 <tr> <td>
 <label for="modified_by"><b>Modified By *</b></label><br />
-<input name="modified_by" type="text" maxlength="50" style="width: 260px" value="<?php echo $_SESSION['name']?>" readonly />
+<input name="modified_by" type="text" maxlength="50" style="width: 260px" value="<?php echo $_SESSION['userid']?>" readonly />
 </td>  <td>
 <label for="username"><b>Username *</b></label><br />
 <input name="username" type="text" maxlength="50" style="width: 260px" />
