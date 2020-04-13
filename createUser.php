@@ -108,7 +108,7 @@ x[1].value = today;
 $sql = "SELECT * FROM employee";
 $query = mysqli_query($connect,$sql);
 while ($row = mysqli_fetch_array($query)) {
-echo '<option style="width: 260px" value='.$row['employee_id'].'>'.$row['first_name'].'</option>';
+echo '<option style="width: 260px" value='.$row['employee_id'].'>'.$row['first_name']." ".$row['last_name'].'</option>';
 }
 ?>
 		</select>
