@@ -2,9 +2,14 @@
 if($_SESSION['userid'] == ""){
     echo "No user logged in";
     echo "<meta http-equiv = \"refresh\" content = \"5; url = ./login.php\" />;";
-    exit();
+ exit();
    
 }
+/* if (!session_id()) {
+session_start();
+
+} */
+
 ?>
 
 <html>
@@ -28,7 +33,7 @@ if($_SESSION['userid'] == ""){
     <div class="dropdown-content">
       <a href="./searchCompany.php">Search Company</a>
       <a href="./addCompany.php">Add Company</a>
-<a href="./createUser.html">Create User</a>
+<a href="./createUser.php">Create User</a>
     </div>
   </div>
 
