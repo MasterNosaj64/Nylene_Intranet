@@ -100,10 +100,29 @@ x[1].value = today;
 <input name="work_phone" type="text" maxlength="50" style="width: 260px" />
 </td>  <td>
 <label for="reports_to"><b>Reports to</b></label><br />
-<input name="reports_to" type="text" maxlength="50" style="width: 260px" />
+
+<select name="reports_to">
+		<?php 
+		   $connect = mysqli_connect("localhost", "Madhav", "yA956952");
+  $db=mysqli_select_db($connect,"nylene");
+$sql = "SELECT * FROM employee";
+$query = mysqli_query($connect,$sql);
+while ($row = mysqli_fetch_array($query)) {
+echo '<option style="width: 260px" value='.$row['employee_id'].'>'.$row['first_name'].'</option>';
+}
+?>
+		</select>
+
+
+
+
+
+	
+		
+		
 </td> </tr>
 
-
+</table>
 <table border="1" cellpadding="5" cellspacing="0">
 <tr>
 				<td id="column_heading" colspan="2"  style="text-align: left;">Secondary Information</td>
