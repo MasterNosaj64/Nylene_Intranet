@@ -108,9 +108,6 @@ if ($_POST['company_id'] != "") {
 ?>
 		</select>
 		</td>
-		
- </tr>
- <tr>
 		<td>Reason:</td>
 		<td>
 		<select required name="reason">
@@ -136,8 +133,7 @@ if ($_POST['company_id'] != "") {
 		<option value="2">Light Truckload Quote</option>
 		<option value="1">Sample</option>
 		</select>
-		</td>
-</tr>		
+		</td>		
 <tr>
 	<td colspan=6><textarea  maxlength="1024" required name="comments" rows="20" cols="100"></textarea></td>
 </tr>
