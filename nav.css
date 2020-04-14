@@ -22,7 +22,23 @@ body {
   overflow: hidden;
 }
 
+.dropdown-user {
+  float: right;
+  overflow: hidden;
+}
+
 .dropdown .dropbtn {
+  font-size: 20px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 25px 25px;
+  background-color: #333;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-user .dropbtn {
   font-size: 20px;
   border: none;
   outline: none;
@@ -46,7 +62,25 @@ body {
   z-index: 1;
 }
 
+.dropdown-content-user {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
 .dropdown-content a {
+  float: none;
+  color: black;
+  padding: 25px 25px 25px 25px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content-user a {
   float: none;
   color: black;
   padding: 25px 25px 25px 25px;
@@ -60,5 +94,8 @@ body {
 }
 
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-user:hover .dropdown-content {
   display: block;
 }

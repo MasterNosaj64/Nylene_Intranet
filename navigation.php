@@ -80,7 +80,7 @@ if($_SESSION['interaction_id'] != ""){
 <!--   <a href="InteractionManager.php">interaction Manager</a> -->
 
 
-  <div class="dropdown">
+  <div class="dropdown-user">
 
     <button class="dropbtn"> Hello <?php echo $_SESSION['name'];?>
     </button>
