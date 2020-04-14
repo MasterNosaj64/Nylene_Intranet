@@ -117,7 +117,7 @@ if ($_POST['company_id'] != "") {
 		<option value="General">General</option>
 		<option value="Added Customer">Added Customer</option>
 		<option value="Status">Status</option>
-		<option value="Marketing Request">Marketing Request</option>
+<!-- 		<option value="Marketing Request">Marketing Request</option> -->
 		<option value="Distributor Quote">Distributor Quote</option>
 		<option value="Truckload Quote">Truckload Quote</option>
 		<option value="Light Truckload Quote">Light Truckload Quote</option>
@@ -128,7 +128,7 @@ if ($_POST['company_id'] != "") {
 		<td>Form (if applicable):</td><td>
 		<select name="form">
 		<option value="0"></option>
-		<option value="5">Marketing Request</option>
+<!-- 		<option value="5">Marketing Request</option> -->
 		<option value="4">Distributor Quote</option>
 		<option value="3">Truckload Quote</option>
 		<option value="2">Light Truckload Quote</option>
