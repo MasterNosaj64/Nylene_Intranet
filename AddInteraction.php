@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION["navToAddInteractionPage"] = true;
 include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();

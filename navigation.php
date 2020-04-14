@@ -21,7 +21,7 @@ session_start();
 
 <!-- 	<a href="homepage.php">Nylene</a> -->
 
-  <a href="homepage.php"><img  width="80" align="middle" heigth="auto" src="Nylene.png"></a>
+  <a href="homepage.php"><img  width="180" align="middle" heigth="auto" src="Nylene-alt.png"></a>
   
 <!--  <a href="sample.php">Sample</a> -->
 
@@ -58,13 +58,18 @@ if($_SESSION['role'] == "admin"){
 <?php 
 if(isset($_SESSION['company_id'])){
 if($_SESSION['company_id'] != ""){
-    echo "<a href=\"viewCompany.php\">View Company</a>";
+    echo "<div class=\"dropdown\">";
+    echo "<a class=\"dropbtn\" href=\"viewCompany.php\">View Company</a>";
+    echo "</div>";
 }
 }
-if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id'])){
-if($_SESSION['interaction_id'] != ""){
-    echo "<a href=\"companyHistory.php\">Company History</a>";
-}
+if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || isset($_SESSION['navToAddInteractionPage'])){
+//if($_SESSION['interaction_id'] != ""){
+    unset($_SESSION['navToAddInteractionPage']);
+    echo "<div class=\"dropdown\">";
+    echo "<a class=\"dropbtn\" href=\"companyHistory.php\">Company History</a>";
+    echo "</div>";
+//}
 }
 ?>
 
