@@ -53,6 +53,10 @@ body {
   background-color: #ddd;
 }
 
+.navigation a:hover, .dropdown-user:hover .dropbtn {
+  background-color: #ddd;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
