@@ -4,10 +4,10 @@
 
 .form-table {
   border-collapse: collapse;
+   border-radius: 6px;
   margin: 0 0;
   font-size: 20px;
   width: 100%;
-  border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
@@ -130,8 +130,9 @@ margin: 5 0 0 0;
   padding: 0 40px 0 40px; /*12*/
 }
 
-textarea {
- width: 100%;
+input[type=title]{
+width: 100%;
+margin: 5 0 0 0;
   text-align:center
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -139,4 +140,76 @@ textarea {
   font-size: 20px;
   background-color: white;
   padding: 0 40px 0 40px; /*12*/
+}
+
+input[type=date]{
+width: 100%;
+margin: 5 0 0 0;
+  text-align:center
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  background-color: white;
+  padding: 0 40px 0 40px; /*12*/
+}
+input[type=password]{
+width: 100%;
+margin: 5 0 0 0;
+  text-align:center
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  background-color: white;
+  padding: 0 40px 0 40px; 
+}
+#title{
+	  width: 100%;
+  margin: 5 0 0 0;
+    text-align:center
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 0 40px 0 40px; 
+      cursor: pointer
+}
+#Admin{
+		  width: 100%;
+  margin: 5 0 0 0;
+    text-align:center
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 0 40px 0 40px; 
+      cursor: pointer
+}
+
+#employee{
+		  width: 100%;
+  margin: 5 0 0 0;
+    text-align:center
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 0 40px 0 40px; 
+      cursor: pointer
+}
+
+textarea {
+ width: 100%;
+  margin: 5 0 0 0;
+  text-align:center
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  background-color: white;
+  padding: 0 40px 0 40px; 
 }

@@ -77,8 +77,11 @@ $emergency_contact_phone=$_POST['EmergencyContactPhone'];
     echo (mysqli_error($connect)) ;
 	echo "           fail";
 }
-else{ echo "      Success </br> ";
-    echo "<a href=\"Homepage.php\">Homepage</a>";
+else{ 
+//     echo "      Success </br> ";
+//     echo "<a href=\"Homepage.php\">Homepage</a>";
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
+    exit();
 }
  
  

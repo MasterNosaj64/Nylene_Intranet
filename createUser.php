@@ -2,16 +2,18 @@
 
 <?php
 session_start();
-include 'navigation.php'; //menu overlaps with page
+include 'navigation.php';
 ?>
 
 <!DOCTYPE html>
 <html>
-<head> <link rel="stylesheet" href="style_cU.css">
+<head>
+<link rel="stylesheet" href="table.css">
 </head>
 <body onload="myFunction()">
-<form  method="post" action="employee_database.php"   onsubmit="return ValidateForm(this)";>
-<script type="text/javascript">
+	<form method="post" action="employee_database.php"
+		onsubmit="return ValidateForm(this)";>
+		<script type="text/javascript">
 function ValidateForm(frm) {
 //if (frm.employee_id.value == "") { alert('Employee ID is required.'); frm.employee_id.focus(); return false; }
 if (frm.first_name.value == "") { alert('First name is required.'); frm.first_name.focus(); return false; }
@@ -33,7 +35,7 @@ return true; }
 
 
 
-<script>	
+		<script>	
 	function myFunction() {
 var date = new Date();
 var day = date.getDate();
@@ -47,153 +49,142 @@ x[0].value = today;
 x[1].value = today;
 }
 </script>
- 
-
-
-<table border="1" cellpadding="5" cellspacing="0">
 
 
 
-<tr>
-				<td id="column_heading" colspan="2"  style="text-align: left;">Standard Information</td>
-			</tr>  
-			
-</table>
-			<table border="1" cellpadding="5" cellspacing="0">
-	<!--<tr>
+		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
+
+
+<thead>
+			<tr>
+				<td id="column_heading" colspan="2" style="text-align: center;">Standard
+					Information</td>
+			</tr></thead>
+
+		</table>
+		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
+			<!--<tr>
 	<td colspan="2">
 	<label for="employee_id"><b>Employee ID*</b></label><br/>
 	<input name="employee_id" type="text" maxlength="100" style="width: 535px" />
 	</td> </tr>-->
-<tr>
-<td style="width: 50%">
-	<label for="first_name">
-	<b>First Name *</b></label><br />
-	<input name="first_name" type="text" maxlength="50" style="width: 260px" />
-	</td>
-	<td style="width: 50%">
-	<label for="last_name">
-	<b>Last Name *</b></label><br />
-	<input name="last_name" type="text" maxlength="50" style="width: 260px" />
-	</td>
-</tr> 
-<tr>
-<td>
-<label for="title"><b>Title *</b></label><br />
-<select name="title">
-  <option value="admin">Admin</option>
-  <option value="sales_rep">Sales Rep</option>
-  <option value="sales_manager">Sales Manager</option>
-</td> <td>
-<label for="department"><b>Department</b></label><br />
-<input name="department" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
+			<tr>
+				<td ><label for="first_name"> First Name *</label>
+					<input name="first_name" type="text" maxlength="50"
+					 /></td>
+				<td style="width: 50%"><label for="last_name">Last Name *</label>
+					<input name="last_name" type="text" maxlength="50"
+					 /></td>
+			</tr>
+			<tr>
+			
+				<td> Title* <select id="title" name="title">
+						<option value="admin">Admin</option>
+						<option value="sales_rep">Sales Rep</option>
+						<option value="sales_manager">Sales Manager</option></select> 
+						</td>
+						 
+						
+				<td><label for="department">Department</b></label> <input
+					name="department" type="text" maxlength="50" />
+				</td>
+			</tr>
 
-<tr> <td>
-<label for="work_phone"><b>Work Phone *</b></label><br />
-<input name="work_phone" type="text" maxlength="50" style="width: 260px" />
-</td>  <td>
-<label for="reports_to"><b>Reports to</b></label><br />
-
-<select name="reports_to">
-		<?php 
-		   $connect = mysqli_connect("localhost", "root", "");
-  $db=mysqli_select_db($connect,"nylene");
+			<tr>
+				<td><label for="work_phone">Work Phone *</label><br /> <input
+					name="work_phone" type="text" maxlength="50" />
+				</td>
+				<td>Reports to <select id="employee" name="employee">
+				
+		<?php
+$connect = mysqli_connect("localhost", "root", "");
+$db = mysqli_select_db($connect, "nylene");
 $sql = "SELECT * FROM employee";
-$query = mysqli_query($connect,$sql);
+$query = mysqli_query($connect, $sql);
 while ($row = mysqli_fetch_array($query)) {
-echo '<option style="width: 260px" value='.$row['employee_id'].'>'.$row['first_name']." ".$row['last_name'].'</option>';
+    echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
 ?>
-		</select>
+		</select></td>
+			</tr>
+
+		</table>
+		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
+		<thead>
+			<tr>
+				<td id="column_heading" colspan="2" style="text-align: center;">Secondary
+					Information</td>
+			</tr> 
+			</thead>
+		</table>
+		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
+			<tr>
+
+	<td ><label for="date_entered"> Date Entered </label>
+			<input type="date" id="date_entered" name="date_entered" required></td>
+
+<!--
+				<td style="width: 50%"><label for="date_entered"><b>Date Entered *</b></label><br />
+					<input name="date_entered" type="date" class="theDate"
+					maxlength="100" style="width: 260px" readonly /></td>
+					-->
+					
+					<td ><label for="date_entered"> Date Modified </label>
+			<input type="date" id="date_entered" name="date_entered" required></td>
+				
+				<!-- 	
+				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
+					<input name="date_modified" type="date" class="theDate"
+					maxlength="100" style="width: 260px" readonly /> <!--<input name="date_modified" type="date" value ="<?php echo date("Y-m-d") ?>" style="width: 260px">
+					-->
 
 
 
+			</tr>
+
+			<tr>
+				<td><label for="modified_by">Modified By *</label><br /> <input
+					name="modified_by" type="text" maxlength="50" 
+					value="<?php echo $_SESSION['userid']?>" readonly /></td>
+				<td><label for="username">Username *</label><br /> <input
+					name="username" type="text" maxlength="50" />
+				</td>
+			</tr>
 
 
-	
-		
-		
-</td> </tr>
+			<tr>
 
-</table>
-<table border="1" cellpadding="5" cellspacing="0">
-<tr>
-				<td id="column_heading" colspan="2"  style="text-align: left;">Secondary Information</td>
-			</tr></table><table border="1" cellpadding="5" cellspacing="0">
-<tr>
+				<td>Admin<select id="Admin" name="is_administrator">
+						<option value="1">Yes</option>
+						<option value="0">No</option></select></td>
+						
 
+				</select></td>
+				<td style="width: 50%"><label for="Status">Status</label><br />
+					<input name="STATUS" type="text" maxlength="100"/></td>
 
-	<td style="width: 50%">
-	<label for="date_entered"><b>Date Entered *</b></label><br />
-	<input name="date_entered" type="date" class="theDate" maxlength="100" style="width: 260px" readonly />
+			</tr>
 
 
-</td> 
-	<td style="width: 50%">
-	<label for="date_modified"><b>Date Modified *</b></label><br />
-	<input name="date_modified" type="date" class="theDate" maxlength="100" style="width: 260px" readonly />
-		<!--<input name="date_modified" type="date" value ="<?php echo date("Y-m-d") ?>" style="width: 260px">
--->
-</td>
+			<tr>
+				<td colspan="2"><label for="employee_email">Email *</label><br />
+					<input name="employee_email" type="text" maxlength="100"
+					 /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><label for="password">Password *</label><br />
+					<input type="password" id="password" name="password" type="text" maxlength="100"
+					 /></td>
+			</tr>
+		</table>
 
-
-
-</tr>
-
-<tr> <td>
-<label for="modified_by"><b>Modified By *</b></label><br />
-<input name="modified_by" type="text" maxlength="50" style="width: 260px" value="<?php echo $_SESSION['userid']?>" readonly />
-</td>  <td>
-<label for="username"><b>Username *</b></label><br />
-<input name="username" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
-
-
-<tr>
-
-<td style="width: 50%">
-	<label for="is_administrator">
-	<b>is Admin </b></label><br />
-	<select name="is_administrator">
-	  <option value="1">Yes</option>
-  <option value="0">No</option>
-  
-</select>
-	</td>
-	<td style="width: 50%">
-	<label for="STATUS"><b>STATUS</b></label><br />
-	<input name="STATUS" type="text" maxlength="100" style="width: 260px" />
-</td> 
-
-</tr>
-
-
-
-
-
-
-
-<tr>
-	<td colspan="2">
-	<label for="employee_email"><b>Email *</b></label><br />
-<input name="employee_email" type="text" maxlength="100" style="width: 535px" />
-</td> </tr>
-<tr>
-	<td colspan="2">
-	<label for="password"><b>Password *</b></label><br />
-	<input name="password" type="text" maxlength="100" style="width: 535px" />
-</td> 
-</tr></table>
-
-<table><tr><td>
-<input type="submit" value="Submit">
-</td>
-<td>
-<input type="reset" value="Reset">
-</td></tr>
-</table>
-</form>
+		<table class="form-table">
+			<tr>
+				<td><input type="submit" value="Submit"></td>
+				<td><input type="reset" value="Reset"></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
 
