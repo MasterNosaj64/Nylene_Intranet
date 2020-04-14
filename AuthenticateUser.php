@@ -16,8 +16,6 @@ session_start();
 	$password2 = $row['password'];
 	/**/
 	
-	
-	
 	//if(!strcmp($password1, $password2)){	
 	if(password_verify($password1,$password2)){
 

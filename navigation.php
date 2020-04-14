@@ -27,6 +27,20 @@ session_start();
 
 <!--   <a href="#employee">Employee</a> -->
 
+<?php
+if($_SESSION['role'] == "admin"){
+
+    echo "<div class=\"dropdown\">";
+    echo "<button class=\"dropbtn\">Admin Panel";
+    echo "</button>";
+    echo "<div class=\"dropdown-content\">";
+	echo "<a href=\"createUser.php\">Create User</a>";
+	echo "</div>";
+	echo "</div>";
+}
+?>
+
+
   <div class="dropdown">
     <button class="dropbtn">Navigation
     </button>
@@ -35,12 +49,7 @@ session_start();
       <a href="./addCompany.php">Add Company</a>
 
 
-<?php
-if($_SESSION['role'] == "admin"){
 
-	echo "<a href=\"createUser.php\">Create User</a>";
-}
-?>
     </div>
   </div>
 

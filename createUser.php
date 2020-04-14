@@ -2,6 +2,7 @@
 
 <?php
 session_start();
+include 'navigation.php'; //menu overlaps with page
 ?>
 
 <!DOCTYPE html>
