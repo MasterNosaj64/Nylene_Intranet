@@ -21,7 +21,7 @@ session_start();
 
 <!-- 	<a href="homepage.php">Nylene</a> -->
 
-  <a href="homepage.php"><img  width="180" align="middle" heigth="auto" src="Nylene-alt.png"></a>
+  <a href="homepage.php"><span title="Home"><img  width="180" align="middle" heigth="auto" src="Nylene-alt.png"></span></a>
   
 <!--  <a href="sample.php">Sample</a> -->
 

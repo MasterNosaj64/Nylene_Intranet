@@ -121,7 +121,7 @@ while ($row = mysqli_fetch_array($query)) {
 			<tr>
 
 	<td ><label for="date_entered"> Date Entered </label>
-			<input type="date" id="date_entered" name="date_entered" required></td>
+			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>" required></td>
 
 <!--
 				<td style="width: 50%"><label for="date_entered"><b>Date Entered *</b></label><br />
@@ -130,7 +130,7 @@ while ($row = mysqli_fetch_array($query)) {
 					-->
 					
 					<td ><label for="date_entered"> Date Modified </label>
-			<input type="date" id="date_entered" name="date_entered" required></td>
+			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>" required></td>
 				
 				<!-- 	
 				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
