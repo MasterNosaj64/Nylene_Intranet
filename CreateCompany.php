@@ -22,22 +22,8 @@ $data = json_decode(file_get_contents("php://input"));
   
 // make sure data is not empty
 if(
-    !empty($data->website) &&
-    !empty($data->billing_address_street) &&
-    !empty($data->billing_address_city) &&
-    !empty($data->billing_address_state)&&
-    !empty($data->billing_address_postalcode) &&
-    !empty($data->billing_address_country) &&
-    !empty($data->shipping_address_country) &&
-    !empty($data->shipping_address_postalcode) &&
-    !empty($data->shipping_address_state) &&
-    !empty($data->shipping_address_city)&&
-    !empty($data->shipping_address_street) &&
-    !empty($data->description) &&
-    !empty($data->type)&&
-    !empty($data->industry) &&
-    !empty($data->assigned_to) &&
-	!empty($data->company_name)
+    !empty($data->website) 
+    
 ){
   
     // set company property values
@@ -56,7 +42,7 @@ if(
 	$Company->type= $data->type; 
 	$Company->industry= $data->industry; 
 	$Company->assigned_to= $data->assigned_to; 
-	$Company->date_created= date('Y-m-d');; 
+
 	 
 	$Company->created_by= 	"PostMan"; 
 	$Company->company_name= $data->company_name; 
