@@ -1,8 +1,21 @@
+
+
+<?php
+//session_start();
+ if (!session_id()) {
+session_start();
+
+} 
+
+//print_r();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head> <link rel="stylesheet" href="style_cU.css">
 </head>
-<body>
+<body onload="myFunction()">
 <form  method="post" action="employee_database.php"   onsubmit="return ValidateForm(this)";>
 <script type="text/javascript">
 function ValidateForm(frm) {
@@ -19,11 +32,39 @@ if (frm.employee_email.value == "") { alert('Email address is required.'); emplo
 if (frm.employee_email.value.indexOf("@") < 1 || frm.employee_email.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.employee_email.focus(); return false; }
 if (frm.password.value == "") { alert('Password is required.'); frm.password.focus(); return false; }
 return true; }
+
+
+
 </script>
+
+
+
+<script>	
+	function myFunction() {
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear();
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+var today = year + "-" + month + "-" + day;
+var x = document.getElementsByClassName('theDate');
+x[0].value = today;
+x[1].value = today;
+}
+</script>
+ 
+
+
 <table border="1" cellpadding="5" cellspacing="0">
+
+
+
 <tr>
 				<td id="column_heading" colspan="2"  style="text-align: left;">Standard Information</td>
-			</tr></table>
+			</tr>  
+			
+</table>
 			<table border="1" cellpadding="5" cellspacing="0">
 	<!--<tr>
 	<td colspan="2">
@@ -59,28 +100,56 @@ return true; }
 <input name="work_phone" type="text" maxlength="50" style="width: 260px" />
 </td>  <td>
 <label for="reports_to"><b>Reports to</b></label><br />
-<input name="reports_to" type="text" maxlength="50" style="width: 260px" />
+
+<select name="reports_to">
+		<?php 
+		   $connect = mysqli_connect("localhost", "root", "");
+  $db=mysqli_select_db($connect,"nylene");
+$sql = "SELECT * FROM employee";
+$query = mysqli_query($connect,$sql);
+while ($row = mysqli_fetch_array($query)) {
+echo '<option style="width: 260px" value='.$row['employee_id'].'>'.$row['first_name']." ".$row['last_name'].'</option>';
+}
+?>
+		</select>
+
+
+
+
+
+	
+		
+		
 </td> </tr>
 
-
+</table>
 <table border="1" cellpadding="5" cellspacing="0">
 <tr>
 				<td id="column_heading" colspan="2"  style="text-align: left;">Secondary Information</td>
 			</tr></table><table border="1" cellpadding="5" cellspacing="0">
 <tr>
+
+
 	<td style="width: 50%">
 	<label for="date_entered"><b>Date Entered *</b></label><br />
-	<input name="date_entered" type="date" maxlength="100" style="width: 260px" />
+	<input name="date_entered" type="date" class="theDate" maxlength="100" style="width: 260px" readonly />
+
+
 </td> 
 	<td style="width: 50%">
 	<label for="date_modified"><b>Date Modified *</b></label><br />
-	<input name="date_modified" type="date" maxlength="100" style="width: 260px" />
-</td> 
+	<input name="date_modified" type="date" class="theDate" maxlength="100" style="width: 260px" readonly />
+		<!--<input name="date_modified" type="date" value ="<?php echo date("Y-m-d") ?>" style="width: 260px">
+-->
+</td>
+
+
+
 </tr>
 
 <tr> <td>
 <label for="modified_by"><b>Modified By *</b></label><br />
-<input name="modified_by" type="text" maxlength="50" style="width: 260px" />
+<input name="modified_by" type="text" maxlength="50" style="width: 260px" value="<?php echo $_SESSION['userid']?>" readonly />
 </td>  <td>
 <label for="username"><b>Username *</b></label><br />
 <input name="username" type="text" maxlength="50" style="width: 260px" />
