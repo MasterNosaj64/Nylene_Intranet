@@ -19,7 +19,9 @@ session_start();
 
 <div class="navigation">
 
-  <a href="homepage.php">Nylene</a>
+<!-- 	<a href="homepage.php">Nylene</a> -->
+
+  <a href="homepage.php"><img  width="80" heigth="auto" src="Nylene.png"></a>
   
 <!--  <a href="sample.php">Sample</a> -->
 
@@ -82,7 +84,7 @@ if($_SESSION['interaction_id'] != ""){
 
   <div class="dropdown-user">
 
-    <button class="dropbtn"> Hello <?php echo $_SESSION['name'];?>
+    <button class="dropbtn"><?php echo $_SESSION['name'];?>
     </button>
     <div class="dropdown-content">
       <a href="./logout.php">Log Out</a>
