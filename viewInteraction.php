@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+if(isset($_POST['interaction_id'])){
+
 $_SESSION['interaction_id'] = $_POST['interaction_id'];
 include 'navigation.php';
 include 'databaseConnection.php';
@@ -21,7 +24,11 @@ $dbConnection = setConnectionInfo();
 
   $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = ".$_SESSION['interaction_id'];
   $viewInteractionForm = $dbConnection->query($query_view_form)->fetch(PDO::FETCH_ASSOC);
-  
+}
+else{
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
+    exit();
+}
 ?>
 <html>
 <body>
