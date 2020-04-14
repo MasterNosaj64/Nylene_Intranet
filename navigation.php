@@ -44,7 +44,7 @@ if($_SESSION['role'] == "admin"){
 
 
   <div class="dropdown">
-    <button class="dropbtn">Navigation
+    <button class="dropbtn">Company Directory
     </button>
     <div class="dropdown-content">
       <a href="./searchCompany.php">Search Company</a>

@@ -5,6 +5,7 @@ include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
    
+$_SESSION['customer_created'] = $_SESSION['company_id'];
 
 if(isset($_POST['submit'])){
     
