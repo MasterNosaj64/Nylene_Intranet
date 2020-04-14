@@ -1,14 +1,7 @@
 
 
 <?php
-//session_start();
- if (!session_id()) {
 session_start();
-
-} 
-
-//print_r();
-
 ?>
 
 <!DOCTYPE html>

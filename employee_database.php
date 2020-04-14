@@ -38,9 +38,9 @@ $username=$_POST['username'];
 $is_administrator=$_POST['is_administrator'];
 $STATUS=$_POST['STATUS'];
 $employee_email=$_POST['employee_email'];
-$password=$_POST['password'];
-	$password=password_hash($password,PASSWORD_DEFAULT);
-
+//$password=$_POST['password'];
+$password=password_hash($_POST['password'],PASSWORD_BCRYPT);//JASON & JIMMY: PASSWORD_DEFAULT DOES NOT WORK, changed to PASSWORD_BCRYPT
+	
 
 
 /**

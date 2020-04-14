@@ -18,9 +18,8 @@ session_start();
 	
 	
 	
-	
 	//if(!strcmp($password1, $password2)){	
-	if(password_verify( $password1 , $password2 )){
+	if(password_verify($password1,$password2)){
 
 	
 	  $_SESSION['name'] = $row['first_name']." ".$row['last_name'];

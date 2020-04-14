@@ -73,7 +73,7 @@ if($_SESSION['interaction_id'] != ""){
 
   <div class="dropdown">
 
-    <button class="dropbtn"> Hello <?php $_SESSION['name']?>
+    <button class="dropbtn"> Hello <?php echo $_SESSION['name'];?>
     </button>
     <div class="dropdown-content">
       <a href="./logout.php">Log Out</a>

@@ -245,8 +245,6 @@ VALUES ("distributor_quote_form", 4);
   INSERT INTO  form_code_table
 VALUES ("marketing_request_form", 5);
 
-INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `is_administrator`, `STATUS`, `employee_email`, `password`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, 'admin', '1', NULL, NULL, 'admin');
-
 ALTER TABLE `sample_form`
   MODIFY `sample_form_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
