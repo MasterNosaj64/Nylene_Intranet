@@ -4,6 +4,7 @@ include 'navigation.php';
 include 'databaseConnection.php';
 $dbConnection = setConnectionInfo();
 
+$_SESSION['customer_created'] = $_SESSION['company_id'];
 
 if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
 
@@ -21,7 +22,6 @@ VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email
 
      $result = $dbConnection->query($sqlRelationQuery);
 
-     $_SESSION['customer_created'] = $_SESSION['company_id'];
      
      echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
      exit();
