@@ -243,7 +243,7 @@
         <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
              <thead>
              <tr>
-                <th colspan="7" align="left">
+                <th colspan="7" align="center">
                     Business Contact Information
                 </th>
             </tr></thead>
@@ -271,34 +271,34 @@
                 <td id="info"> Company: </td>
 				
                 <td colspan="6"> 
-					<input type="hidden" id="comapny_id" value="<?php echo $company_info_row['company_id']; ?>"> <p style="background-color:lightblue;"> <?php echo $company_info_row['company_name']; ?> </p>
+					<input type="hidden" id="comapny_id" value="<?php echo $company_info_row['company_id']; ?>"> <?php echo $company_info_row['company_name']; ?> </p>
 				</td>
             </tr>
             <tr>
                 <td id="info"> Company Address: </td>
-                <td colspan="3"> <p style="background-color:lightblue;"> <?php echo $company_info_row['billing_address_street'] . ", " . $company_info_row['billing_address_city'] . ", " .  $company_info_row['billing_address_state'] . ", " . $company_info_row['billing_address_postalcode'] ?> </p> </div> </td>
+                <td colspan="3">  <?php echo $company_info_row['billing_address_street'] . ", " . $company_info_row['billing_address_city'] . ", " .  $company_info_row['billing_address_state'] . ", " . $company_info_row['billing_address_postalcode'] ?> </p> </div> </td>
                 <td id="info"> Primary Contact: </td>
-                <td colspan="1"> <input type="hidden" value="<?php echo $company_info_row['company_id'];?>"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_name']; ?> </p> </td>
+                <td colspan="1"> <input type="hidden" value="<?php echo $company_info_row['company_id'];?>">  <?php echo $customer_info_row['customer_name']; ?> </p> </td>
             </tr>
             <tr>
                 <td id="info"> Phone Number:
-                <td colspan="3"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_phone']; ?> </p> </td>
+                <td colspan="3"> <?php echo $customer_info_row['customer_phone']; ?> </p> </td>
                 <td id="info"> Email Address: </td>
-                <td colspan="1"> <p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_email']; ?> </p> </td>
+                <td colspan="1">  <?php echo $customer_info_row['customer_email']; ?> </p> </td>
             </tr>
             <tr>
                 <td id="info"> Fax Number: </td>
-                <td colspan="3"><p style="background-color:lightblue;"> <?php echo $customer_info_row['customer_fax']; ?> </p> </td>
+                <td colspan="3"> <?php echo $customer_info_row['customer_fax']; ?> </p> </td>
                 <td id="info"> Credit Application Submitted: </td>
                 <td colspan="1"> <input type="checkbox" name="credit_app_submitted" value="1"> </td>
             </tr>
             <thead>
             <tr>
-                <th colspan="4" align="left">
-                    Business Case for Sample
+                <th colspan="4" align="center">
+                    - Business Case for Sample -
                 </th>
-                <th colspan="2" align="left">
-                    Match To
+                <th colspan="2" align="center">
+                    - Match To -
                 </th>
             </tr></thead>
             <tr>
@@ -313,14 +313,14 @@
             </tr>
             <thead>
             <tr>
-                <th colspan="6" align="left"> Material Description, Special Handling or Label Request </th>
+                <th colspan="6" align="center"> - Material Description, Special Handling or Label Request - </th>
             </tr></thead>
             <tr>
                 <td colspan="6"> <input type="text" name="material_descr"> </td>
             </tr>
             <thead>
             <tr>
-                <th colspan="6" align="left"> Additional Information </th>
+                <th colspan="6" align="center"> - Additional Information - </th>
             </tr>
             </thead>
             <tr>
@@ -379,7 +379,7 @@
             </tr>
             <thead>
             <tr>
-                <th colspan="6" align="left"> Type Of Response Needed By: <input type="date" name="response_date"> </th>
+                <th colspan="6" align="center"> - Type Of Response Needed By - <input type="date" name="response_date"> </th>
             </tr>
             </thead>
             <tr>
@@ -406,7 +406,7 @@
             </tr>
             <thead>
             <tr>
-                <th colspan="6" align="left"> Distribution List (Other Contacts) </th>
+                <th colspan="6" align="center"> - Distribution List - </th>
             </tr>
             </thead>
             <tr> 

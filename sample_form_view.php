@@ -31,18 +31,19 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel="stylesheet" type="text/css" href="form.css">
 	</head>
 
 	<body height="100%" width="100%">
 
 	<form>
-        <table border=1 cellspacing="0" cellpadding="3" align="center">
+        <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
+        <thead>
              <tr>
-                <th colspan="7" align="left">
+                <th colspan="7" align="center">
                     Business Contact Information
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td id="info"> Submitted By: </td>
 
@@ -84,14 +85,15 @@
                 <td id="info"> Credit Application Submitted: </td>
                 <td colspan="1"> <input type="checkbox" name="credit_app_submitted" value="1" <?php if($qsr['credit_app_submitted'] == 1) {echo "checked";} ?>> </td>
             </tr>
+            <thead>
             <tr>
-                <th colspan="4" align="left">
-                    Business Case for Sample
+                <th colspan="4" align="center">
+                    - Business Case for Sample -
                 </th>
-                <th colspan="2" align="left">
-                    Match To
+                <th colspan="2" align="center">
+                    - Match To -
                 </th>
-            </tr>
+            </tr></thead>
             <tr>
                 <td colspan="4" rowspan="3" style="height:80px;"> <?php echo $qsr['business_case'] ?> </td>
                 <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1 <?php if($qsr['match_sample_sub'] == 1) {echo "checked";} ?>> Sample Submission  </td>
@@ -102,15 +104,17 @@
             <tr>
                 <td colspan="2"> <input type="checkbox" name="match_descr" value=1 <?php if($qsr['match_description'] == 1) {echo "checked";} ?>> Description  </td>
             </tr>
+            <thead>
             <tr>
-                <th colspan="6" align="left"> Material Description, Special Handling or Label Request </th>
-            </tr>
+                <th colspan="6" align="center"> - Material Description, Special Handling or Label Request - </th>
+            </tr></thead>
             <tr>
                 <td colspan="6"> <?php echo $qsr['material_description'] ?> </td>
             </tr>
+            <thead>
             <tr>
-                <th colspan="6" align="left"> Additional Information </th>
-            </tr>
+                <th colspan="6" align="center"> - Additional Information - </th>
+            </tr></thead>
             <tr>
                 <td id="info"> Customer Process </td>
                 <td colspan="2"> <?php echo $qsr['customer_proc'] ?> </td>
@@ -165,9 +169,10 @@
                 <td id="info"> Color Specifications </td>
                 <td colspan="5"> <?php echo $qsr['color_specs'] ?> </td>
             </tr>
+            <thead>
             <tr>
-                <th colspan="6" align="left"> Type Of Response Needed By: <?php echo $qsr['response_date'] ?> </th>
-            </tr>
+                <th colspan="6" align="center"> - Type Of Response Needed By - <?php echo $qsr['response_date'] ?> </th>
+            </tr></thead>
             <tr>
                 <td> <input type="checkbox" name="prod_rec" value=1 <?php if($qsr['prod_rec'] == 1) {echo "checked";} ?>> Product Recommendation  </td>
                 <td> <input type="checkbox" name="stock_prod_qty", value=1 <?php if($qsr['stock_prod_qty'] == 1) {echo "checked";} ?>>Stock Product QTY  </td>
@@ -190,9 +195,10 @@
             <tr>
                 <td colspan="6" id="info" align="center"> ---Note: SDS Sent With All Samples---</td>
             </tr>
+            <thead>
             <tr>
-                <th colspan="6" align="left"> Distribution List </th>
-            </tr>
+                <th colspan="6" align="center"> - Distribution List - </th>
+            </tr></thead>
             <tr>
                 <td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_1'] ?> </td>
 				<td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_2'] ?> </td>

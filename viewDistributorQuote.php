@@ -40,16 +40,17 @@ session_start();
 <html>
 	<head>
 		<title> View Distributor Quote Form</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+			<link rel="stylesheet" href="form.css">
 	</head>
 	
 	<body>
 	
 	<form>
-		<table border="1" cellspacing="0" cellpadding="1" align="center">
+		<table class= "form-table" border="1" cellspacing="0" cellpadding="1" align="center">
+		<thead>
 		<tr>
 			<th colspan="4">Distributor Quote Form</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td ><label for="date_created"> Date </label></td>
 			<td ><input type="text" name="date_created" readonly value="<?php echo $distRow['date_created'];?>"></td>
@@ -59,10 +60,10 @@ session_start();
 			<td ><input type="text" name="quote_num" readonly value="<?php echo $distRow['quote_num'];?>"></td>
 		</tr>
 		
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Employee Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>		
 			<!--Employee first name-->
 			<td><label for="first_name"> First Name </label></td>
@@ -93,10 +94,10 @@ session_start();
 			<td><label for="title"> Your Title </label></td>
 			<td><input type="text" name="title" readonly value="<?php echo $userRow['title'];?>"></td>
 		</tr>
-		
+		<thead>
 		<tr>
 			<th colspan="2" id="info">- Customer Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<!--Customer's Company-->
 			<td id="info"><label> Customer Company </label></td>
@@ -118,9 +119,10 @@ session_start();
 			<td id="info"><label> Customer Email </label></td>
 			<td><input type="email" name="customer_email" readonly value="<?php echo $customerRow['customer_email'];?>"></td>
 		</tr>
+		<thead>
 		<tr>
 			<th colspan="2">- Product Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td><label for="product_name"> Product Name </label></td>
 			<td><input type="text" name="product_name" readonly value="<?php echo $distRow['product_name'];?>"></td>
@@ -146,10 +148,10 @@ session_start();
 			<td><input type="text" name="truck_load" readonly value="<?php echo $distRow['truck_load'];?>"></td>
 		</tr>
 		
-		
+		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td> Payment terms are USD $ Funds, Net </td>
 			<td><input type="text" name="payment_terms" readonly value="<?php echo $distRow['payment_terms'];?>"></td>
