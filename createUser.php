@@ -87,7 +87,7 @@ x[1].value = today;
 						</td>
 						 
 						
-				<td><label for="department">Department</b></label> <input
+				<td><label for="department">Department</label> <input
 					name="department" type="text" maxlength="50" />
 				</td>
 			</tr>
@@ -96,8 +96,7 @@ x[1].value = today;
 				<td><label for="work_phone">Work Phone *</label><br /> <input
 					name="work_phone" type="text" maxlength="50" />
 				</td>
-				<td>Reports to <select id="employee" name="employee">
-				
+				<td>Reports to <select id="employee" name="reports_to">
 		<?php
 $connect = mysqli_connect("localhost", "root", "");
 $db = mysqli_select_db($connect, "nylene");
@@ -132,7 +131,7 @@ while ($row = mysqli_fetch_array($query)) {
 					-->
 					
 					<td ><label for="date_entered"> Date Modified </label>
-			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>" required></td>
+			<input type="date" id="date_entered" name="date_modified" value ="<?php echo date("Y-m-d") ?>" required></td>
 				
 				<!-- 	
 				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
