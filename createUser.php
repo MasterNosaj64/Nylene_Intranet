@@ -155,7 +155,6 @@ while ($row = mysqli_fetch_array($query)) {
 
 				<td>Admin<select id="Admin" name="is_administrator">
 										<option value=""></option>
-										<option></option>
 						<option value="1">Yes</option>
 						<option value="0">No</option></select></td>
 						
