@@ -2,6 +2,8 @@
 // session_start();
 if (! session_id()) {
     session_start();
+    unset($_SESSION['company_id']);
+    unset($_SESSION['interaction_id']);
 }
 
 include 'navigation.php';
