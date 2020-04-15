@@ -104,7 +104,7 @@
 	}
   
 	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
-	$dateSubmitted		= date("Y/M/D");
+	$dateSubmitted		= $_POST['dateSubmitted'];
 	$marketCode			= $_POST['mCode'];
 	$customer_id        = $_SESSION['customer_id'];
 	$company_id         = $_SESSION['company_id'];

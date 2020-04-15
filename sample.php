@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include 'navigation.php';
+  include 'navigation.php';
 	include 'connect.php';
 
 	if (mysqli_connect_error())
@@ -20,13 +20,16 @@
 		$company_info = $conn->query($company);
 		$company_info_row = mysqli_fetch_array($company_info);
 
-
 		$companies = "SELECT * FROM company";
-		$company_result = $conn->query($companies); 
+		$company_result = $conn->query($companies);
 
-		$result = $conn->query($username); 
+		$result = $conn->query($username);
 		$row = mysqli_fetch_array($result);
 	}
+
+  $todaysDateStr = date("Y/m/d");
+  $todaysDateDate = date_create($todaysDateStr);
+  date_modify($todaysDateDate, "-1 days");
 ?>
 
 <html>
@@ -34,204 +37,29 @@
         <link rel="stylesheet" type="text/css" href="form.css">
 
 		<script>
-            function validateForm ()
+      function validateForm ()
 			{
-				var company = document.forms["sample_form"]["company_id"].value;
-
-				if (document.getElementById("customer_id"))
-					var customer = document.forms["sample_form"]["customer_id"].value;
-
 				var reply_date = document.forms["sample_form"]["response_date"].value;
 
 				var supply_by = document.forms["sample_form"]["sample_req_date"].value;
 
-				var today = new Date().toJSON().slice(0, 10);
+        var today = new Date();
 
-				alert("Validating");
+        var dateToday = today.toJSON().slice(0, 10);
 
-				if (company == -1)
+    		if (reply_date < dateToday)
 				{
-					alert("You have to select a company!");
-					return false; 
+					     alert("Choose a future date for when the request is needed!");
+					     return false;
 				}
 
-				if (customer == -1)
-				{
-					alert("You have to select a customer!");
-					return false; 
-				}
+        if (supply_by != "" && supply_by < dateToday)
+        {
+              alert("Choose a future date for when the sample is needed!");
+              return false;
+        }
 
-				if (reply_date < today)
-				{
-					alert("Choose a future date for when the request is needed!");
-					return false;
-				}
-
-				const customer_id = document.createElement("input");
-				customer_id.type  = "hidden";
-				customer_id.id    = "customer_id";
-				customer_id.value = document.forms["sample_form"]["customer_id"].value;
-
-				document.getElementById("sample_form").Add(customer_id);
-
-				const company_id = document.createElement("input");
-				company_id.type  = "hidden";
-				company_id.id    = "company_id";
-				company_id.value = document.forms["sample_form"]["company"].value;
-
-				document.getElementById("sample_form").Add(company_id);
-
-				return true; 
-			}
-
-			/*
-				Uses PHP to query the database for all of the companies and creates
-				a dropdown menu of the existing companies, javascript then modifies the
-				appropriate html div accordingly
-			*/
-			function getCompanies ()
-			{
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("companies").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "generateDropDownCompanies.php", true);
-				xhttp.send();
-			}
-
-			/*
-				Uses PHP to query the database for all of the customers based on the
-				currently selected company and creates a dropdown menu of the those customers,
-				javascript then modifies the appropriate html div accordingly
-			*/
-			function generateDropDownContacts (str)
-			{
-				//Clear info when the user switches companies
-				document.getElementById("dropdown_popup_clients").innerHTML = this.responseText;
-				document.getElementById("fax").innerHTML = "<p> </p>";
-				document.getElementById("phone_num").innerHTML = "<p> </p>";
-				document.getElementById("email").innerHTML = "<p> </p>";
-				
-				//Clear everything if the user went back to selecting just the select company
-				if (str == "-1")
-				{
-					document.getElementById("dropdown_popup_clients").innerHTML = "<p> </p>";
-					document.getElementById("address").innerHTML = "<p> </p>";
-					return;
-				}
-
-				//Get the address of the new company (Billing)
-				getAddress(str);
-
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("dropdown_popup_clients").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "generateDropDownClients.php?q=" + str, true);
-				xhttp.send();
-			}
-
-			/*
-				Uses PHP to query the database for the contact information of the
-				currently selected customer javascript then modifies the appropriate 
-				html divs accordingly
-			*/
-			function populateInfo (str)
-			{
-				//Clear info if 
-				if (str == "-1")
-				{
-					document.getElementById("fax").innerHTML = "<p> </p>";
-					document.getElementById("phone_num").innerHTML = "<p> </p>";
-					document.getElementById("email").innerHTML = "<p> </p>";
-					return;
-				}
-
-				getPhoneNum(str);
-				getEmail(str);
-				getFax(str);
-			}
-
-			/*
-				Uses PHP to get the address of the currently selected company
-			*/
-			function getAddress (str)
-			{
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("address").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "getAddress.php?q=" + str, true);
-				xhttp.send();
-			}
-
-			/*
-				Uses PHP to get the email of the currently selected customer
-			*/
-			function getEmail (str)
-			{
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("email").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "getEmail.php?q=" + str, true);
-				xhttp.send();
-			}
-
-			/*
-				Uses PHP to get the phone number of the currently selected customer
-			*/
-			function getPhoneNum (str)
-			{
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("phone_num").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "getPhoneNum.php?q=" + str, true);
-				xhttp.send();
-			}
-
-			/*
-				Uses PHP to get the fax of the currently selected customer
-			*/
-			function getFax (str)
-			{
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function ()
-				{
-					if (this.readyState == 4 && this.status == 200)
-					{
-						document.getElementById("fax").innerHTML = this.responseText;
-					}
-				};
-
-				xhttp.open("GET", "getFax.php?q=" + str, true);
-				xhttp.send();
+				return true;
 			}
 
 			</script>
@@ -239,7 +67,7 @@
 
 	<body height="100%" width="100%">
     <div>
-	<form name="sample_form" action="insert.php" method="POST" onsubmit="validateForm()">
+	<form name="sample_form" action="insert.php" method="POST" onsubmit="return validateForm()">
         <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
              <thead>
              <tr>
@@ -251,9 +79,9 @@
                 <td  id="info"> Submitted By: </td>
 
                 <td colspan="2">  <input name="submittedBy" type="text" readonly value="<?php echo $row['first_name'] . " " . $row['last_name']; ?>"> </td>
-   
+
                 <td id="info"> Date Created: </td>
-                <td> <input name="dateSubmitted" type="text" readonly value="<?php echo date("Y/m/d"); ?>"> </td>
+                <td> <input name="dateSubmitted" type="text" readonly value="<?php echo date_format($todaysDateDate, "Y/m/d"); ?>"> </td>
                 <td>
                     Market Code:
                     <select id="mCode" name="mCode">
@@ -269,8 +97,8 @@
             </tr>
             <tr>
                 <td id="info"> Company: </td>
-				
-                <td colspan="6"> 
+
+                <td colspan="6">
 					<input type="hidden" id="comapny_id" value="<?php echo $company_info_row['company_id']; ?>"> <?php echo $company_info_row['company_name']; ?> </p>
 				</td>
             </tr>
@@ -409,19 +237,19 @@
                 <th colspan="6" align="center"> - Distribution List - </th>
             </tr>
             </thead>
-            <tr> 
+            <tr>
 				<td colspan="2" id="info"> Other Contact 1: </td>
                 <td colspan="4"><input type="text" name="other_contact1"> </td>
             </tr>
-            <tr> 
+            <tr>
 				<td colspan="2" id="info"> Other Contact 2: </td>
                 <td colspan="4"><input type="text" name="other_contact2"> </td>
             </tr>
-			<tr> 
+			<tr>
 				<td colspan="2" id="info"> Other Contact 3: </td>
                 <td colspan="4"><input type="text" name="other_contact3"> </td>
             </tr>
-			<tr> 
+			<tr>
 				<td colspan="2" id="info"> Other Contact 4: </td>
                 <td colspan="4"><input type="text" name="other_contact4"> </td>
             </tr>
@@ -433,4 +261,4 @@
 	</form>
     </div>
 	</body>
-</html> 
+</html>

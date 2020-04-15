@@ -11,21 +11,21 @@
 			{
 				$username = "SELECT first_name, last_name FROM employee WHERE employee_id = " . $_SESSION['userid'];
 
-				$result = $conn->query($username); 
+				$result = $conn->query($username);
 				$row = mysqli_fetch_array($result);
 
 				$company_address = "SELECT ";
 			}
 
 			$query_samples	= "SELECT * FROM sample_form WHERE sample_form_id = " . $_POST['id'];
-			$query_samples_results = $conn->query($query_samples);								
+			$query_samples_results = $conn->query($query_samples);
 			$qsr = mysqli_fetch_array($query_samples_results);
 
-			$getCustomer = "SELECT * FROM company 
+			$getCustomer = "SELECT * FROM company
 								INNER JOIN company_relational_customer ON company_relational_customer.company_id = company.company_id
-								INNER JOIN customer ON customer.customer_id = company_relational_customer.customer_id WHERE customer.customer_id = " . $qsr['customer_code']; 
+								INNER JOIN customer ON customer.customer_id = company_relational_customer.customer_id WHERE customer.customer_id = " . $qsr['customer_code'];
 
-			$getCustomerResult = $conn->query($getCustomer);	
+			$getCustomerResult = $conn->query($getCustomer);
 			$gcr = mysqli_fetch_array($getCustomerResult);
 ?>
 
@@ -48,20 +48,20 @@
                 <td id="info"> Submitted By: </td>
 
                 <td colspan="2">  <input name="submittedBy" type="text" readonly value="<?php echo $row['first_name'] . " " . $row['last_name']; ?>"> </td>
-     
+
                 <td id="info"> Date Created: </td>
                 <td> <input name="dateSubmitted" type="text" readonly value="<?php echo $qsr['date_submitted']; ?>"> </td>
                 <td>
                     Market Code:
-                   
+
 					<?php echo $qsr['m_code'] ?>
-					
+
                 </td>
             </tr>
             <tr>
                 <td id="info"> Company: </td>
-				
-                <td colspan="6"> 
+
+                <td colspan="6">
 				<div id="companies">
 					<?php echo $gcr['company_name'] ?>
 				</div>
@@ -109,7 +109,7 @@
                 <th colspan="6" align="center"> - Material Description, Special Handling or Label Request - </th>
             </tr></thead>
             <tr>
-                <td colspan="6"> <?php echo $qsr['material_description'] ?> </td>
+                <td colspan="6"> <?php echo $qsr['material_description']; if ($qsr['material_description'] == "") {echo "<br/>";}?> </td>
             </tr>
             <thead>
             <tr>
@@ -200,7 +200,7 @@
                 <th colspan="6" align="center"> - Distribution List - </th>
             </tr></thead>
             <tr>
-                <td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_1'] ?> </td>
+                <td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_1']; if ($qsr['other_contact_1'] == "") {echo "<br/>";} ?> </td>
 				<td colspan="3" style="width:50%"> <?php echo $qsr['other_contact_2'] ?> </td>
 			</tr>
 			<tr>
@@ -210,4 +210,4 @@
         </table>
 	</form>
 	</body>
-</html> 
+</html>
