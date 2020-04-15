@@ -121,7 +121,6 @@ if ($_POST['company_id'] != "") {
 		<option value="Truckload Quote">Truckload Quote</option>
 		<option value="Light Truckload Quote">Light Truckload Quote</option>
 		<option value="Sample">Sample</option>
-		<option value="Truckload Quote">Truckload Quote</option>
 		</select>
 		</td>
 		<td>Form (if applicable):</td>
