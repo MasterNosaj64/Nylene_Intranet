@@ -52,7 +52,7 @@ $companyInfo = $dbConnection->query($companysqlquery)->fetch(PDO::FETCH_ASSOC);
 $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = ".$_SESSION['company_id'] ." LIMIT 10 OFFSET ".$_POST['offset'];
 $customers = $dbConnection->query($customersqlquery);
 
-echo "<h1>Company View</h1>";
+//echo "<h1>Company View</h1>";
 
 //Get company info
 $companyAddress = $companyInfo["billing_address_street"].", ".$companyInfo["billing_address_city"].", "

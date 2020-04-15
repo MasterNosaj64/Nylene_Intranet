@@ -33,7 +33,7 @@ else{
 <html>
  <link rel="stylesheet" href="table.css">
 <body>
-<h1>Interaction</h1>
+<!-- <h1>Interaction</h1> -->
 <table class="form-table" border = 5>
   <tr>
   		<td>Company:</td><td><?php echo $viewCompanyData['company_name'];?></td>

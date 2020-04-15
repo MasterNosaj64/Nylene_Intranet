@@ -85,7 +85,7 @@ if ($_POST['company_id'] != "") {
 <html>
   <link rel="stylesheet" href="table.css">
 <body>
-<h1>Interaction</h1>
+<!-- <h1>Interaction</h1> -->
 
 <form method="post" action=AddInteraction.php name="add_interaction">
 <input type="reset" value="Clear">

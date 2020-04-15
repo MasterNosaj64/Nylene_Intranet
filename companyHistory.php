@@ -30,7 +30,7 @@ if($_SESSION['company_id'] != ""){
     $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
 $result = $dbConnection->query($sqlquery);
 //$test = $dbConnection->query($sqlquery);
-echo "<h1>Company History</h1>";
+//echo "<h1>Company History</h1>";
 
 //Get company info
 $sqlGetCompany = "SELECT * FROM nylene.company WHERE company_id = ".$_SESSION['company_id'];
