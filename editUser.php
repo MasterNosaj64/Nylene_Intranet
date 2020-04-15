@@ -39,13 +39,13 @@ include 'navigation.php';
 	<input name="employee_id" type="text" maxlength="100" style="width: 535px" />
 	</td> </tr>-->
 			<tr>
-				<td style="width: 50%"><label for="first_name">First Name *</label><br /> <input
+				<td style="width: 50%"><label for="first_name">First Name </label><br /> <input
 					name="first_name" type="user" maxlength="50" /></td>
-				<td style="width: 50%"><label for="last_name">Last Name *</label><br /> <input
+				<td style="width: 50%"><label for="last_name">Last Name </label><br /> <input
 					name="last_name" type="user" maxlength="50" /></td>
 			</tr>
 			<tr>
-				<td style="width: 50%"><label for="title">Title *</label><br /> <select id="options"
+				<td style="width: 50%"><label for="title">Title </label><br /> <select id="options"
 					name="title">
 						<option value=""></option>
 						<option value="admin">Admin</option>
@@ -56,7 +56,7 @@ include 'navigation.php';
 			</tr>
 
 			<tr>
-				<td><label for="work_phone">Work Phone *</label><br /> <input
+				<td><label for="work_phone">Work Phone </label><br /> <input
 					name="work_phone" type="user" maxlength="50" /></td>
 				<td><label for="reports_to">Reports to</label><br /> <select
 					id="options" name="reports_to">
@@ -100,17 +100,17 @@ x[1].value = today;
 }
 </script>
 
-				<td colspan="2"><label for="date_modified">Date Modified *</label><br />
+				<td colspan="2"><label for="date_modified">Date Modified </label><br />
 					<input name="date_modified" type="date" class="theDate"
 					maxlength="100" readonly /></td>
 
 			</tr>
 
 			<tr>
-				<td><label for="modified_by">Modified By *</label><br /> <input
+				<td><label for="modified_by">Modified By </label><br /> <input
 					name="modified_by" type="text" maxlength="50"
 					value="<?php echo $_SESSION['userid']?>" readonly /></td>
-				<td style="width: 50%"><label for="username">Username *</label><br /> <input
+				<td style="width: 50%"><label for="username">Username </label><br /> <input
 					name="username" type="text" maxlength="50"  />
 				</td>
 			</tr>
@@ -133,12 +133,12 @@ x[1].value = today;
 			</tr>
 
 			<tr>
-				<td colspan="2"><label for="employee_email">Email *</label><br />
+				<td colspan="2"><label for="employee_email">Email </label><br />
 					<input name="employee_email" type="text" maxlength="100"
 					 /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><label for="password">Password *</label><br />
+				<td colspan="2"><label for="password">Password </label><br />
 					<input name="password" type="text" maxlength="100"
 					 /></td>
 			</tr>
