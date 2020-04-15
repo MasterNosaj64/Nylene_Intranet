@@ -31,23 +31,24 @@ else{
 }
 ?>
 <html>
+ <link rel="stylesheet" href="table.css">
 <body>
 <h1>Interaction</h1>
-<table border = 5>
+<table class="form-table" border = 5>
   <tr>
-  		<td><h2>Company:</h2></td><td><?php echo $viewCompanyData['company_name'];?></td>
-  		<td><h2>Address:</h2></td><td><?php echo $companyAddress;?></td>
-  		<td><h2>Company Email:</h2></td><td><a href="mailto:<?php echo $viewCompanyData['company_email'];?>"><?php echo $viewCompanyData['company_email'];?></a></td>
+  		<td>Company:</td><td><?php echo $viewCompanyData['company_name'];?></td>
+  		<td>Address:</td><td><?php echo $companyAddress;?></td>
+  		<td>Company Email:</td><td><a href="mailto:<?php echo $viewCompanyData['company_email'];?>"><?php echo $viewCompanyData['company_email'];?></a></td>
   </tr>
   <tr>
-		<td><h2>Name:</h2></td><td><?php echo $viewCustomerData['customer_name'];?></td>
-		<td><h2>Email:</h2></td><td><a href="mailto: <?php echo $viewCustomerData['customer_email'];?>"><?php echo $viewCustomerData['customer_email'];?></a></td>
-		<td><h2>Phone:</h2></td><td><?php echo $viewCustomerData['customer_phone'];?></td>
+		<td>Name:</td><td><?php echo $viewCustomerData['customer_name'];?></td>
+		<td>Email:</td><td><a href="mailto: <?php echo $viewCustomerData['customer_email'];?>"><?php echo $viewCustomerData['customer_email'];?></a></td>
+		<td>Phone:</td><td><?php echo $viewCustomerData['customer_phone'];?></td>
  </tr>
  <tr>
-		<td><h2>Reason:</h2></td><td><?php echo $viewInteractionData['reason'];?></td>
-		<td><h2>Date Created:</h2></td><td><?php echo $viewInteractionData['date_created'];?></td>
-		<td><h2>Form: </h2></td><td>
+		<td>Reason:</td><td><?php echo $viewInteractionData['reason'];?></td>
+		<td>Date Created:</td><td><?php echo $viewInteractionData['date_created'];?></td>
+		<td>Form:</td><td>
 		<?php 
 		
 		if($viewInteractionForm != null){

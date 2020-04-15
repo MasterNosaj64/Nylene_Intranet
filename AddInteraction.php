@@ -97,7 +97,7 @@ if ($_POST['company_id'] != "") {
   </tr>
   <tr>
 		<td>Customer:</td><td>
-		<select required name="customer_id">
+		<select id="selection" required name="customer_id">
 		<option></option>
 		<?php 
 		
@@ -110,8 +110,7 @@ if ($_POST['company_id'] != "") {
 		</select>
 		</td>
 		<td>Reason:</td>
-		<td>
-		<select required name="reason">
+		<td><select id="selection" required name="reason">
 		<option></option>
 		<option value="Update">Update</option>
 		<option value="General">General</option>
@@ -125,8 +124,9 @@ if ($_POST['company_id'] != "") {
 		<option value="Truckload Quote">Truckload Quote</option>
 		</select>
 		</td>
-		<td>Form (if applicable):</td><td>
-		<select name="form">
+		<td>Form (if applicable):</td>
+		<td>
+		<select id="selection" required name="form">
 		<option value="0"></option>
 <!-- 		<option value="5">Marketing Request</option> -->
 		<option value="4">Distributor Quote</option>

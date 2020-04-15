@@ -201,6 +201,18 @@ margin: 5 0 0 0;
     padding: 0 40px 0 40px; 
       cursor: pointer
 }
+#selection{
+			  width: 100%;
+  margin: 5 0 0 0;
+    text-align:center
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+    background-color: white;
+    padding: 0 40px 0 40px; 
+      cursor: pointer
+}
 
 textarea {
  width: 100%;
