@@ -81,6 +81,7 @@ x[1].value = today;
 			<tr>
 			
 				<td> Title* <select id="title" name="title">
+										<option value=""></option>
 						<option value="admin">Admin</option>
 						<option value="sales_rep">Sales Rep</option>
 						<option value="sales_manager">Sales Manager</option></select> 
@@ -121,23 +122,23 @@ while ($row = mysqli_fetch_array($query)) {
 		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
 			<tr>
 
-	<td ><label for="date_entered"> Date Entered </label>
-			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>" required></td>
+	<!--<td ><label for="date_entered"> Date Entered </label>
+			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>"  readonly></td>-->
 
-<!--
+
 				<td style="width: 50%"><label for="date_entered"><b>Date Entered *</b></label><br />
 					<input name="date_entered" type="date" class="theDate"
 					maxlength="100" style="width: 260px" readonly /></td>
-					-->
 					
-					<td ><label for="date_entered"> Date Modified </label>
-			<input type="date" id="date_entered" name="date_modified" value ="<?php echo date("Y-m-d") ?>" required></td>
+					
+					<!--<td ><label for="date_entered"> Date Modified </label>
+			<input type="date" id="date_entered" name="date_modified" value ="<?php echo date("Y-m-d") ?>" readonly></td>-->
 				
-				<!-- 	
+				
 				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
 					<input name="date_modified" type="date" class="theDate"
-					maxlength="100" style="width: 260px" readonly /> <!--<input name="date_modified" type="date" value ="<?php echo date("Y-m-d") ?>" style="width: 260px">
-					-->
+					maxlength="100" style="width: 260px" readonly /> </td>
+					
 
 
 
@@ -156,6 +157,7 @@ while ($row = mysqli_fetch_array($query)) {
 			<tr>
 
 				<td>Admin<select id="Admin" name="is_administrator">
+										<option value=""></option>
 						<option value="1">Yes</option>
 						<option value="0">No</option></select></td>
 						

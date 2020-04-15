@@ -37,6 +37,7 @@ if($_SESSION['role'] == "admin"){
     echo "</button>";
     echo "<div class=\"dropdown-content\">";
 	echo "<a href=\"createUser.php\">Create User</a>";
+	echo "<a href=\"editUserDatabase.php\">Edit User</a>";
 	echo "</div>";
 	echo "</div>";
 }

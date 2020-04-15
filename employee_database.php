@@ -22,7 +22,7 @@
 //}
 
 if($connect) {
-  echo '<h1>Thanks for creating user</h1>';
+  //echo '<h1>Thanks for creating user</h1>';
  // if(isset($_POST['example2']) ){
  //$employee_id=$_POST['employee_id'];
 $first_name=$_POST['first_name'];
@@ -70,18 +70,19 @@ $emergency_contact_phone=$_POST['EmergencyContactPhone'];
 **/
   //if connected then Select Database. 
   $db=mysqli_select_db($connect,$DB_DATABASE);
-    echo '<h1>Connected to MySQL</h1>';
+    //echo '<h1>Connected to MySQL</h1>';
 
     $query=mysqli_query($connect,"INSERT INTO employee(first_name,last_name,title,department,work_phone,reports_to,date_entered,date_modified,modified_by,username,is_administrator,STATUS,employee_email,password) VALUES ('$first_name', '$last_name', '$title','$department','$work_phone','$reports_to','$date_entered','$date_modified','$modified_by','$username','$is_administrator','$STATUS','$employee_email','$password')");
- if (!$query) {
-    echo (mysqli_error($connect)) ;
-	echo "           fail";
-}
-else{ 
+	if (!$query) {
+		echo (mysqli_error($connect)) ;
+		//echo "           fail";
+	}
+	else{ 
+	header('Location: Homepage.php');
 //     echo "      Success </br> ";
 //     echo "<a href=\"Homepage.php\">Homepage</a>";
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
-    exit();
+    //echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
+    //exit();
 }
  
  
