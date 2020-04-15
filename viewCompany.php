@@ -118,6 +118,7 @@ exit();
 
 </table>
 <table class = "form-table" border=5>
+<thead>
 	<tr>
 		<td>Name</td>
 		<td>Email</td>
@@ -125,7 +126,7 @@ exit();
 		<td>Fax</td>
 		<td>Date Created</td>
 		<td>Manage</td>
-	</tr>
+	</tr> </thead>
 
 	<?php
 
