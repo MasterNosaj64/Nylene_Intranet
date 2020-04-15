@@ -55,12 +55,12 @@ if(isset($_POST['search_By_Name'])){
     //$sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
     $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET ".$_POST['offset'];
     $result = $dbConnection->query($sqlquery);
-    $test = $dbConnection->query($sqlquery);
+//     $test = $dbConnection->query($sqlquery);
 
-if(!$test->fetch()){
-    echo "The company database is empty";
-  exit;
-}
+// if(!$test->fetch()){
+//     echo "The company database is empty";
+//   exit;
+// }
 }
 ?>
 <html>
