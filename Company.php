@@ -108,10 +108,10 @@ echo "1";
     $stmt->bindParam(":created_by", $this->created_by);
 	$stmt->bindParam(":company_name", $this->company_name);
 	echo "2";
-    // if($stmt->execute($this->website,)){
-	// 	return true;
-	// 	echo "3";
-    // }
+    if($stmt->execute($this.website,$this.shipping_address_street,$this.shipping_address_city,$this.shipping_address_state,$this.shipping_address_postalcode,$this.shipping_address_country,$this.billing_address_street,$this.billing_address_city,$this.billing_address_state,$this.billing_address_postalcode,$this.billing_address_country,$this.description,$this.type,$this.industry,$this.assigned_to,$this.date_created,$this.date_modified,$this.created_by,$this.company_name)){
+		return true;
+		echo "3";
+    }
   
     return false;
       
