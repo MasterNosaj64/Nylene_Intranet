@@ -3,7 +3,7 @@
 //session_start();
  if (!session_id()) {
 session_start();
-
+include 'navigation.php';
 } 
 
 //print_r();
@@ -11,26 +11,25 @@ session_start();
 ?>
 
 <html>
+<head>
+<link rel="stylesheet" href="table.css">
+</head>
 
+<tr>
 <form method="post" action="" >
-  <label for="subjectEmail">
-	<b>Email of employee to be edited *</b></label><br />
-	<input name="subjectEmail" type="text" maxlength="50" style="width: 260px" />
+  <label for="subjectEmail"><b>
+	Enter employee email:</b></label><br />
+	<input name="subjectEmail" type="email" maxlength="50" />
     
 <input type="submit" name="Submit">
-  
+  </tr>
 </form>  
+
 </html>
 
 
 
 <?php
-
-
-
-
-
-
 
 if(isset($_POST['Submit'] )){
     $DB_HOST = "localhost";

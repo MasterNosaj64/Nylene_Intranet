@@ -182,7 +182,7 @@ input[type=checkbox]{
   border: 2px solid #ccc;
   border-radius: 4px;
   background-color: black;
-  padding: 5px 12px 5px 12px; /*12*/
+  padding: 5px 12px 5px 12px; 
   text: pointer
 }
 
@@ -195,7 +195,7 @@ input[type=checkbox]{
     border-radius: 4px;
     font-size: 20px;
     background-color: white;
-    padding: 0 40px 0 40px; /*12*/
+   padding: 5px 12px 5px 12px;
     cursor: pointer;
   }
 
@@ -208,7 +208,7 @@ input[type=checkbox]{
     border-radius: 4px;
     font-size: 20px;
     background-color: white;
-    padding: 0 40px 0 40px; /*12*/
+    padding: 5px 12px 5px 12px;
       cursor: pointer
 }
 
@@ -221,7 +221,7 @@ input[type=checkbox]{
     border-radius: 4px;
     font-size: 20px;
     background-color: white;
-    padding: 0 40px 0 40px; /*12*/
+   padding: 5px 12px 5px 12px;
     cursor: pointer
 }
 

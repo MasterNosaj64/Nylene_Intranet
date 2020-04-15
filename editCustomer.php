@@ -62,7 +62,8 @@ else {
 		</tr>
 		<tr>
 			<td>Fax:</td>
-			<td><input type="tel" value="<?php echo $customerInfo['customer_fax'];?>" name="fax"></td>
+			<td colspan=3><input type="tel" value="<?php echo $customerInfo['customer_fax'];?>" name="fax"></td>
+			
 		</tr>
 		
 	</table>

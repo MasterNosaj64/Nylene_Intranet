@@ -37,7 +37,7 @@ session_start();
 		
 		$dbConnection->close();
 		
-		echo var_dump($customerRow);
+		//echo var_dump($customerRow);
 	}
 ?>
 <html>

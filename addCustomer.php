@@ -65,7 +65,7 @@ else{
 		</tr>
 		<tr>
 			<td>Fax:</td>
-			<td><input type="tel" name="fax"></td>
+			<td colspan=3><input type="tel" name="fax"></td>
 		</tr>
 		
 	</table>

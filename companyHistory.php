@@ -61,7 +61,7 @@ else{
 
 <form method="post" action="AddInteraction.php">
 <input hidden name="company_id" value="<?php echo $_SESSION['company_id'];?>"/>
-<input type="submit" value="Create Interaction"/>
+<input type="submit" id="create_interaction" name="create_interaction"  value="Create Interaction"/>
 </form>
 
 <!-- 
@@ -103,16 +103,17 @@ else{
 </td></tr>";
 	}
 	?>
-<table class= "form-table" border=0 align: center;>
-<td>
-<form method="post" action="companyHistory.php">
-<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
-<input type="submit" value="Next 10"/>
-</form></td>
+<table class= "form-table" align: center;>
 <td>
 <form method="post" action="companyHistory.php">
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
 <input type="submit" value="Previous 10"/>
+</form></td>
+
+<td>
+<form method="post" action="companyHistory.php">
+<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
+<input type="submit" value="Next 10"/>
 </form></td>
 
 </table>

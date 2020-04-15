@@ -31,15 +31,16 @@ session_start();
 <html>
 	<head>
 		<title>TL Quote Form</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="form.css">
 	</head>
 	
 	<body>
 	<form name="TlQuoteForm" action="newTlQuote.php" method="post" onsubmit="return validateForm()">
-		<table border="1" cellspacing="0" cellpadding="1" align="center" >
+		<table class= "form-table" border="1" cellspacing="0" cellpadding="1" align="center" >
+		<thead>
 		<tr>
 			<th colspan="4">TL Quote Form</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td ><label for="date_created"> Date </label></td>
 			<td ><input type="date" id="date_created" name="date_created" required></td>
@@ -49,10 +50,10 @@ session_start();
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
 
-		
+		<thead>`
 		<tr>
 			<th colspan="2">- Employee Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>		
 			<!--Employee first name-->
 			<td><label for="first_name"> First Name </label></td>
@@ -84,9 +85,10 @@ session_start();
 			<td><input type="text" id="title" readonly value="<?php echo $row['title'];?>"></td>
 		</tr>
 		
+		<thead>
 		<tr>
 			<th colspan="2">- Customer Information -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<!--Customer's Company-->
 			<td><label for="compnay_name"> Customer Company </label></td>
@@ -136,10 +138,10 @@ session_start();
 			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
 			<td><input type="text" id="truck_load" name="truck_load"></td>
 		</tr>
-
+<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
-		</tr>
+		</tr></thead>
 		<tr>
 			<td>Payment terms are USD $ Funds, Net </td>
 			<td><select id="payment_terms" name="payment_terms">
