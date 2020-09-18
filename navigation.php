@@ -15,13 +15,13 @@ session_start();
 <html>
 <div>
 <head>
-<link rel="stylesheet" href="nav.css">
+<link rel="stylesheet" href="../CSS/nav.css">
 
 <div class="navigation">
 
 <!-- 	<a href="homepage.php">Nylene</a> -->
 
-  <a href="homepage.php"><span title="Home"><img  width="180" align="middle" heigth="auto" src="Nylene-alt.png"></span></a>
+  <a href="../Home/homepage.php"><span title="Home"><img  width="180" align="middle" heigth="auto" src="../Graphics/Nylene-alt.png"></span></a>
   
 <!--  <a href="sample.php">Sample</a> -->
 
@@ -36,8 +36,8 @@ if($_SESSION['role'] == "admin"){
     echo "<button class=\"dropbtn\">Admin Panel";
     echo "</button>";
     echo "<div class=\"dropdown-content\">";
-	echo "<a href=\"createUser.php\">Create User</a>";
-	echo "<a href=\"editUserDatabase.php\">Edit User</a>";
+	echo "<a href=\"../Admin/createUser.php\">Create User</a>";
+	echo "<a href=\"../Admin/editUserDatabase.php\">Edit User</a>";
 	echo "</div>";
 	echo "</div>";
 }
@@ -48,8 +48,8 @@ if($_SESSION['role'] == "admin"){
     <button class="dropbtn">Company Directory
     </button>
     <div class="dropdown-content">
-      <a href="./searchCompany.php">Search Company</a>
-      <a href="./addCompany.php">Add Company</a>
+      <a href="../Company.Employee/searchCompany.php">Search Company</a>
+      <a href="../Company.Employee/addCompany.php">Add Company</a>
 
 
 
@@ -60,7 +60,7 @@ if($_SESSION['role'] == "admin"){
 if(isset($_SESSION['company_id'])){
 if($_SESSION['company_id'] != ""){
     echo "<div class=\"dropdown\">";
-    echo "<a class=\"dropbtn\" href=\"viewCompany.php\">View Company</a>";
+    echo "<a class=\"dropbtn\" href=\"../Company.Employee/viewCompany.php\">View Company</a>";
     echo "</div>";
 }
 }
@@ -68,7 +68,7 @@ if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || isse
 //if($_SESSION['interaction_id'] != ""){
     unset($_SESSION['navToAddInteractionPage']);
     echo "<div class=\"dropdown\">";
-    echo "<a class=\"dropbtn\" href=\"companyHistory.php\">Company History</a>";
+    echo "<a class=\"dropbtn\" href=\"../Interactions/companyHistory.php\">Company History</a>";
     echo "</div>";
 //}
 }
@@ -90,10 +90,10 @@ if(isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || isse
 
   <div class="dropdown-user">
 
-    <button class="dropbtn"><img src="userIcon.png" width="20" heigth="auto" align="middle"> <?php echo $_SESSION['name'];?>
+    <button class="dropbtn"><img src="../Graphics/userIcon.png" width="20" heigth="auto" align="middle"> <?php echo $_SESSION['name'];?>
     </button>
     <div class="dropdown-content">
-      <a href="./logout.php">Log Out</a>
+      <a href="../logout.php">Log Out</a>
       <!--  -->
 
     </div>
