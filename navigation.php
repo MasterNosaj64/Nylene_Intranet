@@ -48,8 +48,8 @@ if($_SESSION['role'] == "admin"){
     <button class="dropbtn">Company Directory
     </button>
     <div class="dropdown-content">
-      <a href="../Company.Employee/searchCompany.php">Search Company</a>
-      <a href="../Company.Employee/addCompany.php">Add Company</a>
+      <a href="../Company.Customer/searchCompany.php">Search Company</a>
+      <a href="../Company.Customer/addCompany.php">Add Company</a>
 
 
 
@@ -60,7 +60,7 @@ if($_SESSION['role'] == "admin"){
 if(isset($_SESSION['company_id'])){
 if($_SESSION['company_id'] != ""){
     echo "<div class=\"dropdown\">";
-    echo "<a class=\"dropbtn\" href=\"../Company.Employee/viewCompany.php\">View Company</a>";
+    echo "<a class=\"dropbtn\" href=\"../Company.Customer/viewCompany.php\">View Company</a>";
     echo "</div>";
 }
 }

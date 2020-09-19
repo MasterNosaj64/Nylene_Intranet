@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 <head>
-<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="CSS/login.css">
 </head>
 <div class="background">
 <div class="login">
