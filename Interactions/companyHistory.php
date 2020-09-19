@@ -3,8 +3,9 @@ session_start();
 unset($_SESSION['interaction_id']);
 
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php';
+$dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
 
 if($_SESSION['company_id'] != ""){
 
@@ -28,14 +29,17 @@ if($_SESSION['company_id'] != ""){
     
 //Get Interactions for Company by company_id
     $sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
-$result = $dbConnection->query($sqlquery);
+/* $result = $dbConnection->query($sqlquery); */
+    $result = $conn->query($sqlquery);
 //$test = $dbConnection->query($sqlquery);
 //echo "<h1>Company History</h1>";
 
 //Get company info
 $sqlGetCompany = "SELECT * FROM nylene.company WHERE company_id = ".$_SESSION['company_id'];
-$getCompanyInfo = $dbConnection->query($sqlGetCompany);
-$companyInfo = $getCompanyInfo->fetch(PDO::FETCH_ASSOC);
+/* $getCompanyInfo = $dbConnection->query($sqlGetCompany);
+$companyInfo = $getCompanyInfo->fetch(PDO::FETCH_ASSOC); */
+$getCompanyInfo = $conn->query($sqlGetCompany);
+$companyInfo = mysqli_fetch_array($getCompanyInfo);
 
 $companyAddress = $companyInfo["billing_address_street"].", ".$companyInfo["billing_address_city"].", "
     .$companyInfo["billing_address_state"].", ".$companyInfo["billing_address_country"].", ".$companyInfo["billing_address_postalcode"];
@@ -88,11 +92,13 @@ else{
 	</thead>
 	<?php 
 	
-	while($row = $result->fetch(PDO::FETCH_ASSOC)){
-	    
+	/* while($row = $result->fetch(PDO::FETCH_ASSOC)){ */
+	   while($row = mysqli_fetch_array($result)){ 
 	    $sqlGetCustomerID = "SELECT * FROM nylene.customer WHERE customer_id =".$row["customer_id"];
-	    $getCustomerName = $dbConnection->query($sqlGetCustomerID);
-	    $customerName = $getCustomerName->fetch(PDO::FETCH_ASSOC);
+	   /*  $getCustomerName = $dbConnection->query($sqlGetCustomerID);
+	    $customerName = $getCustomerName->fetch(PDO::FETCH_ASSOC); */
+	    $getCustomerName = $conn->query($sqlGetCustomerID);
+	    $customerName = mysqli_fetch_array($getCustomerName);
 	    
 	    echo "<tr><td>".$row["date_created"]."</td><td>".$customerName["customer_name"]."</td><td>".$row["reason"]."</td><td>". substr($row["comments"],0,50) . "</td><td>
 

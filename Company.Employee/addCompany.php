@@ -5,9 +5,9 @@ unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
-
+/* include '../Database/databaseConnection.php'; */
+/* $dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
 
 
 if (isset($_POST['submit'])) {
@@ -22,20 +22,23 @@ if (isset($_POST['submit'])) {
     }
 
     // check if company was already added
-    $validateCompanyQuery = "SELECT count(*) FROM nylene.company WHERE company_name = '".$_POST['name']."'";
-    $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn();
-
+    $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['name']."'";
+    /* $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn(); */
+    $validationResult = $conn->query($validateCompanyQuery);
+    
     //if it doesn't exist, add it to the database
-    if ($validationResult == 0) {
+    if (mysqli_fetch_array($validationResult) == NULL) {
 
         $t = time();
         // , assigned_to, date_created, created_by)
         $sqlQuery = "INSERT INTO nylene.company (company_name, website, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode, billing_address_country, shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, shipping_address_country, description, type, industry, company_email, date_created, created_by)
         VALUES ('" . $_POST['name'] . "','" . $_POST['website'] . "','" . $_POST['billingStreet'] . "','" . $_POST['billingCity'] . "','" . $_POST['billingState'] . "','" . $_POST['billingPostalCode'] . "','" . $_POST['billingCountry'] . "','" . $_POST['shippingStreet'] . "','" . $_POST['shippingCity'] . "','" . $_POST['shippingState'] . "','" . $_POST['shippingPostalCode'] . "','" . $_POST['shippingCountry'] . "','" . $_POST['description'] . "','" . $_POST['type'] . "','" . $_POST['industry'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','".$_SESSION['userid']."')"; // 16
 
-        $result = $dbConnection->query($sqlQuery);
-        $company_id = $dbConnection->lastInsertId();
-
+       /*  $result = $dbConnection->query($sqlQuery);
+        $company_id = $dbConnection->lastInsertId(); */
+        
+        $result = $conn->query($sqlQuery);
+        $company_id = $conn->insert_id;
         //store company_id in session for further use then redirect user to next page
         $_SESSION["company_id"] = $company_id;
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ./addCustomer.php\" />;";

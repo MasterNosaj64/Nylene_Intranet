@@ -1,8 +1,9 @@
 <?php
 session_start();
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php';
+$dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
 
 if(isset($_SESSION['company_id'])){
     $_SESSION['customer_created'] = $_SESSION['company_id'];
@@ -14,15 +15,17 @@ if(isset($_SESSION['company_id'])){
         $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
 VALUES ('". $_POST['firstName'] . " " . $_POST['lastName']. "','". $_POST['email'] . "','" . date("Y-m-d",$t) . "','" . $_POST['phone']."','" . $_POST['fax']."')"; //16
         
-        $result = $dbConnection->query($sqlQuery);
+        /* $result = $dbConnection->query($sqlQuery);
         
-        $customer_id = $dbConnection->lastInsertId();
+        $customer_id = $dbConnection->lastInsertId(); */
         
+        $result = $conn->query($sqlQuery);
+        $customer_id = $conn->insert_id;
         $sqlRelationQuery = "INSERT INTO nylene.company_relational_customer (company_id, customer_id)
  VALUES ('".$_SESSION['company_id']."','". $customer_id. "')";
         
-        $result = $dbConnection->query($sqlRelationQuery);
-        
+        /* $result = $dbConnection->query($sqlRelationQuery);*/
+        $result = $conn->query($sqlRelationQuery);
         
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
         exit();

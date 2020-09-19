@@ -5,25 +5,29 @@ if(isset($_POST['interaction_id'])){
 
 $_SESSION['interaction_id'] = $_POST['interaction_id'];
 include '../navigation.php';
-include '../Database/databaseConnection.php';
+/* include '../Database/databaseConnection.php';
 
-$dbConnection = setConnectionInfo();
-
+$dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
   
   $query_view_interaction = "SELECT * FROM nylene.interaction WHERE interaction_id = ".$_SESSION['interaction_id'];
-  $viewInteractionData = $dbConnection->query($query_view_interaction)->fetch(PDO::FETCH_ASSOC);
-
+ /*  $viewInteractionData = $dbConnection->query($query_view_interaction)->fetch(PDO::FETCH_ASSOC); */  
+  $viewInteractionData = mysqli_fetch_array($conn->query($query_view_interaction));
+  
   $query_view_company ="SELECT * FROM nylene.company WHERE company_id = ".$viewInteractionData['company_id'];
-  $viewCompanyData = $dbConnection->query($query_view_company)->fetch(PDO::FETCH_ASSOC);
+ /*  $viewCompanyData = $dbConnection->query($query_view_company)->fetch(PDO::FETCH_ASSOC); */
+  $viewCompanyData = mysqli_fetch_array($conn->query($query_view_company));
   
   $companyAddress = $viewCompanyData["billing_address_street"].", ".$viewCompanyData["billing_address_city"].", "
       .$viewCompanyData["billing_address_state"].", ".$viewCompanyData["billing_address_country"].", ".$viewCompanyData["billing_address_postalcode"];
   
   $query_view_customer ="SELECT * FROM nylene.customer WHERE customer_id = ".$viewInteractionData['customer_id'];
-  $viewCustomerData = $dbConnection->query($query_view_customer)->fetch(PDO::FETCH_ASSOC);
-
+  /* $viewCustomerData = $dbConnection->query($query_view_customer)->fetch(PDO::FETCH_ASSOC); */
+  $viewCustomerData = mysqli_fetch_array($conn->query($query_view_customer));
+  
   $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = ".$_SESSION['interaction_id'];
-  $viewInteractionForm = $dbConnection->query($query_view_form)->fetch(PDO::FETCH_ASSOC);
+ /*  $viewInteractionForm = $dbConnection->query($query_view_form)->fetch(PDO::FETCH_ASSOC); */
+  $viewInteractionForm = mysqli_fetch_array($conn->query($query_view_form));
 }
 else{
     echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";

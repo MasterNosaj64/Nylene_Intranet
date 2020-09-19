@@ -2,8 +2,9 @@
 session_start();
 $_SESSION["navToAddInteractionPage"] = true;
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php';
+$dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
 
 if ($_POST['company_id'] != "") {
 
@@ -12,14 +13,15 @@ if ($_POST['company_id'] != "") {
     if (isset($_POST['submit'])) {        
         $t = time();
         $insertInteractionQuery = "INSERT INTO nylene.interaction (company_id, customer_id, employee_id, reason, comments, date_created) VALUES ('" . $_POST['company_id'] . "','" . $_POST['customer_id'] . "','" . $_SESSION['userid'] . "','" . $_POST['reason'] . "','" . $_POST['comments'] . "','" . date("Y-m-d", $t) . "') ";
-        $dbConnection->query($insertInteractionQuery);
-        
+      /*   $dbConnection->query($insertInteractionQuery); */
+      $conn->query($insertInteractionQuery);
         
         
         //store customer id into session for use in forms
         $_SESSION['customer_id'] = $_POST['customer_id'];
         //store interaction_id into session for use in forms
-        $_SESSION['interaction_id'] = $dbConnection->lastInsertId();
+       /*  $_SESSION['interaction_id'] = $dbConnection->lastInsertId(); */
+        $_SESSION['interaction_id'] = $conn->insert_id;
         
         //if form selected, redirect to the appropriate form creation page
         
@@ -65,12 +67,12 @@ if ($_POST['company_id'] != "") {
         
         //Get customers ID's ready for form
         $customerQuery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = ".$_POST['company_id'];
-        $customerIds = $dbConnection->query($customerQuery);
-        
+        /* $customerIds = $dbConnection->query($customerQuery); */
+        $customerIds = $conn->query($customerQuery);
         //Get companyData ready for form
         $getCompanyDataQuery = "SELECT * FROM nylene.company WHERE company_id = ".$_POST['company_id'];
-        $viewCompanyData = $dbConnection->query($getCompanyDataQuery)->fetch(PDO::FETCH_ASSOC);
-        
+      /*   $viewCompanyData = $dbConnection->query($getCompanyDataQuery)->fetch(PDO::FETCH_ASSOC); */
+        $viewCompanyData = mysqli_fetch_array($conn->query($getCompanyDataQuery));
         //Build company address into string
         $companyAddress = $viewCompanyData["billing_address_street"].", ".$viewCompanyData["billing_address_city"].", "
             .$viewCompanyData["billing_address_state"].", ".$viewCompanyData["billing_address_country"].", ".$viewCompanyData["billing_address_postalcode"];
@@ -101,9 +103,10 @@ if ($_POST['company_id'] != "") {
 		<option></option>
 		<?php 
 		
-		while($id = $customerIds->fetch(PDO::FETCH_ASSOC)){
+		while($id = mysqli_fetch_array($customerIds)){
   $getCustomerData = "SELECT * FROM nylene.customer WHERE customer_id = ".$id["customer_id"];
-  $customerData = $dbConnection->query($getCustomerData)->fetch(PDO::FETCH_ASSOC);
+  /* $customerData = $dbConnection->query($getCustomerData)->fetch(PDO::FETCH_ASSOC); */
+  $customerData = mysqli_fetch_array($conn->query($getCustomerData));
   echo "<option value=\"".$customerData['customer_id']."\">" . $customerData['customer_name'] ."</option>";
 }
 ?>

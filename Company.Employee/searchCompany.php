@@ -5,8 +5,11 @@ unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php'; */
+
+include '../Database/connect.php';
+
+/* $dbConnection = setConnectionInfo(); */
 
 
 if(!isset($_POST['offset'])){
@@ -32,7 +35,9 @@ if(isset($_POST['search_By_Name'])){
     $length = strlen($_POST['search_By_Name']);
     
     $sqlquery = "SELECT * FROM nylene.company WHERE SUBSTRING(company_name,1,".$length.") = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
-    $result = $dbConnection->query($sqlquery);
+   /*  $result = $dbConnection->query($sqlquery); */
+    
+    $result = $conn->query($sqlquery);
     
 //     $sqlquery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['search_By_Name']."' ORDER BY company_name ASC";
 //     $result = $dbConnection->query($sqlquery);
@@ -44,8 +49,9 @@ if(isset($_POST['search_By_Name'])){
     $length = strlen($_POST['search_By_Website']);
     
     $sqlquery = "SELECT * FROM nylene.company WHERE SUBSTRING(website,1,".$length.") = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
-    $result = $dbConnection->query($sqlquery);
+   /*  $result = $dbConnection->query($sqlquery); */
     
+    $result = $conn->query($sqlquery);
 //     $sqlquery = "SELECT * FROM nylene.company WHERE website = '".$_POST['search_By_Website']."' ORDER BY company_name ASC";
 //     $result = $dbConnection->query($sqlquery);
 //     $test = $dbConnection->query($sqlquery);
@@ -54,7 +60,10 @@ if(isset($_POST['search_By_Name'])){
 
     //$sqlquery = "SELECT * FROM nylene.interaction WHERE company_id = " .$_SESSION['company_id']. " ORDER BY date_created ASC LIMIT 10 OFFSET ".$_POST['offset'];
     $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET ".$_POST['offset'];
-    $result = $dbConnection->query($sqlquery);
+    /* $result = $dbConnection->query($sqlquery); */
+    
+    $result = $conn->query($sqlquery);
+    
 //     $test = $dbConnection->query($sqlquery);
 
 // if(!$test->fetch()){
@@ -122,7 +131,9 @@ if(isset($_POST['search_By_Name'])){
 
 <!-- </head> </html> -->
 	<?php
-	while($row = $result->fetch(PDO::FETCH_ASSOC)){
+	/* while($row = $result->fetch(PDO::FETCH_ASSOC)){ */
+	    while($row = mysqli_fetch_array($result)){
+	        
 	    echo "<tr><td>" . $row["company_name"] . "</td><td><a href=\"". $row["website"] ."\">"  . $row["website"] . "</a></td><td><a href =\"mailto: ".$row["company_email"]."\">" . $row["company_email"] . "</a></td><td>" . $row["billing_address_street"] . "</td><td>" . $row["billing_address_city"] . "</td><td>". $row["billing_address_state"] . "</td>
 <td><form action=\"./editCompany.php\" method=\"post\">
 		<input hidden name =\"company_id_edit\" value=\"".$row['company_id']."\"/>

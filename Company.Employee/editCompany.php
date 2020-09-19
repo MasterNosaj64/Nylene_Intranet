@@ -2,8 +2,10 @@
 session_start();
 
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php';
+$dbConnection = setConnectionInfo(); */
+
+include '../Database/connect.php';
 
 if(isset($_POST['company_id_edit'])){
     $_SESSION['company_id'] = $_POST['company_id_edit'];
@@ -11,9 +13,11 @@ if(isset($_POST['company_id_edit'])){
 
 //get company data for editing
     $getCompanyDataSQL = "SELECT * FROM nylene.company WHERE company_id = '".$_SESSION['company_id']."'";
-    $companyData = $dbConnection->query($getCompanyDataSQL);
+   /*  $companyData = $dbConnection->query($getCompanyDataSQL); */
+    $companyData = $conn->query($getCompanyDataSQL);
+    /* $data = $companyData->fetch(PDO::FETCH_ASSOC); */
+    $data = mysqli_fetch_array($companyData);
 
-    $data = $companyData->fetch(PDO::FETCH_ASSOC);
 }
 else{
 
@@ -28,12 +32,13 @@ if (isset($_POST['name'])) {
         $_POST['shippingCountry'] = $_POST['billingCountry'];
     }
 
-    // check if company name already exists
-    $validateCompanyQuery = "SELECT count(*) FROM nylene.company WHERE company_name = '".$_POST['name']."'";
-    $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn();
-
-    //if it doesn't exist, update it on the database
-    if ($validationResult == 0) {
+    // check if company was already added
+    $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['name']."'";
+    /* $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn(); */
+    $validationResult = $conn->query($validateCompanyQuery);
+    
+    //if it doesn't exist, add it to the database
+    if (mysqli_fetch_array($validationResult) == NULL) {
 
         $sqlQuery = "UPDATE nylene.company
 
@@ -56,7 +61,8 @@ if (isset($_POST['name'])) {
             company_email = '".$_POST['email']."'
             WHERE company_id = ".$_SESSION['company_id'];
 
-        $result = $dbConnection->query($sqlQuery);
+       /*  $result = $dbConnection->query($sqlQuery); */
+        $result = $conn->query($sqlQuery);
         $_SESSION['company_id'] == "";
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ./searchCompany.php\" />;";
         exit();
@@ -64,9 +70,11 @@ if (isset($_POST['name'])) {
         //set boolean to trigger error message
         echo "<p style=\"color:red\">ERROR - Company name \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
         $getCompanyDataSQL = "SELECT * FROM nylene.company WHERE company_id = '".$_SESSION['company_id']."'";
-        $companyData = $dbConnection->query($getCompanyDataSQL);
-
-        $data = $companyData->fetch(PDO::FETCH_ASSOC);
+        
+       /*  $companyData = $dbConnection->query($getCompanyDataSQL);
+        $data = $companyData->fetch(PDO::FETCH_ASSOC); */
+        $companyData = $conn->query($getCompanyDataSQL);
+        $data = mysqli_fetch_array($companyData);
     }
 }
 else{

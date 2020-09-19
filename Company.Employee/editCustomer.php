@@ -2,8 +2,9 @@
 session_start();
 
 include '../navigation.php';
-include '../Database/databaseConnection.php';
-$dbConnection = setConnectionInfo();
+/* include '../Database/databaseConnection.php';
+$dbConnection = setConnectionInfo(); */
+include '../Database/connect.php';
    
 $_SESSION['customer_created'] = $_SESSION['company_id'];
 
@@ -17,7 +18,8 @@ if(isset($_POST['submit'])){
                 customer_fax = '". $_POST['fax']."'
                 WHERE customer_id =".$_POST['customer_id'];
    
-    $result = $dbConnection->query($sqlQuery);
+    /* $result = $dbConnection->query($sqlQuery); */
+    $result = $conn->query($sqlQuery);
     echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
     exit();	
 }
@@ -26,8 +28,8 @@ if ($_SESSION['company_id'] != "" && isset($_POST['customer_id'])) {
     
   
     $sqlGetCustomerInfo = "SELECT * FROM nylene.customer WHERE customer_id = ".$_POST['customer_id'];
-    $customerInfo = $dbConnection->query($sqlGetCustomerInfo)->fetch(PDO::FETCH_ASSOC);
-    
+   /*  $customerInfo = $dbConnection->query($sqlGetCustomerInfo)->fetch(PDO::FETCH_ASSOC); */
+    $customerInfo = mysqli_fetch_array($conn->query($sqlGetCustomerInfo));
     $name = explode(" ", $customerInfo['customer_name']);
 }
 else {
