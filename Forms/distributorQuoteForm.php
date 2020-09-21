@@ -1,4 +1,5 @@
 <?php 
+//kb testing re-worked git/eclipse connection 
 session_start();
     include '../navigation.php';
 	include '../Database/db_config.php';
