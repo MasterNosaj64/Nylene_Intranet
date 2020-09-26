@@ -1,4 +1,6 @@
 <?php
+	/*This is the database connection file for our project*/
+	
 	//$_SESSION["userid"] = 2;
 
 	//$userid   = $_SESSION["userid"];
