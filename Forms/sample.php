@@ -67,7 +67,7 @@
 
 	<body height="100%" width="100%">
     <div>
-	<form name="sample_form" action="insert.php" method="POST" onsubmit="return validateForm()">
+	<form name="sample_form" action="newSampleForm.php" method="POST" onsubmit="return validateForm()">
         <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
              <thead>
              <tr>
