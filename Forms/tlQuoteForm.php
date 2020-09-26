@@ -200,7 +200,8 @@ session_start();
 
 
 		<tr>
-			<td colspan="2"> <input type="submit" value="submit" style="width:100%"> </td>
+			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
+			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"> </td>
 		</tr>
 		</table>
 		

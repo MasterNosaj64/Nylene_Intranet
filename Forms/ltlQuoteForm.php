@@ -192,7 +192,8 @@
 			<td><input type="text" id="range5" name="range5"></td>
 		</tr>
 		<tr>
-			<td colspan="2"> <input type="Submit" style="width:100%" value="submit"> </td>
+			<td colspan="1"> <input type="Submit" style="width:100%" value="submit"> </td>
+			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"> </td>
 		</tr>
 		</table>
 		
