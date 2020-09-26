@@ -2,25 +2,25 @@
 session_start();
 	
     include '../navigation.php';
-	include '../Database/db_config.php';
+	include '../Database/connect.php';
 
 	//Check the connection
-	if ($dbConnection-> connect_error) {
+	if ($conn-> connect_error) {
 	
-		die("Connection failed: " . $dbConnection-> connect_error);
+	    die("Connection failed: " . $conn-> connect_error);
 	
 	} else {
 		
 		//Selection statement for employee information
 		$userInformation = "SELECT first_name, last_name, title, work_phone, employee_email FROM employee 
 								WHERE employee_id = " . $_SESSION['userid'];
-		$userResult = $dbConnection->query($userInformation); 
+		$userResult = $conn->query($userInformation); 
 		$userRow = mysqli_fetch_array($userResult);
 		
 		//Selection statement for distributor quote form
 		$distributorQuery = "SELECT * FROM distributor_quote_form 
 								WHERE distributor_quote_id = ". $_POST['id'];
-		$distributorResults = $dbConnection->query($distributorQuery);								
+		$distributorResults = $conn->query($distributorQuery);								
 		$distRow = mysqli_fetch_array($distributorResults);
 		
 		//Selection statement for customer information
@@ -31,10 +31,10 @@ session_start();
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 													INNER JOIN distributor_quote_form ON distributor_quote_form.distributor_quote_id = interaction_relational_form.form_id
 														WHERE interaction_relational_form.form_type = 4 AND interaction_relational_form.form_id = ". $_POST['id'];
-		$customerResult = $dbConnection->query($customerInformation); 
+		$customerResult = $conn->query($customerInformation); 
 		$customerRow = mysqli_fetch_array($customerResult);
 		
-		$dbConnection->close();
+		$conn->close();
 	}
 ?>
 <html>

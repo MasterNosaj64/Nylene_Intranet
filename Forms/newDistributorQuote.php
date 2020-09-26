@@ -1,11 +1,11 @@
 <?php
 	session_start();
-	include '../Database/db_config.php';
+	include '../Database/connect.php';
 	
 	//Check connection
-	if ($dbConnection-> connect_error) {
+	if ($conn-> connect_error) {
 		
-		die("Connection failed: " . $dbConnection-> connect_error);
+	    die("Connection failed: " . $conn-> connect_error);
 	
 	} else {
 
@@ -46,13 +46,13 @@
 					'".$_POST["range24"]."')";
 		
 
-		if ($dbConnection->query($sql)===TRUE) {
+		if ($conn->query($sql)===TRUE) {
 			
 			echo "New record created successfully<br/>";
 		
 
 				$getFormId = "SELECT distributor_quote_id FROM distributor_quote_form ORDER BY distributor_quote_id DESC";
-				$formId = $dbConnection->query($getFormId);
+				$formId = $conn->query($getFormId);
 				$id_form = mysqli_fetch_array($formId);
 
 			
@@ -60,22 +60,22 @@
 				$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
 					interaction_id, form_id, form_type) values ('$interaction_id', " . $id_form['distributor_quote_id'] . ", '4')";				
 				
-				if ($dbConnection->query($insert_into_interaction_relational_manager_table)===TRUE)
+				if ($conn->query($insert_into_interaction_relational_manager_table)===TRUE)
 				{
 					echo "Inserted into interation relational manager table";
 				}
 				else
 				{
-					echo "Error: " . $dbConnection->error;
+				    echo "Error: " . $conn->error;
 				}	
 	
 		
 		} else {
 			
-			echo "Error: " . $sql . " " . $dbConnection->error;
+		    echo "Error: " . $sql . " " . $conn->error;
 		}
 
-		$dbConnection->close();
+		$conn->close();
 		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
 		exit();
 	}
