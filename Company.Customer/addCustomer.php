@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
         if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
 
-            $t = time();
+            
 
             /*
              * NO SQL INJECTION PROTECTION
@@ -48,18 +48,26 @@ if ($conn->connect_error) {
             VALUES (?,?,?,?,?)");
 
             $name = $_POST['firstName'] . " " . $_POST['lastName'];
-
-            $sqlQuery->bind_param("sssss", $name, $_POST['email'], date("Y-m-d", $t), $_POST['phone'], $_POST['fax']);
+            $email = $_POST['email'];
+            
+            $t = time();
+            $date_created = date("Y-m-d", $t);
+            
+            $customer_phone = $_POST['phone'];
+            $customer_fax = $_POST['fax'];
+            
+            
+            $sqlQuery->bind_param("sssss", $name, $email, $date_created, $customer_phone, $customer_fax);
 
             $sqlQuery->execute();
             $conn->close();
             $sqlQuery->close();
 
-            echo "<meta http-equiv = \"refresh\" content = \"5; url = ./viewCompany.php\" />;";
+            echo "<meta http-equiv = \"refresh\" content = \"5 url = ./viewCompany.php\" />;";
             exit();
         }
     } else {
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./Homepage.php\" />;";
         exit();
     }
 }

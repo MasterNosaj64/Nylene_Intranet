@@ -16,52 +16,90 @@ if ($conn->connect_error) {
         $_SESSION['company_id'] = $_POST['company_id'];
 
         if (isset($_POST['submit'])) {
+            /*
+             * NO SQL INJECTION PROTECTION
+             *
+             * $insertInteractionQuery = "INSERT INTO nylene.interaction
+             * (company_id,
+             * customer_id,
+             * employee_id,
+             * reason,
+             * comments,
+             * date_created)
+             *
+             * VALUES ('" . $_POST['company_id'] . "',
+             * '" . $_POST['customer_id'] . "',
+             * '" . $_SESSION['userid'] . "',
+             * '" . $_POST['reason'] . "',
+             * '" . $_POST['comments'] . "',
+             * '" . date("Y-m-d", $t) . "') ";
+             * /* $dbConnection->query($insertInteractionQuery);
+             * $conn->query($insertInteractionQuery);
+             */
+
+            // SQL INJECTION PROTECTION
+            $insertInteractionQuery = $conn->prepare("INSERT INTO nylene.interaction 
+            (company_id, 
+            customer_id, 
+            employee_id, 
+            reason, 
+            comments, 
+            date_created) 
+
+            VALUES (?,?,?,?,?,?)");
+    
+            $company_id = $_POST['company_id'];
+            $customer_id = $_POST['customer_id'];
+            $employee_id = $_SESSION['userid'];
+            $reason = $_POST['reason'];
+            $comments = $_POST['comments'];
+            
             $t = time();
-            $insertInteractionQuery = "INSERT INTO nylene.interaction (company_id, customer_id, employee_id, reason, comments, date_created) VALUES ('" . $_POST['company_id'] . "','" . $_POST['customer_id'] . "','" . $_SESSION['userid'] . "','" . $_POST['reason'] . "','" . $_POST['comments'] . "','" . date("Y-m-d", $t) . "') ";
-            /* $dbConnection->query($insertInteractionQuery); */
-            $conn->query($insertInteractionQuery);
+            $date_created = date("Y-m-d", $t);
+            
+            $insertInteractionQuery->bind_param("iiisss", $company_id, $customer_id, $employee_id, $reason, $comments, $date_created);
+
+            $insertInteractionQuery->execute();
 
             // store customer id into session for use in forms
             $_SESSION['customer_id'] = $_POST['customer_id'];
             // store interaction_id into session for use in forms
-            /* $_SESSION['interaction_id'] = $dbConnection->lastInsertId(); */
             $_SESSION['interaction_id'] = $conn->insert_id;
 
             // if form selected, redirect to the appropriate form creation page
-
             // Sample Form
             if ($_POST['form'] == 1) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/sample.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/sample.php\" />;";
                 exit();
             } // Light Truckload Quote Form
             else if ($_POST['form'] == 2) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/ltlQuoteForm.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/ltlQuoteForm.php\" />;";
                 exit();
             } // Truckload Quote Form
             else if ($_POST['form'] == 3) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/tlQuoteForm.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/tlQuoteForm.php\" />;";
                 exit();
             } // Distributor Quote Form
             else if ($_POST['form'] == 4) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/distributorQuoteForm.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/distributorQuoteForm.php\" />;";
                 exit();
             } // Marketing Request Form
             else if ($_POST['form'] == 5) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/newMarketRequest.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newMarketRequest.php\" />;";
                 exit();
             } // Business Credit Application Forn
             else if ($_POST['form'] == 6) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/newCreditBusinessAppForm\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newCreditBusinessAppForm\" />;";
                 exit();
             } else {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0; url = ./companyHistory.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ./companyHistory.php\" />;";
                 exit();
             }
         } else {
@@ -78,7 +116,7 @@ if ($conn->connect_error) {
             $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
         }
     } else {
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />;";
         exit();
     }
 }

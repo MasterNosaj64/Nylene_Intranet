@@ -38,9 +38,14 @@ if ($conn->connect_error) {
             customer_fax = ?
             WHERE customer_id = ?");
 
-        $name = $_POST['firstName'] . " " . $_POST['lastName'];
-
-        $sqlQuery->bind_param("ssssi", $name, $_POST['email'], $_POST['phone'], $_POST['fax'], $_POST['customer_id']);
+        $customer_name = $_POST['firstName'] . " " . $_POST['lastName'];
+        $customer_email = $_POST['email'];
+        $customer_phone = $_POST['phone'];
+        $customer_fax = $_POST['fax'];
+        $customer_id = $_POST['customer_id'];
+        
+        
+        $sqlQuery->bind_param("ssssi", $customer_name, $customer_email, $customer_phone, $customer_fax, $customer_id);
         $sqlQuery->execute();
         $conn->close();
         $sqlQuery->close();

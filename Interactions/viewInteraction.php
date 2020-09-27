@@ -37,7 +37,7 @@ if (isset($_POST['interaction_id'])) {
         $conn->close();
     }
 } else {
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+    echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />;";
     exit();
 }
 ?>
