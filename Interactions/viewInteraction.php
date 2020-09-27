@@ -61,7 +61,7 @@ else{
 
 		    echo "<form method=\"post\" action=\"../Forms/sample_form_view.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"".$viewInteractionForm['form_id']."\">
-                        <input type=\"submit\" value=\"View Sample Form\"/>
+                        <input type=\"submit\" value=\"View Sample Request Form\"/>
                     </form>";
 		    
 		}
@@ -95,6 +95,14 @@ else{
 		    echo "<form method=\"post\" action=\"../Forms/viewMarketRequest.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"".$viewInteractionForm['form_id']."\">
                         <input type=\"submit\" value=\"View Market Request Form\"/>
+                    </form>";
+		}
+		//Business Credit Application Form
+		else if($viewInteractionForm['form_type'] == 6){
+		    
+		    echo "<form method=\"post\" action=\"../Forms/viewBusinessCreditAppForm.php\">
+                   <input hidden type=\"text\" name=\"id\" value=\"".$viewInteractionForm['form_id']."\">
+                        <input type=\"submit\" value=\"View Business Credit App. Form\"/>
                     </form>";
 		}
 		}

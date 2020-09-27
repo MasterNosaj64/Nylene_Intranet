@@ -55,6 +55,12 @@ if ($_POST['company_id'] != "") {
             echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/newMarketRequest.php\" />;";
             exit();
         }
+        //Business Credit Application Forn
+        else if($_POST['form'] == 6){
+            
+            echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Forms/newCreditBusinessAppForm\" />;";
+            exit();
+        }
         else{
             
             echo "<meta http-equiv = \"refresh\" content = \"0; url = ./companyHistory.php\" />;";
@@ -119,22 +125,24 @@ if ($_POST['company_id'] != "") {
 		<option value="General">General</option>
 		<option value="Added Customer">Added Customer</option>
 		<option value="Status">Status</option>
-<!-- 		<option value="Marketing Request">Marketing Request</option> -->
+		<option value="Marketing Request">Marketing Request</option>
 		<option value="Distributor Quote">Distributor Quote</option>
 		<option value="Truckload Quote">Truckload Quote</option>
 		<option value="Light Truckload Quote">Light Truckload Quote</option>
-		<option value="Sample">Sample</option>
+		<option value="Sample">Sample Request</option>
+		<option value ="Business Credit App">Business Credit Application</option>
 		</select>
 		</td>
 		<td>Form (if applicable):</td>
 		<td>
 		<select id="selection" required name="form">
 		<option value="0"></option>
-<!-- 		<option value="5">Marketing Request</option> -->
+		<option value="6">Business Credit Application</option>
+		<option value="5">Marketing Request</option>
 		<option value="4">Distributor Quote</option>
 		<option value="3">Truckload Quote</option>
 		<option value="2">Light Truckload Quote</option>
-		<option value="1">Sample</option>
+		<option value="1">Sample Request</option>
 		</select>
 		</td>		
 <tr>
