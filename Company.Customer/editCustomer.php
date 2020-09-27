@@ -14,16 +14,37 @@ if ($conn->connect_error) {
 
     if (isset($_POST['submit'])) {
 
-        $sqlQuery = "UPDATE nylene.customer 
-                SET 
-                customer_name = '" . $_POST['firstName'] . " " . $_POST['lastName'] . "',
-                customer_email = '" . $_POST['email'] . "', 
-                customer_phone = '" . $_POST['phone'] . "',
-                customer_fax = '" . $_POST['fax'] . "'
-                WHERE customer_id =" . $_POST['customer_id'];
+        // No SQL INJECTION PROTECTION
+        /*
+         * $sqlQuery = "UPDATE nylene.customer
+         * SET
+         * customer_name = '" . $_POST['firstName'] . " " . $_POST['lastName'] . "',
+         * customer_email = '" . $_POST['email'] . "',
+         * customer_phone = '" . $_POST['phone'] . "',
+         * customer_fax = '" . $_POST['fax'] . "'
+         * WHERE customer_id =" . $_POST['customer_id'];
+         *
+         * /* $result = $dbConnection->query($sqlQuery);
+         * $result = $conn->query($sqlQuery);
+         * $conn->close();
+         */
 
-        /* $result = $dbConnection->query($sqlQuery); */
-        $result = $conn->query($sqlQuery);
+        // SQL INJECTION PROTECTION
+        $sqlQuery = $conn->prepare("UPDATE nylene.customer
+            SET
+            customer_name = ?,
+            customer_email = ?,
+            customer_phone = ?,
+            customer_fax = ?
+            WHERE customer_id = ?");
+
+        $name = $_POST['firstName'] . " " . $_POST['lastName'];
+
+        $sqlQuery->bind_param("ssssi", $name, $_POST['email'], $_POST['phone'], $_POST['fax'], $_POST['customer_id']);
+        $sqlQuery->execute();
+        $conn->close();
+        $sqlQuery->close();
+
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
         exit();
     }
@@ -31,7 +52,6 @@ if ($conn->connect_error) {
     if ($_SESSION['company_id'] != "" && isset($_POST['customer_id'])) {
 
         $sqlGetCustomerInfo = "SELECT * FROM nylene.customer WHERE customer_id = " . $_POST['customer_id'];
-        /* $customerInfo = $dbConnection->query($sqlGetCustomerInfo)->fetch(PDO::FETCH_ASSOC); */
         $customerInfo = mysqli_fetch_array($conn->query($sqlGetCustomerInfo));
         $name = explode(" ", $customerInfo['customer_name']);
         $conn->close();

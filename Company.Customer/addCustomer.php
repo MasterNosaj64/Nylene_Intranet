@@ -17,25 +17,45 @@ if ($conn->connect_error) {
         if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
 
             $t = time();
-            // , assigned_to, date_created, created_by)
-            $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
-VALUES ('" . $_POST['firstName'] . " " . $_POST['lastName'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','" . $_POST['phone'] . "','" . $_POST['fax'] . "')"; // 16
 
             /*
-             * $result = $dbConnection->query($sqlQuery);
+             * NO SQL INJECTION PROTECTION
+             * $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
+             * VALUES ('" . $_POST['firstName'] . " " . $_POST['lastName'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','" . $_POST['phone'] . "','" . $_POST['fax'] . "')"; // 16
              *
-             * $customer_id = $dbConnection->lastInsertId();
+             *
+             *
+             * $result = $conn->query($sqlQuery);
+             * $customer_id = $conn->insert_id;
+             * $sqlRelationQuery = "INSERT INTO nylene.company_relational_customer (company_id, customer_id)
+             * VALUES ('" . $_SESSION['company_id'] . "','" . $customer_id . "')";
+             *
+             * /* $result = $dbConnection->query($sqlRelationQuery);
+             *
+             * $result = $conn->query($sqlRelationQuery);
+             * $conn->close();
              */
 
-            $result = $conn->query($sqlQuery);
-            $customer_id = $conn->insert_id;
-            $sqlRelationQuery = "INSERT INTO nylene.company_relational_customer (company_id, customer_id)
- VALUES ('" . $_SESSION['company_id'] . "','" . $customer_id . "')";
+            // With SQL Injection Protection
+            $sqlQuery = $conn->prepare("INSERT INTO nylene.customer 
 
-            /* $result = $dbConnection->query($sqlRelationQuery); */
-            $result = $conn->query($sqlRelationQuery);
+            (customer_name, 
+            customer_email, 
+            date_created, 
+            customer_phone, 
+            customer_fax) 
+
+            VALUES (?,?,?,?,?)");
+
+            $name = $_POST['firstName'] . " " . $_POST['lastName'];
+
+            $sqlQuery->bind_param("sssss", $name, $_POST['email'], date("Y-m-d", $t), $_POST['phone'], $_POST['fax']);
+
+            $sqlQuery->execute();
             $conn->close();
-            echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
+            $sqlQuery->close();
+
+            echo "<meta http-equiv = \"refresh\" content = \"5; url = ./viewCompany.php\" />;";
             exit();
         }
     } else {

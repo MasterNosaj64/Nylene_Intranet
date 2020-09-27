@@ -39,31 +39,65 @@ if ($conn->connect_error) {
             $validationResult = $conn->query($validateCompanyQuery);
 
             // if it doesn't exist, add it to the database
+
             if (mysqli_fetch_array($validationResult) == NULL) {
 
-                $sqlQuery = "UPDATE nylene.company
+                /*
+                 * // Unprepared SQL
+                 * /*
+                 * $sqlQuery = "UPDATE nylene.company
+                 *
+                 * SET
+                 * company_name = '" . $_POST['name'] . "',
+                 * website = '" . $_POST['website'] . "',
+                 * billing_address_street = '" . $_POST['billingStreet'] . "',
+                 * billing_address_city = '" . $_POST['billingCity'] . "',
+                 * billing_address_state = '" . $_POST['billingState'] . "',
+                 * billing_address_postalcode = '" . $_POST['billingPostalCode'] . "',
+                 * billing_address_country = '" . $_POST['billingCountry'] . "',
+                 * shipping_address_street = '" . $_POST['shippingStreet'] . "',
+                 * shipping_address_city = '" . $_POST['shippingCity'] . "',
+                 * shipping_address_state = '" . $_POST['shippingState'] . "',
+                 * shipping_address_postalcode = '" . $_POST['shippingPostalCode'] . "',
+                 * shipping_address_country = '" . $_POST['shippingCountry'] . "',
+                 * description = '" . $_POST['description'] . "',
+                 * type = '" . $_POST['type'] . "',
+                 * industry = '" . $_POST['industry'] . "',
+                 * company_email = '" . $_POST['email'] . "'
+                 * WHERE company_id = " . $_SESSION['company_id'];
+                 *
+                 * $result = $conn->query($sqlQuery);
+                 */
 
-            SET
-            company_name = '" . $_POST['name'] . "',
-            website = '" . $_POST['website'] . "',
-            billing_address_street = '" . $_POST['billingStreet'] . "',
-            billing_address_city = '" . $_POST['billingCity'] . "',
-            billing_address_state = '" . $_POST['billingState'] . "',
-            billing_address_postalcode = '" . $_POST['billingPostalCode'] . "',
-            billing_address_country = '" . $_POST['billingCountry'] . "',
-            shipping_address_street = '" . $_POST['shippingStreet'] . "',
-            shipping_address_city = '" . $_POST['shippingCity'] . "',
-            shipping_address_state = '" . $_POST['shippingState'] . "',
-            shipping_address_postalcode = '" . $_POST['shippingPostalCode'] . "',
-            shipping_address_country = '" . $_POST['shippingCountry'] . "',
-            description = '" . $_POST['description'] . "',
-            type = '" . $_POST['type'] . "',
-            industry = '" . $_POST['industry'] . "',
-            company_email = '" . $_POST['email'] . "'
-            WHERE company_id = " . $_SESSION['company_id'];
+                // Prepared SQL
+                $sqlQuery = $conn->prepare("UPDATE nylene.company
+                    
+                    SET
+                    company_name = ?,
+                    website = ?,
+                    billing_address_street = ?,
+                    billing_address_city = ?,
+                    billing_address_state = ?,
+                    billing_address_postalcode = ?,
+                    billing_address_country = ?,
+                    shipping_address_street = ?,
+                    shipping_address_city = ?,
+                    shipping_address_state = ?,
+                    shipping_address_postalcode = ?,
+                    shipping_address_country = ?,
+                    description = ?,
+                    type = ?,
+                    industry = ?,
+                    company_email = ?
+                    WHERE company_id = ?");
 
-                /* $result = $dbConnection->query($sqlQuery); */
-                $result = $conn->query($sqlQuery);
+                $sqlQuery->bind_param("ssssssssssssssssi", $_POST['name'], $_POST['website'], $_POST['billingStreet'], $_POST['billingCity'], $_POST['billingState'], $_POST['billingPostalCode'], $_POST['billingCountry'], $_POST['shippingStreet'], $_POST['shippingCity'], $_POST['shippingState'], $_POST['shippingPostalCode'], $_POST['shippingCountry'], $_POST['description'], $_POST['type'], $_POST['industry'], $_POST['email'], $_SESSION['company_id']);
+
+                $sqlQuery->execute();
+
+                $conn->close();
+                $sqlQuery->close();
+
                 $_SESSION['company_id'] == "";
                 echo "<meta http-equiv = \"refresh\" content = \"0; url = ./searchCompany.php\" />;";
                 exit();
@@ -72,10 +106,6 @@ if ($conn->connect_error) {
                 echo "<p style=\"color:red\">ERROR - Company name \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
                 $getCompanyDataSQL = "SELECT * FROM nylene.company WHERE company_id = '" . $_SESSION['company_id'] . "'";
 
-                /*
-                 * $companyData = $dbConnection->query($getCompanyDataSQL);
-                 * $data = $companyData->fetch(PDO::FETCH_ASSOC);
-                 */
                 $companyData = $conn->query($getCompanyDataSQL);
                 $data = mysqli_fetch_array($companyData);
                 $conn->close();
