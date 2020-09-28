@@ -1,6 +1,4 @@
 <?php
-	/*This is the database connection file for our project*/
-	
 	//$_SESSION["userid"] = 2;
 
 	//$userid   = $_SESSION["userid"];
@@ -8,5 +6,7 @@
 	$username = "root";
 	$password = "";
 	$dbname   = "nylene";
-	$conn     = new mysqli($host, $username, $password, $dbname);
+	$connect     = mysqli_connect($host, $username, $password, $dbname);
+	$db = mysqli_select_db($connect, "nylene");
+
 	?>
