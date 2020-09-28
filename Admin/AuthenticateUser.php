@@ -1,22 +1,16 @@
 <?php
 session_start();
     include '../Database/databaseConnection.php';
-    $dbConnection = setConnectionInfo();
-	//$userQuery = mysqli_query($conn,"SELECT * FROM nylene.employee WHERE user_name='" . $_POST["userName"] . "' and password = '". $_POST["password"]."'");
-	//$userQuery = "SELECT * FROM nylene.employee WHERE username = " . $_POST['username'];
+	//include '../Database/databaseConnection.php';
+include '../Database/connect.php';
+    //$dbConnection = setConnectionInfo();
 	$userQuery = "SELECT * FROM nylene.employee WHERE username = '" .$_POST['username']."'";
-    
 	$result = $dbConnection->query($userQuery);
-
 	$row = $result->fetch(PDO::FETCH_ASSOC);
-	
 	$password1 = $_POST['password'];
-	//$password1=password_hash($password1,PASSWORD_DEFAULT);
-	
 	$password2 = $row['password'];
 	/**/
 	
-	//if(!strcmp($password1, $password2)){	
 	if(password_verify($password1,$password2)){
 
 	
