@@ -3,7 +3,7 @@ session_start();
     include '../Database/databaseConnection.php';
 	//include '../Database/databaseConnection.php';
 include '../Database/connect.php';
-    //$dbConnection = setConnectionInfo();
+    $dbConnection = setConnectionInfo();
 	$userQuery = "SELECT * FROM nylene.employee WHERE username = '" .$_POST['username']."'";
 	$result = $dbConnection->query($userQuery);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
