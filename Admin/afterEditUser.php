@@ -21,7 +21,7 @@ session_start();
 						
 
 				$first_name=$_POST['first_name'];
-				array_push($qry,"UPDATE employee SET first_name='$first_name' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET first_name='$first_name' WHERE employee_id='$field'");
 			}
 			print_r($qry);
 
@@ -30,63 +30,63 @@ session_start();
 			if(trim($_POST['last_name'])!=""){
 
 				$last_name=$_POST['last_name'];
-				array_push($qry,"UPDATE employee SET last_name='$last_name' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET last_name='$last_name' WHERE employee_id='$field'");
 			}
 
 			if(trim($_POST['title'])!=""){
 
 				$title=$_POST['title'];
-				array_push($qry,"UPDATE employee SET title='$title' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET title='$title' WHERE employee_id='$field'");
 			}
 
 
 			if(trim($_POST['department'])!=""){
 
 				$department=$_POST['department'];
-				array_push($qry,"UPDATE employee SET department='$department' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET department='$department' WHERE employee_id='$field'");
 			}
 
 			if(trim($_POST['work_phone'])!=""){
 
 				$work_phone=$_POST['work_phone'];
-								array_push($qry,"UPDATE employee SET work_phone='$work_phone' WHERE employee_email='$field'");
-				array_push($qry,"INSERT INTO employee(work_phone) VALUE ('".$work_phone."') WHERE employee_email=".$_SESSION['field']);
+								array_push($qry,"UPDATE employee SET work_phone='$work_phone' WHERE employee_id='$field'");
+				array_push($qry,"INSERT INTO employee(work_phone) VALUE ('".$work_phone."') WHERE employee_id=".$_SESSION['field']);
 			}
 
 			if(trim($_POST['reports_to'])!=""){
 
 				$reports_to=$_POST['reports_to'];
-				array_push($qry,"UPDATE employee SET reports_to='$reports_to' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET reports_to='$reports_to' WHERE employee_id='$field'");
 			}
 
 			
 
 
-			$date_modified=$_POST['date_modified'];
-				array_push($qry,"UPDATE employee SET date_modified='$date_modified' WHERE employee_email='$field'");
+			$date_modified=date("Y/m/d");
+				array_push($qry,"UPDATE employee SET date_modified='$date_modified' WHERE employee_id='$field'");
 
 
 
-			$modified_by=$_POST['modified_by'];
-				array_push($qry,"UPDATE employee SET modified_by='$modified_by' WHERE employee_email='$field'");
+			$modified_by=$_SESSION['userid'];
+				array_push($qry,"UPDATE employee SET modified_by='$modified_by' WHERE employee_id='$field'");
 
 
 			if(trim($_POST['username'])!=""){
 
 				$username=$_POST['username'];
-				array_push($qry,"UPDATE employee SET username='$username' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET username='$username' WHERE employee_id='$field'");
 			}
 
 			if(trim($_POST['is_administrator'])!=""){
 
 				$is_administrator=$_POST['is_administrator'];
-				array_push($qry,"UPDATE employee SET is_administrator='$is_administrator' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET is_administrator='$is_administrator' WHERE employee_id='$field'");
 			}
 
 			if(trim($_POST['STATUS'])!=""){
 
 				$STATUS=$_POST['STATUS'];
-				array_push($qry,"UPDATE employee SET STATUS='$STATUS' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET STATUS='$STATUS' WHERE employee_id='$field'");
 			}
 
 
@@ -95,14 +95,14 @@ session_start();
 
 				$password=$_POST['password'];
 				$password=password_hash($password,PASSWORD_DEFAULT);
-				array_push($qry,"UPDATE employee SET password='$password' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET password='$password' WHERE employee_id='$field'");
 			}
 
 
 			if(trim($_POST['employee_email'])!=""){
 
 				$employee_email=$_POST['employee_email'];
-				array_push($qry,"UPDATE employee SET employee_email='$employee_email' WHERE employee_email='$field'");
+				array_push($qry,"UPDATE employee SET employee_email='$employee_email' WHERE employee_id='$field'");
 			}
 
 			$DB_HOST = "localhost";
@@ -128,7 +128,7 @@ session_start();
 			}
 		
 				if($check!=1){
-					header('Location: Homepage.php');
+					header('Location: ../Home/Homepage.php');
 
 				}
 				

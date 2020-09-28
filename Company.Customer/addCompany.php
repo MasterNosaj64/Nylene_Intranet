@@ -9,58 +9,109 @@ include '../navigation.php';
 /* $dbConnection = setConnectionInfo(); */
 include '../Database/connect.php';
 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else {
 
-if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
 
-    if (isset($_POST['shippingSameAsBilling'])) {
+        if (isset($_POST['shippingSameAsBilling'])) {
 
-        $_POST['shippingStreet'] = $_POST['billingStreet'];
-        $_POST['shippingCity'] = $_POST['billingCity'];
-        $_POST['shippingState'] = $_POST['billingState'];
-        $_POST['shippingPostalCode'] = $_POST['billingPostalCode'];
-        $_POST['shippingCountry'] = $_POST['billingCountry'];
-    }
+            $_POST['shippingStreet'] = $_POST['billingStreet'];
+            $_POST['shippingCity'] = $_POST['billingCity'];
+            $_POST['shippingState'] = $_POST['billingState'];
+            $_POST['shippingPostalCode'] = $_POST['billingPostalCode'];
+            $_POST['shippingCountry'] = $_POST['billingCountry'];
+        }
 
-    // check if company was already added
-    $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '".$_POST['name']."'";
-    /* $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn(); */
-    $validationResult = $conn->query($validateCompanyQuery);
-    
-    //if it doesn't exist, add it to the database
-    if (mysqli_fetch_array($validationResult) == NULL) {
+        // check if company was already added
+        $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '" . $_POST['name'] . "'";
 
-        $t = time();
-        // , assigned_to, date_created, created_by)
-        $sqlQuery = "INSERT INTO nylene.company (company_name, website, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode, billing_address_country, shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, shipping_address_country, description, type, industry, company_email, date_created, created_by)
-        VALUES ('" . $_POST['name'] . "','" . $_POST['website'] . "','" . $_POST['billingStreet'] . "','" . $_POST['billingCity'] . "','" . $_POST['billingState'] . "','" . $_POST['billingPostalCode'] . "','" . $_POST['billingCountry'] . "','" . $_POST['shippingStreet'] . "','" . $_POST['shippingCity'] . "','" . $_POST['shippingState'] . "','" . $_POST['shippingPostalCode'] . "','" . $_POST['shippingCountry'] . "','" . $_POST['description'] . "','" . $_POST['type'] . "','" . $_POST['industry'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','".$_SESSION['userid']."')"; // 16
+        $validationResult = $conn->query($validateCompanyQuery);
 
-       /*  $result = $dbConnection->query($sqlQuery);
-        $company_id = $dbConnection->lastInsertId(); */
+        // if it doesn't exist, add it to the database
+        if (mysqli_fetch_array($validationResult) == NULL) {
+
+            // No SQL-Injection protection
+            /*
+             * $sqlQuery = "INSERT INTO nylene.company (company_name, website, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode, billing_address_country, shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, shipping_address_country, description, type, industry, company_email, date_created, created_by)
+             * VALUES ('" . $_POST['name'] . "','" . $_POST['website'] . "','" . $_POST['billingStreet'] . "','" . $_POST['billingCity'] . "','" . $_POST['billingState'] . "','" . $_POST['billingPostalCode'] . "','" . $_POST['billingCountry'] . "','" . $_POST['shippingStreet'] . "','" . $_POST['shippingCity'] . "','" . $_POST['shippingState'] . "','" . $_POST['shippingPostalCode'] . "','" . $_POST['shippingCountry'] . "','" . $_POST['description'] . "','" . $_POST['type'] . "','" . $_POST['industry'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','" . $_SESSION['userid'] . "')";
+             */
+
+            // With SQL-Injection Protection
+            $sqlQuery = $conn->prepare("INSERT INTO nylene.company 
+            
+            (company_name, 
+            website, 
+            billing_address_street, 
+            billing_address_city, 
+            billing_address_state, 
+            billing_address_postalcode, 
+            billing_address_country, 
+            shipping_address_street, 
+            shipping_address_city, 
+            shipping_address_state, 
+            shipping_address_postalcode, 
+            shipping_address_country, 
+            description, 
+            type, 
+            industry, 
+            company_email, 
+            date_created, 
+            created_by)
         
-        $result = $conn->query($sqlQuery);
-        $company_id = $conn->insert_id;
-        //store company_id in session for further use then redirect user to next page
-        $_SESSION["company_id"] = $company_id;
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./addCustomer.php\" />;";
-        exit();
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); // 18 columns
 
-    } else {
+            $company_name = $_POST['name'];
+            $website = $_POST['website'];
+            $billing_address_street = $_POST['billingStreet'];
+            $billing_address_city = $_POST['billingCity'];
+            $billing_address_state = $_POST['billingState'];
+            $billing_address_postalcode = $_POST['billingPostalCode'];
+            $billing_address_country = $_POST['billingCountry'];
+            $shipping_address_street = $_POST['shippingStreet'];
+            $shipping_address_city = $_POST['shippingCity'];
+            $shipping_address_state = $_POST['shippingState'];
+            $shipping_address_postalcode = $_POST['shippingPostalCode'];
+            $shipping_address_country = $_POST['shippingCountry'];
+            $description = $_POST['description'];
+            $type = $_POST['type'];
+            $industry = $_POST['industry'];
+            $company_email = $_POST['email'];
 
-        echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
+            $t = time();
+            $date_created = date("Y-m-d", $t);
+
+            $created_by = $_SESSION['userid'];
+
+            $sqlQuery->bind_param("sssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_created, $created_by);
+
+            $sqlQuery->execute();
+
+            // store company_id in session for further use then redirect user to next page
+            $_SESSION["company_id"] = $sqlQuery->insert_id;
+            $sqlQuery->close();
+            $conn->close();
+            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./addCustomer.php\" />;";
+            exit();
+        } else {
+
+            echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
+        }
     }
-
 }
 
 ?>
 
 
-<html><head>
-  <link rel="stylesheet" href="../CSS/table.css">
+<html>
+<head>
+<link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>
 	<form method="post" action=addCompany.php name="add_company">
 		<input type="reset" value="Clear">
-		<table class ="form-table" border=5>
+		<table class="form-table" border=5>
 			<tr>
 				<td colspan=2><h2>Company</h2></td>
 				<td colspan=2><h2>Description</h2></td>

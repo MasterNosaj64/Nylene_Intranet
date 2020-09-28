@@ -1,7 +1,10 @@
-
-
-
 <?php
+//session_start();
+ if (!session_id()) {
+session_start();
+include '../Database/databaseConnection.php';
+include '../Database/connect.php';
+} 
 
 
 
@@ -9,12 +12,12 @@
 
 
 
-    $DB_HOST = "localhost";
-    $DB_USER = "root";
-    $DB_PASSWORD = "";
-    $DB_DATABASE = "nylene";
+    //$DB_HOST = "localhost";
+    //$DB_USER = "root";
+    //$DB_PASSWORD = "";
+    //$DB_DATABASE = "nylene";
 
-    $connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD);
+    //$connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD);
 
 //if(mysqli_connect_errno($connect))
 //{
@@ -31,9 +34,9 @@ $title=$_POST['title'];
 $department=$_POST['department'];
 $work_phone=$_POST['work_phone'];
 $reports_to=$_POST['reports_to'];
-$date_entered=$_POST['date_entered'];
-$date_modified=$_POST['date_modified'];
-$modified_by=$_POST['modified_by'];
+$date_entered=date("Y-m-d");
+$date_modified=date("Y-m-d");
+$modified_by=$_SESSION['userid'];
 $username=$_POST['username'];
 $is_administrator=$_POST['is_administrator'];
 $STATUS=$_POST['STATUS'];

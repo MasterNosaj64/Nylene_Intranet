@@ -1,7 +1,7 @@
 <?php
 if($_SESSION['userid'] == ""){
     echo "No user logged in";
-    echo "<meta http-equiv = \"refresh\" content = \"5; url = ./login.php\" />;";
+    echo "<meta http-equiv = \"refresh\" content = \"5; url = ../login.php\" />;";
  exit();
    
 }

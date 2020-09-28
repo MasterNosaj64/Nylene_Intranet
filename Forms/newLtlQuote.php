@@ -1,11 +1,11 @@
 <?php
 	session_start();
-	include '../Database/db_config.php';
+	include '../Database/connect.php';
 
 	// Check connection
-	if ($dbConnection-> connect_error) {
+	if ($conn-> connect_error) {
 		
-		die("Connection failed: " . $dbConnection-> connect_error);
+	    die("Connection failed: " . $conn-> connect_error);
 	
 	} else {
 
@@ -49,19 +49,19 @@
 								'".$_POST["range5"]."')";
 	
 
-	if ($dbConnection->query($sql)===TRUE) {
+		if ($conn->query($sql)===TRUE) {
 		
 		echo "New record created successfully<br/>";
 	
 				//tl = ltl_quote_id
 				$getFormId = "SELECT tl_quote_id FROM ltl_quote ORDER BY tl_quote_id DESC";
-				$formId = $dbConnection->query($getFormId);
+				$formId = $conn->query($getFormId);
 				$id_form = mysqli_fetch_array($formId);
 
 				$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
 					interaction_id, form_id, form_type) values ('$interaction_id', " . $id_form['tl_quote_id'] . ", '2')";
 					
-				if ($dbConnection->query($insert_into_interaction_relational_manager_table)===TRUE)
+				if ($conn->query($insert_into_interaction_relational_manager_table)===TRUE)
 				{
 					echo "Inserted into interation relational manager table";
 					echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
@@ -70,14 +70,14 @@
 				}
 				else
 				{
-					echo "Error: " . $dbConnection->error;
+				    echo "Error: " . $conn->error;
 				}	
 
 	} else {
-		echo "Error: " . $sql . "<br>" . $dbConnection->error;
+	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 
-	$dbConnection->close();
+	$conn->close();
 	}
 
 ?>

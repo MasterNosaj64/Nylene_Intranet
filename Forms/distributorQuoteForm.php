@@ -1,31 +1,31 @@
 <?php 
-//kb testing re-worked git/eclipse connection 
+
 session_start();
     include '../navigation.php';
-	include '../Database/db_config.php';
+	include '../Database/connect.php';
 
 	//Check the connection
-	if ($dbConnection-> connect_error) {
+	if ($conn-> connect_error) {
 	
-		die("Connection failed: " . $dbConnection-> connect_error);
+	    die("Connection failed: " . $conn-> connect_error);
 	
 	} else {
 		
 		//Selection statement for current employee
 		$userInformation = "SELECT first_name, last_name, title, work_phone, employee_email FROM employee 
 								WHERE employee_id = " . $_SESSION['userid'];
-		$result = $dbConnection->query($userInformation); 
+		$result = $conn->query($userInformation); 
 		$row = mysqli_fetch_array($result);
 		
 		$customerSelect = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
-		$customerInfo = $dbConnection->query($customerSelect);
+		$customerInfo = $conn->query($customerSelect);
 		$customerRow = mysqli_fetch_array($customerInfo);
 
 		$companySelect = "SELECT * FROM company WHERE company_id = " . $_SESSION['company_id'];
-		$companyInfo = $dbConnection->query($companySelect);
+		$companyInfo = $conn->query($companySelect);
 		$companyRow = mysqli_fetch_array($companyInfo);
 		
-		$dbConnection->close();
+		$conn->close();
 	}
 ?>
 <html>
@@ -190,7 +190,8 @@ session_start();
 		</tr>
 
 		<tr>
-			<td colspan="2"> <input type="submit" value="submit" style="width:100%"> </td>
+			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
+			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"> </td>
 		</tr>
 		</table>
 		
