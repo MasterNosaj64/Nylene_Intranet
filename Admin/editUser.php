@@ -7,6 +7,11 @@ if (! session_id()) {
 }
 
 include '../navigation.php';
+
+include '../Database/databaseConnection.php';
+include '../Database/connect.php';
+
+
 ?>
 
 
@@ -63,10 +68,11 @@ include '../navigation.php';
 				<td><label for="reports_to">Reports to</label><br /> <select
 					id="options" name="reports_to">
 		<?php
-$connect = mysqli_connect("localhost", "root", "");
-$db = mysqli_select_db($connect, "nylene");
+//$connect = mysqli_connect("localhost", "root", "");
+//$db = mysqli_select_db($connect, "nylene");
 $sql = "SELECT * FROM employee";
 $query = mysqli_query($connect, $sql);
+echo '<option value=""></option>';
 while ($row = mysqli_fetch_array($query)) {
     echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
@@ -86,8 +92,8 @@ while ($row = mysqli_fetch_array($query)) {
 			<tr>
 
 
-				</td>
-				<script>	
+				<!--</td>-->
+				<!--<script>	
 	function myFunction() {
 var date = new Date();
 var day = date.getDate();
@@ -100,9 +106,9 @@ var x = document.getElementsByClassName('theDate');
 x[0].value = today;
 x[1].value = today;
 }
-</script>
+</script>-->
 
-				<td colspan="2"><label for="date_modified">Date Modified </label><br />
+				<!--<td colspan="2"><label for="date_modified">Date Modified </label><br />
 					<input name="date_modified" type="date" class="theDate"
 					maxlength="100" readonly /></td>
 
@@ -111,7 +117,7 @@ x[1].value = today;
 			<tr>
 				<td><label for="modified_by">Modified By </label><br /> <input
 					name="modified_by" type="text" maxlength="50"
-					value="<?php echo $_SESSION['userid']?>" readonly /></td>
+					value="?php echo $_SESSION['userid']?>" readonly /></td>-->
 				<td style="width: 50%"><label for="username">Username </label><br /> <input
 					name="username" type="text" maxlength="50"  />
 				</td>
