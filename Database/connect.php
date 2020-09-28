@@ -6,7 +6,7 @@
 	$username = "root";
 	$password = "";
 	$dbname   = "nylene";
-	$connect     = mysqli_connect($host, $username, $password, $dbname);
-	$db = mysqli_select_db($connect, "nylene");
+	$conn    = mysqli_connect($host, $username, $password, $dbname);
+	$db = mysqli_select_db($conn, "nylene");
 
 	?>
