@@ -5,6 +5,8 @@ session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 include '../navigation.php';
+include '../Database/databaseConnection.php';
+include '../Database/connect.php';
 ?>
 
 <!DOCTYPE html>
@@ -99,8 +101,8 @@ x[1].value = today;
 				</td>
 				<td>Reports to <select id="employee" name="reports_to">
 		<?php
-$connect = mysqli_connect("localhost", "root", "");
-$db = mysqli_select_db($connect, "nylene");
+//$connect = mysqli_connect("localhost", "root", "");
+//$db = mysqli_select_db($connect, "nylene");
 $sql = "SELECT * FROM employee";
 $query = mysqli_query($connect, $sql);
 while ($row = mysqli_fetch_array($query)) {
@@ -120,10 +122,10 @@ while ($row = mysqli_fetch_array($query)) {
 			</thead>
 		</table>
 		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
-			<tr>
+			<!--<tr>
 
-	<!--<td ><label for="date_entered"> Date Entered </label>
-			<input type="date" id="date_entered" name="date_entered" value ="<?php echo date("Y-m-d") ?>"  readonly></td>-->
+	<td ><label for="date_entered"> Date Entered </label>
+			<input type="date" id="date_entered" name="date_entered" value ="?php echo date("Y-m-d") ?>"  readonly></td>
 
 
 				<td style="width: 50%"><label for="date_entered"><b>Date Entered *</b></label><br />
@@ -132,7 +134,7 @@ while ($row = mysqli_fetch_array($query)) {
 					
 					
 					<!--<td ><label for="date_entered"> Date Modified </label>
-			<input type="date" id="date_entered" name="date_modified" value ="<?php echo date("Y-m-d") ?>" readonly></td>-->
+			<input type="date" id="date_entered" name="date_modified" value ="?php echo date("Y-m-d") ?>" readonly></td>
 				
 				
 				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
@@ -140,14 +142,14 @@ while ($row = mysqli_fetch_array($query)) {
 					maxlength="100" style="width: 260px" readonly /> </td>
 					
 
-			</tr>
+			</tr>-->
 
-			<tr>
+			<!--<tr>
 				<td><label for="modified_by">Modified By *</label><br /> <input
 					name="modified_by" type="text" maxlength="50" 
-					value="<?php echo $_SESSION['userid']?>" readonly /></td>
-				<td><label for="username">Username *</label><br /> <input
-					name="username" type="text" maxlength="50" />
+					value="?php echo $_SESSION['userid']?>" readonly /></td>-->
+			<tr>	<td><label for="username">Username *</label><br /> <input
+					name="username" type="text" maxlength="100" />
 				</td>
 			</tr>
 
