@@ -9,7 +9,7 @@
 	$username = "root";
 	$password = "";
 	$dbname   = "nylene";
-	$conn     = new mysqli($host, $username, $password, $dbname);
+	$connect     = new mysqli($host, $username, $password, $dbname);
 
 	if (mysqli_connect_error())
 	{
@@ -69,11 +69,11 @@
 
 		}
 
-		$query_samples_result = $conn->query($query_samples);
-		$query_ltls_result = $conn->query($query_ltl_quotes);
-		$query_tls_result = $conn->query($query_tl_quotes);
-		$query_distributors_result = $conn->query($query_distributor_quotes);
-		$query_marketing_reqs_result = $conn->query($query_marketing_requests);
+		$query_samples_result = $connect->query($query_samples);
+		$query_ltls_result = $connect->query($query_ltl_quotes);
+		$query_tls_result = $connect->query($query_tl_quotes);
+		$query_distributors_result = $connect->query($query_distributor_quotes);
+		$query_marketing_reqs_result = $connect->query($query_marketing_requests);
 
 		$queries = array();
 

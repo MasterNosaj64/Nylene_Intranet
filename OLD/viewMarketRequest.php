@@ -8,7 +8,7 @@
 	$username = "root";
 	$password = "";
 	$dbname   = "nylene_database";
-	$conn     = new mysqli($host, $username, $password, $dbname);
+	$connect     = new mysqli($host, $username, $password, $dbname);
 
 	if (mysqli_connect_error())
 	{
