@@ -98,12 +98,12 @@
 		echo "New record created successfully<br/>";
 */	
 				//tl = ltl_quote_id
-				$getFormId = "SELECT tl_quote_id FROM ltl_quote ORDER BY tl_quote_id DESC";
+				$getFormId = "SELECT ltl_quote_id FROM ltl_quote ORDER BY ltl_quote_id DESC";
 				$formId = $conn->query($getFormId);
 				$id_form = mysqli_fetch_array($formId);
 
 				$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
-					interaction_id, form_id, form_type) values ('$interaction_id', " . $id_form['tl_quote_id'] . ", '2')";
+					interaction_id, form_id, form_type) values ('$interaction_id', " . $id_form['ltl_quote_id'] . ", '2')";
 					
 				if ($conn->query($insert_into_interaction_relational_manager_table)===TRUE)
 				{

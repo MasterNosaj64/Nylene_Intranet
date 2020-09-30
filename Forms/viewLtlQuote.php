@@ -19,7 +19,7 @@ session_start();
 		
 		//Selection statement for distributor quote form
 		$ltlQuery = "SELECT * FROM ltl_quote 
-								WHERE tl_quote_id = ". $_POST['id'];
+								WHERE ltl_quote_id = ". $_POST['id'];
 		$ltlResults = $conn->query($ltlQuery);								
 		$ltlRow = mysqli_fetch_array($ltlResults);
 		
@@ -30,7 +30,7 @@ session_start();
 										INNER JOIN company ON company.company_id = company_relational_customer.company_id
 											INNER JOIN interaction ON interaction.company_id = company.company_id
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
-													INNER JOIN ltl_quote ON ltl_quote.tl_quote_id = interaction_relational_form.form_id
+													INNER JOIN ltl_quote ON ltl_quote.ltl_quote_id = interaction_relational_form.form_id
 														WHERE interaction_relational_form.form_type = 2 AND interaction_relational_form.form_id = ". $_POST['id'];
 		$customerResult = $conn->query($customerInformation); 
 		$customerRow = mysqli_fetch_array($customerResult);
