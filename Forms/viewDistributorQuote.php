@@ -145,7 +145,7 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
-			<td><input type="text" name="truck_load" readonly value="<?php echo $distRow['truck_load'];?>"></td>
+			<td><input type="number" name="truck_load" readonly value="<?php echo $distRow['truck_load'];?>"></td>
 		</tr>
 		
 		<thead>
@@ -165,6 +165,10 @@ session_start();
 			<td><input type="text" name="special_terms" readonly value="<?php echo $distRow['special_terms'];?>"></td>
 		</tr>
 
+		<tr>
+			<td> 40,000 lb. + </td>
+			<td><input type="text" name="range40up" readonly value="<?php echo $distRow['range40up'];?>"></td>
+		</tr>
 		<tr>
 			<td> 22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box </td>
 			<td><input type="text" name="range2240" readonly value="<?php echo $distRow['range2240'];?>"></td>

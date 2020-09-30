@@ -22,17 +22,18 @@
 					special_terms, 
 					OEM, 
 					application, 
-					truck_load, 
+					truck_load,
+                    range40up, 
 					range2240, 
 					range1122, 
 					range610, 
 					range24)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 
-		$stmt->bind_param("isssssissssssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc, 
+		$stmt->bind_param("isssssisssisssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc, 
 		                  $ltlQuantities, $annualVol, $specialTerms, $OEM, $application, 
-		                  $truckLoad, $range2240, $range1122, $range610, $range24); 
+		                  $truckLoad, $range40up, $range2240, $range1122, $range610, $range24); 
 		
 		$dateCreated = $_POST["date_created"];
 		$quoteNum = $_POST["quote_num"];
@@ -45,6 +46,7 @@
 		$OEM = $_POST["OEM"];
 		$application = $_POST["application"];
 		$truckLoad = $_POST["truck_load"];
+		$range40up = $_POST["range40up"];
 		$range2240 = $_POST["range2240"];
 		$range1122 = $_POST["range1122"];
 		$range610 = $_POST["range610"];
