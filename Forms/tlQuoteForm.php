@@ -136,7 +136,7 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
-			<td><input type="text" id="truck_load" name="truck_load"></td>
+			<td><input type="number" id="truck_load" name="truck_load"></td>
 		</tr>
 <thead>
 		<tr>
@@ -175,27 +175,27 @@ session_start();
 
 		<tr>
 			<td>40,000 lb.+</td>
-			<td><input type="text" id="range40plus" name="range40plus"></td>
+			<td><input type="text" id="range40plus" name="range40plus" readonly></td>
 		</tr>
 		<tr>
 			<td>22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box</td>
-			<td><input type="text" id="range2240" name="range2240"></td>
+			<td><input type="text" id="range2240" name="range2240" readonly></td>
 		</tr>
 		<tr>
 			<td>11,000 - 21,999 lb. bags, 10,500 - 20,999 lb. box</td>
-			<td><input type="text" id="range1022" name="range1022"></td>
+			<td><input type="text" id="range1022" name="range1022" readonly></td>
 		</tr>
 		<tr>
 			<td>6,600 - 10,999 lb. bags, 6,000 - 10,499 lb. box</td>
-			<td><input type="text" id="range610" name="range610"></td>
+			<td><input type="text" id="range610" name="range610" readonly></td>
 		</tr>
 		<tr>
 			<td>4,400 - 6,599 lb. bags, 3,000 - 5,999 lb. box</td>
-			<td><input type="text" id="range46" name="range46"></td>
+			<td><input type="text" id="range46" name="range46" readonly></td>
 		</tr>
 		<tr>
 			<td>2,200 - 4,399 lb. bags, 1,500 - 2,999 lb. box</td>
-			<td><input type="text" id="range24" name="range24"></td>
+			<td><input type="text" id="range24" name="range24" readonly></td>
 		</tr>
 
 

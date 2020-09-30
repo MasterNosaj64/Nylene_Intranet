@@ -144,7 +144,7 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> TL Price </label></td>
-			<td><input type="text" name="truck_load" readonly value="<?php echo $tlRow['truck_load'];?>"></td>
+			<td><input type="number" name="truck_load" readonly value="<?php echo $tlRow['truck_load'];?>"></td>
 		</tr>
 		<thead>
 		<tr>
@@ -168,19 +168,23 @@ session_start();
 			<td><input type="text" name="range40plus" readonly value="<?php echo $tlRow['range40plus'];?>"></td>
 		</tr>
 		<tr>
-			<td>1,100 - 2,199 lb. bags</td>
+			<td>22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box</td>
+			<td><input type="text" name="range2240" readonly value="<?php echo $tlRow['range2240'];?>"></td>
+		</tr>
+		<tr>
+			<td>11,000 - 21,999 lb. bags, 10,500 - 20,999 lb. box</td>
 			<td><input type="text" name="range1022" readonly value="<?php echo $tlRow['range1022'];?>"></td>
 		</tr>
 		<tr>
-			<td>550 - 1099 lb. bags</td>
+			<td>6,600 - 10,999 lb. bags, 6,000 - 10,499 lb. box</td>
 			<td><input type="text" name="range610" readonly value="<?php echo $tlRow['range610'];?>"></td>
 		</tr>
 		<tr>
-			<td>275 - 549 lb. bags</td>
+			<td>4,400 - 6,599 lb. bags, 3,000 - 5,999 lb. box</td>
 			<td><input type="text" name="range46" readonly value="<?php echo $tlRow['range46'];?>"></td>
 		</tr>
 		<tr>
-			<td>110 - 274 lb. bags</td>
+			<td>2,200 - 4,399 lb. bags, 1,500 - 2,999 lb. box</td>
 			<td><input type="text" name="range24" readonly value="<?php echo $tlRow['range24'];?>"></td>
 		</tr>
 		</table>
