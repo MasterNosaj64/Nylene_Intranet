@@ -24,7 +24,7 @@ include '../Database/connect.php';
 	//	echo 'Failed to connect';
 //}
 
-if($connect) {
+if($conn) {
   //echo '<h1>Thanks for creating user</h1>';
  // if(isset($_POST['example2']) ){
  //$employee_id=$_POST['employee_id'];
@@ -72,12 +72,12 @@ $emergency_contact_phone=$_POST['EmergencyContactPhone'];
 
 **/
   //if connected then Select Database. 
-  $db=mysqli_select_db($connect,$DB_DATABASE);
+  $db=mysqli_select_db($conn,$DB_DATABASE);
     //echo '<h1>Connected to MySQL</h1>';
 
-    $query=mysqli_query($connect,"INSERT INTO employee(first_name,last_name,title,department,work_phone,reports_to,date_entered,date_modified,modified_by,username,is_administrator,STATUS,employee_email,password) VALUES ('$first_name', '$last_name', '$title','$department','$work_phone','$reports_to','$date_entered','$date_modified','$modified_by','$username','$is_administrator','$STATUS','$employee_email','$password')");
+    $query=mysqli_query($conn,"INSERT INTO employee(first_name,last_name,title,department,work_phone,reports_to,date_entered,date_modified,modified_by,username,is_administrator,STATUS,employee_email,password) VALUES ('$first_name', '$last_name', '$title','$department','$work_phone','$reports_to','$date_entered','$date_modified','$modified_by','$username','$is_administrator','$STATUS','$employee_email','$password')");
 	if (!$query) {
-		echo (mysqli_error($connect)) ;
+		echo (mysqli_error($conn)) ;
 		//echo "           fail";
 	}
 	else{ 
