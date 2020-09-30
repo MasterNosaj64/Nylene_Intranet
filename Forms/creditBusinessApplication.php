@@ -65,7 +65,7 @@ if($conn-> connect_error) {
         </tr>
         <tr>
           <td id ="business_email">E-mail</td>
-          <td colspan="2"><input type = "text" name="business_email" readonly value="<?php echo $companyRow['company_email'];?>> </td>
+          <td colspan="2"> <input type = "text" name="business_email" required> </td>
         </tr>
 
         <tr>

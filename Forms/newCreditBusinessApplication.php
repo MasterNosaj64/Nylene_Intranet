@@ -66,27 +66,27 @@
 						'".$_POST["bank_name"]."', 
 						'".$_POST["account_number"]."', 
 						'".$_POST["bank_address"]."', 
-						'".$_POST["bank_email"]."')"
-						'".$_POST["bank_contact_name"]."')"
-						'".$_POST["bank_fax"]."')"
-						'".$_POST["bank_phone"]."')"
-						'".$_POST["ref1_company_name"]."')"
-						'".$_POST["ref1_company_phone"]."')"
-						'".$_POST["ref1_company_contact_name"]."')"
-						'".$_POST["ref1_company_fax"]."')"
-						'".$_POST["ref1_company_address"]."')"
-						'".$_POST["ref1_company_email"]."')"
-						'".$_POST["ref2_company_name"]."')"
-						'".$_POST["ref2_company_phone"]."')"
-						'".$_POST["ref2_company_contact_name"]."')"
-						'".$_POST["ref2_company_fax"]."')"
-						'".$_POST["ref2_company_address"]."')"
-						'".$_POST["ref2_company_email"]."')"
-						'".$_POST["ref3_company_name"]."')"
-						'".$_POST["ref3_company_phone"]."')"
-						'".$_POST["ref3_company_contact_name"]."')"
-						'".$_POST["ref3_company_fax"]."')"
-						'".$_POST["ref3_company_address"]."')"
+						'".$_POST["bank_email"]."',
+						'".$_POST["bank_contact_name"]."',
+						'".$_POST["bank_fax"]."',
+						'".$_POST["bank_phone"]."',
+						'".$_POST["ref1_company_name"]."',
+						'".$_POST["ref1_company_phone"]."',
+						'".$_POST["ref1_company_contact_name"]."',
+						'".$_POST["ref1_company_fax"]."',
+						'".$_POST["ref1_company_address"]."',
+						'".$_POST["ref1_company_email"]."',
+						'".$_POST["ref2_company_name"]."',
+						'".$_POST["ref2_company_phone"]."',
+						'".$_POST["ref2_company_contact_name"]."',
+						'".$_POST["ref2_company_fax"]."',
+						'".$_POST["ref2_company_address"]."',
+						'".$_POST["ref2_company_email"]."',
+						'".$_POST["ref3_company_name"]."',
+						'".$_POST["ref3_company_phone"]."',
+						'".$_POST["ref3_company_contact_name"]."',
+						'".$_POST["ref3_company_fax"]."',
+						'".$_POST["ref3_company_address"]."',
 						'".$_POST["ref3_company_email"]."')";
 	                                 
 
