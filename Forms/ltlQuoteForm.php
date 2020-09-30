@@ -134,7 +134,7 @@
 		</tr>
 		<tr>
 			<td><label for="truck_load"> TL Price </label></td>
-			<td><input type="text" id="truck_load" name="truck_load"></td>
+			<td><input type="number" id="truck_load" name="truck_load"></td>
 		</tr>
 		<thead>
 		<tr>
@@ -168,28 +168,28 @@
 			<td><input type="text" id="special_terms" name="special_terms" value=" N/A"></td>
 		</tr>
 		<tr>
-			<td>1,500 lb. Bx - 2,200 lb. Bags</td>
-			<td><input type="text" id="range1522" name="range1522"></td>
+			<td>1,500 lb. Bx, 2,200 lb. Bags</td>
+			<td><input type="text" id="range1522" name="range1522" readonly></td>
 		</tr>
 		<tr>
 			<td>1,100 - 2,199 lb. bags</td>
-			<td><input type="text" id="range1121" name="range1121"></td>
+			<td><input type="text" id="range1121" name="range1121" readonly></td>
 		</tr>
 		<tr>
 			<td>550 - 1099 lb. bags</td>
-			<td><input type="text" id="range510" name="range510"></td>
+			<td><input type="text" id="range510" name="range510" readonly></td>
 		</tr>
 		<tr>
 			<td>275 - 549 lb. bags</td>
-			<td><input type="text" id="range25" name="range25"></td>
+			<td><input type="text" id="range25" name="range25" readonly></td>
 		</tr>
 		<tr>
 			<td>110 - 274 lb. bags</td>
-			<td><input type="text" id="range12" name="range12"></td>
+			<td><input type="text" id="range12" name="range12" readonly></td>
 		</tr>
 		<tr>
 			<td>55 lb. bags</td>
-			<td><input type="text" id="range5" name="range5"></td>
+			<td><input type="text" id="range5" name="range5" readonly></td>
 		</tr>
 		<tr>
 			<td colspan="1"> <input type="Submit" style="width:100%" value="submit"> </td>

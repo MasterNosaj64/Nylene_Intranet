@@ -144,7 +144,7 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> TL Price </label></td>
-			<td><input type="text" name="truck_load" readonly value="<?php echo $ltlRow['truck_load'];?>"></td>
+			<td><input type="number" name="truck_load" readonly value="<?php echo $ltlRow['truck_load'];?>"></td>
 		</tr>
 		<thead>
 		<tr>
@@ -163,7 +163,7 @@ session_start();
 			<td><input type="text" name="special_terms" readonly value="<?php echo $ltlRow['special_terms'];?>"></td>
 		</tr>
 		<tr>
-			<td>1,500 lb. Bx - 2,200 lb. Bags</td>
+			<td>1,500 lb. Bx, 2,200 lb. Bags</td>
 			<td><input type="text" id="range1522" name="range1522" readonly value="<?php echo $ltlRow['range1522'];?>"></td>
 		</tr>
 		<tr>

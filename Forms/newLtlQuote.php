@@ -69,7 +69,7 @@
 								'".$_POST["range5"]."')";
 	*/
 
-		$stmt->bind_param("isssssissssssssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
+		$stmt->bind_param("isssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
 		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		    $truckLoad, $range1522, $range1121, $range510, $range25, $range12, $range5);
 		
