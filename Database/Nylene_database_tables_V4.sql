@@ -200,7 +200,8 @@ ref3_company_contact_name VARCHAR(50) DEFAULT NULL,
 ref3_company_fax VARCHAR(100) DEFAULT NULL,
 ref3_company_address VARCHAR(150) DEFAULT NULL,
 ref3_company_email VARCHAR(100) DEFAULT NULL,
-got_signature INT DEFAULT NULL
+got_signature INT DEFAULT NULL,
+PRIMARY KEY(credit_application_business_id)
 ) DEFAULT CHARSET = utf8;
 
 CREATE TABLE `company`(
