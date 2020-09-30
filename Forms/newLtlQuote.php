@@ -12,8 +12,28 @@
 
 		$interaction_id = $_SESSION['interaction_id'];
 
+		$stmt = $conn->prepare("INSERT INTO ltl_quote (
+					date_created,
+					quote_num,
+					product_name,
+					payment_terms,
+					product_desc,
+					ltl_quantities,
+					annual_vol,
+					special_terms,
+					OEM,
+					application,
+					truck_load,
+					range1522,
+					range1121,
+					range510,
+					range25,
+                    range12, 
+					range5)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
-		$sql = "INSERT INTO ltl_quote (date_created, 
+		
+/*		$sql = "INSERT INTO ltl_quote (date_created, 
 									quote_num, 
 									product_name, 
 									payment_terms, 
@@ -47,12 +67,36 @@
 								'".$_POST["range25"]."', 
 								'".$_POST["range12"]."', 
 								'".$_POST["range5"]."')";
-	
+	*/
 
-		if ($conn->query($sql)===TRUE) {
+		$stmt->bind_param("isssssissssssssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
+		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
+		    $truckLoad, $range1522, $range1121, $range510, $range25, $range12, $range5);
+		
+		$dateCreated = $_POST["date_created"];
+		$quoteNum = $_POST["quote_num"];
+		$productName = $_POST["product_name"];
+		$payment_terms = $_POST["payment_terms"];
+		$productDesc = $_POST["product_desc"];
+		$ltlQuantities = $_POST["ltl_quantities"]; //this needs to be updated to text in the db, not sure why it's an int
+		$annualVol = $_POST["annual_vol"];
+		$specialTerms = $_POST["special_terms"];
+		$OEM = $_POST["OEM"];
+		$application = $_POST["application"];
+		$truckLoad = $_POST["truck_load"];
+		$range1522 = $_POST["range1522"];
+		$range1121 = $_POST["range1121"];
+		$range510 = $_POST["range510"];
+		$range25 = $_POST["range25"];
+		$range12 = $_POST["range12"];
+		$range5 = $_POST["range5"];
+		
+		$stmt->execute();
+
+/*		if ($conn->query($sql)===TRUE) {
 		
 		echo "New record created successfully<br/>";
-	
+*/	
 				//tl = ltl_quote_id
 				$getFormId = "SELECT tl_quote_id FROM ltl_quote ORDER BY tl_quote_id DESC";
 				$formId = $conn->query($getFormId);
@@ -67,16 +111,17 @@
 					echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
 					exit();
 					
-				}
+    			}
 				else
 				{
 				    echo "Error: " . $conn->error;
 				}	
-
+/*
 	} else {
 	    echo "Error: " . $sql . "<br>" . $conn->error;
-	}
-
+	}*/
+	
+	$stmt->close();
 	$conn->close();
 	}
 
