@@ -61,16 +61,22 @@
 //			echo "New record created successfully<br/>";
 		
 
-				$getFormId = "SELECT distributor_quote_id FROM distributor_quote_form ORDER BY distributor_quote_id DESC";
-				$formId = $conn->query($getFormId);
-				$id_form = mysqli_fetch_array($formId);
-
+		$getFormId = "SELECT distributor_quote_id FROM distributor_quote_form ORDER BY distributor_quote_id DESC";
+		$formId = $conn->query($getFormId);
+		$id_form = mysqli_fetch_array($formId);
+				
+		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
+					interaction_id,
+                    form_id,
+                    form_type)
+                    VALUES (?, ?, ?)");
+		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
 			
 				
-				$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
+/*				$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
 					interaction_id, form_id, form_type) values ('$interaction_id', " . $id_form['distributor_quote_id'] . ", '4')";				
-				
-				if ($conn->query($insert_into_interaction_relational_manager_table)===TRUE)
+*/				
+	/*			if ($conn->query($insert_into_interaction_relational_manager_table)===TRUE)
 				{
 					echo "Inserted into interation relational manager table";
 				}
@@ -78,16 +84,22 @@
 				{
 				    echo "Error: " . $conn->error;
 				}	
-	
+	*/
 		
 //		} else {
 			
 //		    echo "Error: " . $sql . " " . $conn->error;
 //		}
 
-		
+		$interactionNum = $interaction_id;
+		$formID = $id_form['distributor_quote_id'];
+		$formType = 4;
+		$stmt2->execute();
+				
 		$stmt->close();
+		$stmt2->close();
 		$conn->close();
+
 		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
 		exit();
 	}

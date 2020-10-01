@@ -50,7 +50,7 @@ session_start();
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
 
-		<thead>`
+		<thead>
 		<tr>
 			<th colspan="2">- Employee Information -</th>
 		</tr></thead>
