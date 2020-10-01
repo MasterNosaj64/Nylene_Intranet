@@ -60,10 +60,25 @@ if ($conn->connect_error) {
             $sqlQuery->bind_param("sssss", $name, $email, $date_created, $customer_phone, $customer_fax);
 
             $sqlQuery->execute();
+            
+            $sqlRelationQuery = $conn->prepare("INSERT INTO nylene.company_relational_customer 
+            (company_id, 
+            customer_id)
+
+            VALUES (?,?)");
+            
+            $company_id = $_SESSION['company_id'];
+            $customer_id = $sqlQuery->insert_id;
+            
+            $sqlRelationQuery->bind_param("ii", $company_id, $customer_id);
+            
+            $sqlRelationQuery->execute();
+            
+            $sqlRelationQuery->close();
             $conn->close();
             $sqlQuery->close();
 
-            echo "<meta http-equiv = \"refresh\" content = \"5 url = ./viewCompany.php\" />;";
+            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php\" />;";
             exit();
         }
     } else {
