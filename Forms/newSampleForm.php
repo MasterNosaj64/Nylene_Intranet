@@ -157,13 +157,64 @@
 				'$sds', '$coa', '$data_sheet', '$other_doc', '$sample_qty', '$sample_req_date', '$sample_price', '$sample_frt',
 				'$other_contact1', '$other_contact2', '$other_contact3', '$other_contact4')";
 
-		if ($conn->query($insert_into_forms_table) === TRUE) {
+		$stmt = $conn->prepare("INSERT INTO sample_form (
+					date_submitted, 
+                    m_code, 
+                    customer_code, 
+                    credit_app_submitted, 
+                    business_case, 
+                    match_sample_sub,
+				    match_data_sheet, 
+                    match_description, 
+                    material_description, 
+                    customer_proc, 
+                    customer_supplier, 
+                    finished_good_app,
+				    annual_vol, 
+                    current_resin_system, 
+                    target_price, 
+                    melt_reqs, 
+                    current_filler_sys, 
+                    colors, 
+                    known_additives,
+				    uv_reqs, 
+                    ul_reqs, 
+                    auto_reqs, 
+                    fda_reqs, 
+                    color_specs, 
+                    response_date, 
+                    prod_rec, 
+                    stock_prod_qty,
+				    sds, 
+                    coa, 
+                    data_sheet, 
+                    other_doc, 
+                    sample_qty, 
+                    sample_req_date, 
+                    sample_price, 
+                    sample_frt,
+				    other_contact_1, 
+                    other_contact_2, 
+                    other_contact_3, 
+                    other_contact_4) 
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		
+		$stmt->bind_param("issisiiissssssssssssssssiiisiisiissssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
+		    $match_data_sheet, $match_descr, $material_descr, $customer_proc, $curr_supplier, $finished_good_app,
+		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filter_sys, $colors, $known_additives,
+		    $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty,
+		    $sds, $coa, $data_sheet, $other_doc, $sample_qty, $sample_req_date, $sample_price, $sample_frt,
+		    $other_contact1, $other_contact2, $other_contact3, $other_contact4);
+		
+		
+		$stmt->execute();
+/*		if ($conn->query($insert_into_forms_table) === TRUE) {
 		
 		}		
 		else {
 			echo "Error: " . $insert_into_forms_table . "<br>" . $conn->error;
 		}
-
+*/
 // 		$insert_into_interaction_table = "INSERT INTO interaction (
 // 			company_id, employee_id, comments, date_created) values (
 // 			'$company_id', 
@@ -191,18 +242,33 @@
 		$formId = $conn->query($getFormId);
 		$idf = mysqli_fetch_array($formId);
 
-		$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
+/*		$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
 			interaction_id, form_id, form_type) values (
-			" . $id . ", " . $idf['sample_form_id'] . ", '1')";
+			" . $id . ", " . $idf['sample_form_id'] . ", '1')"; */
 
-		if ($conn->query($insert_into_interaction_relational_manager_table) === TRUE) {
-		  
-		    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
-		    exit();
-		}		
+		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
+					interaction_id,
+                    form_id,
+                    form_type)
+                    VALUES (?, ?, ?)");
+		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
+		
+		$interactionNum = $id;
+		$formID = $idf['sample_form_id'];
+		$formType = 1;
+		$stmt2->execute();
+		
+		$stmt->close();
+		$stmt2->close();
+		$conn->close();
+/*		if ($conn->query($insert_into_interaction_relational_manager_table) === TRUE) {
+*/		  
+		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
+		exit();
+/*		}		
 		else {
 			echo "Error: " . $insert_into_interaction_relational_manager_table . "<br>" . $conn->error;
-		}		
+		}		*/
 	}
 ?>
 
