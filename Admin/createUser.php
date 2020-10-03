@@ -19,7 +19,6 @@ include '../Database/connect.php';
 		onsubmit="return ValidateForm(this)";>
 		<script type="text/javascript">
 function ValidateForm(frm) {
-//if (frm.employee_id.value == "") { alert('Employee ID is required.'); frm.employee_id.focus(); return false; }
 if (frm.first_name.value == "") { alert('First name is required.'); frm.first_name.focus(); return false; }
 if (frm.last_name.value == "") { alert('Last name is required.'); frm.last_name.focus(); return false; }
 if (frm.title.value == "") { alert('Title is required.'); frm.title.focus(); return false; }
@@ -67,11 +66,7 @@ x[1].value = today;
 
 		</table>
 		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
-			<!--<tr>
-	<td colspan="2">
-	<label for="employee_id"><b>Employee ID*</b></label><br/>
-	<input name="employee_id" type="text" maxlength="100" style="width: 535px" />
-	</td> </tr>-->
+			
 			<tr>
 				<td ><label for="first_name"> First Name *</label>
 					<input name="first_name" type="text" maxlength="50"
@@ -101,10 +96,9 @@ x[1].value = today;
 				</td>
 				<td>Reports to <select id="employee" name="reports_to">
 		<?php
-//$connect = mysqli_connect("localhost", "root", "");
-//$db = mysqli_select_db($connect, "nylene");
+
 $sql = "SELECT * FROM employee";
-$query = mysqli_query($connect, $sql);
+$query = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_array($query)) {
     echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
@@ -122,32 +116,7 @@ while ($row = mysqli_fetch_array($query)) {
 			</thead>
 		</table>
 		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
-			<!--<tr>
-
-	<td ><label for="date_entered"> Date Entered </label>
-			<input type="date" id="date_entered" name="date_entered" value ="?php echo date("Y-m-d") ?>"  readonly></td>
-
-
-				<td style="width: 50%"><label for="date_entered"><b>Date Entered *</b></label><br />
-					<input name="date_entered" type="date" class="theDate"
-					maxlength="100" style="width: 260px" readonly /></td>
-					
-					
-					<!--<td ><label for="date_entered"> Date Modified </label>
-			<input type="date" id="date_entered" name="date_modified" value ="?php echo date("Y-m-d") ?>" readonly></td>
-				
-				
-				<td style="width: 50%"><label for="date_modified"><b>Date Modified *</b></label><br />
-					<input name="date_modified" type="date" class="theDate"
-					maxlength="100" style="width: 260px" readonly /> </td>
-					
-
-			</tr>-->
-
-			<!--<tr>
-				<td><label for="modified_by">Modified By *</label><br /> <input
-					name="modified_by" type="text" maxlength="50" 
-					value="?php echo $_SESSION['userid']?>" readonly /></td>-->
+		
 			<tr>	<td><label for="username">Username *</label><br /> <input
 					name="username" type="text" maxlength="100" />
 				</td>
@@ -190,162 +159,6 @@ while ($row = mysqli_fetch_array($query)) {
 </body>
 </html>
 
-<!--<td style="width: 50%">
-	<label for="Gender">
-	<b>Gender </b></label><br />
-	<select name="Gender">
-	  <option value="not_willing_to_specify">Not willing to specify</option>
-  <option value="male">male</option>
-  <option value="female">female</option>
-  <option value="other">other</option>
-</select>
-	</td></tr>
- <tr> <td>
-<label for="MobilePhone"><b>Mobile Phone *</b></label><br />
-<input name="MobilePhone" type="text" maxlength="50" style="width: 260px" />
-</td>  <td>
-<label for="HomePhone"><b>Home Phone</b></label><br />
-<input name="HomePhone" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
-
-<tr> <td>
-<label for="Address1"><b>Address 1 *</b></label><br />
-<input name="Address1" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="Address2"><b>Address 2</b></label><br />
-<input name="Address2" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
-
-<tr> <td>
-<label for="City"><b>City</b></label><br />
-<input name="City" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="Province"><b>State/Province</b></label><br />
-<select name="Province" >
-  <option value="AB">Alberta</option>
-	<option value="BC">British Columbia</option>
-	<option value="MB">Manitoba</option>
-	<option value="NB">New Brunswick</option>
-	<option value="NL">Newfoundland and Labrador</option>
-	<option value="NS">Nova Scotia</option>
-	<option value="ON">Ontario</option>
-	<option value="PE">Prince Edward Island</option>
-	<option value="QC">Quebec</option>
-	<option value="SK">Saskatchewan</option>
-	<option value="NT">Northwest Territories</option>
-	<option value="NU">Nunavut</option>
-	<option value="YT">Yukon</option></select>
-</td> </tr>
-
-<tr> <td>
-<label for="PostalCode"><b>Postal/Zip Code *</b></label><br />
-<input name="PostalCode" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td colspan="2">
-<label for="StartDate"><b>Start Date</b></label><br />
-<input name="StartDate" type="date" maxlength="50" style="width: 260px" />
-</td> </tr></table><table border="1" cellpadding="5" cellspacing="0">
-<tr>
-				<td id="column_heading" colspan="2"  style="text-align: left;">Pay & Benefit Information</td>
-			</tr></table><table border="1" cellpadding="5" cellspacing="0">
-<tr> <td>
-<label for="EmployeeNumber"><b>Employee Number</b></label><br />
-<input name="EmployeeNumber" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="SIN"><b>SIN/SSN</b></label><br />
-<input name="SIN" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
-<tr> <td>
-<label for="Department"><b>Department</b></label><br />
-<input name="Department" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="Category"><b>Category</b></label><br />
-<select name="Category">
-  <option value="FullTime">Full Time</option>
-  <option value="PartTime">Part time</option>
-  <option value="Management">Management</option>
-</td> </tr>
-<tr> <td>
-<label for="VacationDays"><b>Vacation Days</b></label><br />
-<input name="VacationDays" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="VacationPercent"><b>Vacation Percent</b></label><br />
-<input name="VacationPercent" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
-<tr>
-<td colspan="2">
-<label for="JobCode"><b>Job Code *</b></label><br />
-<select name="JobCode">
-  <option value="admin">Admin</option>
-  <option value="sales_rep">Sales Rep</option>
-  <option value="sales_manager">Sales Manager</option>
-</td> </tr>
-
-<tr>
-<td>
-<label for="PayType"><b>Pay Type</b></label><br />
-<select name="PayType">
-  <option value="Hourly">Hourly</option>
-  <option value="Salary">Salary</option>
-  <option value="Shift">Shift</option>
-</td> 
-<td>
-<label for="PayRate"><b>Pay Rate</b></label><br />
-<input name="PayRate" type="text" maxlength="50" style="width: 260px" />
-</td>  </tr></table>
-<table border="1" cellpadding="5" cellspacing="0">
-<tr>
-				<td id="column_heading" colspan="2"  style="text-align: left;">Emergency Contact Information</td>
-			</tr></table><table border="1" cellpadding="5" cellspacing="0">
-<tr> <td>
-<label for="EmergencyContactName"><b>Emergency Contact Name</b></label><br />
-<input name="EmergencyContactName" type="text" maxlength="50" style="width: 260px" />
-</td>  
-<td>
-<label for="EmergencyContactPhone"><b>Emergency Contact Phone</b></label><br />
-<input name="EmergencyContactPhone" type="text" maxlength="50" style="width: 260px" />
-</td> </tr>
--->
 
 
 
-<!--
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-label{display:inline-block;width:100px;margin-bottom:10px;}
-</style>
- 
- 
-<title>Add Employee</title>
-</head>
-<body>
- 
-<form method="post" action="">
-<label>First Name</label>
-<input type="text" name="first_name" />
-<br />
-<label>Last Name</label>
-<input type="text" name="last_name" />
-<br />
-<label>Department</label>
-<input type="text" name="department" />
-<br />
-<label>Email</label>
-<input type="text" name="email" />
- 
-<br />
-<input type="submit" value="Add Employee">
-</form>
- 
- 
- 
-</body>
-</html>
--->

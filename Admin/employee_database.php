@@ -1,33 +1,13 @@
 <?php
-//session_start();
  if (!session_id()) {
 session_start();
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 } 
 
-
-
-
-
-
-
-    //$DB_HOST = "localhost";
-    //$DB_USER = "root";
-    //$DB_PASSWORD = "";
-    //$DB_DATABASE = "nylene";
-
-    //$connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD);
-
-//if(mysqli_connect_errno($connect))
-//{
-	//	echo 'Failed to connect';
-//}
-
+    
 if($conn) {
-  //echo '<h1>Thanks for creating user</h1>';
- // if(isset($_POST['example2']) ){
- //$employee_id=$_POST['employee_id'];
+ 
 $first_name=$_POST['first_name'];
 $last_name=$_POST['last_name'];
 $title=$_POST['title'];
@@ -41,59 +21,67 @@ $username=$_POST['username'];
 $is_administrator=$_POST['is_administrator'];
 $STATUS=$_POST['STATUS'];
 $employee_email=$_POST['employee_email'];
-//$password=$_POST['password'];
-$password=password_hash($_POST['password'],PASSWORD_BCRYPT);//JASON & JIMMY: PASSWORD_DEFAULT DOES NOT WORK, changed to PASSWORD_BCRYPT
+$password=password_hash($_POST['password'],PASSWORD_BCRYPT);
+
+
+ 
+  //$db=mysqli_select_db($conn,$DB_DATABASE);
+/*without sql injection thingi*/
+    //$query=mysqli_query($conn,"INSERT INTO employee(first_name,last_name,title,department,work_phone,reports_to,date_entered,date_modified,modified_by,username,is_administrator,STATUS,employee_email,password) VALUES ('$first_name', '$last_name', '$title','$department','$work_phone','$reports_to','$date_entered','$date_modified','$modified_by','$username','$is_administrator','$STATUS','$employee_email','$password')");
 	
+	/*with sql injection thing*/
+	$query=$conn->prepare("INSERT INTO employee
+	(first_name,
+	last_name,
+	title,
+	department,
+	work_phone,
+	reports_to,
+	date_entered,
+	date_modified,
+	modified_by,
+	username,
+	is_administrator,
+	STATUS,
+	employee_email,
+	password
+	) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); //14 columns
+	    $query->bind_param("ssssssssssssss" , $first_name, $last_name, $title,$department,$work_phone,$reports_to,$date_entered,$date_modified,$modified_by,$username,$is_administrator,$STATUS,$employee_email,$password);
 
+	   /* 
+	   
+	   sssssssssssssssssi
+	   $query->bind_param("s", $last_name);
+	    $query->bind_param("s", $title);
+	    $query->bind_param("s", $department);
+	    $query->bind_param("s", $work_phone);
+	    $query->bind_param("s", $reports_to);
+	    $query->bind_param("s", $date_entered);
+	    $query->bind_param("s", $date_modified);
+	    $query->bind_param("s", $modified_by);
+		$query->bind_param("s", $username);
+	    $query->bind_param("s", $is_administrator);
+	    $query->bind_param("s", $STATUS);
+	    $query->bind_param("s", $employee_email);
+	    $query->bind_param("s", $password);
+*/
 
-/**
-$dob=$_POST['DOB'];
-$gender=$_POST["Gender"];
-$mobile_phone=$_POST['MobilePhone'];
-$home_phone=$_POST['HomePhone'];
-$address1=$_POST['Address1'];
-$address2=$_POST['Address2'];
-$city=$_POST['City'];
-$province=$_POST['Province'];
-$postal_code=$_POST['PostalCode'];
-$start_date=$_POST['StartDate'];
-$employee_number=$_POST['EmployeeNumber'];
-$sin=$_POST['SIN'];
-$department=$_POST['Department'];
-$category=$_POST['Category'];
-$vacation_days=$_POST['VacationDays'];
-$vacation_percent=$_POST['VacationPercent'];
-$job_code=$_POST['JobCode'];
-$pay_type=$_POST['PayType'];
-$pay_rate=$_POST['PayRate'];
-$emergency_contact_name=$_POST['EmergencyContactName'];
-$emergency_contact_phone=$_POST['EmergencyContactPhone'];
-//}
+	
+	$query->execute();
 
-**/
-  //if connected then Select Database. 
-  $db=mysqli_select_db($conn,$DB_DATABASE);
-    //echo '<h1>Connected to MySQL</h1>';
+    $query->close();
 
-    $query=mysqli_query($conn,"INSERT INTO employee(first_name,last_name,title,department,work_phone,reports_to,date_entered,date_modified,modified_by,username,is_administrator,STATUS,employee_email,password) VALUES ('$first_name', '$last_name', '$title','$department','$work_phone','$reports_to','$date_entered','$date_modified','$modified_by','$username','$is_administrator','$STATUS','$employee_email','$password')");
+    $query->close();
+	
 	if (!$query) {
 		echo (mysqli_error($conn)) ;
-		//echo "           fail";
 	}
 	else{ 
 	header('Location: ../Home/Homepage.php');
-//     echo "      Success </br> ";
-//     echo "<a href=\"Homepage.php\">Homepage</a>";
-    //echo "<meta http-equiv = \"refresh\" content = \"0; url = ./Homepage.php\" />;";
-    //exit();
-}
+	}
  
  
- // $query=mysqli_query($connect,"INSERT INTO employee(First_Name,Last_Name,Email_Address,DOB,MobilePhone,HomePhone,Address1,Address2,City,PostalCode,StartDate,EmployeeNumber,SIN,Department,VacationDays,VacationPercent,PayRate,EmergencyContactName,EmergencyContactPhone) VALUES('$first_name','$last_name','$email','$dob','$mobile_phone','$home_phone','$address1','$address2','$city','$postal_code','$start_date','$employee_number','$sin','$department','$vacation_days','$vacation_percent','$pay_rate','$emergency_contact_name,'$emergency_contact_phone')");
-
-   //print_r($_POST);
-  //echo '<h1>Connected to MySQL</h1>';
-
+ 
 }
 
 else {
