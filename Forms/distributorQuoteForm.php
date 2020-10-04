@@ -31,7 +31,43 @@ session_start();
 <html>
 	<head>
 		<title>Distributor Quote Form</title>
-			<link rel="stylesheet" href="../CSS/form.css">
+		<link rel="stylesheet" href="../CSS/form.css">
+			
+		<script>
+			function updateQuoteConversion(){
+
+				if (document.getElementById('generateQuote').checked) 
+				  { 
+				    document.getElementById('range40up').value=document. 
+				            getElementById('truck_load').value + '.00'; 
+				    document.getElementById('range2240').value=document. 
+				    		getElementById('truck_load').value + '.02';
+				    document.getElementById('range1122').value=document. 
+				   			 getElementById('truck_load').value + '.04';
+				    document.getElementById('range610').value=document. 
+				    		getElementById('truck_load').value + '.06';
+				    document.getElementById('range24').value=document. 
+				    		getElementById('truck_load').value + '.11'; 
+				  } 
+				      
+				  else
+				  { 
+					  document.getElementById('range40up').value=""; 
+					  document.getElementById('range2240').value=""; 
+					  document.getElementById('range1122').value="";
+					  document.getElementById('range610').value="";
+					  document.getElementById('range24').value="";
+				  } 
+			}
+
+			function valuePresent(generate, exists){
+			    if(exists.value.length > 0){
+			        document.getElementById(generate).disabled=false;
+			    }else{
+			        document.getElementById(generate).disabled=true;
+			    }
+			}
+		</script>
 	</head>
 	
 	<body>
@@ -136,9 +172,14 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
-			<td><input type="number" id="truck_load" name="truck_load"></td>
+			<td><input type="number" id="truck_load" name="truck_load" onkeyup="valuePresent('generateQuote', this)"></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" disabled/>
+			<label for = "generateQuote">Check box to generate quote below</label></td>
 		</tr>
 		
+
 		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
@@ -174,11 +215,11 @@ session_start();
 
 		<tr>
 			<td> 40,000 lb. + </td>
-			<td><input type="text" id="range40up" name="range40up" readonly></td>
+			<td><input type="text" id="range40up" name="range40up" readonly ></td>
 		</tr>
 		<tr>
 			<td> 22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box </td>
-			<td><input type="text" id="range2240" name="range2240" readonly></td>
+			<td><input type="text" id="range2240" name="range2240" readonly ></td>
 		</tr>
 		<tr>
 			<td> 11,000 - 21,999 lb. bags, 10,500 - 20,999 lb. box </td>
