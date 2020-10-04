@@ -1,13 +1,19 @@
 <?php
+/*
+ * FileName: editCompany.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  Edit companies in the database.
+ */
 session_start();
 
+//The navigation bar for the website
 include '../navigation.php';
-/*
- * include '../Database/databaseConnection.php';
- * $dbConnection = setConnectionInfo();
- */
-
+//connection to the database
 include '../Database/connect.php';
+
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
@@ -16,12 +22,18 @@ if ($conn->connect_error) {
 
         // get company data for editing
         $getCompanyDataSQL = "SELECT * FROM nylene.company WHERE company_id = '" . $_SESSION['company_id'] . "'";
-        /* $companyData = $dbConnection->query($getCompanyDataSQL); */
         $companyData = $conn->query($getCompanyDataSQL);
-        /* $data = $companyData->fetch(PDO::FETCH_ASSOC); */
         $data = mysqli_fetch_array($companyData);
     } else {
-
+            
+        /*
+         * The following code handles editing a company in the company table
+         * Below is an explaination of some of the variables
+         *      submit: set to 1 when the submit button is pressed
+         *      shippingsameasbilling: set to 1 when the user checks off the Shipping Same As Billing Box
+         *
+         */
+        
         if (isset($_POST['name'])) {
 
             if (isset($_POST['shippingSameAsBilling'])) {
@@ -35,11 +47,9 @@ if ($conn->connect_error) {
 
             // check if company was already added
             $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '" . $_POST['name'] . "'";
-            /* $validationResult = $dbConnection->query($validateCompanyQuery)->fetchColumn(); */
             $validationResult = $conn->query($validateCompanyQuery);
 
             // if it doesn't exist, add it to the database
-
             if (mysqli_fetch_array($validationResult) == NULL) {
 
                 /*
@@ -137,6 +147,9 @@ if ($conn->connect_error) {
 }
 ?>
 
+
+<!-- Edit Company Page -->
+<!-- The following is the edit company interface -->
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">

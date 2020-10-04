@@ -1,18 +1,36 @@
 <?php
+/*
+ * FileName: addCompany.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  Add companies in the database.
+ */
 session_start();
 
+//the following variables are used in navigation.php
+//View navigation.php for more information
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 
+//The navigation bar for the website
 include '../navigation.php';
-/* include '../Database/databaseConnection.php'; */
-/* $dbConnection = setConnectionInfo(); */
+//connection to the database
 include '../Database/connect.php';
 
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
 
+    /*
+     * The following code handles adding a company to the company table
+     * Below is an explaination of some of the variables
+     *      submit: set to 1 when the submit button is pressed
+     *      shippingsameasbilling: set to 1 when the user checks off the Shipping Same As Billing Box
+     *
+     */
+    
     if (isset($_POST['submit'])) {
 
         if (isset($_POST['shippingSameAsBilling'])) {
@@ -60,7 +78,7 @@ if ($conn->connect_error) {
             date_created, 
             created_by)
         
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); // 18 columns
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             $company_name = $_POST['name'];
             $website = $_POST['website'];
@@ -103,7 +121,8 @@ if ($conn->connect_error) {
 
 ?>
 
-
+<!-- Add Company Page -->
+<!-- The following is the Add company interface -->
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
