@@ -95,7 +95,7 @@ if ($conn->connect_error) {
             } // Business Credit Application Forn
             else if ($_POST['form'] == 6) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newCreditBusinessApplication.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/creditBusinessApplication.php\" />;";
                 exit();
             } else {
 
@@ -165,7 +165,7 @@ $conn->close();
 						<option value="Truckload Quote">Truckload Quote</option>
 						<option value="Light Truckload Quote">Light Truckload Quote</option>
 						<option value="Sample">Sample Request</option>
-						<option value="Credit Business Application">Business Credit Application</option>
+						<option value="Credit Business Application">Credit Business Application</option>
 				</select></td>
 				<td>Form (if applicable):</td>
 				<td><select id="selection" required name="form">
