@@ -32,7 +32,7 @@
 					range24)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
-		$stmt->bind_param("isssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
+		$stmt->bind_param("ssssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
 		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		    $truckLoad, $range40up, $range2240, $range1022, $range610, $range46, $range24);
 		

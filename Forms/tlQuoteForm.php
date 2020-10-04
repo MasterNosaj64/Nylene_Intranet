@@ -73,7 +73,7 @@ session_start();
 	</head>
 	
 	<body>
-	<form name="TlQuoteForm" action="newTlQuote.php" method="post" onsubmit="return validateForm()">
+	<form name="TlQuoteForm" action="newTlQuote.php" method="post">
 		<table class= "form-table" border="1" cellspacing="0" cellpadding="1" align="center" >
 		<thead>
 		<tr>
