@@ -165,12 +165,12 @@ $conn->close();
 						<option value="Truckload Quote">Truckload Quote</option>
 						<option value="Light Truckload Quote">Light Truckload Quote</option>
 						<option value="Sample">Sample Request</option>
-						<option value="Business Credit App">Business Credit Application</option>
+						<option value="Credit Business Application">Business Credit Application</option>
 				</select></td>
 				<td>Form (if applicable):</td>
 				<td><select id="selection" required name="form">
 						<option value="0"></option>
-						<option value="6">Business Credit Application</option>
+						<option value="6">Credit Business Application</option>
 						<option value="5">Marketing Request</option>
 						<option value="4">Distributor Quote</option>
 						<option value="3">Truckload Quote</option>
