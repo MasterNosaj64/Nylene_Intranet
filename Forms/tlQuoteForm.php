@@ -32,6 +32,44 @@ session_start();
 	<head>
 		<title>TL Quote Form</title>
 		<link rel="stylesheet" href="../CSS/form.css">
+		<script>
+			function updateQuoteConversion(){
+
+				if (document.getElementById('generateQuote').checked) 
+				  { 
+				    document.getElementById('range40plus').value=
+				    	document.getElementById('truck_load').value + '.00/lb'; 
+				    document.getElementById('range2240').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.02 + '/lb';
+				    document.getElementById('range1022').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.04 + '/lb';
+				    document.getElementById('range610').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.06 + '/lb';
+				    document.getElementById('range46').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.08 + '/lb';
+				    document.getElementById('range24').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.16 + '/lb'; 
+				  } 
+				      
+				  else
+				  { 
+					  document.getElementById('range40plus').value=""; 
+					  document.getElementById('range2240').value=""; 
+					  document.getElementById('range1022').value="";
+					  document.getElementById('range610').value="";
+					  document.getElementById('range46').value="";
+					  document.getElementById('range24').value="";
+				  } 
+			}
+
+			function valuePresent(generate, exists){
+			    if(exists.value.length > 0){
+			        document.getElementById(generate).disabled=false;
+			    }else{
+			        document.getElementById(generate).disabled=true;
+			    }
+			}
+		</script>
 	</head>
 	
 	<body>
@@ -136,7 +174,11 @@ session_start();
 		</tr>
 		<tr>
 			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
-			<td><input type="number" id="truck_load" name="truck_load"></td>
+			<td><input type="number" id="truck_load" name="truck_load" onkeyup="valuePresent('generateQuote', this)"></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" disabled/>
+			<label for = "generateQuote">Check box to generate quote below</label></td>
 		</tr>
 <thead>
 		<tr>

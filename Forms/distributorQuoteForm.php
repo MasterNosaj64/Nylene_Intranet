@@ -39,15 +39,15 @@ session_start();
 				if (document.getElementById('generateQuote').checked) 
 				  { 
 				    document.getElementById('range40up').value=
-				    	document.getElementById('truck_load').value + '.00'; 
+				    	document.getElementById('truck_load').value + '.00/lb'; 
 				    document.getElementById('range2240').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.02;
+				    	parseInt(document.getElementById('truck_load').value) + 0.02 + '/lb';
 				    document.getElementById('range1122').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.04;
+				    	parseInt(document.getElementById('truck_load').value) + 0.04 + '/lb';
 				    document.getElementById('range610').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.06;
+				    	parseInt(document.getElementById('truck_load').value) + 0.06 + '/lb';
 				    document.getElementById('range24').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.11; 
+				    	parseInt(document.getElementById('truck_load').value) + 0.11 + '/lb'; 
 				  } 
 				      
 				  else
@@ -178,8 +178,6 @@ session_start();
 			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" disabled/>
 			<label for = "generateQuote">Check box to generate quote below</label></td>
 		</tr>
-		
-
 		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>

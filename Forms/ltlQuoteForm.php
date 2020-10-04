@@ -39,17 +39,17 @@
 				if (document.getElementById('generateQuote').checked) 
 				  { 
 				    document.getElementById('range1522').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.16; 
+				    	parseInt(document.getElementById('truck_load').value) + 0.16 + '/lb'; 
 				    document.getElementById('range1121').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.31; 
+				    	parseInt(document.getElementById('truck_load').value) + 0.31 + '/lb'; 
 				    document.getElementById('range510').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.62;
+				    	parseInt(document.getElementById('truck_load').value) + 0.62 + '/lb';
 				    document.getElementById('range25').value=
-					    parseInt(document.getElementById('truck_load').value) + 1.31;
+					    parseInt(document.getElementById('truck_load').value) + 1.31 + '/lb';
 				    document.getElementById('range12').value=
-				    	parseInt(document.getElementById('truck_load').value) + 2.22; 
+				    	parseInt(document.getElementById('truck_load').value) + 2.22 + '/lb'; 
 				    document.getElementById('range5').value=
-				    	parseInt(document.getElementById('truck_load').value) + 3.66;
+				    	parseInt(document.getElementById('truck_load').value) + 3.66 + '/lb';
 				  } 
 				      
 				  else
