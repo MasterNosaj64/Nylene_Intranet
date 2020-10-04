@@ -111,7 +111,7 @@ if ($viewInteractionForm != null) {
     } // Business Credit Application Form
     else if ($viewInteractionForm['form_type'] == 6) {
 
-        echo "<form method=\"post\" action=\"../Forms/viewBusinessCreditAppForm.php\">
+        echo "<form method=\"post\" action=\"../Forms/viewCreditBusinessApplication.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"View Business Credit App. Form\"/>
                     </form>";

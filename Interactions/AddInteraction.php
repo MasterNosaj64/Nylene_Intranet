@@ -95,7 +95,7 @@ if ($conn->connect_error) {
             } // Business Credit Application Forn
             else if ($_POST['form'] == 6) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newCreditBusinessAppForm\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newCreditBusinessApplication.php\" />;";
                 exit();
             } else {
 

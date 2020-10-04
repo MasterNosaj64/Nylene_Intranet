@@ -25,7 +25,7 @@ session_start();
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 													INNER JOIN credit_application_business_form ON credit_application_business_form.credit_application_business_id = interaction_relational_form.form_id
 														WHERE interaction_relational_form.form_type = 6 AND interaction_relational_form.form_id = ". $_POST['id'];
-		$customerResult = $dbConnection->query($customerInformation); 
+		$customerResult = $conn->query($customerInformation); 
 		$customerRow = mysqli_fetch_array($customerResult); 
 		
 		$conn->close();
