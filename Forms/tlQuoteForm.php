@@ -42,11 +42,11 @@ session_start();
 			<th colspan="4">TL Quote Form</th>
 		</tr></thead>
 		<tr>
-			<td ><label for="date_created"> Date </label></td>
+			<td ><label for="date_created"> Date* </label></td>
 			<td ><input type="date" id="date_created" name="date_created" required></td>
 		</tr>
 		<tr>
-			<td ><label for="quote_num"> Quote Name/Number </label></td>
+			<td ><label for="quote_num"> Quote Name/Number* </label></td>
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
 
@@ -115,7 +115,7 @@ session_start();
 			<th colspan="2">- Product Information -</th>
 		</tr>
 		<tr>
-			<td><label for="product_name"> Product Name </label></td>
+			<td><label for="product_name"> Product Name* </label></td>
 			<td><input type="text" id="product_name" name="product_name" required></td>
 		</tr>
 		<tr>

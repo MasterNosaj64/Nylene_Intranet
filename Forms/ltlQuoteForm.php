@@ -32,6 +32,45 @@
 	<head>
 		<title>LTL Quote Form</title>
 		<link rel="stylesheet" type="text/css" href="../CSS/form.css">
+		
+		<script>
+			function updateQuoteConversion(){
+
+				if (document.getElementById('generateQuote').checked) 
+				  { 
+				    document.getElementById('range1522').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.16; 
+				    document.getElementById('range1121').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.31; 
+				    document.getElementById('range510').value=
+				    	parseInt(document.getElementById('truck_load').value) + 0.62;
+				    document.getElementById('range25').value=
+					    parseInt(document.getElementById('truck_load').value) + 1.31;
+				    document.getElementById('range12').value=
+				    	parseInt(document.getElementById('truck_load').value) + 2.22; 
+				    document.getElementById('range5').value=
+				    	parseInt(document.getElementById('truck_load').value) + 3.66;
+				  } 
+				      
+				  else
+				  { 
+					  document.getElementById('range1522').value=""; 
+					  document.getElementById('range1121').value=""; 
+					  document.getElementById('range510').value="";
+					  document.getElementById('range25').value="";
+					  document.getElementById('range12').value="";
+					  document.getElementById('range5').value="";
+				  } 
+			}
+
+			function valuePresent(generate, exists){
+			    if(exists.value.length > 0){
+			        document.getElementById(generate).disabled=false;
+			    }else{
+			        document.getElementById(generate).disabled=true;
+			    }
+			}
+		</script>
 	</head>
 	
 	<body>
@@ -42,11 +81,11 @@
 			<th colspan="4">LTL Quote Form</th>
 		</tr></thead>
 		<tr>
-			<td ><label for="date_created"> Date </label></td>
+			<td ><label for="date_created"> Date* </label></td>
 			<td ><input type="date" id="date_created" name="date_created" required></td>
 		</tr>
 		<tr>
-			<td ><label for="quote_num"> Quote Name/Number </label></td>
+			<td ><label for="quote_num"> Quote Name/Number* </label></td>
 			<td ><input type="text" id="quote_num" name="quote_num" required></td>
 		</tr>
 		<thead>
@@ -113,7 +152,7 @@
 		</tr>
 		</thead>
 		<tr>
-			<td><label for="product_name"> Product Name </label></td>
+			<td><label for="product_name"> Product Name* </label></td>
 			<td><input type="text" id="product_name" name="product_name" required></td>
 		</tr></thead>
 		<tr>
@@ -134,8 +173,13 @@
 		</tr>
 		<tr>
 			<td><label for="truck_load"> TL Price </label></td>
-			<td><input type="number" id="truck_load" name="truck_load"></td>
+			<td><input type="number" id="truck_load" name="truck_load" onkeyup="valuePresent('generateQuote', this)"></td>
 		</tr>
+		<tr>
+			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" disabled/>
+			<label for = "generateQuote">Check box to generate quote below</label></td>
+		</tr>
+		
 		<thead>
 		<tr>
 			<th colspan="2">- Terms -</th>
