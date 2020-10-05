@@ -32,7 +32,7 @@ session_start();
 <?php
 if($_SESSION['role'] == "admin"){
 
-    echo "<div class=\"dropdown\">";
+    echo "<div class=\"dropdown-user\">";
     echo "<button class=\"dropbtn\">Admin Panel";
     echo "</button>";
     echo "<div class=\"dropdown-content\">";
@@ -44,7 +44,7 @@ if($_SESSION['role'] == "admin"){
 ?>
 
 
-  <div class="dropdown">
+  <div class="dropdown-user">
     <button class="dropbtn">Company Directory
     </button>
     <div class="dropdown-content">
