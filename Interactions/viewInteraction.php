@@ -1,46 +1,52 @@
 <?php
+/*
+ * FileName: viewInteraction.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  View interaction data in the database.
+ */
 session_start();
 
 if (isset($_POST['interaction_id'])) {
 
+    //the following variables are used in navigation.php
+    //View navigation.php for more information
     $_SESSION['interaction_id'] = $_POST['interaction_id'];
+    //The navigation bar for the website
     include '../navigation.php';
-    /*
-     * include '../Database/databaseConnection.php';
-     *
-     * $dbConnection = setConnectionInfo();
-     */
+    //connection to the database
     include '../Database/connect.php';
 
+    //Handler for if the database connection fails
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } else {
-
+        // Get Interaction data
         $query_view_interaction = "SELECT * FROM nylene.interaction WHERE interaction_id = " . $_SESSION['interaction_id'];
-        /* $viewInteractionData = $dbConnection->query($query_view_interaction)->fetch(PDO::FETCH_ASSOC); */
         $viewInteractionData = mysqli_fetch_array($conn->query($query_view_interaction));
 
         $query_view_company = "SELECT * FROM nylene.company WHERE company_id = " . $viewInteractionData['company_id'];
-        /* $viewCompanyData = $dbConnection->query($query_view_company)->fetch(PDO::FETCH_ASSOC); */
         $viewCompanyData = mysqli_fetch_array($conn->query($query_view_company));
 
         $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
 
         $query_view_customer = "SELECT * FROM nylene.customer WHERE customer_id = " . $viewInteractionData['customer_id'];
-        /* $viewCustomerData = $dbConnection->query($query_view_customer)->fetch(PDO::FETCH_ASSOC); */
         $viewCustomerData = mysqli_fetch_array($conn->query($query_view_customer));
 
         $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
-        /* $viewInteractionForm = $dbConnection->query($query_view_form)->fetch(PDO::FETCH_ASSOC); */
         $viewInteractionForm = mysqli_fetch_array($conn->query($query_view_form));
         
         $conn->close();
     }
 } else {
+    //If the above results in error redirect the user to homepage
+    
     echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />;";
     exit();
 }
 ?>
+<!-- Table containing the company/customer information -->
 <html>
 <link rel="stylesheet" href="../CSS/table.css">
 <body>
@@ -71,7 +77,8 @@ if (isset($_POST['interaction_id'])) {
 			<td>Form:</td>
 			<td>
 		<?php
-
+//The following code checks which form (if any) is assigned to this interaction
+//Then it adds a button to link to the corresponding form.
 if ($viewInteractionForm != null) {
     // Sample Form
     if ($viewInteractionForm['form_type'] == 1) {
@@ -117,6 +124,7 @@ if ($viewInteractionForm != null) {
                     </form>";
     }
 } else {
+    //No Form
     echo "--";
 }
 ?>

@@ -113,7 +113,7 @@ if ($conn->connect_error) {
             echo "<meta http-equiv = \"refresh\" content = \"0 url = ./addCustomer.php\" />;";
             exit();
         } else {
-
+            //If the above throws an error, kick the user back to the homepage
             echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
         }
     }

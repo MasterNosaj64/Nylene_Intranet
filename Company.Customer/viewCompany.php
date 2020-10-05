@@ -70,15 +70,12 @@ if ($conn->connect_error) {
 
         // Get Company data
         $companysqlquery = "SELECT * FROM nylene.company WHERE company_id = " . $_SESSION["company_id"];
-        /* $companyInfo = $dbConnection->query($companysqlquery)->fetch(PDO::FETCH_ASSOC); */
         $company_result = $conn->query($companysqlquery);
         $companyInfo = mysqli_fetch_array($company_result);
 
         // Get customer_id's for company
         $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_SESSION['company_id'] . " LIMIT 10 OFFSET " . $_POST['offset'];
-        /* $customers = $dbConnection->query($customersqlquery); */
         $customers = $conn->query($customersqlquery);
-        // echo "<h1>Company View</h1>";
 
         // Get company info
         $companyAddress = $companyInfo["billing_address_street"] . ", " . $companyInfo["billing_address_city"] . ", " . $companyInfo["billing_address_state"] . ", " . $companyInfo["billing_address_country"] . ", " . $companyInfo["billing_address_postalcode"];
@@ -103,7 +100,7 @@ if ($conn->connect_error) {
 
 
 <!-- View Company -->
-<!-- Below is the interface for all customers assign to the company -->
+<!-- Below is the interface for all customers assigned to the company -->
 
 
 <html>
@@ -131,30 +128,8 @@ if ($conn->connect_error) {
 					type="submit" value="View History" />
 			</form>
 		</td>
-	</tr>
-
-	<!-- 
+	</tr> 
 <tr><td>
-
-<!-- Next 10 Previous 10 Buttons -->
-<!-- The following code presents the user with buttons to navigate the query -->
-<form method="post" action="viewCompany.php">
-<input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
-<input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
-<input type="submit" value="Previous 10"/>
-</form>
-</td>
-<td>
-<form method="post" action="viewCompany.php">
-<input hidden name="next10" value="<?php echo $_POST['offset'];?>"/>
-<input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
-<input type="submit" value="Next 10"/>
-</form>
-</td>
-</tr>
-
- -->
-
 </table>
 <table class="form-table" border=5>
 	<thead>
@@ -169,11 +144,9 @@ if ($conn->connect_error) {
 	</thead>
 
 	<?php
-
+//Customers List
 while ($cx = mysqli_fetch_array($customers)) {
     $sqlGetCustomerDataQuery = "SELECT * FROM nylene.customer WHERE customer_id = " . $cx["customer_id"];
-
-    /* $customerData = $dbConnection->query($sqlGetCustomerDataQuery)->fetch(PDO::FETCH_ASSOC); */
     $customer_result = $conn->query($sqlGetCustomerDataQuery);
     $customerData = mysqli_fetch_array($customer_result);
     echo "<tr><td>" . $customerData["customer_name"] . "</td><td><a href=\"mailto: " . $customerData["customer_email"] . "\">" . $customerData["customer_email"] . "</td><td>" . $customerData["customer_phone"] . "</td><td>" . $customerData['customer_fax'] . "</td><td>" . date("d-m-Y", strtotime($customerData['date_created'])) . "</td><td> 
@@ -187,7 +160,8 @@ $conn->close();
 ?>
 	
 	
-<!-- Customers List -->
+<!-- Next 10 Previous 10 Buttons -->
+<!-- The following code presents the user with buttons to navigate the query -->
 	<table class="form-table" border=0align:center;>
 		<td><form method="post" action="viewCompany.php">
 				<input hidden name="previous10"

@@ -1,16 +1,33 @@
 <?php
-session_start();
-$_SESSION["navToAddInteractionPage"] = true;
-include '../navigation.php';
 /*
- * include '../Database/databaseConnection.php';
- * $dbConnection = setConnectionInfo();
+ * FileName: addInteraction.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  Add companies in the database.
  */
+session_start();
+
+//the following variables are used in navigation.php
+//View navigation.php for more information
+$_SESSION["navToAddInteractionPage"] = true;
+
+//The navigation bar for the website
+include '../navigation.php';
+//connection to the database
 include '../Database/connect.php';
 
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
+    /*
+     * The following code handles adding a interaction to the interaction table
+     * Below is an explaination of some of the variables
+     *      submit: set to 1 when the submit button is pressed
+     *      companyid: The id of the company the interaction will be files under
+     */
+    
     if ($_POST['company_id'] != "") {
 
         $_SESSION['company_id'] = $_POST['company_id'];
@@ -92,7 +109,7 @@ if ($conn->connect_error) {
 
                 echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newMarketRequest.php\" />;";
                 exit();
-            } // Business Credit Application Forn
+            } // Credit Business Application Forn
             else if ($_POST['form'] == 6) {
 
                 echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/creditBusinessApplication.php\" />;";
@@ -106,22 +123,23 @@ if ($conn->connect_error) {
 
             // Get customers ID's ready for form
             $customerQuery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_POST['company_id'];
-            /* $customerIds = $dbConnection->query($customerQuery); */
             $customerIds = $conn->query($customerQuery);
             // Get companyData ready for form
             $getCompanyDataQuery = "SELECT * FROM nylene.company WHERE company_id = " . $_POST['company_id'];
-            /* $viewCompanyData = $dbConnection->query($getCompanyDataQuery)->fetch(PDO::FETCH_ASSOC); */
             $viewCompanyData = mysqli_fetch_array($conn->query($getCompanyDataQuery));
             // Build company address into string
             $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
         }
     } else {
+        //If the above throws an error, kick the user back to the homepage
         echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />;";
         exit();
     }
 }
 ?>
 
+<!-- Add interaction Page -->
+<!-- The following is the Add interaction interface -->
 <html>
 <link rel="stylesheet" href="../CSS/table.css">
 <body>
@@ -146,8 +164,7 @@ if ($conn->connect_error) {
 
 while ($id = mysqli_fetch_array($customerIds)) {
     $getCustomerData = "SELECT * FROM nylene.customer WHERE customer_id = " . $id["customer_id"];
-    /* $customerData = $dbConnection->query($getCustomerData)->fetch(PDO::FETCH_ASSOC); */
-    $customerData = mysqli_fetch_array($conn->query($getCustomerData));
+   $customerData = mysqli_fetch_array($conn->query($getCustomerData));
     echo "<option value=\"" . $customerData['customer_id'] . "\">" . $customerData['customer_name'] . "</option>";
 }
 $conn->close();
