@@ -1,15 +1,19 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head> <link rel="stylesheet" href="style.css">
     <title>Marketing Materials Request Form</title>
 </head>
-<form  method="post" action="MMform_Database.php"   onsubmit="return ValidateForm(this);">
+<form  method="post" action="MMform_Database.php"   onsubmit="return ValidateForm(this)";>
 <script type="text/javascript">
 function ValidateForm(frm) {
 if (frm.Requester_Name.value == "") { alert(' Requesters name is required.'); frm.Requester_Name.focus(); return false; }
 if (frm.Marketing_Segment.value == "") { alert('Marketing Segment is required.'); frm.Marketing_Segment.focus(); return false; }
-if (frm.Company_Name.value == "") { alert('Company/Group Name is required.'); frm.Company_Name.focus(); return false; }
-if (frm.Target_Code.value == "") { alert('Target Code is required.'); frm.Target_Code.focus(); return false; }
+//if (frm.Company_Name.value == "") { alert('Company/Group Name is required.'); frm.Company_Name.focus(); return false; }
+//if (frm.Target_Code.value == "") { alert('Target Code is required.'); frm.Target_Code.focus(); return false; }
 if (frm.Email_Address.value == "") { alert('Email address is required.'); frm.Email_Address.focus(); return false; }
 if (frm.Email_Address.value.indexOf("@") < 1 || frm.Email_Address.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.Email_Address.focus(); return false; }
 return true; }
@@ -30,7 +34,7 @@ return true; }
 	</td>
 
 	<td style="width: 50%">
-	<label for="Market Segment">
+	<label for="Market_Segment">
 	<b>Market Segment</b></label>
 	<input name="Market_Segment" type="text" maxlength="250" style="width: 260px" />
 	</td>
@@ -77,55 +81,55 @@ return true; }
     <b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
         </td>
     <td><table><tr><td border="1">
-<input type="checkbox"  name="type_of_project[]" value="brochure">
+<input type="checkbox"  name="type_of_project" value="brochure">
   <label for="brochure">Brochure</label>
         </td><td>
-    <input type="checkbox"  name="type_of_project[]" value="ppt">
+    <input type="checkbox"  name="type_of_project" value="ppt">
   <label for="ppt">PowerPoint Presentation</label>
         </td></tr><tr><td>
-    <input type="checkbox"  name="type_of_project[]" value="Fact_Sheet">
+    <input type="checkbox"  name="type_of_project" value="Fact_Sheet">
   <label for="Fact_Sheet">Fact Sheet</label>
     </td><td>
-    <input type="checkbox"  name="type_of_project[]" value="video">
+    <input type="checkbox"  name="type_of_project" value="video">
   <label for="video">Video</label>
     </td></tr><tr><td>
-    <input type="checkbox"  name="type_of_project[]" value="mail">
+    <input type="checkbox"  name="type_of_project" value="mail">
   <label for="mail">Direct Mail</label>
     </td><td>
-    <input type="checkbox"  name="type_of_project[]" value="web">
+    <input type="checkbox"  name="type_of_project" value="web">
   <label for="web">Web(specify)</label>
     
-    <input type="checkbox"  name="type_of_project[]" value="Page">
+    <input type="checkbox"  name="type_of_project" value="Page">
     <i><label for="Page">Page</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="Section">
+    <input type="checkbox"  name="type_of_project" value="Section">
     <i><label for="Section">Section</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="Blog">
+    <input type="checkbox"  name="type_of_project" value="Blog">
     <i><label for="Blog">Blog</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="Landing_Page">
+    <input type="checkbox"  name="type_of_project" value="Landing_Page">
     <i><label for="Landing_Page">Landing Page</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="Update">
+    <input type="checkbox"  name="type_of_project" value="Update">
     <i><label for="Update">Update</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="graphic">
+    <input type="checkbox"  name="type_of_project" value="graphic">
     <i><label for="graphic">Graphic</label></i>
     </td></tr><tr><td>
-    <input type="checkbox"  name="type_of_project[]" value="Tradeshow">
+    <input type="checkbox"  name="type_of_project" value="Tradeshow">
     <label for="Tradeshow">Tradeshow</label>
     </td><td>
-    <input type="checkbox"  name="type_of_project[]" value="item">
+    <input type="checkbox"  name="type_of_project" value="item">
     <label for="item">Promotional item/Giveaway</label>
     </td></tr><tr><td>
-    <input type="checkbox"  name="type_of_project[]" value="print">
+    <input type="checkbox"  name="type_of_project" value="print">
     <label for="print">Print Aid</label>
     </td><td>
-    <input type="checkbox"  name="type_of_project[]" value="other">
+    <input type="checkbox"  name="type_of_project" value="other">
     <label for="other">Other (Please specify)</label>
     </td></tr><tr><td>
-    <input type="checkbox"  name="type_of_project[]" value="release">
+    <input type="checkbox"  name="type_of_project" value="release">
     <label for="release">Press Release/E-blast</label>
         </td>  <td><textarea name="other_type" rows="1" column="100"></textarea></td></tr>
       
@@ -155,7 +159,7 @@ return true; }
     <label for="target"><b>Choose all that apply</b>
         </label></td>
     <td><table><tr><td border="1">
-<input type="checkbox" id="prospective_customers" name="prospective customers" value="prospective_customers">
+<input type="checkbox" id="prospective_customers" name="prospective_customers" value="prospective_customers">
   <label for="prospective_customers">Prospective Customers</label>
         </td><td>
     <input type="checkbox" id="Engineers" name="Engineers" value="Engineers">
@@ -229,8 +233,8 @@ return true; }
             
             
               <tr><td ><b>Cost Counter #:</b></td> <td ><textarea name="cost" rows="6" cols="40"></textarea></td> <td>If applicable</td></tr> 
-        </table>
-    
+        <!--</table>
+    -->
     
 <!--    
 <table border="1" cellpadding="5" cellspacing="0">
@@ -260,9 +264,9 @@ return true; }
 <input type="reset" value="Reset">
 </td></tr></table>
 -->
-        <table class="form-table">
+        <!--<table class="form-table">-->
 			<tr>
-				<td><input type="submit" value="Submit"></td>
+				<td><input type="Submit" name="Submit" value="Submit"></td>
 				<td><input type="reset" value="Reset"></td>
 			</tr>
 		</table>

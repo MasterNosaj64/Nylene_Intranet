@@ -11,9 +11,9 @@
     $DB_PASSWORD = "";
     $DB_DATABASE = "nylene";
 
-    $connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD);
-
-if($connect) {
+    $connect = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD,$DB_DATABASE);
+if($connect){
+    if(isset($_POST['Submit'])){
   
 $Requester_Name=$_POST['Requester_Name'];
 $Market_Segment=$_POST['Market_Segment'];
@@ -65,24 +65,27 @@ $type_of_project=$_POST['type_of_project'];
     $date_needed=$_POST['date_needed'];
     $budget=$_POST['budget'];
     $cost=$_POST['cost'];
-}
+
 
  $db=mysqli_select_db($connect,$DB_DATABASE);
     //echo '<h1>Connected to MySQL</h1>';
-for($i=0;$i<sizeof ($type_of_project);$i++){
-    $query=mysqli_query($connect,"INSERT INTO marketing_request_form(type_of_project) VALUES ('.$type_of_project[$i].')");
-}
-    $query=mysqli_query($connect,"INSERT INTO marketing_request_form(Requester_Name, Market_Segment, Sales_Territory,Email,Phone,Name_of_Project, project_content, new, update, update_project, target, prospective_customers, Engineers, buyers, current, plant_managers, Other, customer_type, Info, info_text, photography, key_messages, support, photo, estimate, delivery, date_needed, budget, cost ) VALUES ('$Requester_Name', '$Market_Segment', '$Sales_Territory','$Email','$Phone','$Name_of_Project','$project_content','$new','$update','$update_project','$target','$prospective_customers','$Engineers','$buyers','$current','$plant_managers','$Other','$customer_type','$Info','$info_text','$photography','$key_messages,'$support','$photo','$estimate','$delivery','$date_needed','$budget','$cost')");
-	if (!$query) {
-		echo (mysqli_error($connect)) ;
-		//echo "           fail";
+//for($i=0;$i<sizeof ($type_of_project);$i++){
+    //$query=mysqli_query($connect,"INSERT INTO marketing_request_form(type_of_project) VALUES ('$type_of_project')");
+//}
+    $query=mysqli_query($connect,"INSERT INTO marketing_request_form(Requester_Name, Market_Segment, Sales_Territory,Email,Phone,Name_of_Project,type_of_project, project_content, new, update, update_project, target, prospective_customers, Engineers, buyers, current, plant_managers, Other, customer_type, Info, info_text, photography, key_messages, support, photo, estimate, delivery, date_needed, budget, cost ) VALUES ('$Requester_Name', '$Market_Segment', '$Sales_Territory','$Email','$Phone','$Name_of_Project','$type_of_project','$project_content','$new','$update','$update_project','$target','$prospective_customers','$Engineers','$buyers','$current','$plant_managers','$Other','$customer_type','$Info','$info_text','$photography','$key_messages,'$support','$photo','$estimate','$delivery','$date_needed','$budget','$cost')");
+	if ($query) {
+			header('Location: ../Home/Homepage.php');
+
 	}
 	else{ 
-	header('Location: ../Home/Homepage.php');
+        echo (mysqli_error($connect)) ;
+		echo "           fail";
     }
 
-
-
+}else{ echo "failed post";}}//
+else{
+    echo ("failed;");
+}
 
 
 ?>
