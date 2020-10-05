@@ -1,5 +1,5 @@
 <?php
- if (!session_id()) {
+if (!session_id()) {
 session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
@@ -7,8 +7,58 @@ include '../navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 } 
-?>
 
+$sql = "SELECT * FROM employee";
+$query = mysqli_query($conn, $sql);
+$value=array();
+while ($row = mysqli_fetch_array($query)){
+    $value[] =  $row['first_name'] . " " . $row['last_name'];
+	}
+	
+	
+	
+
+$check=0;
+if(isset($_POST['myInput'] )){
+ $field=trim($_POST['myInput']);
+	
+
+   
+
+
+
+  
+		   
+		$sql = "SELECT * FROM employee";
+		$query = mysqli_query($conn, $sql);
+		while ($row = mysqli_fetch_array($query)) {
+			$str=$row['first_name'] . " " . $row['last_name'];
+			if(strcmp($field,$str)==0){
+				$field=(int)$row['employee_id'];
+				$check=1;
+			}
+		}	
+		
+
+
+
+if($check==1 && isset($_POST['Submit'] )){
+   
+	//$field=$_POST['edit_user'];
+			$_SESSION['field'] = $field;
+//echo("'$field'");
+//echo("<script> location.href = '".ADMIN_URL."/index.php?msg=$msg';</script>");
+
+			header('location:editUser.php');
+
+}
+else if($check!=1){
+	echo("Try again");
+}
+}
+	
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +71,7 @@ include '../Database/connect.php';
 <body>
 
 
-<form autocomplete="off" method="post" action="" >
+<form autocomplete="off" method="post" action="../Admin/editUserDatabase.php" >
   <tr><h2>Name of the user to be edited</h2>
 </tr><tr>
   <div class="autocomplete" style="width:300px;">
@@ -32,18 +82,6 @@ include '../Database/connect.php';
 			<input type="reset" name="Reset">
 		
 </form>
-<?php
-ob_start();
-$sql = "SELECT * FROM employee";
-$query = mysqli_query($conn, $sql);
-$value=array();
-while ($row = mysqli_fetch_array($query)) {
-    //echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
-    $value[] =  $row['first_name'] . " " . $row['last_name'];
-    //echo $row["first_name"];
-}
-ob_end_flush();
-?>
 <script>
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -144,7 +182,7 @@ function autocomplete(inp, arr) {
 
 /*An array containing all the country names in the world:*/
 
-var names =<?php echo json_encode($value); ?>;
+var names =<?php echo json_encode($value);?>;
 
 //var countries =[];
 // ?php echo json_encode($value); ?>
@@ -153,7 +191,10 @@ var names =<?php echo json_encode($value); ?>;
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), names);
 </script>
-<?php
+</html>
+
+<!--?php
+ob_start();
 $check=0;
 if(isset($_POST['myInput'] )){
  $field=trim($_POST['myInput']);
@@ -187,8 +228,9 @@ if($check==1 && isset($_POST['Submit'] )){
 			header('location:editUser.php');
 
 	}
-?>
-</html>
+ob_end_flush();
+?>-->
+
 
 
 
