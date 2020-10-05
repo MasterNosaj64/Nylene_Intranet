@@ -1,15 +1,29 @@
 <?php
+/*
+ * FileName: editCustomer.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  Edit customers in the database.
+ */
+
 session_start();
 
+//The navigation bar for the website
 include '../navigation.php';
-/*
- * include '../Database/databaseConnection.php';
- * $dbConnection = setConnectionInfo();
- */
+//connection to the database
 include '../Database/connect.php';
+
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
+    /*
+     * The following code handles editing a customer in the customer table
+     * Below is an explaination of some of the variables
+     *      submit: set to 1 when the submit button is pressed
+     *      
+     */
     $_SESSION['customer_created'] = $_SESSION['company_id'];
 
     if (isset($_POST['submit'])) {
@@ -71,6 +85,9 @@ if ($conn->connect_error) {
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
+
+<!-- Edit Customer Page -->
+<!-- The following is the edit customer interface -->
 
 <body>
 	<form method="post" action=editCustomer.php name="edit_customer">

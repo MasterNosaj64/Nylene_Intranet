@@ -1,16 +1,29 @@
 <?php
-session_start();
-include '../navigation.php';
 /*
- * include '../Database/databaseConnection.php';
- * $dbConnection = setConnectionInfo();
+ * FileName: addCustomer.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  Add customers in the database.
  */
+session_start();
+//The navigation bar for the website
+include '../navigation.php';
+//connection to the database
 include '../Database/connect.php';
 
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
 
+    /*
+     * The following code handles adding a customer in the customer table
+     * Below is an explaination of some of the variables
+     *      submit: set to 1 when the submit button is pressed
+     *      
+     */
+    
     if (isset($_SESSION['company_id'])) {
         $_SESSION['customer_created'] = $_SESSION['company_id'];
 
@@ -89,6 +102,8 @@ if ($conn->connect_error) {
 
 ?>
 
+<!-- Add Customer Page -->
+<!-- The following is the add customer interface -->
 
 <html>
 <head>

@@ -1,22 +1,37 @@
 <?php
+/*
+ * FileName: viewCompany.php
+ * Version Number: 0.8
+ * Author: Jason Waid
+ * Purpose:
+ *  View company data in the database.
+ *  This includes the customers registered to the company
+ */
+
 Session_start();
 
+//the following variables are used in navigation.php
+//View navigation.php for more information
 unset($_SESSION['interaction_id']);
 unset($_SESSION['company_id']);
 
+//The navigation bar for the website
 include '../navigation.php';
-/* include '../Database/databaseConnection.php'; */
+//connection to the database
 include '../Database/connect.php';
+
+//Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
-    /* $dbConnection = setConnectionInfo(); */
 
+//The below is used only for when the user is redirected from the addCustomer page
     if (isset($_SESSION['customer_created'])) {
         $_POST['company_id_view'] = $_SESSION['customer_created'];
         unset($_SESSION['customer_created']);
     }
 
+    //The blow is used to reassign session vars used for navigation menu
     if (isset($_POST['company_id_view']) || isset($_SESSION['companyHistoryPage'])) {
 
         if (isset($_POST['company_id_view'])) {
@@ -27,6 +42,16 @@ if ($conn->connect_error) {
             unset($_SESSION['companyHistoryPage']);
         }
 
+        /*
+         * The following code handles the offset for the list of companies
+         * Below is an explaination of the variables
+         *      next10: the next 10 button
+         *      previous10: the previous 10 button
+         *      offset: the current offset value for the following query
+         *
+         */
+        
+        
         if (! isset($_POST['offset'])) {
             $_POST['offset'] = 0;
         }
@@ -60,18 +85,27 @@ if ($conn->connect_error) {
 
         $companyShippingAddress = $companyInfo["shipping_address_street"] . ", " . $companyInfo["shipping_address_city"] . ", " . $companyInfo["shipping_address_state"] . ", " . $companyInfo["shipping_address_country"] . ", " . $companyInfo["shipping_address_postalcode"];
 
+        //The following is the table for displaying the company information
+        
         echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
         echo "<tr><td>Company:</td><td>" . $companyInfo["company_name"] . "</td><td>Address:</td><td>$companyAddress</td></tr>";
         echo "<tr><td>Website:</td><td><a href=\"" . $companyInfo["website"] . "\">" . $companyInfo["website"] . "</a></td><td>Email:</td><td><a href=\"mailto: " . $companyInfo["company_email"] . "\">" . $companyInfo["company_email"] . "</a></td></tr>";
         echo "</table>";
     } else {
+        //If the above results in error redirect the user to homepage
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
         exit();
     }
 }
 
 ?>
+
+
+<!-- View Company -->
+<!-- Below is the interface for all customers assign to the company -->
+
+
 <html>
 <head>
 <!--
@@ -79,6 +113,8 @@ if ($conn->connect_error) {
 </head>
 
 -->
+
+<!-- Buttons for adding customer or viewing Comapny History -->
 <table>
 	<tr>
 		<td>
@@ -100,7 +136,8 @@ if ($conn->connect_error) {
 	<!-- 
 <tr><td>
 
-
+<!-- Next 10 Previous 10 Buttons -->
+<!-- The following code presents the user with buttons to navigate the query -->
 <form method="post" action="viewCompany.php">
 <input hidden name="previous10" value="<?php echo $_POST['offset'];?>"/>
 <input hidden name="company_id_view" value="<?php echo $_POST['company_id_view'];?>"/>
