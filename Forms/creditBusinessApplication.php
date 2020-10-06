@@ -3,6 +3,7 @@ session_start();
 include '../navigation.php';
 include '../Database/connect.php';
 
+// check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
@@ -11,6 +12,14 @@ if ($conn->connect_error) {
     $companyInfo = $conn->query($companySelect);
     $companyRow = mysqli_fetch_array($companyInfo);
 
+    $customerSelect = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
+    $customerInfo = $conn->query($customerSelect);
+    $customerRow = mysqli_fetch_array($customerInfo);
+    
+    $userInformation = "SELECT concat(first_name,' ',last_name) as name, title, work_phone, employee_email FROM employee
+								WHERE employee_id = " . $_SESSION['userid'];
+    $result = $conn->query($userInformation);
+    $row = mysqli_fetch_array($result);
     $conn->close();
 }
 
@@ -22,14 +31,18 @@ if ($conn->connect_error) {
 <body>
 	<form name="creditBusinessApplication"
 		action="newCreditBusinessApplication.php" method="POST">
-		<table border=1 cellspacing="0" cellpadding="1">
-			<tr>
-				<th colspan="7" align="center">Credit Application For Business
-					Account</th>
-			</tr>
-			<tr>
-				<th colspan="7" align="center">BUSINESS CONTACT INFORMATION</th>
-			</tr>
+		<table class="form-table" border=1 cellspacing="0" cellpadding="1">
+			<thead>
+				<tr>
+					<th colspan="7" align="center">Credit Application For Business
+						Account</th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<th colspan="7" align="center">BUSINESS CONTACT INFORMATION</th>
+				</tr>
+			</thead>
 			<td id="company_name">Company Name</td>
 			<td colspan="2"><input type="text" name="company_name" readonly
 				value="<?php echo $companyRow['company_name'];?>"></td>
@@ -37,7 +50,7 @@ if ($conn->connect_error) {
 			<td><input type="text" name="company_address" required></td>
 			<tr>
 				<td id="contact_name">Contact Name</td>
-				<td colspan="2"><input type="text" name="contact_name" required></td>
+				<td colspan="2"><input type="text" name="contact_name" readonly value="<?php echo $customerRow['customer_name'];?>"></td>
 				<td id="time_current_address">How long at current address?</td>
 				<td colspan="2"><input type="text" name="time_current_address"
 					required></td>
@@ -55,7 +68,7 @@ if ($conn->connect_error) {
 				<td colspan="2"><input type="text" name="phone" required></td>
 				<td id="nylene_representative">Nylene Representative</td>
 				<td colspan="2"><input type="text" name="nylene_representative"
-					required></td>
+					readonly value="<?php echo $row['name'];?>"></td>
 			</tr>
 
 			<tr>
@@ -73,9 +86,11 @@ if ($conn->connect_error) {
 				<td colspan="2"><input type="text" name="business_email" required></td>
 			</tr>
 
-			<tr>
-				<th colspan="6" align="center">BANK INFORMATION</th>
-			</tr>
+			<thead>
+				<tr>
+					<th colspan="6" align="center">BANK INFORMATION</th>
+				</tr>
+			</thead>
 			<tr>
 				<td id="bank_name">Bank Name
 				
@@ -103,9 +118,11 @@ if ($conn->connect_error) {
 				<td colspan="2"><input type="text" name="bank_phone" required></td>
 			</tr>
 
-			<tr>
-				<th colspan="6" align="center">BUSINESS/TRADE REFERENCES</th>
-			</tr>
+			<thead>
+				<tr>
+					<th colspan="6" align="center">BUSINESS/TRADE REFERENCES</th>
+				</tr>
+			</thead>
 			<tr>
 				<td colspan="6"><p>Reference #1</p></td>
 			</tr>
@@ -202,9 +219,11 @@ if ($conn->connect_error) {
 				<td colspan="2"><input type="text" name="ref3_company_email"
 					required></td>
 			</tr>
-			<tr>
-				<th colspan="6" align="center">AGREEMENT</th>
-			</tr>
+			<thead>
+				<tr>
+					<th colspan="6" align="center">AGREEMENT</th>
+				</tr>
+			</thead>
 
 			<tr>
 				<td colspan="6"><p>Upon approval, standard terms are net 30 days.
@@ -215,10 +234,11 @@ if ($conn->connect_error) {
 						business/trade references that you have supplied.</p></td>
 			</tr>
 
-			<tr>
-				<th colspan="6" align="center">SIGNATURES</th>
-			</tr>
-
+			<thead>
+				<tr>
+					<th colspan="6" align="center">SIGNATURES</th>
+				</tr>
+			</thead>
 			<tr>
 				<td id="info">Signature
 				
@@ -248,11 +268,10 @@ if ($conn->connect_error) {
 						to tgreenstein@nylene.com or fax to: Toby Greenstein at
 						973-694-3549</p></td>
 			</tr>
+			
 			<tr>
-				<td colspan="1"><input type="submit" value="submit"
-					style="width: 100%"></td>
-				<td colspan="1"><input type="reset" value="reset"
-					style="width: 100%"></td>
+				<td colspan="4" align="center"><input type="submit" value="submit" style="width: 100%"></td>
+				<td colspan="4" align="center"><input type="reset" value="reset" style="width: 100%"></td>
 			</tr>
 		</table>
 
