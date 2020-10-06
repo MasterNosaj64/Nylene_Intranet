@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: addInteraction.php
- * Version Number: 0.8
+ * Version Number: 0.81
  * Author: Jason Waid
  * Purpose:
  *  Add companies in the database.
