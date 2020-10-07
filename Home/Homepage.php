@@ -9,7 +9,8 @@ include '../calendar.php';
 ?>
 <html>
 <body>
-<link rel="stylesheet" href="../CSS/login.css">
+
+	<!--link rel="stylesheet" href="../CSS/login.css">  -->	
 
 
 </body>
