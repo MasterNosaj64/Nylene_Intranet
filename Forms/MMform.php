@@ -25,7 +25,7 @@ return true; }
 				<td id="column_heading" colspan="1"  style="text-align: left;">         Business Contact Information       </td>  
 			</tr></table>-->
 
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table class="form-table" border="1" cellpadding="5" cellspacing="1">
                 
 	<tr>
 	<td style="width: 50%">

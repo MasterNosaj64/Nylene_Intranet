@@ -42,7 +42,7 @@ session_start();
 </head>
 <form  method="post" action="MMform_Database.php"   name="MMForm";>
 
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table class="form-table" border="1" cellpadding="5" cellspacing="1">
                 
 	<tr>
 	<td style="width: 50%">
