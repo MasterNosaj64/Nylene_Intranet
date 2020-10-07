@@ -71,7 +71,7 @@ $type_of_project=$_POST['type_of_project'];
 //}
     $query=mysqli_query($connect,"INSERT INTO marketing_request_form(market_segment, sales_territory,email,phone,request_date, name_project_or_piece,type_of_project, is_project_new, if_piece_new, target_audiance, audiance_personal_info, purpose, key_message, supporting_info, is_photography_needed, estimated_quantity, means_of_delivery, date_needed, available_budget, cost_center_number ) VALUES ('$Market_Segment', '$Sales_Territory','$Email','$Phone','$Date', '$Name_of_Project','$type_of_project','$project_content','$update_info','$target','$Info','$purpose','$key_messages','$support','$photography','$estimate','$delivery','$date_needed','$budget','$cost')");
 	if ($query) {
-			header('Location: ../Home/Homepage.php');
+			header('Location: ../Interactions/companyHistory.php');
 
 	}
 	else{ 
