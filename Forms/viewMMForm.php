@@ -33,16 +33,17 @@ session_start();
 ?>
 <?php
 session_start();
+ include '../navigation.php';
 ?>
 
 <!DOCTYPE html>
 <html>
-<head> <link rel="stylesheet" href="style.css">
+<head> 
+  <link rel="stylesheet" type="text/css" href = "../CSS/form.css">
     <title>Marketing Materials Request Form</title>
 </head>
 <form  method="post" action="MMform_Database.php"   name="MMForm";>
-
-    <table class="form-table" border="1" cellpadding="5" cellspacing="1">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
                 
 	<tr>
 	<td style="width: 50%">
@@ -84,12 +85,12 @@ session_start();
 	<input name="Date" type="text" maxlength="250" style="width: 260px" />
 	</td> </tr>
     </table>
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Project Background</b></td>
 			</tr></table>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
 <tr> <td colspan = "2">
 <label for="Name_of_Project"><b>Name of Project or Piece </b></label>
 <input name="Name_of_Project" type="text" maxlength="500" style="width: 535px" />
@@ -160,20 +161,20 @@ session_start();
     <tr> <td border="1">
             <label for="project_content"><b>Is this project:</b></label></td>
             <input name="project_content">
-            <td><table><tr>
+            <td><table class="form-table"><tr>
                 <input type="checkbox" id="new" name="project_content[]" value="new">
                 <label for="new">New</label></tr><br/>
                 <tr><input type="checkbox" id="update" name="project_content[]" value="update">
                 <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
                 <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
         </td></tr></table>
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
 			</tr></table>
     
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
         <tr> <td border="1">
     <label for="target"><b>Choose all that apply</b>
         </label>
@@ -216,25 +217,25 @@ session_start();
         <br/>
         <br/>
         <br/>
-    <table cellpadding="5" cellspacing="1">
+    <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
 	
     <!--<td id="column_heading" colspan="2" border="0" style="text-align: left;">--><b>Purpose</b><br/>
 			</tr>
         <tr><td><textarea name="purpose" rows="6" cols="120"></textarea></td></tr></table>
         
-        <table cellpadding="5" cellspacing="1">
+        <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Key Messages</b><br/>
      
 			</tr>
         <tr><td><textarea name="key_messages" rows="6" cols="120"></textarea></td></tr></table>
-         <table cellpadding="5" cellspacing="1">
+         <table cellpadding="5" cellspacing="1" class="form-table">
         <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Supporting Information:</b><br/>
 			</tr>
         <tr><td><textarea name="support" rows="6" cols="120"></textarea></td></tr></table>
-     <table cellpadding="5" cellspacing="1">
+     <table cellpadding="5" cellspacing="1" class="form-table">
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
     <input type="checkbox"  name="photography[]" value="yes">
@@ -245,17 +246,20 @@ session_start();
 			</tr>
         <tr><td ><textarea name="photography" rows="6" cols="120"></textarea></td></tr></table>
         
-        <table border="1" style="text-align: left;"><tr><td ><b>Estimated Quantity:</b></td> <td ><textarea name="estimate" rows="6" cols="40"></textarea></td> <td><i>If applicable.</i></td> </tr>
+        <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td> <td ><input type="text" name="estimate" maxlength="300" style="width:260px"></td> <td><i>If applicable.</i></td> </tr>
         
-        <tr><td ><b>Means of Delivery:</b></td> <td ><textarea name="delivery" rows="6" cols="40"></textarea></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
+        <tr><td ><b>Means of Delivery:</b></td> <td ><input type="text" name="delivery" maxlength="300" style="width:260px"></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
             
-           <tr><td ><b>Date Needed:</b></td> <td ><textarea name="date_needed" rows="6" cols="40"></textarea></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
-              <tr><td ><b>Available Budget:</b></td> <td ><textarea name="budget" rows="6" cols="40"></textarea></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
+           <tr><td ><b>Date Needed:</b></td> <td ><input type="text" name="date_needed" maxlength="300" style="width:260px"></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
+              <tr><td ><b>Available Budget:</b></td> <td ><input type="text" name="budget" maxlength="300" style="width:260px"></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
             
             
-              <tr><td ><b>Cost Counter #:</b></td> <td ><textarea name="cost" rows="6" cols="40"></textarea></td> <td>If applicable</td></tr> 
-      
-		</table>
+              <tr><td ><b>Cost Counter #:</b></td> <td ><input type="text" name="cost" maxlength="300" style="width:260px"></td> <td>If applicable</td></tr> 
+        </table>
+       
+</form>
+</html>
+
 </form>
 </html>
 
