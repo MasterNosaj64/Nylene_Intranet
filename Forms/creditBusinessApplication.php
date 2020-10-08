@@ -44,10 +44,9 @@ if ($conn->connect_error) {
 				</tr>
 			</thead>
 			<td id="company_name">Company Name</td>
-			<td colspan="2"><input type="text" name="company_name" readonly
-				value="<?php echo $companyRow['company_name'];?>"></td>
+			<td colspan="2"><input type="text" name="company_name" readonly value="<?php echo $companyRow['company_name'];?>"></td>
 			<td id="company_address">Company Address(City, State, ZIP Code)</td>
-			<td><input type="text" name="company_address" required></td>
+			<td><input type="text" name="company_address" readonly value="<?php echo $companyRow['billing_address_city'] . "," . $companyRow['billing_address_state'] . ", " . $companyRow['billing_address_postalcode']?>"></td>
 			<tr>
 				<td id="contact_name">Contact Name</td>
 				<td colspan="2"><input type="text" name="contact_name" readonly value="<?php echo $customerRow['customer_name'];?>"></td>
