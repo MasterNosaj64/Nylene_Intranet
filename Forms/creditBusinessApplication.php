@@ -1,4 +1,9 @@
 <?php
+/*
+ * Name: creditBusinessApplication.php
+ * Author: Isha Isha
+ * Purpose: Input for Credit business application form. The information that is already known is auto filled.
+ */
 session_start();
 include '../navigation.php';
 include '../Database/connect.php';
@@ -8,14 +13,17 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
 
+    /* Selection statement for company passed from interaction */
     $companySelect = "SELECT * FROM company WHERE company_id = " . $_SESSION['company_id'];
     $companyInfo = $conn->query($companySelect);
     $companyRow = mysqli_fetch_array($companyInfo);
 
+    /* Selection statement for customor passed from interaction */
     $customerSelect = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
     $customerInfo = $conn->query($customerSelect);
     $customerRow = mysqli_fetch_array($customerInfo);
-    
+
+    /* Selection statement for current employee */
     $userInformation = "SELECT concat(first_name,' ',last_name) as name, title, work_phone, employee_email FROM employee
 								WHERE employee_id = " . $_SESSION['userid'];
     $result = $conn->query($userInformation);
@@ -44,12 +52,15 @@ if ($conn->connect_error) {
 				</tr>
 			</thead>
 			<td id="company_name">Company Name</td>
-			<td colspan="2"><input type="text" name="company_name" readonly value="<?php echo $companyRow['company_name'];?>"></td>
+			<td colspan="2"><input type="text" name="company_name" readonly
+				value="<?php echo $companyRow['company_name'];?>"></td>
 			<td id="company_address">Company Address(City, State, ZIP Code)</td>
-			<td><input type="text" name="company_address" readonly value="<?php echo $companyRow['billing_address_city'] . "," . $companyRow['billing_address_state'] . ", " . $companyRow['billing_address_postalcode']?>"></td>
+			<td><input type="text" name="company_address" readonly
+				value="<?php echo $companyRow['billing_address_city'] . "," . $companyRow['billing_address_state'] . ", " . $companyRow['billing_address_postalcode']?>"></td>
 			<tr>
 				<td id="contact_name">Contact Name</td>
-				<td colspan="2"><input type="text" name="contact_name" readonly value="<?php echo $customerRow['customer_name'];?>"></td>
+				<td colspan="2"><input type="text" name="contact_name" readonly
+					value="<?php echo $customerRow['customer_name'];?>"></td>
 				<td id="time_current_address">How long at current address?</td>
 				<td colspan="2"><input type="text" name="time_current_address"
 					required></td>
@@ -267,10 +278,12 @@ if ($conn->connect_error) {
 						to tgreenstein@nylene.com or fax to: Toby Greenstein at
 						973-694-3549</p></td>
 			</tr>
-			
+
 			<tr>
-				<td colspan="4" align="center"><input type="submit" value="submit" style="width: 100%"></td>
-				<td colspan="4" align="center"><input type="reset" value="reset" style="width: 100%"></td>
+				<td colspan="4" align="center"><input type="submit" value="submit"
+					style="width: 100%"></td>
+				<td colspan="4" align="center"><input type="reset" value="reset"
+					style="width: 100%"></td>
 			</tr>
 		</table>
 

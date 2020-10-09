@@ -1,22 +1,27 @@
 <?php
+/*
+ * Name: viewCreditBusinessApplication.php
+ * Author: Isha Isha
+ * Purpose: View credit business application form. Displays all the information filled in the form.
+ */
 session_start();
 
 include '../navigation.php';
 include '../Database/connect.php';
 
-// Check the connection
+/* Check the connection */
 if ($conn->connect_error) {
 
     die("Connection failed: " . $conn->connect_error);
 } else {
 
-    // Selection statement for distributor quote form
+    /* Selection statement for credit business form */
     $creditBusinessQuery = "SELECT * FROM credit_application_business_form 
 								WHERE credit_application_business_id = " . $_POST['id'];
     $creditBusinessResults = $conn->query($creditBusinessQuery);
     $creditBusinessRow = mysqli_fetch_array($creditBusinessResults);
 
-    // Selection statement for customer information
+    /* Selection statement for customer information */
     $customerInformation = "SELECT * FROM customer 
 									INNER JOIN company_relational_customer ON company_relational_customer.customer_id = customer.customer_id
 										INNER JOIN company ON company.company_id = company_relational_customer.company_id
