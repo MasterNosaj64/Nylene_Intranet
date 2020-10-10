@@ -4,7 +4,7 @@
 session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
-include '../navigation.php';
+include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 ?>

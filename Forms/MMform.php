@@ -1,6 +1,6 @@
 <?php
 session_start();
- include '../navigation.php';
+ include '../NavPanel/navigation.php';
 ?>
 
 <!DOCTYPE html>

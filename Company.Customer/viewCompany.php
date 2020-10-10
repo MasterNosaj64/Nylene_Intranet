@@ -16,7 +16,7 @@ unset($_SESSION['interaction_id']);
 unset($_SESSION['company_id']);
 
 //The navigation bar for the website
-include '../navigation.php';
+include '../NavPanel/navigation.php';
 //connection to the database
 include '../Database/connect.php';
 

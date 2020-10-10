@@ -14,7 +14,7 @@ if (isset($_POST['interaction_id'])) {
     //View navigation.php for more information
     $_SESSION['interaction_id'] = $_POST['interaction_id'];
     //The navigation bar for the website
-    include '../navigation.php';
+    include '../NavPanel/navigation.php';
     //connection to the database
     include '../Database/connect.php';
 

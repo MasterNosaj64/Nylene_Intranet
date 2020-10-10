@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-	include '../navigation.php';
+	include '../NavPanel/navigation.php';
 	include '../Database/connect.php';
 
 	//Check the connection

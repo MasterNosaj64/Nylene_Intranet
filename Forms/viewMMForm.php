@@ -2,7 +2,7 @@
 <?php 
 session_start();
 	
-    include '../navigation.php';
+    include '../NavPanel/navigation.php';
 	include '../Database/connect.php';
 
 	//Check the connection
@@ -33,7 +33,7 @@ session_start();
 ?>
 <?php
 session_start();
- include '../navigation.php';
+ include '../NavPanel/navigation.php';
 ?>
 
 <!DOCTYPE html>

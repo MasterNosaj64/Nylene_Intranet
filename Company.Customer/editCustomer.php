@@ -10,7 +10,7 @@
 session_start();
 
 //The navigation bar for the website
-include '../navigation.php';
+include '../NavPanel/navigation.php';
 //connection to the database
 include '../Database/connect.php';
 

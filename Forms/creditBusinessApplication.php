@@ -5,7 +5,7 @@
  * Purpose: Input for Credit business application form. The information that is already known is auto filled.
  */
 session_start();
-include '../navigation.php';
+include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
 // check the connection

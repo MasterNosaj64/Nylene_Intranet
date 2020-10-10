@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <?php
-    include '../navigation.php';
+    include '../NavPanel/navigation.php';
     //$_SESSION["userid"] = 2;
 
 	$userid   = $_SESSION["user_id"];
