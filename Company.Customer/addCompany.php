@@ -1,8 +1,9 @@
 <?php
 /*
  * FileName: addCompany.php
- * Version Number: 0.8
+ * Version Number: 0.81
  * Author: Jason Waid
+ * Date Modified: 10/09/2020
  * Purpose:
  *  Add companies in the database.
  */
@@ -74,11 +75,12 @@ if ($conn->connect_error) {
             description, 
             type, 
             industry, 
-            company_email, 
+            company_email,
+            assigned_to, 
             date_created, 
             created_by)
         
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             $company_name = $_POST['name'];
             $website = $_POST['website'];
@@ -99,10 +101,11 @@ if ($conn->connect_error) {
 
             $t = time();
             $date_created = date("Y-m-d", $t);
-
+            
+            $assigned_to = $_SESSION['user_id'];
             $created_by = $_SESSION['userid'];
 
-            $sqlQuery->bind_param("sssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_created, $created_by);
+            $sqlQuery->bind_param("ssssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
 
             $sqlQuery->execute();
 

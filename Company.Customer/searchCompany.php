@@ -115,6 +115,8 @@ if ($conn->connect_error) {
 			<td>Billing Street</td>
 			<td>Billing City</td>
 			<td>Billing State</td>
+			<td>Assigned To</td>
+			<td>Created By</td>
 			<td>Menu</td>
 		</tr>
 	</thead>
@@ -129,7 +131,7 @@ if ($conn->connect_error) {
 while ($row = mysqli_fetch_array($result)) {
 
     echo "<tr><td>" . $row["company_name"] . "</td><td><a href=\"" . $row["website"] . "\">" . $row["website"] . "</a></td><td><a href =\"mailto: " . $row["company_email"] . "\">" . $row["company_email"] . "</a></td><td>" . $row["billing_address_street"] . "</td><td>" . $row["billing_address_city"] . "</td><td>" . $row["billing_address_state"] . "</td>
-<td><form action=\"./editCompany.php\" method=\"post\">
+<td>".$row["assigned_to"]."</td><td>".$row["created_by"]."</td><td><form action=\"./editCompany.php\" method=\"post\">
 		<input hidden name =\"company_id_edit\" value=\"" . $row['company_id'] . "\"/>
 		<input type=\"submit\" value=\"edit\"/>
 	</form>
@@ -137,10 +139,6 @@ while ($row = mysqli_fetch_array($result)) {
 		<input hidden name =\"company_id_view\" value=\"" . $row['company_id'] . "\"/>
 		<input type=\"submit\" value=\"view\"/>
 	</form>
-
-
-
-
    </td></tr>";
 }
 ?>
