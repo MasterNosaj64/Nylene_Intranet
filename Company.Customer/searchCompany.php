@@ -1,7 +1,8 @@
 <?php
 /*
  * FileName: searchCompany.php
- * Version Number: 0.8
+ * Version Number: 0.82
+ * Date Modified: 10/10/2020
  * Author: Jason Waid
  * Purpose:
  *  Search for companies in the database.
@@ -74,6 +75,39 @@ if ($conn->connect_error) {
         $result = $conn->query($sqlquery);
     }
     
+    
+    //Querys for getting all employee names
+    $sqlquery = "SELECT * FROM nylene.employee";
+    $employeeResult = $conn->query($sqlquery);
+    $createdResult = $conn->query($sqlquery);
+    
+    /* //New Searching technique
+    $sqlQuery = $conn->prepare("SELECT
+                *
+            FROM
+			  company
+            WHERE
+			company_id  LIKE ? OR website LIKE ? OR shipping_address_street LIKE ?OR shipping_address_city LIKE ?
+			OR shipping_address_state LIKE ?
+			OR shipping_address_postalcode LIKE ?
+			OR shipping_address_country LIKE ?
+			OR billing_address_street LIKE ?
+			OR billing_address_city LIKE ?
+			OR billing_address_state LIKE ?
+			OR billing_address_postalcode LIKE ?
+			OR billing_address_country LIKE ?
+			OR description LIKE ?
+			OR type LIKE ?
+			OR industry LIKE ?
+			OR assigned_to LIKE ?
+			OR date_created LIKE ?
+			OR date_modified LIKE ?
+			OR created_by LIKE ?
+			OR company_name LIKE ?");
+    
+    
+    $keywords = "%{$keywords}%"; */
+    
 }
 ?>
 <html>
@@ -81,9 +115,9 @@ if ($conn->connect_error) {
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 
-<!-- Company Search -->
-<!-- Below is the search by company name and search by website functionality -->
-<table class="form-table" border=5>
+<!-- OLD Company Search -->
+<!-- Below is the OLD search by company name and search by website functionality -->
+<!-- <table class="form-table" border=5>
 	<tr>
 		<form method="post" action=searchCompany.php name="search_companyName">
 			<td>Name:</td>
@@ -101,7 +135,89 @@ if ($conn->connect_error) {
 			<td><input type="submit" value="Reset" /></td>
 		</form>
 	</tr>
-</table>
+</table> -->
+
+
+
+ 
+ 
+ 
+
+
+<button type="button" class="collapsible">Expand Search</button>
+<div class="content" hidden>
+
+	<form method="post" action=searchCompany.php name="search_company_data">
+		<table class="form-table" border=5>
+		<tr>
+		
+			<td>Name:</td>
+			<td><input type="text" name="search_By_Name"/></td>
+			<td>Website:</td>
+			<td><input type="text" value="http://" name="search_By_Website"/></td>
+			<td>Assigned To:</td>
+			<td>
+				<select name="search_By_Assigned_To">
+					<option></option>
+				<?php 
+			    while($id = mysqli_fetch_array($employeeResult)){
+			         echo "<option value=\"".$id["employee_id"]."\">";
+			         echo $id["first_name"]." ".$id["last_name"]."</option>";
+			     }			
+			     ?>
+				</select>
+			</td>
+			<td>Created By:</td>
+			<td>
+				<select name="search_By_Created_By">
+					<option></option>
+				<?php 
+				while($id = mysqli_fetch_array($createdResult)){
+			         echo "<option value=\"".$id["employee_id"]."\">";
+			         echo $id["first_name"]." ".$id["last_name"]."</option>";
+			     }			
+			     ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Address:</td>
+			<td><input type="text" name="search_By_Address"/></td>
+			<td>City</td>
+			<td><input type="text" name="search_By_City"/></td>
+			<td>State</td>
+			<td><input type="text" name="search_By_State"/></td>
+			<td>Country</td>
+			<td><input type="text" name="search_By_Country"/></td>
+			
+		</tr>
+		<tr>
+			<td><input type="submit" value="Search" /></td>
+		</tr>
+		</table>
+	</form>
+
+</div>
+
+<!-- Script for collapsible search menu -->
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+
 
 <!-- Company Search -->
 <!-- Below is the table that is presented to the user for the query results on the Company table -->
@@ -112,11 +228,15 @@ if ($conn->connect_error) {
 			<td>Name</td>
 			<td>Website</td>
 			<td>Email</td>
-			<td>Billing Street</td>
-			<td>Billing City</td>
-			<td>Billing State</td>
+			<td>Street</td>
+			<td>City</td>
+			<td>State</td>
 			<td>Assigned To</td>
-			<td>Created By</td>
+			<?php
+			if($_SESSION["role"]=="admin"){
+			echo "<td>Created By</td>";
+			}
+            ?>
 			<td>Menu</td>
 		</tr>
 	</thead>
@@ -130,16 +250,33 @@ if ($conn->connect_error) {
  */
 while ($row = mysqli_fetch_array($result)) {
 
-    $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["created_by"]."";
-    $getCreated_By = $conn->query($getCreated_By);
-    $getCreated_By = mysqli_fetch_array($getCreated_By);
+    
+    //Run query if Admin is logged in
+    if($_SESSION["role"] == "admin"){
+        $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["created_by"]."";
+        $getCreated_By = $conn->query($getCreated_By);
+        $getCreated_By = mysqli_fetch_array($getCreated_By);
+    }
     
     $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["assigned_to"]."";
     $getAssigned_To = $conn->query($getAssigned_To);
     $getAssigned_To = mysqli_fetch_array($getAssigned_To);
     
-    echo "<tr><td>" . $row["company_name"] . "</td><td><a href=\"" . $row["website"] . "\">" . $row["website"] . "</a></td><td><a href =\"mailto: " . $row["company_email"] . "\">" . $row["company_email"] . "</a></td><td>" . $row["billing_address_street"] . "</td><td>" . $row["billing_address_city"] . "</td><td>" . $row["billing_address_state"] . "</td>
-<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td><td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td><td><form action=\"./editCompany.php\" method=\"post\">
+    echo "<tr>";
+    echo "<td>" . $row["company_name"] . "</td>";
+    echo "<td><a href=\"" . $row["website"] . "\">" . $row["website"] . "</a></td>";
+    echo "<td><a href =\"mailto: " . $row["company_email"] . "\">" . $row["company_email"] . "</a></td>";
+    echo "<td>" . $row["billing_address_street"] . "</td>";
+    echo "<td>" . $row["billing_address_city"] . "</td>";
+    echo "<td>" . $row["billing_address_state"] . "</td>";
+    echo "<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td>";
+    
+    //Show Created by field if Admin is logged in
+    if($_SESSION["role"] == "admin"){
+        echo "<td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td>";
+    }
+    
+   echo "<td><form action=\"./editCompany.php\" method=\"post\">
 		<input hidden name =\"company_id_edit\" value=\"" . $row['company_id'] . "\"/>
 		<input type=\"submit\" value=\"edit\"/>
 	</form>
@@ -147,10 +284,9 @@ while ($row = mysqli_fetch_array($result)) {
 		<input hidden name =\"company_id_view\" value=\"" . $row['company_id'] . "\"/>
 		<input type=\"submit\" value=\"view\"/>
 	</form>
-   </td></tr>";
+   </td>";
+   echo "</tr>";
 }
-
-
 $conn->close();
 ?>
 
