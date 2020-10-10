@@ -102,7 +102,7 @@ if ($conn->connect_error) {
             $t = time();
             $date_created = date("Y-m-d", $t);
             
-            $assigned_to = $_SESSION['user_id'];
+            $assigned_to = $_SESSION['userid'];
             $created_by = $_SESSION['userid'];
 
             $sqlQuery->bind_param("ssssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);

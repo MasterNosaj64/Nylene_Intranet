@@ -73,7 +73,7 @@ if ($conn->connect_error) {
         $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset'];
         $result = $conn->query($sqlquery);
     }
-    $conn->close();
+    
 }
 ?>
 <html>
@@ -130,8 +130,16 @@ if ($conn->connect_error) {
  */
 while ($row = mysqli_fetch_array($result)) {
 
+    $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["created_by"]."";
+    $getCreated_By = $conn->query($getCreated_By);
+    $getCreated_By = mysqli_fetch_array($getCreated_By);
+    
+    $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["assigned_to"]."";
+    $getAssigned_To = $conn->query($getAssigned_To);
+    $getAssigned_To = mysqli_fetch_array($getAssigned_To);
+    
     echo "<tr><td>" . $row["company_name"] . "</td><td><a href=\"" . $row["website"] . "\">" . $row["website"] . "</a></td><td><a href =\"mailto: " . $row["company_email"] . "\">" . $row["company_email"] . "</a></td><td>" . $row["billing_address_street"] . "</td><td>" . $row["billing_address_city"] . "</td><td>" . $row["billing_address_state"] . "</td>
-<td>".$row["assigned_to"]."</td><td>".$row["created_by"]."</td><td><form action=\"./editCompany.php\" method=\"post\">
+<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td><td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td><td><form action=\"./editCompany.php\" method=\"post\">
 		<input hidden name =\"company_id_edit\" value=\"" . $row['company_id'] . "\"/>
 		<input type=\"submit\" value=\"edit\"/>
 	</form>
@@ -141,6 +149,9 @@ while ($row = mysqli_fetch_array($result)) {
 	</form>
    </td></tr>";
 }
+
+
+$conn->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->
