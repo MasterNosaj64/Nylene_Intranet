@@ -12,6 +12,5 @@
     <p class="submit"><input type="submit" name="commit" value="Login"></p>
   </form>  
 </div>
-
 </div>
 </html>

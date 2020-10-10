@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: addInteraction.php
- * Version Number: 0.8
+ * Version Number: 0.81
  * Author: Jason Waid
  * Purpose:
  *  Add companies in the database.
@@ -107,7 +107,7 @@ if ($conn->connect_error) {
             } // Marketing Request Form
             else if ($_POST['form'] == 5) {
 
-                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/newMarketRequest.php\" />;";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Forms/MMform.php\" />;";
                 exit();
             } // Credit Business Application Forn
             else if ($_POST['form'] == 6) {

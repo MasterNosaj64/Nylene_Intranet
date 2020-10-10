@@ -1,26 +1,49 @@
+
+<?php 
+session_start();
+	
+    include '../navigation.php';
+	include '../Database/connect.php';
+
+	//Check the connection
+	if ($conn-> connect_error) {
+	
+		die("Connection failed: " . $conn-> connect_error);
+	
+	} else {
+		
+		
+		$sql = "SELECT * FROM market_request_form 
+								WHERE marketing_request_id = ". $_SESSION['userid'];
+		$query = $conn->query($sql);								
+		$row = mysqli_fetch_array($query);
+		
+		
+		$marketingInformation	=  "SELECT * FROM interaction 
+										INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
+											INNER JOIN marketing_request_form ON marketing_request_form.marketing_request_id = interaction_relational_form.form_id
+												INNER JOIN customer ON customer.customer_id = company_relational_customer.customer_id
+													WHERE interaction_relational_form.form_type = 1 AND interaction.employee_id = " . $_SESSION["userid"] . "
+														AND marketing_request_form.marketing_request_id = " . $id;
+		$marketingResult = $dbConnection->query($marketingInformation); 
+		$row = mysqli_fetch_array($marketingResult); 
+		
+		$conn->close();
+	}
+?>
+<?php
+session_start();
+ include '../navigation.php';
+?>
+
 <!DOCTYPE html>
 <html>
-<head> <link rel="stylesheet" href="style.css">
+<head> 
+  <link rel="stylesheet" type="text/css" href = "../CSS/form.css">
     <title>Marketing Materials Request Form</title>
 </head>
-<form  method="post" action="MMform_Database.php"   onsubmit="return ValidateForm(this);">
-<script type="text/javascript">
-function ValidateForm(frm) {
-if (frm.Requester_Name.value == "") { alert(' Requesters name is required.'); frm.Requester_Name.focus(); return false; }
-if (frm.Marketing_Segment.value == "") { alert('Marketing Segment is required.'); frm.Marketing_Segment.focus(); return false; }
-if (frm.Company_Name.value == "") { alert('Company/Group Name is required.'); frm.Company_Name.focus(); return false; }
-if (frm.Target_Code.value == "") { alert('Target Code is required.'); frm.Target_Code.focus(); return false; }
-if (frm.Email_Address.value == "") { alert('Email address is required.'); frm.Email_Address.focus(); return false; }
-if (frm.Email_Address.value.indexOf("@") < 1 || frm.Email_Address.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.Email_Address.focus(); return false; }
-return true; }
-</script>
-<!--
-<table border="1" cellpadding="5" cellspacing="1">
-<tr>
-				<td id="column_heading" colspan="1"  style="text-align: left;">         Business Contact Information       </td>  
-			</tr></table>-->
-
-    <table border="1" cellpadding="5" cellspacing="1">
+<form  method="post" action="MMform_Database.php"   name="MMForm";>
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
                 
 	<tr>
 	<td style="width: 50%">
@@ -30,7 +53,7 @@ return true; }
 	</td>
 
 	<td style="width: 50%">
-	<label for="Market Segment">
+	<label for="Market_Segment">
 	<b>Market Segment</b></label>
 	<input name="Market_Segment" type="text" maxlength="250" style="width: 260px" />
 	</td>
@@ -62,20 +85,21 @@ return true; }
 	<input name="Date" type="text" maxlength="250" style="width: 260px" />
 	</td> </tr>
     </table>
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Project Background</b></td>
 			</tr></table>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
 <tr> <td colspan = "2">
 <label for="Name_of_Project"><b>Name of Project or Piece </b></label>
 <input name="Name_of_Project" type="text" maxlength="500" style="width: 535px" />
 </td>  
  </tr>
 <tr> <td border="1">
-    <b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
-        </td>
+   <label for="type_of_project"></label> <b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
+    <input name="type_of_project">
+           </td>
     <td><table><tr><td border="1">
 <input type="checkbox"  name="type_of_project[]" value="brochure">
   <label for="brochure">Brochure</label>
@@ -127,7 +151,7 @@ return true; }
     </td></tr><tr><td>
     <input type="checkbox"  name="type_of_project[]" value="release">
     <label for="release">Press Release/E-blast</label>
-        </td>  <td><textarea name="other_type" rows="1" column="100"></textarea></td></tr>
+        </td>  <td><textarea name="type_of_project" rows="1" column="100"></textarea></td></tr>
       
         
         
@@ -136,42 +160,43 @@ return true; }
     
     <tr> <td border="1">
             <label for="project_content"><b>Is this project:</b></label></td>
-            
-            <td><table><tr>
-                <input type="checkbox" id="new" name="new" value="new">
+            <input name="project_content">
+            <td><table class="form-table"><tr>
+                <input type="checkbox" id="new" name="project_content[]" value="new">
                 <label for="new">New</label></tr><br/>
-                <tr><input type="checkbox" id="new" name="new" value="new">
-                <label for="update">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
-                <textarea name="update_project" rows="1" column="500"></textarea></label></tr></table>
+                <tr><input type="checkbox" id="update" name="project_content[]" value="update">
+                <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
+                <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
         </td></tr></table>
-    <table border="1" cellpadding="5" cellspacing="1">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
 			</tr></table>
     
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
         <tr> <td border="1">
     <label for="target"><b>Choose all that apply</b>
-        </label></td>
+        </label>
+            <input name="target"></td>
     <td><table><tr><td border="1">
-<input type="checkbox" id="prospective_customers" name="prospective customers" value="prospective_customers">
+<input type="checkbox" id="prospective_customers" name="target[]" value="prospective_customers">
   <label for="prospective_customers">Prospective Customers</label>
         </td><td>
-    <input type="checkbox" id="Engineers" name="Engineers" value="Engineers">
+    <input type="checkbox" id="Engineers" name="target[]" value="Engineers">
   <label for="Engineers">Engineers</label>
         </td></tr><tr><td>
-    <input type="checkbox" id="buyers" name="buyers" value="buyers">
+    <input type="checkbox" id="buyers" name="target[]" value="buyers">
   <label for="buyers">Procurement Managers/Buyers</label>
     </td><td>
-    <input type="checkbox" id="current" name="current" value="current">
+    <input type="checkbox" id="current" name="target[]" value="current">
   <label for="current">Current Customers</label>
     </td></tr><tr><td>
-    <input type="checkbox" id="plant_managers" name="plant_managers" value="plant_managers">
+    <input type="checkbox" id="plant_managers" name="tagret[]" value="plant_managers">
   <label for="plant_managers">Plant/MRO Managers</label>
     </td>
-    <td> <input type="checkbox" id="other" name="other" value="other">
-    <label for="Other">Other (Please specify)</label><textarea name="customer_type" rows="1" column="100"></textarea></td></tr>
+    <td> <input type="checkbox" id="other" name="target[]" value="other">
+    <label for="Other">Other (Please specify)</label><textarea name="target" rows="1" column="100"></textarea></td></tr>
         </table></td></tr>
         
          <tr> <td border="1">
@@ -185,86 +210,56 @@ return true; }
         <li>Expected buying Experience</li>
         <li>Common Objections</li>
         </ul>
-        </label></td>
-             <td><textarea name="info_text" rows="11" width="1000px" cols="70"></textarea></td></tr>
+        </label>
+             </td>
+             <td><textarea name="Info" rows="11" width="1000px" cols="70"></textarea></td></tr>
         <br/>
         <br/>
         <br/>
         <br/>
-    <table cellpadding="5" cellspacing="1">
+    <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
 	
     <!--<td id="column_heading" colspan="2" border="0" style="text-align: left;">--><b>Purpose</b><br/>
 			</tr>
         <tr><td><textarea name="purpose" rows="6" cols="120"></textarea></td></tr></table>
         
-        <table cellpadding="5" cellspacing="1">
+        <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Key Messages</b><br/>
      
 			</tr>
         <tr><td><textarea name="key_messages" rows="6" cols="120"></textarea></td></tr></table>
-         <table cellpadding="5" cellspacing="1">
+         <table cellpadding="5" cellspacing="1" class="form-table">
         <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Supporting Information:</b><br/>
 			</tr>
         <tr><td><textarea name="support" rows="6" cols="120"></textarea></td></tr></table>
-     <table cellpadding="5" cellspacing="1">
+     <table cellpadding="5" cellspacing="1" class="form-table">
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
-    <input type="checkbox"  name="photography" value="yes">
+    <input type="checkbox"  name="photography[]" value="yes">
     <i><label for="photography">yes</label></i>
     
-    <input type="checkbox" name="photography" value="no">
+    <input type="checkbox" name="photography[]" value="no">
     <i><label for="photography">no</label></i><br/>
 			</tr>
-        <tr><td ><textarea name="photo" rows="6" cols="120"></textarea></td></tr></table>
+        <tr><td ><textarea name="photography" rows="6" cols="120"></textarea></td></tr></table>
         
-        <table border="1" style="text-align: left;"><tr><td ><b>Estimated Quantity:</b></td> <td ><textarea name="estimate" rows="6" cols="40"></textarea></td> <td><i>If applicable.</i></td> </tr>
+        <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td> <td ><input type="text" name="estimate" maxlength="300" style="width:260px"></td> <td><i>If applicable.</i></td> </tr>
         
-        <tr><td ><b>Means of Delivery:</b></td> <td ><textarea name="delivery" rows="6" cols="40"></textarea></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
+        <tr><td ><b>Means of Delivery:</b></td> <td ><input type="text" name="delivery" maxlength="300" style="width:260px"></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
             
-           <tr><td ><b>Date Needed:</b></td> <td ><textarea name="date_needed" rows="6" cols="40"></textarea></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
-              <tr><td ><b>Available Budget:</b></td> <td ><textarea name="budget" rows="6" cols="40"></textarea></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
+           <tr><td ><b>Date Needed:</b></td> <td ><input type="text" name="date_needed" maxlength="300" style="width:260px"></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
+              <tr><td ><b>Available Budget:</b></td> <td ><input type="text" name="budget" maxlength="300" style="width:260px"></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
             
             
-              <tr><td ><b>Cost Counter #:</b></td> <td ><textarea name="cost" rows="6" cols="40"></textarea></td> <td>If applicable</td></tr> 
+              <tr><td ><b>Cost Counter #:</b></td> <td ><input type="text" name="cost" maxlength="300" style="width:260px"></td> <td>If applicable</td></tr> 
         </table>
-    
-    
-<!--    
-<table border="1" cellpadding="5" cellspacing="0">
-<tr> <td>
-<label for="Response"><b>Responses Needed</b></label><br />
-<input name="Response" type="text" maxlength="250" style="width: 260px" />
-    </td>  </tr>
-    <tr>
-	<td style="width: 50%">
-	<label for="Quantity"><b>Specify Quantity</b></label><br/>
-	<input name="Quantity" type="text" maxlength="10" style="width: 260px" />
-	</td> 
-
-	<td style="width: 50%">
-	<label for="Date">
-	<b>Date Submitted</b></label><br />
-	<input name="Last_Name" type="text" maxlength="250" style="width: 260px" />
-	</td>
-</tr> 
-</table>
-
-
-<table><tr><td>
-<input type="submit" value="Submit">
-</td>
-<td>
-<input type="reset" value="Reset">
-</td></tr></table>
--->
-        <table class="form-table">
-			<tr>
-				<td><input type="submit" value="Submit"></td>
-				<td><input type="reset" value="Reset"></td>
-			</tr>
-		</table>
+       
 </form>
 </html>
+
+</form>
+</html>
+
