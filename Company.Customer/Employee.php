@@ -71,26 +71,14 @@ class Employee
     }
 
     /*
-     * Function Name: getNameById
+     * Function Name: getName
      * Version: 0.7
      * Date Modified: 10/11/2020
      * Author: Jason Waid
-     * Purpose: Function searches for an employee by ID only and returns the full name only
+     * Purpose: Function returns the full name
      */
     
-    function getNameById($employee_id){
-        $query = "SELECT * FROM nylene.employee WHERE employee_id = ?";
-        
-        $stmt = $this->conn->prepare($query);
-        
-        $employee_id = htmlspecialchars(strip_tags($employee_id));
-        echo $employee_id;
-        
-        $stmt->bind_param("i", $employee_id);
-        
-        $stmt->execute();
-        
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
+    function getName(){
         
         return $this->first_name." ". $this->last_name;
     }
@@ -103,14 +91,14 @@ class Employee
      * Purpose: Function searches for an employee by ID only and returns the employee object
      */
     
-    function searchById($employee_id){
+   /*  function searchById($employee_id){
         $query = "SELECT * FROM nylene.employee WHERE employee_id = ?";
         
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->employeeConn->prepare($query);
         
         $employee_id = htmlspecialchars(strip_tags($employee_id));
         
-        $smtm->bind_param("i",$employee_id);
+        $stmt->bind_param("i",$employee_id);
         
         $stmt->execute();
         // bind the results
@@ -118,7 +106,7 @@ class Employee
         
         return $stmt;
         
-    }
+    } */
     
     
     /*
@@ -143,10 +131,10 @@ class Employee
 
         // append query string, sanitize then apply % wildcard character to end of entered parmeter
         
-        $query = "SELECT * FROM nylene.employee WHERE";
+        $query = "SELECT * FROM nylene.employee";
 
         if ($employee_id != "") {
-            $query .= " employee_id LIKE ? ";
+            $query .= "  WHERE employee_id LIKE ? ";
             $intCount ++;
             $paramTypes .= "i";
             $employee_id = htmlspecialchars(strip_tags($employee_id));
@@ -156,7 +144,7 @@ class Employee
 
         if ($first_name != "") {
             if ($employee_id == "") {
-                $query .= " first_name LIKE ?";
+                $query .= "  WHERE first_name LIKE ?";
             } else {
                 $query .= " AND first_name LIKE ?";
             }
@@ -169,7 +157,7 @@ class Employee
 
         if ($last_name != "") {
             if ($employee_id == "" && $first_name == "") {
-                $query .= " last_name LIKE ?";
+                $query .= "  WHERE last_name LIKE ?";
             } else {
                 $query .= " AND last_name LIKE ?";
             }
@@ -182,7 +170,7 @@ class Employee
 
         if ($title != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "") {
-                $query .= " billing_address_city LIKE ?";
+                $query .= "  WHERE billing_address_city LIKE ?";
             } else {
                 $query .= " AND billing_address_city LIKE ?";
             }
@@ -195,7 +183,7 @@ class Employee
 
         if ($department != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "") {
-                $query .= " department LIKE ?";
+                $query .= "  WHERE department LIKE ?";
             } else {
                 $query .= " AND department LIKE ?";
             }
@@ -208,7 +196,7 @@ class Employee
 
         if ($work_phone != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "") {
-                $query .= " work_phone LIKE ?";
+                $query .= "  WHERE work_phone LIKE ?";
             } else {
                 $query .= " AND work_phone LIKE ?";
             }
@@ -221,7 +209,7 @@ class Employee
 
         if ($reports_to != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "") {
-                $query .= " reports_to LIKE ?";
+                $query .= "  WHERE reports_to LIKE ?";
             } else {
                 $query .= " AND reports_to LIKE ?";
             }
@@ -233,7 +221,7 @@ class Employee
 
         if ($modified_by != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "") {
-                $query .= " modified_by LIKE ?";
+                $query .= "  WHERE modified_by LIKE ?";
             } else {
                 $query .= " AND modified_by LIKE ?";
             }
@@ -245,7 +233,7 @@ class Employee
         
         if ($username != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "") {
-                $query .= " username LIKE ?";
+                $query .= "  WHERE username LIKE ?";
             } else {
                 $query .= " AND username LIKE ?";
             }
@@ -257,7 +245,7 @@ class Employee
 
         if ($is_administrator != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "") {
-                $query .= " is_administrator LIKE ?";
+                $query .= "  WHERE is_administrator LIKE ?";
             } else {
                 $query .= " AND is_administrator LIKE ?";
             }
@@ -269,7 +257,7 @@ class Employee
         
         if ($STATUS != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "") {
-                $query .= " STATUS LIKE ?";
+                $query .= "  WHERE STATUS LIKE ?";
             } else {
                 $query .= " AND STATUS LIKE ?";
             }
@@ -281,7 +269,7 @@ class Employee
         
         if ($employee_email != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "" && $STATUS == "") {
-                $query .= " employee_email LIKE ?";
+                $query .= "  WHERE employee_email LIKE ?";
             } else {
                 $query .= " AND employee_email LIKE ?";
             }
@@ -348,6 +336,9 @@ class Employee
                 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10], $params[11]);
                 break;
+                
+            /* default: */
+                //no params
         }
 
         // return $query

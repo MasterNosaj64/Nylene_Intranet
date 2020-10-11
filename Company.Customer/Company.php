@@ -159,6 +159,29 @@ class Company
         return false;
     }
 
+    
+    /*
+     * Function Name: getname
+     * Version: 0.6
+     * Date Modified: 10/11/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the company_name of the object
+     *
+     */
+    function getname(){
+        
+        
+        return $this->company_name;
+    }
+    
+    function getAssignedTo(){
+        return $this->assigned_to;
+    }
+    
+    function getCreatedBy(){
+        return $this->created_by;
+    }
+    
     /*
      * Function Name: search
      * Version: 0.6

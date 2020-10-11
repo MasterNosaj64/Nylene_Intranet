@@ -315,19 +315,21 @@ for (i = 0; i < coll.length; i++) {
 	    //Run query if Admin is logged in
 	    if($_SESSION["role"] == "admin"){
 	        
-	        /* echo $companies->created_by;
+	        echo $companies->created_by;
 	        $createdByEmployee = new Employee($conn);
-	        $getCreated_By = $createdByEmployee->getNameById($companies->created_by);
-	        echo $getCreated_By; */
+	        $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
+	        $getCreated_By->fetch();
+	        echo $getCreated_By;
 	        
 	        /* $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
 	        $getCreated_By = $conn->query($getCreated_By);
 	        $getCreated_By = mysqli_fetch_array($getCreated_By); */
 	    }
 	    
-	    /* $assignedToEmployee = new Employee($conn);
-	    $getAssigned_To = $assignedToEmployee->getNameById($companies->assigned_to);
-	    echo $getAssigned_To; */
+	    $assignedToEmployee = new Employee($conn);
+	    $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
+	    $getAssigned_To->fetch();
+	    echo $getAssigned_To;
 	    
 	    /* $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
 	    $getAssigned_To = $conn->query($getAssigned_To);
@@ -340,11 +342,11 @@ for (i = 0; i < coll.length; i++) {
 	    echo "<td>" . $companies->billing_address_street . "</td>";
 	    echo "<td>" . $companies->billing_address_city . "</td>";
 	    echo "<td>" . $companies->billing_address_state . "</td>";
-	    echo "<td>".$getAssigned_To."</td>";
+	    echo "<td>".$assignedToEmployee->getName()."</td>";
 	    
 	    //Show Created by field if Admin is logged in
 	    if($_SESSION["role"] == "admin"){
-	        echo "<td>".$getCreated_By."</td>";
+	        echo "<td>".$createdByEmployee->getName()."</td>";
 	    }
 	    
 	    echo "<td><form action=\"./editCompany.php\" method=\"post\">
