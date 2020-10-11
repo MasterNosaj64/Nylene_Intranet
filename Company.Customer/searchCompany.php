@@ -315,21 +315,21 @@ for (i = 0; i < coll.length; i++) {
 	    //Run query if Admin is logged in
 	    if($_SESSION["role"] == "admin"){
 	        
-	        echo $companies->created_by;
-	        $createdByEmployee = new Employee($conn);
+	        $createdByEmployee = new Employee(getDBConnection());
 	        $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
 	        $getCreated_By->fetch();
-	        echo $getCreated_By;
+	        
 	        
 	        /* $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
 	        $getCreated_By = $conn->query($getCreated_By);
 	        $getCreated_By = mysqli_fetch_array($getCreated_By); */
+	        
+	        
 	    }
 	    
-	    $assignedToEmployee = new Employee($conn);
+	    $assignedToEmployee = new Employee(getDBConnection());
 	    $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
 	    $getAssigned_To->fetch();
-	    echo $getAssigned_To;
 	    
 	    /* $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
 	    $getAssigned_To = $conn->query($getAssigned_To);
@@ -359,6 +359,8 @@ for (i = 0; i < coll.length; i++) {
 	</form>
    </td>";
 	    echo "</tr>";
+	    $getAssigned_To->close();
+	    $getCreated_By->close();
 	}
 	
 $conn->close();

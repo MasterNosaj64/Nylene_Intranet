@@ -12,9 +12,13 @@ $compName = $companies->search("", "", "", "", "", "", "", "");
 
 while ($compName->fetch()) {
     echo "Company: ".$companies->getname()."\n";
-    $employees = new Employee($conn);
+    $employees = new Employee(getDBConnection());
+
     $searchName = $employees->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
-    echo "Employee name is: ".$employees->getName()."\n ";
+    $searchName->fetch();
+        echo "Employee name is: ".$employees->getName()."\n ";
+    
+    
     
 }
 /* $employees = new Employee($conn);
