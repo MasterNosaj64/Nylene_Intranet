@@ -1,5 +1,5 @@
 <?php
-    /* Name: newLtlQuote.php
+    /* Name: newDistributorQuote.php
      * Author: Kaitlyn Breker
      * Last Modified: October 11th, 2020
      * Purpose: File called when user clicks submit on the input distributor form. Inserts form information into
