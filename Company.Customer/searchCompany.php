@@ -82,10 +82,10 @@ if ($conn->connect_error) {
         $result = $conn->query($sqlquery);
 
     } else {
-*/
+
         $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset'];
         $result = $conn->query($sqlquery);
-   /* } */
+    } */
     
     
     //Querys for getting all employee names
@@ -103,28 +103,24 @@ if ($conn->connect_error) {
     $state = $_POST["search_By_State"];
     $country = $_POST["search_By_Country"];
     $assigned_To = $_POST["search_By_Assigned_To"];
-    $created_By = $_POST["search_By_Created_By"];
-    
-    /* $name = clean_input($name);
-    $website = clean_input($website);
-    $address = clean_input($address);
-    $city = clean_input($city);
-    $state = clean_input($state);
-    $country = clean_input($country);
-    $assigned_To = clean_input($assigned_To);
-    $created_By = clean_input($created_By); */
-    
+    $created_By = $_POST["search_By_Created_By"];   
     
     include '../OLD/Company.php';
     
     $companies = new Company($conn);
     
     
-    
-   /*  $company_Array = array($name, $website, $address, $city, $state, $country, $assigned_To, $created_By); */
+
+
     $result = $companies->search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
-    var_dump($result);
-    
+
+    }
+    else{
+        include '../OLD/Company.php';
+        $companies = new Company($conn);
+        $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset'];
+        $result = $companies->read();
+        
     }
     
     
@@ -270,7 +266,7 @@ for (i = 0; i < coll.length; i++) {
  * Each row of the SQL query is printed in sequence
  * This includes Edit and View buttons
  */
-while ($row = mysqli_fetch_array($result)) {
+/* while ($row = mysqli_fetch_array($result)) {
 
     
     //Run query if Admin is logged in
@@ -308,7 +304,48 @@ while ($row = mysqli_fetch_array($result)) {
 	</form>
    </td>";
    echo "</tr>";
-}
+} */
+	
+	//OBJECT VERSION WIP
+	while ($result->fetch()) {
+	    
+	    //Run query if Admin is logged in
+	    if($_SESSION["role"] == "admin"){
+	        $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
+	        $getCreated_By = $conn->query($getCreated_By);
+	        $getCreated_By = mysqli_fetch_array($getCreated_By);
+	    }
+	    
+	    $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
+	    $getAssigned_To = $conn->query($getAssigned_To);
+	    $getAssigned_To = mysqli_fetch_array($getAssigned_To);
+	    
+	    echo "<tr>";
+	    echo "<td>" . $companies->company_name . "</td>";
+	    echo "<td><a href=\"" . $companies->website . "\">" . $companies->website . "</a></td>";
+	    echo "<td><a href =\"mailto: " . $companies->company_email . "\">" . $companies->company_email . "</a></td>";
+	    echo "<td>" . $companies->billing_address_street . "</td>";
+	    echo "<td>" . $companies->billing_address_city . "</td>";
+	    echo "<td>" . $companies->billing_address_state . "</td>";
+	    echo "<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td>";
+	    
+	    //Show Created by field if Admin is logged in
+	    if($_SESSION["role"] == "admin"){
+	        echo "<td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td>";
+	    }
+	    
+	    echo "<td><form action=\"./editCompany.php\" method=\"post\">
+		<input hidden name =\"company_id_edit\" value=\"" . $companies->company_id . "\"/>
+		<input type=\"submit\" value=\"edit\"/>
+	</form>
+    <form action=\"./viewCompany.php\" method=\"post\">
+		<input hidden name =\"company_id_view\" value=\"" . $companies->company_id . "\"/>
+		<input type=\"submit\" value=\"view\"/>
+	</form>
+   </td>";
+	    echo "</tr>";
+	}
+	
 $conn->close();
 ?>
 
