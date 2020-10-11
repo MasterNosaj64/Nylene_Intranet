@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: searchCompany.php
- * Version Number: 0.82
+ * Version Number: 0.85
  * Date Modified: 10/10/2020
  * Author: Jason Waid
  * Purpose:
@@ -19,12 +19,24 @@ include '../NavPanel/navigation.php';
 
 //connection to the database
 include '../Database/connect.php';
+//input handling functions
+
+//cleans input
+/* function clean_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+} */
 
 //Handler for if the database connection fails
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
 
+    
+
+    
     /*
      * The following code handles the offset for the list of companies
      * Below is an explaination of the variables
@@ -58,7 +70,7 @@ if ($conn->connect_error) {
      * search_by_website: value is set to 1 when search button for search by website is used
      */
     
-    if (isset($_POST['search_By_Name'])) {
+    /* if (isset($_POST['search_By_Name'])) {
         $length = strlen($_POST['search_By_Name']);
         $sqlquery = "SELECT * FROM nylene.company WHERE SUBSTRING(company_name,1," . $length . ") = '" . $_POST['search_By_Name'] . "' ORDER BY company_name ASC";
         $result = $conn->query($sqlquery);
@@ -70,10 +82,10 @@ if ($conn->connect_error) {
         $result = $conn->query($sqlquery);
 
     } else {
-
+*/
         $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset'];
         $result = $conn->query($sqlquery);
-    }
+   /* } */
     
     
     //Querys for getting all employee names
@@ -81,32 +93,42 @@ if ($conn->connect_error) {
     $employeeResult = $conn->query($sqlquery);
     $createdResult = $conn->query($sqlquery);
     
-    /* //New Searching technique
-    $sqlQuery = $conn->prepare("SELECT
-                *
-            FROM
-			  company
-            WHERE
-			company_id  LIKE ? OR website LIKE ? OR shipping_address_street LIKE ?OR shipping_address_city LIKE ?
-			OR shipping_address_state LIKE ?
-			OR shipping_address_postalcode LIKE ?
-			OR shipping_address_country LIKE ?
-			OR billing_address_street LIKE ?
-			OR billing_address_city LIKE ?
-			OR billing_address_state LIKE ?
-			OR billing_address_postalcode LIKE ?
-			OR billing_address_country LIKE ?
-			OR description LIKE ?
-			OR type LIKE ?
-			OR industry LIKE ?
-			OR assigned_to LIKE ?
-			OR date_created LIKE ?
-			OR date_modified LIKE ?
-			OR created_by LIKE ?
-			OR company_name LIKE ?");
+    //New Searching technique
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $name = $_POST["search_By_Name"];
+    $website = $_POST["search_By_Website"];
+    $address = $_POST["search_By_Address"];
+    $city = $_POST["search_By_City"];
+    $state = $_POST["search_By_State"];
+    $country = $_POST["search_By_Country"];
+    $assigned_To = $_POST["search_By_Assigned_To"];
+    $created_By = $_POST["search_By_Created_By"];
+    
+    /* $name = clean_input($name);
+    $website = clean_input($website);
+    $address = clean_input($address);
+    $city = clean_input($city);
+    $state = clean_input($state);
+    $country = clean_input($country);
+    $assigned_To = clean_input($assigned_To);
+    $created_By = clean_input($created_By); */
     
     
-    $keywords = "%{$keywords}%"; */
+    include '../OLD/Company.php';
+    
+    $companies = new Company($conn);
+    
+    
+    
+   /*  $company_Array = array($name, $website, $address, $city, $state, $country, $assigned_To, $created_By); */
+    $result = $companies->search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+    var_dump($result);
+    
+    }
+    
+    
+    
     
 }
 ?>
@@ -139,18 +161,14 @@ if ($conn->connect_error) {
 
 
 
- 
- 
- 
-
-
-<button type="button" class="collapsible">Expand Search</button>
-<div class="content" hidden>
+<!-- NEW Company Search -->
+<!-- Below is the NEW search company functionality -->
+<button type="button" class="collapsible">Toggle Search</button>
+<div class="content">
 
 	<form method="post" action=searchCompany.php name="search_company_data">
 		<table class="form-table" border=5>
 		<tr>
-		
 			<td>Name:</td>
 			<td><input type="text" name="search_By_Name"/></td>
 			<td>Website:</td>
@@ -191,15 +209,15 @@ if ($conn->connect_error) {
 			<td><input type="text" name="search_By_Country"/></td>
 			
 		</tr>
-		<tr>
-			<td><input type="submit" value="Search" /></td>
-		</tr>
 		</table>
+		<input type="submit" value="Search"/>
+		<input type="reset" value="Clear"/>
 	</form>
 
 </div>
 
 <!-- Script for collapsible search menu -->
+<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -217,7 +235,11 @@ for (i = 0; i < coll.length; i++) {
 }
 </script>
 
-
+<?php 
+/* if ($_SERVER["REQUEST_METHOD"] != "POST"){
+    die();
+} */
+?>
 
 <!-- Company Search -->
 <!-- Below is the table that is presented to the user for the query results on the Company table -->

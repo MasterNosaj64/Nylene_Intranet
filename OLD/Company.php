@@ -138,72 +138,116 @@ function delete(){
   
     return false;
 }
-function search($keywords){
+function search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By){
   
-	/*
-	 public $company_id;
-    public $website;
-   
-    public $shipping_address_street;
-	public $shipping_address_city;
-	public $shipping_address_state;
-	public $shipping_address_postalcode;
-	public $shipping_address_country;
-	public $billing_address_street;
-	public $billing_address_city;
-	public $billing_address_state;
-	public $billing_address_postalcode;
-	public $billing_address_country;
-	public $description; 
-	public $type; 
-	public $industry; 
-	public $assigned_to; 
-	public $date_created; 
-	public $date_modified; 
-	public $created_by; 
-	public $company_name; 
-	*/
-    // select all query
+    
+    //Build the query depending on the variables passed
+    
     $query = "SELECT
                 *
             FROM
-			  company
-            WHERE
-			company_id  LIKE ? OR website LIKE ? OR shipping_address_street LIKE ?OR shipping_address_city LIKE ?
-			OR shipping_address_state LIKE ?
-			OR shipping_address_postalcode LIKE ?
-			OR shipping_address_country LIKE ?
-			OR billing_address_street LIKE ?
-			OR billing_address_city LIKE ?
-			OR billing_address_state LIKE ?
-			OR billing_address_postalcode LIKE ?
-			OR billing_address_country LIKE ?
-			OR description LIKE ?
-			OR type LIKE ?
-			OR industry LIKE ?
-			OR assigned_to LIKE ?
-			OR date_created LIKE ?
-			OR date_modified LIKE ?
-			OR created_by LIKE ?
-			OR company_name LIKE ?";
+			  nylene.company
+            WHERE";
+    
+    if($name != ""){
+        $query += " company_name LIKE ? ";
+    }
+    
+    if($website != "http://"){
+        if($name == "" ){
+            $query += " website LIKE ?";
+        }
+        else{
+            $query += " AND website LIKE ?";
+        }
+    }
+        
+    if($address != ""){
+        if($name == "" && $website == "http://"){
+            $query += " billing_address_street LIKE ?";
+        }
+        else{
+            $query += " AND billing_address_street LIKE ?";
+        }
+    }
+    
+    if($city != ""){
+        if($name == "" && $website == "http://" && $address == ""){
+            $query += " billing_address_city LIKE ?";
+        }
+        else{
+            $query += " AND billing_address_city LIKE ?";
+        }
+    }
+    
+    if($state != ""){
+        if($name == "" && $website == "http://" && $address == "" && $city == ""){
+            $query += " billing_address_state LIKE ?";
+        }
+        else{
+            $query += " AND billing_address_state LIKE ?";
+        }
+    }
+    
+    if($country != ""){
+        if($name == "" && $website == "http://" && $address == "" && $city == "" && $state == ""){
+            $query += " billing_address_country LIKE ?";
+        }
+        else{
+            $query += " AND billing_address_country LIKE ?";
+        }
+    }
+    
+    if($assigned_To != ""){
+        if($name == "" && $website == "http://" && $address == "" && $city == "" && $state == "" && $country == ""){
+            $query += " assigned_to LIKE ?";
+        }
+        else{
+            $query += " AND assigned_to LIKE ?";
+        }
+    }
+    
+    if($created_By != ""){
+        if($name == "" && $website == "http://" && $address == "" && $city == "" && $state == "" && $country == "" && $assigned_To == ""){
+            $query += " created_by LIKE ?";
+        }
+        else{
+            $query += " AND created_by LIKE ?";
+        }
+    }
+    
   
     // prepare query statement
     $stmt = $this->conn->prepare($query);
-  
+    
     // sanitize
-    $keywords=htmlspecialchars(strip_tags($keywords));
-    $keywords = "%{$keywords}%";
+    $name=htmlspecialchars(strip_tags($name));
+    $website=htmlspecialchars(strip_tags($website));
+    $address=htmlspecialchars(strip_tags($address));
+    $city=htmlspecialchars(strip_tags($city));
+    $state=htmlspecialchars(strip_tags($state));
+    $country=htmlspecialchars(strip_tags($country));
+    $assigned_To=htmlspecialchars(strip_tags($assigned_To));
+    $created_By=htmlspecialchars(strip_tags($created_By));
+    
+    $name = $name."%";
+    $website = $website."%";
+    $address = $address."%";
+    $city = $city."%";
+    $state = $state."%";
+    $country = $country."%";
+
   
-    // bind
-    $stmt->bindParam(1, $keywords);
-    $stmt->bindParam(2, $keywords);
-	$stmt->bindParam(3, $keywords);
-	$stmt->bindParam(4, $keywords);
-    $stmt->bindParam(5, $keywords);
-	$stmt->bindParam(6, $keywords);
-	$stmt->bindParam(7, $keywords);
-    $stmt->bindParam(8, $keywords);
-	$stmt->bindParam(9, $keywords);
+    
+    $stmt->bindParam(ssssssii, $name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+    /* $stmt->bindParam(2, $website);
+    $stmt->bindParam(3, $address);
+    $stmt->bindParam(4, $city);
+    $stmt->bindParam(5, $state);
+    $stmt->bindParam(6, $country);
+    $stmt->bindParam(7, $assigned_To);
+    $stmt->bindParam(8, $created_By); */
+   /*$stmt->bindParam(9, $keywords);
 	$stmt->bindParam(10, $keywords);
     $stmt->bindParam(11, $keywords);
 	$stmt->bindParam(12, $keywords);
@@ -215,7 +259,7 @@ function search($keywords){
     $stmt->bindParam(17, $keywords);
 	$stmt->bindParam(18, $keywords);
 	$stmt->bindParam(19, $keywords);
-    $stmt->bindParam(20, $keywords);
+    $stmt->bindParam(20, $keywords); */
 
 	
   
