@@ -3,8 +3,8 @@ include 'Database/connect.php';
 echo "this is just a empty test file for debugging purposes\n";
 
 echo "Employee test\n";
-include 'Company.Customer/Employee.php';
-include 'Company.Customer/Company.php';
+include 'Database/Employee.php';
+include 'Database/Company.php';
 
 $companies = new Company($conn);
 

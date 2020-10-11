@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../Database/Database.php';
-include_once '../Company.Customer/Company.php';
+include_once '../Database/Company.php';
   
 // instantiate database and onject
 $database = new Database();

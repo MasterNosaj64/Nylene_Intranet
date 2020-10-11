@@ -84,6 +84,18 @@ class Employee
     }
     
     /*
+     * Function Name: getId
+     * Version: 0.7
+     * Date Modified: 10/11/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the id
+     */
+    
+    function getId(){
+        return $this->employee_id;
+    }
+    
+    /*
      * Function Name: searchById
      * Version: 0.7
      * Date Modified: 10/11/2020
