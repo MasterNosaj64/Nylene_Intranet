@@ -105,7 +105,7 @@ if ($conn->connect_error) {
     $assigned_To = $_POST["search_By_Assigned_To"];
     $created_By = $_POST["search_By_Created_By"];   
     
-    include '../OLD/Company.php';
+    include 'Company.php';
     
     $companies = new Company($conn);
     
@@ -116,7 +116,7 @@ if ($conn->connect_error) {
 
     }
     else{
-        include '../OLD/Company.php';
+        include 'Company.php';
         $companies = new Company($conn);
         $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset'];
         $result = $companies->read();
@@ -306,19 +306,32 @@ for (i = 0; i < coll.length; i++) {
    echo "</tr>";
 } */
 	
+	
+	
+	include 'Employee.php';
 	//OBJECT VERSION WIP
 	while ($result->fetch()) {
 	    
 	    //Run query if Admin is logged in
 	    if($_SESSION["role"] == "admin"){
-	        $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
+	        
+	        /* echo $companies->created_by;
+	        $createdByEmployee = new Employee($conn);
+	        $getCreated_By = $createdByEmployee->getNameById($companies->created_by);
+	        echo $getCreated_By; */
+	        
+	        /* $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
 	        $getCreated_By = $conn->query($getCreated_By);
-	        $getCreated_By = mysqli_fetch_array($getCreated_By);
+	        $getCreated_By = mysqli_fetch_array($getCreated_By); */
 	    }
 	    
-	    $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
+	    /* $assignedToEmployee = new Employee($conn);
+	    $getAssigned_To = $assignedToEmployee->getNameById($companies->assigned_to);
+	    echo $getAssigned_To; */
+	    
+	    /* $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
 	    $getAssigned_To = $conn->query($getAssigned_To);
-	    $getAssigned_To = mysqli_fetch_array($getAssigned_To);
+	    $getAssigned_To = mysqli_fetch_array($getAssigned_To); */
 	    
 	    echo "<tr>";
 	    echo "<td>" . $companies->company_name . "</td>";
@@ -327,11 +340,11 @@ for (i = 0; i < coll.length; i++) {
 	    echo "<td>" . $companies->billing_address_street . "</td>";
 	    echo "<td>" . $companies->billing_address_city . "</td>";
 	    echo "<td>" . $companies->billing_address_state . "</td>";
-	    echo "<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td>";
+	    echo "<td>".$getAssigned_To."</td>";
 	    
 	    //Show Created by field if Admin is logged in
 	    if($_SESSION["role"] == "admin"){
-	        echo "<td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td>";
+	        echo "<td>".$getCreated_By."</td>";
 	    }
 	    
 	    echo "<td><form action=\"./editCompany.php\" method=\"post\">

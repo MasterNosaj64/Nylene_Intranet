@@ -4,7 +4,7 @@ class Company
 {
 
     // database connection and table name
-    public $conn;
+    private $conn;
 
     private $table_name = "company";
 
@@ -164,7 +164,7 @@ class Company
      * Version: 0.6
      * Date Modified: 10/11/2020
      * Author: Jason Waid
-     * Purpose: Function dynamically creates a select query depending on the parameters used
+     * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
     function search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By)
@@ -184,11 +184,10 @@ class Company
         $query = "SELECT
                 *
             FROM
-			  nylene.company
-            WHERE";
+			  nylene.company";
 
         if ($name != "") {
-            $query .= " company_name LIKE ? ";
+            $query .= " WHERE company_name LIKE ? ";
             $stringCount ++;
             $paramTypes .= "s";
             $name = htmlspecialchars(strip_tags($name));
@@ -198,7 +197,7 @@ class Company
 
         if ($website != "http://") {
             if ($name == "") {
-                $query .= " website LIKE ?";
+                $query .= " WHERE website LIKE ?";
             } else {
                 $query .= " AND website LIKE ?";
             }
@@ -211,7 +210,7 @@ class Company
 
         if ($address != "") {
             if ($name == "" && $website == "http://") {
-                $query .= " billing_address_street LIKE ?";
+                $query .= " WHERE billing_address_street LIKE ?";
             } else {
                 $query .= " AND billing_address_street LIKE ?";
             }
@@ -224,7 +223,7 @@ class Company
 
         if ($city != "") {
             if ($name == "" && $website == "http://" && $address == "") {
-                $query .= " billing_address_city LIKE ?";
+                $query .= " WHERE billing_address_city LIKE ?";
             } else {
                 $query .= " AND billing_address_city LIKE ?";
             }
@@ -237,7 +236,7 @@ class Company
 
         if ($state != "") {
             if ($name == "" && $website == "http://" && $address == "" && $city == "") {
-                $query .= " billing_address_state LIKE ?";
+                $query .= " WHERE billing_address_state LIKE ?";
             } else {
                 $query .= " AND billing_address_state LIKE ?";
             }
@@ -250,7 +249,7 @@ class Company
 
         if ($country != "") {
             if ($name == "" && $website == "http://" && $address == "" && $city == "" && $state == "") {
-                $query .= " billing_address_country LIKE ?";
+                $query .= " WHERE billing_address_country LIKE ?";
             } else {
                 $query .= " AND billing_address_country LIKE ?";
             }
@@ -263,7 +262,7 @@ class Company
 
         if ($assigned_To != "") {
             if ($name == "" && $website == "http://" && $address == "" && $city == "" && $state == "" && $country == "") {
-                $query .= " assigned_to LIKE ?";
+                $query .= " WHERE assigned_to LIKE ?";
             } else {
                 $query .= " AND assigned_to LIKE ?";
             }
@@ -275,7 +274,7 @@ class Company
 
         if ($created_By != "") {
             if ($name == "" && $website == "http://" && $address == "" && $city == "" && $state == "" && $country == "" && $assigned_To == "") {
-                $query .= " created_by LIKE ?";
+                $query .= " WHERE created_by LIKE ?";
             } else {
                 $query .= " AND created_by LIKE ?";
             }
@@ -326,9 +325,11 @@ class Company
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7]);
                 break;
+                
+           /*  default: */
+                //no params
+                
         }
-
-        // return $query
         
         // execute query
         $stmt->execute();
