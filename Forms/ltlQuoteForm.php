@@ -23,7 +23,7 @@
 		$result = $conn->query($userInformation); 
 		$row = mysqli_fetch_array($result);
 		
-		/*Selection statement for customor passed from interaction*/
+		/*Selection statement for custemor passed from interaction*/
 		$customerSelect = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
 		$customerInfo = $conn->query($customerSelect);
 		$customerRow = mysqli_fetch_array($customerInfo);
