@@ -1,6 +1,14 @@
 <?php
-	session_start();
+    /* Name: newSampleForm.php
+     * Author: Emmett Janssens, Modified by Kaitlyn Breker
+     * Last Modified: October 11th, 2020
+     * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
+     *          the sample_form table of the database.
+     */
+	
+    session_start();
 
+    /*Check required variables for value, if none input 0*/
 	if (isset($_POST['credit_app_submitted']))
 	{
 		$credit_app_submitted = $_POST['credit_app_submitted'];
@@ -86,23 +94,23 @@
 		$data_sheet = 0;
 	}
   
-  if (empty($_POST['submittedBy']))
-  {
-    echo "There were some errors with your form:";
-    
-    $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
+	/*Check submittedBy field, if blank, display error*/
+    if (empty($_POST['submittedBy']))
+    {
+        echo "There were some errors with your form:";
+        $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
 	
-	  if (!empty($referer)) 
-	  {
+        if (!empty($referer)) 
+        {
 		    echo '<p><a href="'. $referer .'" title="Return to the previous page">&laquo; Go back</a></p>';
-	  } 
-	  else 
-	  {
-		
+        } 
+        else 
+        {
 		    echo '<p><a href="javascript:history.go(-1)" title="Return to the previous page">&laquo; Go back</a></p>';	
 	  }
 	}
   
+	/*Assign values to variables*/
 	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
 	$dateSubmitted		= $_POST['dateSubmitted'];
 	$marketCode			= $_POST['mCode'];
@@ -137,27 +145,15 @@
 
 	include "../Database/connect.php";
 
+	/*Check the connection*/
 	if (mysqli_connect_error())
 	{
 		die('Connect Error ('. mysqli_connect_errno() . ') '.mysqli_connect_error);
 	}
 	else 
 	{
-		$insert_into_forms_table = "INSERT INTO sample_form (
-				date_submitted, m_code, customer_code, credit_app_submitted, business_case, match_sample_sub,
-				match_data_sheet, match_description, material_description, customer_proc, customer_supplier, finished_good_app,
-				annual_vol, current_resin_system, target_price, melt_reqs, current_filler_sys, colors, known_additives,
-				uv_reqs, ul_reqs, auto_reqs, fda_reqs, color_specs, response_date, prod_rec, stock_prod_qty,
-				sds, coa, data_sheet, other_doc, sample_qty, sample_req_date, sample_price, sample_frt,
-				other_contact_1, other_contact_2, other_contact_3, other_contact_4) values (
-				'$dateSubmitted', '$marketCode', '$customer_id', '$credit_app_submitted', '$business_case', '$match_sample_sub',
-				'$match_data_sheet', '$match_descr', '$material_descr', '$customer_proc', '$curr_supplier', '$finished_good_app',
-				'$annual_vol', '$curr_resin_system', '$target_price', '$melt_reqs', '$curr_filter_sys', '$colors', '$known_additives',
-				'$uv_reqs', '$ul_reqs', '$auto_reqs', '$fda_reqs', '$color_specs', '$response_date', '$prod_rec', '$stock_prod_qty',
-				'$sds', '$coa', '$data_sheet', '$other_doc', '$sample_qty', '$sample_req_date', '$sample_price', '$sample_frt',
-				'$other_contact1', '$other_contact2', '$other_contact3', '$other_contact4')";
-
-		$stmt = $conn->prepare("INSERT INTO sample_form (
+        /*Prepare insert statement into the sample_form table*/
+        $stmt = $conn->prepare("INSERT INTO sample_form (
 					date_submitted, 
                     m_code, 
                     customer_code, 
@@ -199,53 +195,25 @@
                     other_contact_4) 
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
-		$stmt->bind_param("issisiiissssssssssssssssiiisiisiissssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
+        /*Bind statement parameters to statement and execute*/
+		$stmt->bind_param("sssisiiissssssssssssssssiiisiisiissssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
 		    $match_data_sheet, $match_descr, $material_descr, $customer_proc, $curr_supplier, $finished_good_app,
 		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filter_sys, $colors, $known_additives,
 		    $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty,
 		    $sds, $coa, $data_sheet, $other_doc, $sample_qty, $sample_req_date, $sample_price, $sample_frt,
 		    $other_contact1, $other_contact2, $other_contact3, $other_contact4);
 		
-		
 		$stmt->execute();
-/*		if ($conn->query($insert_into_forms_table) === TRUE) {
-		
-		}		
-		else {
-			echo "Error: " . $insert_into_forms_table . "<br>" . $conn->error;
-		}
-*/
-// 		$insert_into_interaction_table = "INSERT INTO interaction (
-// 			company_id, employee_id, comments, date_created) values (
-// 			'$company_id', 
-// 			" . $_SESSION['userid'] . ", 
-// 			'Sample Form', 
-// 			'$dateSubmitted')";
 
-// 		if ($conn->query($insert_into_interaction_table) === TRUE) {
-		
-// 		}		
-// 		else {
-// 			echo "Error: " . $insert_into_interaction_table . "<br>" . $conn->error;
-// 		}
-
-// 		$getInteractionId = "SELECT interaction_id FROM interaction ORDER BY interaction_id DESC";
-// 		$interactionId = $conn->query($getInteractionId);
-
-// 		$id = mysqli_fetch_array($interactionId);
-
-		//Modified by Jason, to take Interaction_id generated previously
+		/*Modified by Jason, to take Interaction_id generated previously*/
 		$id = $_SESSION['interaction_id'];
 		
-		
+		/*Select the form Id from the database*/
 		$getFormId = "SELECT sample_form_id FROM sample_form ORDER BY sample_form_id DESC";
 		$formId = $conn->query($getFormId);
 		$idf = mysqli_fetch_array($formId);
-
-/*		$insert_into_interaction_relational_manager_table = "INSERT INTO interaction_relational_form (
-			interaction_id, form_id, form_type) values (
-			" . $id . ", " . $idf['sample_form_id'] . ", '1')"; */
-
+		
+		/*Prepare insert statement into the interaction_relational_form table*/
 		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
 					interaction_id,
                     form_id,
@@ -253,22 +221,20 @@
                     VALUES (?, ?, ?)");
 		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
 		
+		/*Assign values to variables and execute*/
 		$interactionNum = $id;
 		$formID = $idf['sample_form_id'];
 		$formType = 1;
 		$stmt2->execute();
 		
+		/*Close statements and connection*/
 		$stmt->close();
 		$stmt2->close();
 		$conn->close();
-/*		if ($conn->query($insert_into_interaction_relational_manager_table) === TRUE) {
-*/		  
+	  
 		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
 		exit();
-/*		}		
-		else {
-			echo "Error: " . $insert_into_interaction_relational_manager_table . "<br>" . $conn->error;
-		}		*/
+
 	}
 ?>
 
