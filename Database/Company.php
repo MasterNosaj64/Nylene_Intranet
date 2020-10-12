@@ -1,5 +1,15 @@
 <?php
-
+/*
+ * FileName: Company.php
+ * Author: Jason Waid
+ * Version: 0.6
+ * Date Modified: 10/12/2020
+ * Purpose:
+ *  Object oriented representation of a company
+ *  all database manipulation happens here
+ *
+ *
+ */
 class Company
 {
 
@@ -54,7 +64,12 @@ class Company
     {
         $this->conn = $db;
     }
-
+    /*
+     * Function: read
+     * Purpose:
+     *  grabs all companies from the connected db
+     *  returns the objects
+     */
     public function read()
     {
         $query = "SELECT * FROM company";
@@ -67,7 +82,12 @@ class Company
         
         return $stmt;
     }
-
+    /*
+     * Function: create
+     * Purpose:
+     *  creates a company with the supplied parameters
+     *  returns bool on failure or success
+     */
     function create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by)
     {
 
@@ -112,64 +132,50 @@ class Company
         return true;
     }
 
-    // delete
-    function delete()
-    {
-
-        // delete query
-        $query = "DELETE FROM company WHERE company_id = ?";
-
-        // prepare query
-        $stmt = $this->conn->prepare($query);
-
-        // sanitize
-        $this->id = htmlspecialchars(strip_tags($this->company_id));
-
-        // bind id of record to delete
-        $stmt->bindParam(1, $this->id);
-
-        // execute query
-        if ($stmt->execute()) {
-            return true;
-        }
-
-        return false;
-    }
-
     
     /*
      * Function Name: getname
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
-     * Purpose: Function returns the company_name of the object
+     * Purpose: Function returns the company_name property of the object
      *
      */
     function getname(){
         return $this->company_name;
     }
-    
+    /*
+     * Function Name: getAssignedTo
+     * Purpose: Function returns the assigned_to property of the object
+     *
+     */
     function getAssignedTo(){
         return $this->assigned_to;
     }
-    
+    /*
+     * Function Name: getCreatedBy
+     * Purpose: Function returns the created_by property of the object
+     *
+     */
     function getCreatedBy(){
         return $this->created_by;
     }
-    
+    /*
+     * Function Name: getCompanyId
+     * Purpose: Function returns the company_id property of the object
+     *
+     */
     function getCompanyId(){
         return $this->company_id;
     }
-    
+    /*
+     * Function Name: get
+     * Purpose: Function returns the object
+     *
+     */
     function get(){
         return $this;
     }
     
     /*
      * Function Name: search
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
@@ -339,14 +345,10 @@ class Company
         
         // execute query
         $stmt->execute();
-
-        
+    
         // bind the results
         $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
-        
-        
-        
-        
+
         // return objects
         return $stmt;
     }
@@ -376,7 +378,6 @@ class Company
 
         $stmt = $this->conn->prepare($query);
 
-        echo "0";
         $this->website = htmlspecialchars(strip_tags($this->website));
         $this->shipping_address_street = htmlspecialchars(strip_tags($this->shipping_address_street));
         $this->shipping_address_city = htmlspecialchars(strip_tags($this->shipping_address_city));
@@ -398,31 +399,9 @@ class Company
         $this->company_name = htmlspecialchars(strip_tags($this->company_name));
         $this->company_id = htmlspecialchars(strip_tags($this->company_id));
 
-        echo "1";
 
         $stmt->bindParam(":website", $this->website);
-        $stmt->bindParam(":shipping_address_street", $this->shipping_address_street);
-        $stmt->bindParam(":shipping_address_city", $this->shipping_address_city);
-        $stmt->bindParam(":shipping_address_state", $this->shipping_address_state);
-
-        $stmt->bindParam(":shipping_address_postalcode", $this->shipping_address_postalcode);
-        $stmt->bindParam(":shipping_address_country", $this->shipping_address_country);
-        $stmt->bindParam(":billing_address_street", $this->billing_address_street);
-        $stmt->bindParam(":billing_address_city", $this->billing_address_city);
-        $stmt->bindParam(":billing_address_state", $this->billing_address_state);
-
-        $stmt->bindParam(":billing_address_postalcode", $this->billing_address_postalcode);
-        $stmt->bindParam(":billing_address_country", $this->billing_address_country);
-        $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":type", $this->type);
-        $stmt->bindParam(":industry", $this->industry);
-
-        $stmt->bindParam(":assigned_to", $this->assigned_to);
-        $stmt->bindParam(":date_created", $this->date_created);
-        $stmt->bindParam(":date_modified", $this->date_modified);
-        $stmt->bindParam(":created_by", $this->created_by);
-        $stmt->bindParam(":company_name", $this->company_name);
-        $stmt->bindParam(":company_id", $this->company_id);
+       
 
         // execute the query
         if ($stmt->execute()) {

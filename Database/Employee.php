@@ -1,5 +1,15 @@
 <?php
-
+/*
+ * FileName: Employee.php
+ * Author: Jason Waid
+ * Version: 0.6
+ * Date Modified: 10/12/2020
+ * Purpose:
+ *  Object oriented representation of a Employee
+ *  all database manipulation happens here
+ *
+ *
+ */
 class Employee
 {
 
@@ -44,7 +54,12 @@ class Employee
     {
         $this->conn = $db;
     }
-
+    /*
+     * Function: read
+     * Purpose:
+     *  grabs all Employees from the connected db
+     *  returns the objects
+     */
     public function read()
     {
         $query = "SELECT * FROM nylene.employee";
@@ -64,12 +79,6 @@ class Employee
         
     }
 
-    // delete
-    function delete()
-    {
-
-    }
-
     /*
      * Function Name: getName
      * Version: 0.7
@@ -85,47 +94,15 @@ class Employee
     
     /*
      * Function Name: getId
-     * Version: 0.7
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function returns the id
      */
     
     function getId(){
         return $this->employee_id;
     }
-    
-    /*
-     * Function Name: searchById
-     * Version: 0.7
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
-     * Purpose: Function searches for an employee by ID only and returns the employee object
-     */
-    
-   /*  function searchById($employee_id){
-        $query = "SELECT * FROM nylene.employee WHERE employee_id = ?";
-        
-        $stmt = $this->employeeConn->prepare($query);
-        
-        $employee_id = htmlspecialchars(strip_tags($employee_id));
-        
-        $stmt->bind_param("i",$employee_id);
-        
-        $stmt->execute();
-        // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
-        
-        return $stmt;
-        
-    } */
-    
-    
+      
     /*
      * Function Name: search
-     * Version: 0.7
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
@@ -352,13 +329,9 @@ class Employee
             /* default: */
                 //no params
         }
-
-        // return $query
         
         // execute query
-        $stmt->execute();
-
-        
+        $stmt->execute();      
         // bind the results
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
         

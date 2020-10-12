@@ -1,5 +1,15 @@
 <?php
-
+/*
+ * FileName: Customer.php
+ * Author: Jason Waid
+ * Version: 0.6
+ * Date Modified: 10/12/2020
+ * Purpose:
+ *  Object oriented representation of a customer
+ *  all database manipulation happens here
+ * 
+ *
+ */
 class Customer
 {
 
@@ -28,6 +38,13 @@ class Customer
         $this->conn = $db;
     }
 
+    
+    /*
+     * Function: read
+     * Purpose:
+     *  grabs all customers from the connected db
+     *  returns the objects
+     */
     public function read()
     {
         $query = "SELECT * FROM customer";
@@ -41,6 +58,12 @@ class Customer
         return $stmt;
     }
 
+    /*
+     * Function: create
+     * Purpose:
+     *  creates a customer with the supplied parameters
+     *  returns bool on failure or success
+     */
     function create($customer_name, $customer_email, $date_created, $customer_phone, $customer_fax)
     {
 
@@ -68,46 +91,51 @@ class Customer
         
     }
 
-    // delete
-    function delete()
-    {
 
-    }
-
-    
     /*
      * Function Name: getname
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function returns the company_name of the object
      *
      */
     function getname(){
         return $this->customer_name;
     }
-    
+    /*
+     * Function Name: getPhone
+     * Purpose: Function returns the work_phone of the object
+     *
+     */
     function getPhone(){
         return $this->customer_phone;
     }
-    
+    /*
+     * Function Name: getEmail
+     * Purpose: Function returns the work_email of the object
+     *
+     */
     function getEmail(){
         return $this->customer_email;
     }
     
+    /*
+     * Function Name: getCustomerId
+     * Purpose: Function returns the customer_id of the object
+     *
+     */
     function getCustomerId(){
         return $this->customer_id;
     }
-    
+    /*
+     * Function Name: get
+     * Purpose: Function returns the customer object
+     *
+     */
     function get(){
         return $this;
     }
     
     /*
      * Function Name: search
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
@@ -246,13 +274,9 @@ class Customer
         // execute query
         $stmt->execute();
 
-        
         // bind the results
         $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
-        
-        
-        
-        
+          
         // return objects
         return $stmt;
     }

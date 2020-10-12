@@ -1,5 +1,15 @@
 <?php
-
+/*
+ * FileName: Interaction.php
+ * Author: Jason Waid
+ * Version: 0.6
+ * Date Modified: 10/12/2020
+ * Purpose:
+ *  Object oriented representation of a interaction
+ *  all database manipulation happens here
+ *
+ *
+ */
 class Interaction
 {
 
@@ -28,7 +38,12 @@ class Interaction
     {
         $this->conn = $db;
     }
-
+    /*
+     * Function: read
+     * Purpose:
+     *  grabs all interactions from the connected db
+     *  returns the objects
+     */
     public function read()
     {
         $query = "SELECT * FROM interaction";
@@ -47,45 +62,50 @@ class Interaction
 
     }
 
-    // delete
-    function delete()
-    {
-    }
-
     
     /*
-     * Function Name: getname
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
-     * Purpose: Function returns the company_name of the object
+     * Function Name: getComments
+     * Purpose: Function returns the comments
      *
      */
     function getComments(){
         return $this->comments;
     }
-    
+    /*
+     * Function Name: getCompanyId
+     * Purpose: Function returns the company_id
+     *
+     */
     function getCompanyId(){
         return $this->company_id;
     }
-    
+    /*
+     * Function Name: getCustomerId
+     * Purpose: Function returns the customer_id
+     *
+     */
     function getCustomerId(){
         return $this->customer_id;
     }
-    
+    /*
+     * Function Name: getInteractionId
+     * Purpose: Function returns the interaction_id
+     *
+     */
     function getInteractionId(){
         return $this->interaction_id;
     }
-    
+    /*
+     * Function Name: get
+     * Purpose: Function returns the object
+     *
+     */
     function get(){
         return $this;
     }
     
     /*
      * Function Name: search
-     * Version: 0.6
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
