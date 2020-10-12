@@ -169,8 +169,6 @@ class Company
      *
      */
     function getname(){
-        
-        
         return $this->company_name;
     }
     
@@ -180,6 +178,14 @@ class Company
     
     function getCreatedBy(){
         return $this->created_by;
+    }
+    
+    function getCompanyId(){
+        return $this->company_id;
+    }
+    
+    function get(){
+        return $this;
     }
     
     /*

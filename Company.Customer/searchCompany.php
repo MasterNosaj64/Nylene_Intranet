@@ -232,50 +232,20 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
+//Buffer of companies
+/* $companyList = new SplDoublyLinkedList();
+
+while ($result->fetch()) {
+    $companyList->push($companies);
+}
+//Reverse to first node
+$companyList->rewind();
+
+echo $companyList->count(). " record(s) found";
+ */
 /*
  * Each row of the SQL query is printed in sequence
  * This includes Edit and View buttons
- */
-/*
- * while ($row = mysqli_fetch_array($result)) {
- *
- *
- * //Run query if Admin is logged in
- * if($_SESSION["role"] == "admin"){
- * $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["created_by"]."";
- * $getCreated_By = $conn->query($getCreated_By);
- * $getCreated_By = mysqli_fetch_array($getCreated_By);
- * }
- *
- * $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$row["assigned_to"]."";
- * $getAssigned_To = $conn->query($getAssigned_To);
- * $getAssigned_To = mysqli_fetch_array($getAssigned_To);
- *
- * echo "<tr>";
- * echo "<td>" . $row["company_name"] . "</td>";
- * echo "<td><a href=\"" . $row["website"] . "\">" . $row["website"] . "</a></td>";
- * echo "<td><a href =\"mailto: " . $row["company_email"] . "\">" . $row["company_email"] . "</a></td>";
- * echo "<td>" . $row["billing_address_street"] . "</td>";
- * echo "<td>" . $row["billing_address_city"] . "</td>";
- * echo "<td>" . $row["billing_address_state"] . "</td>";
- * echo "<td>".$getAssigned_To["first_name"]." ".$getAssigned_To["last_name"]."</td>";
- *
- * //Show Created by field if Admin is logged in
- * if($_SESSION["role"] == "admin"){
- * echo "<td>".$getCreated_By["first_name"]." ".$getCreated_By["last_name"]."</td>";
- * }
- *
- * echo "<td><form action=\"./editCompany.php\" method=\"post\">
- * <input hidden name =\"company_id_edit\" value=\"" . $row['company_id'] . "\"/>
- * <input type=\"submit\" value=\"edit\"/>
- * </form>
- * <form action=\"./viewCompany.php\" method=\"post\">
- * <input hidden name =\"company_id_view\" value=\"" . $row['company_id'] . "\"/>
- * <input type=\"submit\" value=\"view\"/>
- * </form>
- * </td>";
- * echo "</tr>";
- * }
  */
 
 // OBJECT VERSION WIP
@@ -306,7 +276,7 @@ while ($result->fetch()) {
      */
 
     echo "<tr>";
-    echo "<td>" . $companies->company_name . "</td>";
+    echo "<td>" . $companies->getname() . "</td>";
     echo "<td><a href=\"" . $companies->website . "\">" . $companies->website . "</a></td>";
     echo "<td><a href =\"mailto: " . $companies->company_email . "\">" . $companies->company_email . "</a></td>";
     echo "<td>" . $companies->billing_address_street . "</td>";
@@ -320,11 +290,11 @@ while ($result->fetch()) {
     }
 
     echo "<td><form action=\"./editCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_edit\" value=\"" . $companies->company_id . "\"/>
+		<input hidden name =\"company_id_edit\" value=\"" . $companies->getCompanyId() . "\"/>
 		<input type=\"submit\" value=\"edit\"/>
 	</form>
     <form action=\"./viewCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_view\" value=\"" . $companies->company_id . "\"/>
+		<input hidden name =\"company_id_view\" value=\"" . $companies->getCompanyId() . "\"/>
 		<input type=\"submit\" value=\"view\"/>
 	</form>
    </td>";
