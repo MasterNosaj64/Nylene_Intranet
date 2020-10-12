@@ -4,102 +4,73 @@
  * Version Number: 0.8
  * Author: Jason Waid
  * Purpose:
- *  Add customers in the database.
+ * Add customers in the database.
  */
 session_start();
-//The navigation bar for the website
+// The navigation bar for the website
 include '../NavPanel/navigation.php';
-//connection to the database
+// connection to the database
 include '../Database/connect.php';
 
-//Handler for if the database connection fails
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
+include '../Database/Customer.php';
 
-    /*
-     * The following code handles adding a customer in the customer table
-     * Below is an explaination of some of the variables
-     *      submit: set to 1 when the submit button is pressed
-     *      
-     */
+/*
+ * The following code handles adding a customer in the customer table
+ * Below is an explaination of some of the variables
+ * submit: set to 1 when the submit button is pressed
+ *
+ */
+
+if (isset($_SESSION['company_id'])) {
+    $_SESSION['customer_created'] = $_SESSION['company_id'];
+
     
-    if (isset($_SESSION['company_id'])) {
-        $_SESSION['customer_created'] = $_SESSION['company_id'];
+    if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
 
-        if ($_SESSION['company_id'] != "" && isset($_POST['submit'])) {
+        $conn_Customer = getDBConnection();
+        
+        // Handler for if the database connection fails
+        if ($conn_Customer->connect_error) {
+            die("Connection failed: " . $conn_Customer->connect_error);
+        }
+        
+        
+        $newCustomer = new Customer($conn_Customer);
+        
+        $newCustomerResult = $newCustomer->create($_POST['firstName'] . " " . $_POST['lastName'], $_POST['email'], date("Y-m-d", time()), $_POST['phone'], $_POST['fax']);
+        
+        if(!$newCustomerResult){
+            die("Adding Customer failed, OPPERATION ABORTED");
+        }
+        
+        $customer_id = $conn_Customer->insert_id;
 
-            
-
-            /*
-             * NO SQL INJECTION PROTECTION
-             * $sqlQuery = "INSERT INTO nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
-             * VALUES ('" . $_POST['firstName'] . " " . $_POST['lastName'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','" . $_POST['phone'] . "','" . $_POST['fax'] . "')"; // 16
-             *
-             *
-             *
-             * $result = $conn->query($sqlQuery);
-             * $customer_id = $conn->insert_id;
-             * $sqlRelationQuery = "INSERT INTO nylene.company_relational_customer (company_id, customer_id)
-             * VALUES ('" . $_SESSION['company_id'] . "','" . $customer_id . "')";
-             *
-             * /* $result = $dbConnection->query($sqlRelationQuery);
-             *
-             * $result = $conn->query($sqlRelationQuery);
-             * $conn->close();
-             */
-
-            // With SQL Injection Protection
-            $sqlQuery = $conn->prepare("INSERT INTO nylene.customer 
-
-            (customer_name, 
-            customer_email, 
-            date_created, 
-            customer_phone, 
-            customer_fax) 
-
-            VALUES (?,?,?,?,?)");
-
-            $name = $_POST['firstName'] . " " . $_POST['lastName'];
-            $email = $_POST['email'];
-            
-            $t = time();
-            $date_created = date("Y-m-d", $t);
-            
-            $customer_phone = $_POST['phone'];
-            $customer_fax = $_POST['fax'];
-            
-            
-            $sqlQuery->bind_param("sssss", $name, $email, $date_created, $customer_phone, $customer_fax);
-
-            $sqlQuery->execute();
-            
-            $sqlRelationQuery = $conn->prepare("INSERT INTO nylene.company_relational_customer 
+        $conn_Relational = getDBConnection();
+        
+        $sqlRelationQuery = $conn_Relational->prepare("INSERT INTO nylene.company_relational_customer 
             (company_id, 
             customer_id)
 
             VALUES (?,?)");
-            
-            $company_id = $_SESSION['company_id'];
-            $customer_id = $sqlQuery->insert_id;
-            
-            $sqlRelationQuery->bind_param("ii", $company_id, $customer_id);
-            
-            $sqlRelationQuery->execute();
-            
-            $sqlRelationQuery->close();
-            $conn->close();
-            $sqlQuery->close();
 
-            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php\" />;";
-            exit();
-        }
-    } else {
-        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./Homepage.php\" />;";
+        $company_id = $_SESSION['company_id'];
+        
+
+        $sqlRelationQuery->bind_param("ii", $company_id, $customer_id);
+
+        $sqlRelationQuery->execute();
+
+        $sqlRelationQuery->close();
+        $conn_Customer->close();
+        $conn_Relational->close();
+
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php\" />;";
         exit();
     }
+} else {
+    echo "<meta http-equiv = \"refresh\" content = \"0 url = ./Homepage.php\" />;";
+    exit();
 }
-
 ?>
 
 <!-- Add Customer Page -->

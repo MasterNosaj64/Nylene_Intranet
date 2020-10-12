@@ -5,124 +5,84 @@
  * Author: Jason Waid
  * Date Modified: 10/09/2020
  * Purpose:
- *  Add companies in the database.
+ * Add companies in the database.
  */
 session_start();
 
-//the following variables are used in navigation.php
-//View navigation.php for more information
+// the following variables are used in navigation.php
+// View navigation.php for more information
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 
-//The navigation bar for the website
+// The navigation bar for the website
 include '../NavPanel/navigation.php';
-//connection to the database
+// connection to the database
 include '../Database/connect.php';
 
-//Handler for if the database connection fails
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
+// Company object
+include '../Database/Company.php';
 
-    /*
-     * The following code handles adding a company to the company table
-     * Below is an explaination of some of the variables
-     *      submit: set to 1 when the submit button is pressed
-     *      shippingsameasbilling: set to 1 when the user checks off the Shipping Same As Billing Box
-     *
-     */
-    
-    if (isset($_POST['submit'])) {
+// Handler for if the database connection fails
 
-        if (isset($_POST['shippingSameAsBilling'])) {
+/*
+ * The following code handles adding a company to the company table
+ * Below is an explaination of some of the variables
+ * submit: set to 1 when the submit button is pressed
+ * shippingsameasbilling: set to 1 when the user checks off the Shipping Same As Billing Box
+ *
+ */
+if (isset($_POST['submit'])) {
 
-            $_POST['shippingStreet'] = $_POST['billingStreet'];
-            $_POST['shippingCity'] = $_POST['billingCity'];
-            $_POST['shippingState'] = $_POST['billingState'];
-            $_POST['shippingPostalCode'] = $_POST['billingPostalCode'];
-            $_POST['shippingCountry'] = $_POST['billingCountry'];
-        }
+    $conn_verification = getDBConnection();
 
-        // check if company was already added
-        $validateCompanyQuery = "SELECT * FROM nylene.company WHERE company_name = '" . $_POST['name'] . "'";
+    if ($conn_verification->connect_error)
+        die("Connection failed: " . $conn_verification->connect_error);
 
-        $validationResult = $conn->query($validateCompanyQuery);
+    if (isset($_POST['shippingSameAsBilling'])) {
 
-        // if it doesn't exist, add it to the database
-        if (mysqli_fetch_array($validationResult) == NULL) {
-
-            // No SQL-Injection protection
-            /*
-             * $sqlQuery = "INSERT INTO nylene.company (company_name, website, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode, billing_address_country, shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, shipping_address_country, description, type, industry, company_email, date_created, created_by)
-             * VALUES ('" . $_POST['name'] . "','" . $_POST['website'] . "','" . $_POST['billingStreet'] . "','" . $_POST['billingCity'] . "','" . $_POST['billingState'] . "','" . $_POST['billingPostalCode'] . "','" . $_POST['billingCountry'] . "','" . $_POST['shippingStreet'] . "','" . $_POST['shippingCity'] . "','" . $_POST['shippingState'] . "','" . $_POST['shippingPostalCode'] . "','" . $_POST['shippingCountry'] . "','" . $_POST['description'] . "','" . $_POST['type'] . "','" . $_POST['industry'] . "','" . $_POST['email'] . "','" . date("Y-m-d", $t) . "','" . $_SESSION['userid'] . "')";
-             */
-
-            // With SQL-Injection Protection
-            $sqlQuery = $conn->prepare("INSERT INTO nylene.company 
-            
-            (company_name, 
-            website, 
-            billing_address_street, 
-            billing_address_city, 
-            billing_address_state, 
-            billing_address_postalcode, 
-            billing_address_country, 
-            shipping_address_street, 
-            shipping_address_city, 
-            shipping_address_state, 
-            shipping_address_postalcode, 
-            shipping_address_country, 
-            description, 
-            type, 
-            industry, 
-            company_email,
-            assigned_to, 
-            date_created, 
-            created_by)
-        
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-            $company_name = $_POST['name'];
-            $website = $_POST['website'];
-            $billing_address_street = $_POST['billingStreet'];
-            $billing_address_city = $_POST['billingCity'];
-            $billing_address_state = $_POST['billingState'];
-            $billing_address_postalcode = $_POST['billingPostalCode'];
-            $billing_address_country = $_POST['billingCountry'];
-            $shipping_address_street = $_POST['shippingStreet'];
-            $shipping_address_city = $_POST['shippingCity'];
-            $shipping_address_state = $_POST['shippingState'];
-            $shipping_address_postalcode = $_POST['shippingPostalCode'];
-            $shipping_address_country = $_POST['shippingCountry'];
-            $description = $_POST['description'];
-            $type = $_POST['type'];
-            $industry = $_POST['industry'];
-            $company_email = $_POST['email'];
-
-            $t = time();
-            $date_created = date("Y-m-d", $t);
-            
-            $assigned_to = $_SESSION['userid'];
-            $created_by = $_SESSION['userid'];
-
-            $sqlQuery->bind_param("ssssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
-
-            $sqlQuery->execute();
-
-            // store company_id in session for further use then redirect user to next page
-            $_SESSION["company_id"] = $sqlQuery->insert_id;
-            $sqlQuery->close();
-            $conn->close();
-            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./addCustomer.php\" />;";
-            exit();
-        } else {
-            //If the above throws an error, kick the user back to the homepage
-            echo "<p style=\"color:red\">ERROR - \"" . $_POST['name'] . "\" ALREADY EXISTS</p>";
-        }
+        $_POST['shippingStreet'] = $_POST['billingStreet'];
+        $_POST['shippingCity'] = $_POST['billingCity'];
+        $_POST['shippingState'] = $_POST['billingState'];
+        $_POST['shippingPostalCode'] = $_POST['billingPostalCode'];
+        $_POST['shippingCountry'] = $_POST['billingCountry'];
     }
+
+    $validateCompany = new Company($conn_verification);
+    $validationResult = $validateCompany->search($_POST['name'], $_POST['website'], $_POST['billingStreet'], $_POST['billingCity'], $_POST['billingState'], $_POST['billingCountry'], "", "");
+    // found an entry with this company name
+    if ($validationResult->fetch()) {
+        /* echo "<script>alert(\"This company data already exists\");</script>"; */
+        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $_POST['name'] . "\" already exists, OPERATION ABORTED</b></p>";
+       
+    } else {
+
+        $conn_verification->close();
+        $validationResult->close();
+       
+        $conn_newCompany = getDBConnection();
+        $newCompany = new Company($conn_newCompany);
+        
+        $newCompanyResult = $newCompany->create($_POST['name'], $_POST['website'], $_POST['billingStreet'], $_POST['billingCity'], $_POST['billingState'], $_POST['billingPostalCode'], $_POST['billingCountry'],$_POST['billingStreet'], $_POST['shippingCity'], $_POST['shippingState'], $_POST['shippingPostalCode'], $_POST['shippingCountry'], $_POST['description'], $_POST['type'], $_POST['industry'], $_POST['email'], $_SESSION["userid"], date("Y-m-d", time()), $_SESSION["userid"]);
+        
+        if(!$newCompanyResult){
+            die("OPPERATION FAILED");
+        }
+   
+        
+        // store company_id in session for further use then redirect user to next page
+        $_SESSION["company_id"] = $conn_newCompany->insert_id;
+        $conn_newCompany->close();
+        echo "<meta http-equiv = \"refresh\" content = \"5 url = ./addCustomer.php\" />;";
+        exit();
+    }
+    $conn_verification->close();
+    $validationResult->close();
 }
 
 ?>
+
+
+
 
 <!-- Add Company Page -->
 <!-- The following is the Add company interface -->

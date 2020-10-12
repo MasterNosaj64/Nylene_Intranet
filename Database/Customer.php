@@ -41,9 +41,31 @@ class Customer
         return $stmt;
     }
 
-    function create()
+    function create($customer_name, $customer_email, $date_created, $customer_phone, $customer_fax)
     {
 
+        $query = "INSERT INTO
+                nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
+            VALUES(
+              ?,?,?,?,?)";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        
+        $customer_name = htmlspecialchars(strip_tags($customer_name));
+        $customer_email = htmlspecialchars(strip_tags($customer_email));
+        $date_created = htmlspecialchars(strip_tags($date_created));
+        $customer_phone = htmlspecialchars(strip_tags($customer_phone));
+        $customer_fax = htmlspecialchars(strip_tags($customer_fax));
+       
+        
+        $stmt->bind_param("sssss", $customer_name, $customer_email, $date_created, $customer_phone, $customer_fax);
+        
+        if (!$stmt->execute()){
+            return false;
+        }
+        return true;
+        
     }
 
     // delete

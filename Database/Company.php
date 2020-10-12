@@ -68,71 +68,48 @@ class Company
         return $stmt;
     }
 
-    function create()
+    function create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by)
     {
 
         // query to insert record
         $query = "INSERT INTO
-                company (website, shipping_address_street,shipping_address_city,shipping_address_state,shipping_address_postalcode,
+                nylene.company (company_name, website, shipping_address_street,shipping_address_city,shipping_address_state,shipping_address_postalcode,
 				shipping_address_country,billing_address_street,billing_address_city,billing_address_state, billing_address_postalcode,
-				billing_address_country,description,type,industry,assigned_to,date_created,date_modified, created_by, company_name)
+				billing_address_country,description,type,industry, company_email, assigned_to, date_created, created_by)
             VALUES(
               ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->conn->prepare($query);
 
-        echo "0";
-        $this->website = htmlspecialchars(strip_tags($this->website));
-        $this->shipping_address_street = htmlspecialchars(strip_tags($this->shipping_address_street));
-        $this->shipping_address_city = htmlspecialchars(strip_tags($this->shipping_address_city));
-        $this->shipping_address_state = htmlspecialchars(strip_tags($this->shipping_address_state));
-        $this->shipping_address_postalcode = htmlspecialchars(strip_tags($this->shipping_address_postalcode));
-        $this->shipping_address_country = htmlspecialchars(strip_tags($this->shipping_address_country));
-        $this->billing_address_street = htmlspecialchars(strip_tags($this->billing_address_street));
-        $this->billing_address_city = htmlspecialchars(strip_tags($this->billing_address_city));
-        $this->billing_address_state = htmlspecialchars(strip_tags($this->billing_address_state));
-        $this->billing_address_postalcode = htmlspecialchars(strip_tags($this->billing_address_postalcode));
-        $this->billing_address_country = htmlspecialchars(strip_tags($this->billing_address_country));
-        $this->description = htmlspecialchars(strip_tags($this->description));
-        $this->type = htmlspecialchars(strip_tags($this->type));
-        $this->industry = htmlspecialchars(strip_tags($this->industry));
-        $this->assigned_to = htmlspecialchars(strip_tags($this->assigned_to));
-        $this->date_created = htmlspecialchars(strip_tags($this->date_created));
-        $this->date_modified = htmlspecialchars(strip_tags($this->date_modified));
-        $this->created_by = htmlspecialchars(strip_tags($this->created_by));
-        $this->company_name = htmlspecialchars(strip_tags($this->company_name));
+        
+        
+        $company_name = htmlspecialchars(strip_tags($company_name));
+        $website = htmlspecialchars(strip_tags($website));
+        $billing_address_street = htmlspecialchars(strip_tags($billing_address_street));
+        $billing_address_city = htmlspecialchars(strip_tags($billing_address_city));
+        $billing_address_state = htmlspecialchars(strip_tags($billing_address_state));
+        $billing_address_postalcode = htmlspecialchars(strip_tags($billing_address_postalcode));
+        $billing_address_country = htmlspecialchars(strip_tags($billing_address_country));
+        $shipping_address_street = htmlspecialchars(strip_tags($shipping_address_street));
+        $shipping_address_city = htmlspecialchars(strip_tags($shipping_address_city));
+        $shipping_address_state = htmlspecialchars(strip_tags($shipping_address_state));
+        $shipping_address_postalcode = htmlspecialchars(strip_tags($shipping_address_postalcode));
+        $shipping_address_country = htmlspecialchars(strip_tags($shipping_address_country));
+        $description = htmlspecialchars(strip_tags($description));
+        $type = htmlspecialchars(strip_tags($type));
+        $industry = htmlspecialchars(strip_tags($industry));
+        $company_email = htmlspecialchars(strip_tags($company_email));
+        $assigned_to = htmlspecialchars(strip_tags($assigned_to));
+        $date_created = htmlspecialchars(strip_tags($date_created));
+        $created_by = htmlspecialchars(strip_tags($created_by));
+        
 
-        echo "1";
-
-        $stmt->bindParam(":website", $this->website);
-        $stmt->bindParam(":shipping_address_street", $this->shipping_address_street);
-        $stmt->bindParam(":shipping_address_city", $this->shipping_address_city);
-        $stmt->bindParam(":shipping_address_state", $this->shipping_address_state);
-
-        $stmt->bindParam(":shipping_address_postalcode", $this->shipping_address_postalcode);
-        $stmt->bindParam(":shipping_address_country", $this->shipping_address_country);
-        $stmt->bindParam(":billing_address_street", $this->billing_address_street);
-        $stmt->bindParam(":billing_address_city", $this->billing_address_city);
-        $stmt->bindParam(":billing_address_state", $this->billing_address_state);
-
-        $stmt->bindParam(":billing_address_postalcode", $this->billing_address_postalcode);
-        $stmt->bindParam(":billing_address_country", $this->billing_address_country);
-        $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":type", $this->type);
-        $stmt->bindParam(":industry", $this->industry);
-
-        $stmt->bindParam(":assigned_to", $this->assigned_to);
-        $stmt->bindParam(":date_created", $this->date_created);
-        $stmt->bindParam(":date_modified", $this->date_modified);
-        $stmt->bindParam(":created_by", $this->created_by);
-        $stmt->bindParam(":company_name", $this->company_name);
-        echo "2";
-        if ($stmt->execute($this . website, $this . shipping_address_street, $this . shipping_address_city, $this . shipping_address_state, $this . shipping_address_postalcode, $this . shipping_address_country, $this . billing_address_street, $this . billing_address_city, $this . billing_address_state, $this . billing_address_postalcode, $this . billing_address_country, $this . description, $this . type, $this . industry, $this . assigned_to, $this . date_created, $this . date_modified, $this . created_by, $this . company_name)) {
-            return true;
-            echo "3";
+        $stmt->bind_param("ssssssssssssssssisi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
+        
+        if (!$stmt->execute()){
+            return false;
         }
-
-        return false;
+        return true;
     }
 
     // delete
@@ -198,7 +175,7 @@ class Company
      */
     function search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By)
     {
-
+        
         // number of string parameters
         $stringCount = 0;
         // number of integer parameters
