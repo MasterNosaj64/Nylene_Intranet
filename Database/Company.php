@@ -1,12 +1,13 @@
 <?php
+
 /*
  * FileName: Company.php
  * Author: Jason Waid
  * Version: 0.6
  * Date Modified: 10/12/2020
  * Purpose:
- *  Object oriented representation of a company
- *  all database manipulation happens here
+ * Object oriented representation of a company
+ * all database manipulation happens here
  *
  *
  */
@@ -49,6 +50,8 @@ class Company
 
     public $industry;
 
+    public $company_email;
+
     public $assigned_to;
 
     public $date_created;
@@ -64,11 +67,12 @@ class Company
     {
         $this->conn = $db;
     }
+
     /*
      * Function: read
      * Purpose:
-     *  grabs all companies from the connected db
-     *  returns the objects
+     * grabs all companies from the connected db
+     * returns the objects
      */
     public function read()
     {
@@ -79,14 +83,15 @@ class Company
         $stmt->execute();
         // bind the results
         $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
-        
+
         return $stmt;
     }
+
     /*
      * Function: create
      * Purpose:
-     *  creates a company with the supplied parameters
-     *  returns bool on failure or success
+     * creates a company with the supplied parameters
+     * returns bool on failure or success
      */
     function create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by)
     {
@@ -101,8 +106,6 @@ class Company
 
         $stmt = $this->conn->prepare($query);
 
-        
-        
         $company_name = htmlspecialchars(strip_tags($company_name));
         $website = htmlspecialchars(strip_tags($website));
         $billing_address_street = htmlspecialchars(strip_tags($billing_address_street));
@@ -122,66 +125,51 @@ class Company
         $assigned_to = htmlspecialchars(strip_tags($assigned_to));
         $date_created = htmlspecialchars(strip_tags($date_created));
         $created_by = htmlspecialchars(strip_tags($created_by));
-        
 
         $stmt->bind_param("ssssssssssssssssisi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
-        
-        if (!$stmt->execute()){
+
+        if (! $stmt->execute()) {
             return false;
         }
         return true;
     }
 
-    
     /*
-     * Function Name: getname
-     * Purpose: Function returns the company_name property of the object
-     *
+     * Function Name: searchId
+     * Purpose: A simpler version of search that only searches using the company_id
      */
-    function getname(){
-        return $this->company_name;
-    }
-    /*
-     * Function Name: getAssignedTo
-     * Purpose: Function returns the assigned_to property of the object
-     *
-     */
-    function getAssignedTo(){
-        return $this->assigned_to;
-    }
-    /*
-     * Function Name: getCreatedBy
-     * Purpose: Function returns the created_by property of the object
-     *
-     */
-    function getCreatedBy(){
-        return $this->created_by;
-    }
-    /*
-     * Function Name: getCompanyId
-     * Purpose: Function returns the company_id property of the object
-     *
-     */
-    function getCompanyId(){
-        return $this->company_id;
-    }
-    /*
-     * Function Name: get
-     * Purpose: Function returns the object
-     *
-     */
-    function get(){
-        return $this;
-    }
-    
-    /*
-     * Function Name: search
-     * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
-     *
-     */
-    function search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By)
+    function searchId($company_id)
     {
-        
+        $query = "SELECT
+                *
+            FROM
+			  nylene.company WHERE company_id = ?";
+
+        $stmt = $this->conn->prepare($query);
+
+        $company_id = htmlspecialchars(strip_tags($company_id));
+
+        $stmt->bind_param("i", $company_id);
+
+        // execute query
+        if (! $stmt->execute()) {
+            return false;
+        }
+
+        // bind the results
+        $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
+
+        // return objects
+        return $stmt;
+    }
+
+    /*
+     * Function Name: searchInclude
+     * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
+     */
+    function searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By)
+    {
+
         // number of string parameters
         $stringCount = 0;
         // number of integer parameters
@@ -192,7 +180,7 @@ class Company
         $params = array();
 
         // append query string, sanitize then apply % wildcard character to end of entered parmeter
-        
+
         $query = "SELECT
                 *
             FROM
@@ -337,15 +325,80 @@ class Company
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7]);
                 break;
-                
-           /*  default: */
-                //no params
-                
+
+            /* default: */
+            // no params
         }
-        
+
         // execute query
-        $stmt->execute();
-    
+        if (! $stmt->execute()) {
+            return false;
+        }
+
+        // bind the results
+        $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
+
+        // return objects
+        return $stmt;
+    }
+
+    /*
+     * Function Name: searchExact
+     * Purpose: Function searches the database for an exact match and returns the object
+     */
+    function searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.company WHERE 
+            
+            company_name = ? AND 
+            website = ? AND 
+            billing_address_street = ? AND 
+            billing_address_city = ? AND
+            billing_address_postalcode = ? AND
+            billing_address_state = ? AND
+            billing_address_country = ? AND
+            shipping_address_street = ? AND
+            shipping_address_city = ? AND
+            shipping_address_state = ? AND
+            shipping_address_postalcode = ? AND
+            shipping_address_country = ? AND
+            description = ? AND
+            type = ? AND
+            industry = ? AND
+            company_email = ?";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $company_name = htmlspecialchars(strip_tags($company_name));
+        $website = htmlspecialchars(strip_tags($website));
+        $billing_address_street = htmlspecialchars(strip_tags($billing_address_street));
+        $billing_address_city = htmlspecialchars(strip_tags($billing_address_city));
+        $billing_address_state = htmlspecialchars(strip_tags($billing_address_state));
+        $billing_address_postalcode = htmlspecialchars(strip_tags($billing_address_postalcode));
+        $billing_address_country = htmlspecialchars(strip_tags($billing_address_country));
+        $shipping_address_street = htmlspecialchars(strip_tags($shipping_address_street));
+        $shipping_address_city = htmlspecialchars(strip_tags($shipping_address_city));
+        $shipping_address_state = htmlspecialchars(strip_tags($shipping_address_state));
+        $shipping_address_postalcode = htmlspecialchars(strip_tags($shipping_address_postalcode));
+        $shipping_address_country = htmlspecialchars(strip_tags($shipping_address_country));
+        $description = htmlspecialchars(strip_tags($description));
+        $type = htmlspecialchars(strip_tags($type));
+        $industry = htmlspecialchars(strip_tags($industry));
+        $company_email = htmlspecialchars(strip_tags($company_email));
+        
+        // bind the parameters to the query
+        $stmt->bind_param("ssssssssssssssss", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
+
+        // execute query
+        if (! $stmt->execute()) {
+            return false;
+        }
+
         // bind the results
         $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
 
@@ -354,54 +407,57 @@ class Company
     }
 
     // update the product
-    function update()
+    function update($company_id, $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_modified)
     {
 
         // update query
         $query = "UPDATE
-                company
+                nylene.company
             SET
                
-            
-       website=:website, shipping_address_street=:shipping_address_street, 
-	   shipping_address_city=:shipping_address_city, shipping_address_state=:shipping_address_state, 
-	   shipping_address_postalcode=:shipping_address_postalcode, 
-	   shipping_address_country=:shipping_address_country, billing_address_street=:billing_address_street,
-	   billing_address_city=:billing_address_city, 
-	   billing_address_state=:billing_address_state, billing_address_postalcode=:billing_address_postalcode,
-	   billing_address_country=:billing_address_country, 
-	   description=:description, type=:type, industry=:industry, 
-	   assigned_to=:assigned_to, date_created=:date_created, date_modified=:date_modified, 
-	   created_by=:created_by, company_name=:company_name;
-	   WHERE
-	   company_id = :company_id";
+            company_name = ?, 
+            website = ?, 
+            billing_address_street = ?, 
+            billing_address_city = ?,
+            billing_address_postalcode = ?,
+            billing_address_state = ?,
+            billing_address_country = ?,
+            shipping_address_street = ?,
+            shipping_address_city = ?,
+            shipping_address_state = ?,
+            shipping_address_postalcode = ?,
+            shipping_address_country = ?,
+            description = ?,
+            type = ?,
+            industry = ?,
+            company_email = ?,
+            date_modified = ?
+	        WHERE
+	        company_id = ?";
 
         $stmt = $this->conn->prepare($query);
 
-        $this->website = htmlspecialchars(strip_tags($this->website));
-        $this->shipping_address_street = htmlspecialchars(strip_tags($this->shipping_address_street));
-        $this->shipping_address_city = htmlspecialchars(strip_tags($this->shipping_address_city));
-        $this->shipping_address_state = htmlspecialchars(strip_tags($this->shipping_address_state));
-        $this->shipping_address_postalcode = htmlspecialchars(strip_tags($this->shipping_address_postalcode));
-        $this->shipping_address_country = htmlspecialchars(strip_tags($this->shipping_address_country));
-        $this->billing_address_street = htmlspecialchars(strip_tags($this->billing_address_street));
-        $this->billing_address_city = htmlspecialchars(strip_tags($this->billing_address_city));
-        $this->billing_address_state = htmlspecialchars(strip_tags($this->billing_address_state));
-        $this->billing_address_postalcode = htmlspecialchars(strip_tags($this->billing_address_postalcode));
-        $this->billing_address_country = htmlspecialchars(strip_tags($this->billing_address_country));
-        $this->description = htmlspecialchars(strip_tags($this->description));
-        $this->type = htmlspecialchars(strip_tags($this->type));
-        $this->industry = htmlspecialchars(strip_tags($this->industry));
-        $this->assigned_to = htmlspecialchars(strip_tags($this->assigned_to));
-        $this->date_created = htmlspecialchars(strip_tags($this->date_created));
-        $this->date_modified = htmlspecialchars(strip_tags($this->date_modified));
-        $this->created_by = htmlspecialchars(strip_tags($this->created_by));
-        $this->company_name = htmlspecialchars(strip_tags($this->company_name));
-        $this->company_id = htmlspecialchars(strip_tags($this->company_id));
+        $company_id = htmlspecialchars(strip_tags($company_id));
+        $company_name = htmlspecialchars(strip_tags($company_name));
+        $website = htmlspecialchars(strip_tags($website));
+        $billing_address_street = htmlspecialchars(strip_tags($billing_address_street));
+        $billing_address_city = htmlspecialchars(strip_tags($billing_address_city));
+        $billing_address_state = htmlspecialchars(strip_tags($billing_address_state));
+        $billing_address_postalcode = htmlspecialchars(strip_tags($billing_address_postalcode));
+        $billing_address_country = htmlspecialchars(strip_tags($billing_address_country));
+        $shipping_address_street = htmlspecialchars(strip_tags($shipping_address_street));
+        $shipping_address_city = htmlspecialchars(strip_tags($shipping_address_city));
+        $shipping_address_state = htmlspecialchars(strip_tags($shipping_address_state));
+        $shipping_address_postalcode = htmlspecialchars(strip_tags($shipping_address_postalcode));
+        $shipping_address_country = htmlspecialchars(strip_tags($shipping_address_country));
+        $description = htmlspecialchars(strip_tags($description));
+        $type = htmlspecialchars(strip_tags($type));
+        $industry = htmlspecialchars(strip_tags($industry));
+        $company_email = htmlspecialchars(strip_tags($company_email));
+        $date_modified = htmlspecialchars(strip_tags($date_modified));
 
-
-        $stmt->bindParam(":website", $this->website);
-       
+        $stmt->bind_param("sssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_modified, $company_id);
+        
 
         // execute the query
         if ($stmt->execute()) {
@@ -409,6 +465,206 @@ class Company
         }
 
         return false;
+    }
+
+    /*
+     * Function Name: getname
+     * Purpose: Function returns the company_name property of the object
+     *
+     */
+    function getName()
+    {
+        return $this->company_name;
+    }
+
+    /*
+     * Function Name: getAssignedTo
+     * Purpose: Function returns the assigned_to property of the object
+     *
+     */
+    function getAssignedTo()
+    {
+        return $this->assigned_to;
+    }
+
+    /*
+     * Function Name: getCreatedBy
+     * Purpose: Function returns the created_by property of the object
+     *
+     */
+    function getCreatedBy()
+    {
+        return $this->created_by;
+    }
+
+    /*
+     * Function Name: getCompanyId
+     * Purpose: Function returns the company_id property of the object
+     *
+     */
+    function getCompanyId()
+    {
+        return $this->company_id;
+    }
+
+    /*
+     * Function Name: get
+     * Purpose: Function returns the object
+     *
+     */
+    function get()
+    {
+        return $this;
+    }
+
+    /*
+     * Function Name: getDescription
+     * Purpose: Function returns the description
+     *
+     */
+    function getDescription()
+    {
+        return $this->description;
+    }
+
+    /*
+     * Function Name: getWebsite
+     * Purpose: Function returns the website
+     *
+     */
+    function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /*
+     * Function Name: getIndustry
+     * Purpose: Function returns the industry
+     *
+     */
+    function getIndustry()
+    {
+        return $this->industry;
+    }
+
+    /*
+     * Function Name: getEmail
+     * Purpose: Function returns the company email
+     *
+     */
+    function getEmail()
+    {
+        return $this->company_email;
+    }
+
+    /*
+     * Function Name: getType
+     * Purpose: Function returns the type
+     *
+     */
+    function getType()
+    {
+        return $this->type;
+    }
+
+    /*
+     * Function Name: getBillingAddressStreet
+     * Purpose: Function returns the billing address street
+     *
+     */
+    function getBillingAddressStreet()
+    {
+        return $this->billing_address_street;
+    }
+
+    /*
+     * Function Name: getBillingAddressCity
+     * Purpose: Function returns the billing address city
+     *
+     */
+    function getBillingAddressCity()
+    {
+        return $this->billing_address_city;
+    }
+
+    /*
+     * Function Name: getBillingAddressState
+     * Purpose: Function returns the billing address state
+     *
+     */
+    function getBillingAddressState()
+    {
+        return $this->billing_address_state;
+    }
+
+    /*
+     * Function Name: getBillingAddressPostalCode
+     * Purpose: Function returns the billing address postal code
+     *
+     */
+    function getBillingAddressPostalCode()
+    {
+        return $this->billing_address_postalcode;
+    }
+
+    /*
+     * Function Name: getBillingAddressCounty
+     * Purpose: Function returns the billing address country
+     *
+     */
+    function getBillingAddressCounty()
+    {
+        return $this->billing_address_country;
+    }
+
+    /*
+     * Function Name: getShippingAddressStreet
+     * Purpose: Function returns the shipping address street
+     *
+     */
+    function getShippingAddressStreet()
+    {
+        return $this->shipping_address_street;
+    }
+
+    /*
+     * Function Name: getShippingAddressCity
+     * Purpose: Function returns the shipping address city
+     *
+     */
+    function getShippingAddressCity()
+    {
+        return $this->shipping_address_city;
+    }
+
+    /*
+     * Function Name: getShippingAddressState
+     * Purpose: Function returns the shipping address state
+     *
+     */
+    function getShippingAddressState()
+    {
+        return $this->shipping_address_state;
+    }
+
+    /*
+     * Function Name: getShippingAddressPostalCode
+     * Purpose: Function returns the Shipping address postal code
+     *
+     */
+    function getShippingAddressPostalCode()
+    {
+        return $this->shipping_address_postalcode;
+    }
+
+    /*
+     * Function Name: getShippingAddressCounty
+     * Purpose: Function returns the Shipping address country
+     *
+     */
+    function getShippingAddressCounty()
+    {
+        return $this->shipping_address_country;
     }
 }
 ?>

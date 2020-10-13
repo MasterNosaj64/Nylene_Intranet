@@ -47,13 +47,30 @@ if (isset($_POST['submit'])) {
         $_POST['shippingCountry'] = $_POST['billingCountry'];
     }
 
+    $company_name = $_POST['name'];
+    $website = $_POST['website'];
+    $billing_address_street = $_POST['billingStreet'];
+    $billing_address_city = $_POST['billingCity'];
+    $billing_address_state = $_POST['billingState'];
+    $billing_address_postalcode = $_POST['billingPostalCode'];
+    $billing_address_country = $_POST['billingCountry'];
+    $shipping_address_street = $_POST['shippingStreet'];
+    $shipping_address_city = $_POST['shippingCity'];
+    $shipping_address_state = $_POST['shippingState'];
+    $shipping_address_postalcode = $_POST['shippingPostalCode'];
+    $shipping_address_country = $_POST['shippingCountry'];
+    $description = $_POST['description'];
+    $type = $_POST['type'];
+    $industry = $_POST['industry'];
+    $company_email = $_POST['email'];
+    
     $validateCompany = new Company($conn_verification);
-    $validationResult = $validateCompany->search($_POST['name'], $_POST['website'], $_POST['billingStreet'], $_POST['billingCity'], $_POST['billingState'], $_POST['billingCountry'], "", "");
-    // found an entry with this company name
+    $validationResult = $validateCompany->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);    // found an entry with this company name
     if ($validationResult->fetch()) {
         /* echo "<script>alert(\"This company data already exists\");</script>"; */
         echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $_POST['name'] . "\" already exists, OPERATION ABORTED</b></p>";
-       
+        $validationResult->close();
+        $conn_verification->close();
     } else {
 
         $conn_verification->close();
@@ -72,7 +89,7 @@ if (isset($_POST['submit'])) {
         // store company_id in session for further use then redirect user to next page
         $_SESSION["company_id"] = $conn_newCompany->insert_id;
         $conn_newCompany->close();
-        echo "<meta http-equiv = \"refresh\" content = \"5 url = ./addCustomer.php\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./addCustomer.php\" />;";
         exit();
     }
     $conn_verification->close();

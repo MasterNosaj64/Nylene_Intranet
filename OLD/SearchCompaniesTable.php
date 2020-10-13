@@ -11,7 +11,7 @@ $db = $database->getConnection();
 $keywords=isset($_GET["s"]) ? $_GET["s"] : "";
 // initialize object
 $company = new Company($db);
-$stmt = $company->search($keywords);
+$stmt = $company->searchInclude($keywords);
 $num = $stmt->rowCount();
   
 // check if more than 0 record found

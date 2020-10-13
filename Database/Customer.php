@@ -1,13 +1,14 @@
 <?php
+
 /*
  * FileName: Customer.php
  * Author: Jason Waid
  * Version: 0.6
  * Date Modified: 10/12/2020
  * Purpose:
- *  Object oriented representation of a customer
- *  all database manipulation happens here
- * 
+ * Object oriented representation of a customer
+ * all database manipulation happens here
+ *
  *
  */
 class Customer
@@ -31,19 +32,17 @@ class Customer
 
     public $customer_fax;
 
-
     // constructor with $db as database connection
     public function __construct($db)
     {
         $this->conn = $db;
     }
 
-    
     /*
      * Function: read
      * Purpose:
-     *  grabs all customers from the connected db
-     *  returns the objects
+     * grabs all customers from the connected db
+     * returns the objects
      */
     public function read()
     {
@@ -54,86 +53,110 @@ class Customer
         $stmt->execute();
         // bind the results
         $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
-        
+
         return $stmt;
     }
 
     /*
      * Function: create
      * Purpose:
-     *  creates a customer with the supplied parameters
-     *  returns bool on failure or success
+     * creates a customer with the supplied parameters
+     * returns bool on failure or success
      */
     function create($customer_name, $customer_email, $date_created, $customer_phone, $customer_fax)
     {
-
         $query = "INSERT INTO
                 nylene.customer (customer_name, customer_email, date_created, customer_phone, customer_fax)
             VALUES(
               ?,?,?,?,?)";
-        
+
         $stmt = $this->conn->prepare($query);
-        
-        
+
         $customer_name = htmlspecialchars(strip_tags($customer_name));
         $customer_email = htmlspecialchars(strip_tags($customer_email));
         $date_created = htmlspecialchars(strip_tags($date_created));
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
-       
-        
+
         $stmt->bind_param("sssss", $customer_name, $customer_email, $date_created, $customer_phone, $customer_fax);
-        
-        if (!$stmt->execute()){
+
+        if (! $stmt->execute()) {
             return false;
         }
         return true;
+    }
+
+    /*
+     * Function Name: searchById
+     * Purpose: Function finds a customer by customer_id and returns found objects
+     *
+     */
+    function searchById($customer_id)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.customer WHERE customer_id = ?";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        $customer_id = htmlspecialchars(strip_tags($customer_id));
+
+        $stmt->bind_param("i", $customer_id);
+
+        // execute query
+        $stmt->execute();
+
+        // bind the results
+        $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
+
+        // return objects
+        return $stmt;
+    }
+
+    /*
+     * Function Name: searchExact
+     * Purpose: Function finds a customer by using exact parameters and returns found objects
+     *
+     */
+    // TODO: add date_modified to code and DB
+    function searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.customer WHERE 
+   
+        customer_id = ? AND
+        customer_name = ? AND
+        customer_email = ? AND
+        customer_phone = ? AND
+        customer_fax = ?";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        //sanitize
+        $customer_id = htmlspecialchars(strip_tags($customer_id));
+        $customer_name = htmlspecialchars(strip_tags($customer_name));
+        $customer_email = htmlspecialchars(strip_tags($customer_email));
+        $customer_phone = htmlspecialchars(strip_tags($customer_phone));
+        $customer_fax = htmlspecialchars(strip_tags($customer_fax));
         
+        //bind parameters
+        $stmt->bind_param("issss",$customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+        
+        // execute query
+        $stmt->execute();
+
+        // bind the results
+        $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
+
+        // return objects
+        return $stmt;
     }
 
-
-    /*
-     * Function Name: getname
-     * Purpose: Function returns the company_name of the object
-     *
-     */
-    function getname(){
-        return $this->customer_name;
-    }
-    /*
-     * Function Name: getPhone
-     * Purpose: Function returns the work_phone of the object
-     *
-     */
-    function getPhone(){
-        return $this->customer_phone;
-    }
-    /*
-     * Function Name: getEmail
-     * Purpose: Function returns the work_email of the object
-     *
-     */
-    function getEmail(){
-        return $this->customer_email;
-    }
-    
-    /*
-     * Function Name: getCustomerId
-     * Purpose: Function returns the customer_id of the object
-     *
-     */
-    function getCustomerId(){
-        return $this->customer_id;
-    }
-    /*
-     * Function Name: get
-     * Purpose: Function returns the customer object
-     *
-     */
-    function get(){
-        return $this;
-    }
-    
     /*
      * Function Name: search
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
@@ -152,7 +175,7 @@ class Customer
         $params = array();
 
         // append query string, sanitize then apply % wildcard character to end of entered parmeter
-        
+
         $query = "SELECT
                 *
             FROM
@@ -230,8 +253,6 @@ class Customer
             array_push($params, $customer_fax);
         }
 
-        
-
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -265,26 +286,116 @@ class Customer
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5]);
                 break;
-                
-           /*  default: */
-                //no params
-                
+
+            /* default: */
+            // no params
         }
-        
+
         // execute query
         $stmt->execute();
 
         // bind the results
         $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
-          
+
         // return objects
         return $stmt;
     }
 
     // update the product
-    function update()
+    function update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)
     {
+        $query = "UPDATE nylene.customer
+            SET
+            customer_name = ?,
+            customer_email = ?,
+            customer_phone = ?,
+            customer_fax = ?
+            WHERE customer_id = ?";
 
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // santize
+        $customer_id = htmlspecialchars(strip_tags($customer_id));
+        $customer_name = htmlspecialchars(strip_tags($customer_name));
+        $customer_email = htmlspecialchars(strip_tags($customer_email));
+        $customer_phone = htmlspecialchars(strip_tags($customer_phone));
+        $customer_fax = htmlspecialchars(strip_tags($customer_fax));
+
+        $stmt->bind_param("issss", $customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+
+        
+
+        // execute query
+        if (! $stmt->execute()) {
+            return false;
+        }
+
+        // bind the results
+        $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
+
+        // return objects
+        return $stmt;
+    }
+
+    /*
+     * Function Name: getname
+     * Purpose: Function returns the company_name of the object
+     *
+     */
+    function getname()
+    {
+        return $this->customer_name;
+    }
+
+    /*
+     * Function Name: getPhone
+     * Purpose: Function returns the work_phone of the object
+     *
+     */
+    function getPhone()
+    {
+        return $this->customer_phone;
+    }
+
+    /*
+     * Function Name: getEmail
+     * Purpose: Function returns the work_email of the object
+     *
+     */
+    function getEmail()
+    {
+        return $this->customer_email;
+    }
+    
+    /*
+     * Function Name: getFax
+     * Purpose: Function returns the fax number of the object
+     *
+     */
+    function getFax()
+    {
+        return $this->customer_fax;
+    }
+
+    /*
+     * Function Name: getCustomerId
+     * Purpose: Function returns the customer_id of the object
+     *
+     */
+    function getCustomerId()
+    {
+        return $this->customer_id;
+    }
+
+    /*
+     * Function Name: get
+     * Purpose: Function returns the customer object
+     *
+     */
+    function get()
+    {
+        return $this;
     }
 }
 ?>

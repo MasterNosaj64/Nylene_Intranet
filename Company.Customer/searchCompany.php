@@ -116,7 +116,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
         $companies = new Company($conn_Company);
 
-        $result = $companies->search($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+        $result = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
     } else {
         $companies = new Company($conn_Company);
         /* $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset']; */
@@ -276,7 +276,7 @@ while ($result->fetch()) {
      */
 
     echo "<tr>";
-    echo "<td>" . $companies->getname() . "</td>";
+    echo "<td>" . $companies->getName() . "</td>";
     echo "<td><a href=\"" . $companies->website . "\">" . $companies->website . "</a></td>";
     echo "<td><a href =\"mailto: " . $companies->company_email . "\">" . $companies->company_email . "</a></td>";
     echo "<td>" . $companies->billing_address_street . "</td>";

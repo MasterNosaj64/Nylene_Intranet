@@ -9,7 +9,7 @@ include 'Database/Company.php';
 
 $companies = new Company($conn);
 
-$compResult = $companies->search("", "", "", "", "", "", "", "");
+$compResult = $companies->searchInclude("", "", "", "", "", "", "", "");
 
 // Buffer of companies
 $companyList = new SplDoublyLinkedList();

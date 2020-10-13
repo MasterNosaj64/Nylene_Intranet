@@ -4,81 +4,104 @@
  * Version Number: 0.8
  * Author: Jason Waid
  * Purpose:
- *  Edit customers in the database.
+ * Edit customers in the database.
  */
-
 session_start();
 
-//The navigation bar for the website
+// The navigation bar for the website
 include '../NavPanel/navigation.php';
-//connection to the database
+// connection to the database
 include '../Database/connect.php';
+// customer object
+include '../Database/Customer.php';
 
-//Handler for if the database connection fails
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    /*
-     * The following code handles editing a customer in the customer table
-     * Below is an explaination of some of the variables
-     *      submit: set to 1 when the submit button is pressed
-     *      
-     */
-    $_SESSION['customer_created'] = $_SESSION['company_id'];
+// Check the following, if these are not set redirect user to viewCompany
+if ($_SESSION['company_id'] = ! "" && ! isset($_POST['customer_id'])) {
 
-    if (isset($_POST['submit'])) {
-
-        // No SQL INJECTION PROTECTION
-        /*
-         * $sqlQuery = "UPDATE nylene.customer
-         * SET
-         * customer_name = '" . $_POST['firstName'] . " " . $_POST['lastName'] . "',
-         * customer_email = '" . $_POST['email'] . "',
-         * customer_phone = '" . $_POST['phone'] . "',
-         * customer_fax = '" . $_POST['fax'] . "'
-         * WHERE customer_id =" . $_POST['customer_id'];
-         *
-         * /* $result = $dbConnection->query($sqlQuery);
-         * $result = $conn->query($sqlQuery);
-         * $conn->close();
-         */
-
-        // SQL INJECTION PROTECTION
-        $sqlQuery = $conn->prepare("UPDATE nylene.customer
-            SET
-            customer_name = ?,
-            customer_email = ?,
-            customer_phone = ?,
-            customer_fax = ?
-            WHERE customer_id = ?");
-
-        $customer_name = $_POST['firstName'] . " " . $_POST['lastName'];
-        $customer_email = $_POST['email'];
-        $customer_phone = $_POST['phone'];
-        $customer_fax = $_POST['fax'];
-        $customer_id = $_POST['customer_id'];
-        
-        
-        $sqlQuery->bind_param("ssssi", $customer_name, $customer_email, $customer_phone, $customer_fax, $customer_id);
-        $sqlQuery->execute();
-        $conn->close();
-        $sqlQuery->close();
-
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
-        exit();
-    }
-
-    if ($_SESSION['company_id'] != "" && isset($_POST['customer_id'])) {
-
-        $sqlGetCustomerInfo = "SELECT * FROM nylene.customer WHERE customer_id = " . $_POST['customer_id'];
-        $customerInfo = mysqli_fetch_array($conn->query($sqlGetCustomerInfo));
-        $name = explode(" ", $customerInfo['customer_name']);
-        $conn->close();
-    } else {
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
-        exit();
-    }
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/viewCompany.php\" />;";
+    exit();
 }
+
+$conn_Customer = getDBConnection();
+
+// Handler for if the database connection fails
+if ($conn_Customer->connect_error) {
+    die("Connection failed: " . $conn_Customer->connect_error);
+}
+
+$_SESSION['customer_created'] = $_SESSION['company_id'];
+
+$customer_id = $_POST['customer_id'];
+
+$customerToEdit = new Customer($conn_Customer);
+
+$customerGetDataResult = $customerToEdit->searchById($customer_id);
+
+if (! $customerGetDataResult->fetch()) {
+    die("Company data corrupt or connection failed, OPPERATION ABORTED");
+} // else didn't find something
+
+/*
+ * The following code handles editing a customer in the customer table
+ * Below is an explaination of some of the variables
+ * submit: set to 1 when the submit button is pressed
+ *
+ */
+
+if (isset($_POST['submit'])) {
+
+    $customer_id = $_POST['customer_id'];
+    $customer_name = $_POST['firstName'] . " " . $_POST['lastName'];
+    $customer_email = $_POST['customer_email'];
+    $customer_phone = $_POST['customer_phone'];
+    $customer_fax = $_POST['customer_fax'];
+
+    $conn_Customer = getDBConnection();
+    
+    // Handler for if the database connection fails
+    if ($conn_Customer->connect_error) {
+        die("Connection failed: " . $conn_Customer->connect_error);
+    }
+    
+    
+    // Get object
+    $customerToEdit = new Customer($conn_Customer);
+
+    $findCustomerToEdit = $customerToEdit->searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+
+    // if found something
+    if ($findCustomerToEdit->fetch()) {
+        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getname() . "\" already exists, OPERATION ABORTED</b></p>";
+
+        // close connection and statement
+        $conn_Customer->close();
+        $findCustomerToEdit->close();
+    } else {
+        // else didn't find something
+        $conn_Customer->close();
+        $findCustomerToEdit->close();
+
+        $conn_Customer = getDBConnection();
+
+        if ($conn_Customer->connect_error) {
+            die("Connection failed: " . $conn_Customer->connect_error);
+        }
+
+        $customerToEdit = new Customer($conn_Customer);
+
+        if (! $findCustomerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
+            die("Company data corrupt or connection failed, OPPERATION ABORTED");
+        }
+
+        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
+        exit();
+    }
+    
+    
+}
+
+$customer_name = explode(" ",$customerToEdit->getname());
+
 ?>
 
 <html>
@@ -92,32 +115,32 @@ if ($conn->connect_error) {
 <body>
 	<form method="post" action=editCustomer.php name="edit_customer">
 		<input type="reset" value="Clear"> <input hidden name="customer_id"
-			value="<?php echo $customerInfo['customer_id'];?>" />
+			value="<?php echo $customerToEdit->getCustomerId();?>" />
 		<table class="form-table" border=5>
 			<tr>
 				<td colspan=4><h2>Customer</h2></td>
 			</tr>
 			<tr>
 				<td>*First Name:</td>
-				<td><input type="text" value="<?php echo $name[0];?>" required
+				<td><input type="text" value="<?php echo $customer_name[0];?>" required
 					name="firstName"></td>
 				<td>*Last Name:</td>
-				<td><input type="text" value="<?php echo $name[1];?>" required
+				<td><input type="text" value="<?php echo $customer_name[1];?>" required
 					name="lastName"></td>
 			</tr>
 			<tr>
 				<td>*Email:</td>
 				<td><input type="email"
-					value="<?php echo $customerInfo['customer_email'];?>" required
-					name="email"></td>
+					value="<?php echo $customerToEdit->getEmail();?>" required
+					name="customer_email"></td>
 				<td>Phone:</td>
 				<td><input type="tel"
-					value="<?php echo $customerInfo['customer_phone'];?>" name="phone"></td>
+					value="<?php echo $customerToEdit->getPhone();?>" name="customer_phone"></td>
 			</tr>
 			<tr>
 				<td>Fax:</td>
 				<td colspan=3><input type="tel"
-					value="<?php echo $customerInfo['customer_fax'];?>" name="fax"></td>
+					value="<?php echo $customerToEdit->getFax();?>" name="customer_fax"></td>
 
 			</tr>
 
