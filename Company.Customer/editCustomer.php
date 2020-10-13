@@ -89,6 +89,7 @@ if (isset($_POST['submit'])) {
 
         $customerToEdit = new Customer($conn_Customer);
 
+        
         if (! $findCustomerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
             die("Company data corrupt or connection failed, OPPERATION ABORTED");
         }

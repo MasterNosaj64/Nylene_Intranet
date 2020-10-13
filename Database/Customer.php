@@ -301,7 +301,12 @@ class Customer
         return $stmt;
     }
 
-    // update the product
+    /*
+     * Function Name: update
+     * Purpose: Function updates the object
+     *
+     */
+    //TODO: fix, execute() doesnt fail but it doesnt work. Doing it directly on the db works tho
     function update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)
     {
         $query = "UPDATE nylene.customer
@@ -322,6 +327,7 @@ class Customer
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
 
+        
         $stmt->bind_param("issss", $customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
 
         
