@@ -112,6 +112,16 @@ td {
 	max-width: 100%;
 	max-heigth: 100%;
 }
+
+.table notification{
+max-width: 100%;
+max-heigth: 100%;
+	}
+.btn btn-link{
+
+}	
+float right
+	
 </style>
 </head>
 <body>
@@ -125,14 +135,29 @@ td {
 				class="btn btn-link">next &gt;</a></li>
 
 		</ul>
-		<p class="text-right">
-			<a href="../Home/Homepage.php">Today</a>
-		</p>
+		
+		
 
+		
+		 <!-- <p class="text-right"> 
+			<a href="../Home/Homepage.php" class="btn btn-link">Today</a>
+		 </p> -->
+		 
+		 <div class="btn-group" role="group" aria-label="Events">
+		 
+		 <div class="text-left">
+		<button type="button" class="btn btn-outline-secondary">Add Event</button>
+		</div>
+		
+		<div class="text-right">
+		<a href="../Home/Homepage.php" button type="button" class="btn btn-link">Today</button></a>
+		</div>
+		
+		</div>
+		
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-
 					<th>Mon</th>
 					<th>Tue</th>
 					<th>Wed</th>
@@ -151,6 +176,13 @@ td {
                 ?>
             </tbody>
 		</table>
+		<table class ="notification">
+			<thead>	
+			<tr>
+			<th> Events </th>
+			</tr>
+			</thead>
+			</table>
 	</div>
 </body>
 </html>
