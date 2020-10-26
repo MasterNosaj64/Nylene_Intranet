@@ -14,8 +14,6 @@ session_start();
 function ValidateForm(frm) {
 if (frm.Requester_Name.value == "") { alert(' Requesters name is required.'); frm.Requester_Name.focus(); return false; }
 if (frm.Marketing_Segment.value == "") { alert('Marketing Segment is required.'); frm.Marketing_Segment.focus(); return false; }
-//if (frm.Company_Name.value == "") { alert('Company/Group Name is required.'); frm.Company_Name.focus(); return false; }
-//if (frm.Target_Code.value == "") { alert('Target Code is required.'); frm.Target_Code.focus(); return false; }
 if (frm.Email_Address.value == "") { alert('Email address is required.'); frm.Email_Address.focus(); return false; }
 if (frm.Email_Address.value.indexOf("@") < 1 || frm.Email_Address.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.Email_Address.focus(); return false; }
 return true; }
