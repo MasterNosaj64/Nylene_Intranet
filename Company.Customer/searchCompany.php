@@ -26,15 +26,6 @@ include '../Database/Company.php';
 
 // Employee Object
 include '../Database/Employee.php';
-// cleans input
-/*
- * function clean_input($data) {
- * $data = trim($data);
- * $data = stripslashes($data);
- * $data = htmlspecialchars($data);
- * return $data;
- * }
- */
 
 // Attempt connection to DB for Companies
 $conn_Company = getDBConnection();
@@ -73,14 +64,12 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
 
     /*
-     * The following code handles the search by name and website functionality
+     * The following code handles the search functionality
      * Below is an explaination of the variables
-     * search_by_name: value is set to 1 when search button for search by name is used
-     * search_by_website: value is set to 1 when search button for search by website is used
+     * employeeList = all the employee names used for assigned_to and created_by
      */
 
     // Querys for getting all employee names
-
     $employeeList = new Employee($conn_Employee);
     $employeeListResult = $employeeList->read();
 
@@ -89,6 +78,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $numEmployees = 0;
 
     // Store all employee names and id's in array
+    // THis is later used to the creation of the drop down menus
     while ($employeeListResult->fetch()) {
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
@@ -96,15 +86,11 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     $employeeListResult->close();
 
-    /*
-     * $sqlquery = "SELECT * FROM nylene.employee";
-     * $employeeResult = $conn_Company->query($sqlquery);
-     * $createdResult = $conn_Company->query($sqlquery);
-     */
-
-    // New Searching technique
+    // The bulk of the searching logic
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+        // Below is the criteria available to the user for searchings the database
+        // Any combination of the below can be used
         $name = $_POST["search_By_Name"];
         $website = $_POST["search_By_Website"];
         $address = $_POST["search_By_Address"];
@@ -118,8 +104,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
         $result = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
     } else {
+        //The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
-        /* $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset']; */
         $result = $companies->read();
     }
 }
@@ -247,33 +233,22 @@ echo $companyList->count(). " record(s) found";
  * Each row of the SQL query is printed in sequence
  * This includes Edit and View buttons
  */
-
-// OBJECT VERSION WIP
 while ($result->fetch()) {
 
-    // Run query if Admin is logged in
+    // Created_by and assigned_to data
+    // Created by is only run if the logged in user is an admin
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
         $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
         $getCreated_By->fetch();
 
-        /*
-         * $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
-         * $getCreated_By = $conn->query($getCreated_By);
-         * $getCreated_By = mysqli_fetch_array($getCreated_By);
-         */
     }
 
     $assignedToEmployee = new Employee(getDBConnection());
     $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
     $getAssigned_To->fetch();
 
-    /*
-     * $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
-     * $getAssigned_To = $conn->query($getAssigned_To);
-     * $getAssigned_To = mysqli_fetch_array($getAssigned_To);
-     */
 
     echo "<tr>";
     echo "<td>" . $companies->getName() . "</td>";
