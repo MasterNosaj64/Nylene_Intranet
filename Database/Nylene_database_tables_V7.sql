@@ -277,7 +277,10 @@ CREATE TABLE calendar(
     ON UPDATE RESTRICT;
  ALTER TABLE interaction Add CONSTRAINT FK_company_id FOREIGN KEY (company_id) REFERENCES company(company_id) ON DELETE CASCADE
     ON UPDATE RESTRICT;
-  ALTER TABLE interaction Add CONSTRAINT FK_employee_id FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
+ ALTER TABLE interaction Add CONSTRAINT FK_employee_id FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
+    ON UPDATE RESTRICT;
+	
+ALTER TABLE calendar Add CONSTRAINT FK_calendar_created_by FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
     ON UPDATE RESTRICT;
 
   ALTER TABLE company Add CONSTRAINT Fk_created_by FOREIGN KEY (created_by) REFERENCES employee(employee_id) ON DELETE CASCADE
