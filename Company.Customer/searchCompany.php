@@ -135,8 +135,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 						<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"" . $employeeIds[$i] . "\">";
-        echo $employeeNames[$i] . "</option>";
+        echo "<option value=\"{$employeeIds[$i]}\">";
+        echo "{$employeeNames[$i]}</option>";
     }
     ?>
 				</select></td>
@@ -145,8 +145,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 						<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"" . $employeeIds[$i] . "\">";
-        echo $employeeNames[$i] . "</option>";
+        echo "<option value=\"{$employeeIds[$i]}\">";
+        echo "{$employeeNames[$i]}</option>";
     }
     ?>
 				</select></td>
@@ -235,14 +235,14 @@ if ($_SESSION["role"] == "admin") {
 
 echo $companyBuffer->count() . " record(s) found";
 
+//TODO: Implement maximum buffer size of 10
 for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) {
-//var_dump($companyBuffer);
-    // temp var for storing current company data members
-    
+
+    //Unserialize the object stored in the companyBuffer
     $currentCompanyNode = unserialize($companyBuffer->current());
     
     
-    
+    // temp var for storing current company data members
     $companyId = $currentCompanyNode->getCompanyId();
     $companyName = $currentCompanyNode->getName();
     $companyWebsite = $currentCompanyNode->getWebsite();
@@ -251,10 +251,8 @@ for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) 
     $companyStreet = $currentCompanyNode->getBillingAddressStreet();
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState();
-    // assigned to
-    // created by
 
-    // Start building table
+    // Get created by if admin is logged in
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
@@ -262,29 +260,30 @@ for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) 
         $getCreated_By->fetch();
     }
 
+    // Get assigned to
     $assignedToEmployee = new Employee(getDBConnection());
     $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
     $getAssigned_To->fetch();
 
     echo "<tr>";
-    echo "<td>" . $companyName . "</td>";
-    echo "<td><a href=\"" . $companyWebsite . "\">" . $companyWebsite . "</a></td>";
-    echo "<td><a href =\"mailto: " . $companyEmail . "\">" . $companyEmail . "</a></td>";
-    echo "<td>" . $companyStreet . "</td>";
-    echo "<td>" . $companyCity . "</td>";
-    echo "<td>" . $companyState . "</td>";
-    echo "<td>" . $assignedToEmployee->getName() . "</td>";
+    echo "<td>{$companyName}</td>";
+    echo "<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+    echo "<td><a href =\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+    echo "<td>{$companyStreet}</td>";
+    echo "<td>{$companyCity}</td>";
+    echo "<td>{$companyState}</td>";
+    echo "<td>{$assignedToEmployee->getName()}</td>";
 
     // Show Created by field if Admin is logged in
     if ($_SESSION["role"] == "admin") {
-        echo "<td>" . $createdByEmployee->getName() . "</td>";
+        echo "<td>{$createdByEmployee->getName()}</td>";
     }
     echo "<td><form action=\"./editCompany.php\" method=\"post\">
-     <input hidden name =\"company_id_edit\" value=\"" . $companyId . "\"/>
+     <input hidden name =\"company_id_edit\" value=\"{$companyId}\"/>
      <input type=\"submit\" value=\"edit\"/>
      </form>
      <form action=\"./viewCompany.php\" method=\"post\">
-     <input hidden name =\"company_id_view\" value=\"" . $companyId . "\"/>
+     <input hidden name =\"company_id_view\" value=\"{$companyId}\"/>
      <input type=\"submit\" value=\"view\"/>
      </form>
      </td>";
