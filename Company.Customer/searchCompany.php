@@ -27,6 +27,9 @@ include '../Database/Company.php';
 // Employee Object
 include '../Database/Employee.php';
 
+// Test file for list buffer
+include '../testFile.php';
+
 // Attempt connection to DB for Companies
 $conn_Company = getDBConnection();
 
@@ -102,11 +105,11 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
         $companies = new Company($conn_Company);
 
-        $result = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+        $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
     } else {
-        //The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
+        // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
-        $result = $companies->read();
+        $companyResult = $companies->read();
     }
 }
 ?>
@@ -218,67 +221,73 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
-//Buffer of companies
-/* $companyList = new SplDoublyLinkedList();
+/* if(!isset($_SESSION["buffer"])){ */
 
-while ($result->fetch()) {
-    $companyList->push($companies);
-}
-//Reverse to first node
-$companyList->rewind();
+// attempt of creating a buffer for a list of companies
+$companyBuffer = create_Buffer($companyResult, $companies);
 
-echo $companyList->count(). " record(s) found";
- */
 /*
- * Each row of the SQL query is printed in sequence
- * This includes Edit and View buttons
+ * }
+ * else{
+ *
+ * }
  */
-while ($result->fetch()) {
 
-    // Created_by and assigned_to data
-    // Created by is only run if the logged in user is an admin
+echo $companyBuffer->count() . " record(s) found";
+
+for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) {
+
+    // temp var for storing current company data members
+    $companyId = $companyBuffer->current()->getCompanyId();
+    $companyName = $companyBuffer->current()->getName();
+    $companyWebsite = $companyBuffer->current()->getWebsite();
+    $companyEmail = $companyBuffer->current()->getEmail();
+
+    $companyStreet = $companyBuffer->current()->getBillingAddressStreet();
+    $companyCity = $companyBuffer->current()->getBillingAddressCity();
+    $companyState = $companyBuffer->current()->getBillingAddressState();
+    // assigned to
+    // created by
+
+    // Start building table
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
         $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
         $getCreated_By->fetch();
-
     }
 
     $assignedToEmployee = new Employee(getDBConnection());
     $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
     $getAssigned_To->fetch();
 
-
     echo "<tr>";
-    echo "<td>" . $companies->getName() . "</td>";
-    echo "<td><a href=\"" . $companies->website . "\">" . $companies->website . "</a></td>";
-    echo "<td><a href =\"mailto: " . $companies->company_email . "\">" . $companies->company_email . "</a></td>";
-    echo "<td>" . $companies->billing_address_street . "</td>";
-    echo "<td>" . $companies->billing_address_city . "</td>";
-    echo "<td>" . $companies->billing_address_state . "</td>";
+    echo "<td>" . $companyName . "</td>";
+    echo "<td><a href=\"" . $companyWebsite . "\">" . $companyWebsite . "</a></td>";
+    echo "<td><a href =\"mailto: " . $companyEmail . "\">" . $companyEmail . "</a></td>";
+    echo "<td>" . $companyStreet . "</td>";
+    echo "<td>" . $companyCity . "</td>";
+    echo "<td>" . $companyState . "</td>";
     echo "<td>" . $assignedToEmployee->getName() . "</td>";
 
     // Show Created by field if Admin is logged in
     if ($_SESSION["role"] == "admin") {
         echo "<td>" . $createdByEmployee->getName() . "</td>";
     }
-
     echo "<td><form action=\"./editCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_edit\" value=\"" . $companies->getCompanyId() . "\"/>
-		<input type=\"submit\" value=\"edit\"/>
-	</form>
-    <form action=\"./viewCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_view\" value=\"" . $companies->getCompanyId() . "\"/>
-		<input type=\"submit\" value=\"view\"/>
-	</form>
-   </td>";
+     <input hidden name =\"company_id_edit\" value=\"" . $companyId . "\"/>
+     <input type=\"submit\" value=\"edit\"/>
+     </form>
+     <form action=\"./viewCompany.php\" method=\"post\">
+     <input hidden name =\"company_id_view\" value=\"" . $companyId . "\"/>
+     <input type=\"submit\" value=\"view\"/>
+     </form>
+     </td>";
     echo "</tr>";
     $getAssigned_To->close();
     $getCreated_By->close();
 }
-
-$conn_Company->close();
+    $conn_Company->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->

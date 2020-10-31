@@ -1,60 +1,48 @@
-<html>
 <?php 
+include_once 'database/Company.php';
+//test file for doubly linked list logic
 
 
-$provider = new DbTableDataProvider($pdoConnection, 'my_table');
-$input = new InputSource($_GET);
+/*
+ * Creates a buffer of objects
+ * Used for containing a list and navigation of objects in list
+ */
+function create_Buffer($queryResult, Company $object){
+    //pass the query result into the function and it will create a node for every row
+    
+    $buffer = new SplDoublyLinkedList();
+    
+    //adds all objects to the list
+    while ($queryResult->fetch()) {
+        
+        $buffer->push($object->get());
+    }
+    
+    //rewinds cursor to brgining of list
+    $buffer->rewind();
+    
+    return $buffer;
+}
 
-// create grid
-$grid = new Grid(
-$provider,
-// all components are optional, you can specify only columns
-[
-new TableCaption('My Grid'),
-new Column('id'),
-new Column('name'),
-new Column('role'),
-new Column('birthday'),
-(new Column('age'))
-->setValueCalculator(function ($row) {
-    return DateTime
-    ::createFromFormat('Y-m-d', $row->birthday)
-    ->diff(new DateTime('now'))
-    ->y;
-})
-->setValueFormatter(function ($val) {
-    return "$val years";
-})
-,
-new DetailsRow(new SymfonyVarDump()), // when clicking on data rows, details will be shown
-new PaginationControl($input->option('page', 1), 5), // 1 - default page, 5 -- page size
-new PageSizeSelectControl($input->option('page_size', 5), [2, 5, 10]), // allows to select page size
-new ColumnSortingControl('id', $input->option('sort')),
-new ColumnSortingControl('birthday', $input->option('sort')),
-new FilterControl('name', FilterOperation::OPERATOR_LIKE, $input->option('name')),
-new CsvExport($input->option('csv')), // yep, that's so simple, you have CSV export now
-new PageTotalsRow([
-    'id' => PageTotalsRow::OPERATION_IGNORE,
-    'age' => PageTotalsRow::OPERATION_AVG
-])
-]
-);
+/*
+ * navigates list to next 10
+ */
+function next10(){
+    
+    
+    
+    
+}
 
-// now you can render it:
-echo $grid->render();
-// or even this way:
-echo $grid;
-
-//  but also you can add some styling:
-$customization = new BootstrapStyling();
-$customization->apply($grid);
-echo $grid;
+/*
+ * navigates list to previous 10
+ */
+function previous10(){
+    
+    
+    
+    
+}
 
 
 ?>
-
-
-
-
-
-</html>	
