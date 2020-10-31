@@ -10,6 +10,10 @@
 
 Session_start();
 
+
+//The following is used in sessionController.php
+$_SESSION['viewCompanyVisited'] = basename($_SERVER['PHP_SELF']);
+
 //the following variables are used in navigation.php
 //View navigation.php for more information
 unset($_SESSION['interaction_id']);
