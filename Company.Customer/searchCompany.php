@@ -41,7 +41,6 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_employee->connect_error);
 } else {
 
-
     /*
      * The following code handles the search functionality
      * Below is an explaination of the variables
@@ -68,20 +67,26 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     // The bulk of the searching logic
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        // Below is the criteria available to the user for searchings the database
-        // Any combination of the below can be used
-        $name = $_POST["search_By_Name"];
-        $website = $_POST["search_By_Website"];
-        $address = $_POST["search_By_Address"];
-        $city = $_POST["search_By_City"];
-        $state = $_POST["search_By_State"];
-        $country = $_POST["search_By_Country"];
-        $assigned_To = $_POST["search_By_Assigned_To"];
-        $created_By = $_POST["search_By_Created_By"];
+        if (isset($_POST['Search'])) {
 
-        $companies = new Company($conn_Company);
+            // unset buffer since new search opperation makes current buffer obsolete
+            unset($_SESSION['buffer']);
 
-        $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+            // Below is the criteria available to the user for searchings the database
+            // Any combination of the below can be used
+            $name = $_POST["search_By_Name"];
+            $website = $_POST["search_By_Website"];
+            $address = $_POST["search_By_Address"];
+            $city = $_POST["search_By_City"];
+            $state = $_POST["search_By_State"];
+            $country = $_POST["search_By_Country"];
+            $assigned_To = $_POST["search_By_Assigned_To"];
+            $created_By = $_POST["search_By_Created_By"];
+
+            $companies = new Company($conn_Company);
+
+            $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+        }
     } else {
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
@@ -139,8 +144,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
 			</tr>
 		</table>
-		<input type="submit" value="Search" /> <input type="reset"
-			value="Clear" />
+		<input type="submit" value="Search" name="Search" /> <input
+			type="reset" value="Clear" />
 	</form>
 
 </div>
@@ -197,61 +202,48 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
-	//check if a buffer has already been created
-if(isset($_SESSION['buffer'])){
-    
-    //check if user wants next 10 or previous 10
-    
-    /*
-     * The following code handles the offset for the list of companies
-     * Below is an explaination of the variables
-     * next10: the next 10 button
-     * previous10: the previous 10 button
-     * offset: the current offset value for the following query
-     *
-     */
-    
-    
-    
-    
-    
-    
-    if (! isset($_POST['offset'])) {
-        $_POST['offset'] = 0;
-    }
-    
+	//Change this variable to modify the page size
+	$maxGridSize = 10;
+	
+// check if a buffer has already been created
+if (isset($_SESSION['buffer'])) {
+
+    // check if user wants next 10 or previous 10
+
+    $sessionBuffer = $_SESSION['buffer'];
+
     if (isset($_POST['next10'])) {
-        $_POST['offset'] += 10;
-    }
-    
-    if (isset($_POST['previous10'])) {
-        $_POST['offset'] -= 10;
-        
-        if ($_POST['offset'] < 0) {
-            $_POST['offset'] = 0;
+        $_SESSION['offset'] += $maxGridSize;
+        if($_SESSION['offset'] > $sessionBuffer->count()){
+            $_SESSION['offset'] -= $maxGridSize ;
         }
+
+        $companyBuffer = next10($sessionBuffer);
+    } else if (isset($_POST['previous10'])) {
+        $_SESSION['offset'] -= $maxGridSize;
+
+        if ($_SESSION['offset'] < 0) {
+            $_SESSION['offset'] = 0;
+        }
+
+        $companyBuffer = previous10($sessionBuffer);
     }
+    
+} else {
+    // attempt of creating a buffer for a list of companies
+    $companyBuffer = create_Buffer($companyResult, $companies);
+}
+
+echo "{$companyBuffer->count()} record(s) found";
 
 
 
- }
- else{
-     // attempt of creating a buffer for a list of companies
-     $companyBuffer = create_Buffer($companyResult, $companies);
-     $_SESSION['buffer'] = $companyBuffer;
-     
- }
- 
+// TODO: Implement maximum buffer size of 10
+for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->next()) {
 
-echo $companyBuffer->count() . " record(s) found";
-
-//TODO: Implement maximum buffer size of 10
-for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) {
-
-    //Unserialize the object stored in the companyBuffer
+    // Unserialize the object stored in the companyBuffer
     $currentCompanyNode = unserialize($companyBuffer->current());
-    
-    
+
     // temp var for storing current company data members
     $companyId = $currentCompanyNode->getCompanyId();
     $companyName = $currentCompanyNode->getName();
@@ -300,21 +292,31 @@ for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) 
     echo "</tr>";
     $getAssigned_To->close();
     $getCreated_By->close();
+
+    $offset ++;
+    if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+        break;
+    }
 }
-    $conn_Company->close();
+$conn_Company->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->
 	<!-- The following code presents the user with buttons to navigate the query -->
-	<table class="form-table" border=0align:center;>
+	<table class="form-table" align:center;>
 		<td><form method="post" action="searchCompany.php">
+		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
 				<input hidden name="previous10"
-					value="<?php echo $_POST['offset'];?>" /> <input type="submit"
-					value="Previous 10" />
+					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
+					 value="Previous 10" />
+		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
 			</form></td>
 		<td><form method="post" action="searchCompany.php">
-				<input hidden name="next10" value="<?php echo $_POST['offset'];?>" />
-				<input type="submit" value="Next 10" />
+		<?php if($offset == $companyBuffer->count()){ echo "<fieldset disabled =\"disabled\">";}?>
+				<input hidden name="next10"
+					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
+					value="Next 10" />
+					<?php if($offset == $companyBuffer->count()){ echo "</fieldset>";}?>
 			</form></td>
 	</table>
 	</html>
