@@ -202,9 +202,9 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
-	//Change this variable to modify the page size
-	$maxGridSize = 10;
-	
+// Change this variable to modify the page size
+$maxGridSize = 10;
+
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
 
@@ -214,8 +214,8 @@ if (isset($_SESSION['buffer'])) {
 
     if (isset($_POST['next10'])) {
         $_SESSION['offset'] += $maxGridSize;
-        if($_SESSION['offset'] > $sessionBuffer->count()){
-            $_SESSION['offset'] -= $maxGridSize ;
+        if ($_SESSION['offset'] > $sessionBuffer->count()) {
+            $_SESSION['offset'] -= $maxGridSize;
         }
 
         $companyBuffer = next10($sessionBuffer);
@@ -228,7 +228,6 @@ if (isset($_SESSION['buffer'])) {
 
         $companyBuffer = previous10($sessionBuffer);
     }
-    
 } else {
     // attempt of creating a buffer for a list of companies
     $companyBuffer = create_Buffer($companyResult, $companies);
@@ -236,9 +235,6 @@ if (isset($_SESSION['buffer'])) {
 
 echo "{$companyBuffer->count()} record(s) found";
 
-
-
-// TODO: Implement maximum buffer size of 10
 for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->next()) {
 
     // Unserialize the object stored in the companyBuffer
@@ -302,13 +298,14 @@ $conn_Company->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the query -->
+	<!-- The following code presents the user with buttons to navigate the list of companies
+	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
 	<table class="form-table" align:center;>
 		<td><form method="post" action="searchCompany.php">
 		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
 				<input hidden name="previous10"
 					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					 value="Previous 10" />
+					value="Previous 10" />
 		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
 			</form></td>
 		<td><form method="post" action="searchCompany.php">

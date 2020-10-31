@@ -1,11 +1,21 @@
 <?php
 
-// test file for doubly linked list logic
+/*
+ * FileName: listBuffer.php
+ * Version Number: 1
+ * Date Modified: 10/31/2020
+ * Author: Jason Waid
+ * Purpose:
+ * Provide pages a list of objects and alow the user to navigate the list
+ * refered to as the list buffer
+ */
 
 /*
+ * Function: create_Buffer
+ * Purpose:
  * Creates a buffer of objects
- * Used for containing a list and navigation of objects in list
  * Object expected are: Company, Customer, Employee & Interaction
+ * returns the list
  */
 function create_Buffer($queryResult, $object)
 {
@@ -30,7 +40,7 @@ function create_Buffer($queryResult, $object)
     $buffer->rewind();
 
     // prepare buffer for storage
-    //$buffer->serialize();
+    // $buffer->serialize();
 
     // store buffer into session
     $_SESSION['buffer'] = $buffer;
@@ -39,57 +49,58 @@ function create_Buffer($queryResult, $object)
     $_SESSION['offset'] = 0;
 
     // prepare buffer for printing after sotred into session
-    //$buffer->unserialize($buffer);
+    // $buffer->unserialize($buffer);
 
     return $buffer;
 }
 
 /*
- * navigates list to next 10
+ * Function: next10
+ * Purpose:
+ * navigates a list of companies and moved the iterator to the next 10 or closest existing index
+ * returns the list
  */
 function next10($sessionBuffer)
 {
-    //$buffer = unserialize($sessionBuffer);
+    // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
     $counter = 0;
-    
-    for($buffer->rewind(); $buffer->valid(); $buffer->next()){
-        
-        if($counter == $_SESSION['offset']){
+
+    for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
+
+        if ($counter == $_SESSION['offset']) {
             break;
         }
-        
-        $counter++;
-        
+
+        $counter ++;
     }
-    
+
     return $buffer;
-    
 }
 
 /*
- * navigates list to previous 10
+ * Function: previous10
+ * Purpose:
+ * navigates a list of companies and moved the iterator to the previous 10 or closest existing index
+ * returns the list
  */
 function previous10($sessionBuffer)
 {
-    
-    //$buffer = unserialize($sessionBuffer);
+
+    // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
     $counter = 0;
-    
-    for($buffer->rewind(); $buffer->valid(); $buffer->next()){
-        
-        if($counter == $_SESSION['offset']){
+
+    for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
+
+        if ($counter == $_SESSION['offset']) {
             break;
         }
-        
-        $counter++;
-        
+
+        $counter ++;
     }
-    
+
     return $buffer;
-    
-    
 }
 
 ?>
