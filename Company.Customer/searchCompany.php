@@ -9,8 +9,11 @@
  */
 session_start();
 
+//The following is used in sessionController.php
+$_SESSION['searchCompanyVisited'] = basename($_SERVER['PHP_SELF']);
+
 // the following variables are used in navigation.php
-// View navigation.php for more information
+// View NavPanel/navigation.php for more information
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 
@@ -88,6 +91,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
             $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
         }
     } else {
+        
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
         $companyResult = $companies->read();
@@ -102,7 +106,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <!-- NEW Company Search -->
 <!-- Below is the NEW search company functionality -->
 <button type="button" class="collapsible">Toggle Search</button>
-<div class="content">
+<div hidden class="content">
 
 	<form method="post" action=searchCompany.php name="search_company_data">
 		<table class="form-table" border=5>
