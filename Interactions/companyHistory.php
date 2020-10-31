@@ -31,6 +31,9 @@ if ($conn->connect_error) {
          *      offset: the current offset value for the following query
          *
          */
+        //TODO: JASON implement list buffer
+        //TODO: JASON implement next/prev buttons
+        //TODO  JASON implement object based interactions
         
         
         if (! isset($_POST['offset'])) {

@@ -1,5 +1,4 @@
 <?php
-include_once 'database/Company.php';
 
 // test file for doubly linked list logic
 

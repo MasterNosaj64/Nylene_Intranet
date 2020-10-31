@@ -44,6 +44,9 @@
 		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		    $truckLoad, $range40up, $range2240, $range1022, $range610, $range46, $range24);
 		
+		//TODO: KAITLYN implement more security to protect against SQL injection
+		//View ../Database/Company.php for code that can help
+		
 		/*Assign values to variables and execute*/
 		$dateCreated = $_POST["date_created"];
 		$quoteNum = $_POST["quote_num"];

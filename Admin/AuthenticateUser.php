@@ -1,5 +1,6 @@
 <?php
 session_start();
+//TODO: MADHAV change database connection file and align code to mysqli standard
     include '../Database/databaseConnection.php';
 	//include '../Database/databaseConnection.php';
 include '../Database/connect.php';

@@ -110,6 +110,10 @@
 	  }
 	}
   
+	
+	//TODO: KAITLYN implement more security to protect against SQL injection
+	//View ../Database/Company.php for code that can help
+	
 	/*Assign values to variables*/
 	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
 	$dateSubmitted		= $_POST['dateSubmitted'];

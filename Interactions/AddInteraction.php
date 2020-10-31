@@ -71,6 +71,9 @@ if ($conn->connect_error) {
             $reason = $_POST['reason'];
             $comments = $_POST['comments'];
             
+            //TODO: JASON implement more security to protect against SQL injection
+            //View ../Database/Company.php for code that can help
+            
             $t = time();
             $date_created = date("Y-m-d", $t);
             

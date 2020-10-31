@@ -15,6 +15,10 @@ if ($conn->connect_error) {
 
     $interaction_id = $_SESSION['interaction_id'];
 
+    //TODO: ISHA implement security to protect against SQL injection
+            //View ../Database/Company.php for code that can help
+            
+    //TODO: ISHA implement some sort of hashing for sensitive data
     $sql = "INSERT INTO credit_application_business_form (company_name, 
 							company_address, 
 							contact_name, 

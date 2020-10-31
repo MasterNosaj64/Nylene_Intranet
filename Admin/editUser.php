@@ -5,7 +5,8 @@ if (! session_id()) {
     unset($_SESSION['company_id']);
     unset($_SESSION['interaction_id']);
 }
-
+//TODO: MADHAV change database connection file and align code to mysqli standard
+//TODO: MADHAV populate fields
 include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';

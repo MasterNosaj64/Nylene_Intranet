@@ -41,30 +41,6 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_employee->connect_error);
 } else {
 
-    /*
-     * The following code handles the offset for the list of companies
-     * Below is an explaination of the variables
-     * next10: the next 10 button
-     * previous10: the previous 10 button
-     * offset: the current offset value for the following query
-     *
-     */
-
-    if (! isset($_POST['offset'])) {
-        $_POST['offset'] = 0;
-    }
-
-    if (isset($_POST['next10'])) {
-        $_POST['offset'] += 10;
-    }
-
-    if (isset($_POST['previous10'])) {
-        $_POST['offset'] -= 10;
-
-        if ($_POST['offset'] < 0) {
-            $_POST['offset'] = 0;
-        }
-    }
 
     /*
      * The following code handles the search functionality
@@ -221,17 +197,51 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
-/* if(!isset($_SESSION["buffer"])){ */
+	//check if a buffer has already been created
+if(isset($_SESSION['buffer'])){
+    
+    //check if user wants next 10 or previous 10
+    
+    /*
+     * The following code handles the offset for the list of companies
+     * Below is an explaination of the variables
+     * next10: the next 10 button
+     * previous10: the previous 10 button
+     * offset: the current offset value for the following query
+     *
+     */
+    
+    
+    
+    
+    
+    
+    if (! isset($_POST['offset'])) {
+        $_POST['offset'] = 0;
+    }
+    
+    if (isset($_POST['next10'])) {
+        $_POST['offset'] += 10;
+    }
+    
+    if (isset($_POST['previous10'])) {
+        $_POST['offset'] -= 10;
+        
+        if ($_POST['offset'] < 0) {
+            $_POST['offset'] = 0;
+        }
+    }
 
-// attempt of creating a buffer for a list of companies
-	$companyBuffer = create_Buffer($companyResult, $companies);
 
-/*
- * }
- * else{
- *
- * }
- */
+
+ }
+ else{
+     // attempt of creating a buffer for a list of companies
+     $companyBuffer = create_Buffer($companyResult, $companies);
+     $_SESSION['buffer'] = $companyBuffer;
+     
+ }
+ 
 
 echo $companyBuffer->count() . " record(s) found";
 
