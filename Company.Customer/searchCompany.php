@@ -28,7 +28,7 @@ include '../Database/Company.php';
 include '../Database/Employee.php';
 
 // Test file for list buffer
-include '../testFile.php';
+include '../Database/listBuffer.php';
 
 // Attempt connection to DB for Companies
 $conn_Company = getDBConnection();

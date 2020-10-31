@@ -6,12 +6,13 @@ include_once 'database/Company.php';
 /*
  * Creates a buffer of objects
  * Used for containing a list and navigation of objects in list
+ * Object expected are: Company, Customer, Employee & Interaction
  */
-function create_Buffer($queryResult, Company $object)
+function create_Buffer($queryResult, $object)
 {
     // pass the query result into the function and it will create a node for every row
     $buffer = new SplDoublyLinkedList();
-    $i = 0;
+
     // adds all objects to the list
     while ($queryResult->fetch()) {
         
