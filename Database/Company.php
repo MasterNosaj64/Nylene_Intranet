@@ -67,7 +67,7 @@ class Company
     {
         $this->conn = $db;
     }
-
+    
     /*
      * Function: read
      * Purpose:

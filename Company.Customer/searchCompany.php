@@ -224,7 +224,7 @@ if ($_SESSION["role"] == "admin") {
 /* if(!isset($_SESSION["buffer"])){ */
 
 // attempt of creating a buffer for a list of companies
-$companyBuffer = create_Buffer($companyResult, $companies);
+	$companyBuffer = create_Buffer($companyResult, $companies);
 
 /*
  * }
@@ -236,16 +236,21 @@ $companyBuffer = create_Buffer($companyResult, $companies);
 echo $companyBuffer->count() . " record(s) found";
 
 for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) {
-
+//var_dump($companyBuffer);
     // temp var for storing current company data members
-    $companyId = $companyBuffer->current()->getCompanyId();
-    $companyName = $companyBuffer->current()->getName();
-    $companyWebsite = $companyBuffer->current()->getWebsite();
-    $companyEmail = $companyBuffer->current()->getEmail();
+    
+    $currentCompanyNode = unserialize($companyBuffer->current());
+    
+    
+    
+    $companyId = $currentCompanyNode->getCompanyId();
+    $companyName = $currentCompanyNode->getName();
+    $companyWebsite = $currentCompanyNode->getWebsite();
+    $companyEmail = $currentCompanyNode->getEmail();
 
-    $companyStreet = $companyBuffer->current()->getBillingAddressStreet();
-    $companyCity = $companyBuffer->current()->getBillingAddressCity();
-    $companyState = $companyBuffer->current()->getBillingAddressState();
+    $companyStreet = $currentCompanyNode->getBillingAddressStreet();
+    $companyCity = $currentCompanyNode->getBillingAddressCity();
+    $companyState = $currentCompanyNode->getBillingAddressState();
     // assigned to
     // created by
 
@@ -253,12 +258,12 @@ for ($companyBuffer->rewind(); $companyBuffer->valid(); $companyBuffer->next()) 
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
-        $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
+        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
         $getCreated_By->fetch();
     }
 
     $assignedToEmployee = new Employee(getDBConnection());
-    $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
+    $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
     $getAssigned_To->fetch();
 
     echo "<tr>";
