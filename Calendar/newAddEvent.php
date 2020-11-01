@@ -16,5 +16,23 @@ if ($conn-> connect_error) {
     
 } else {
 
+    /*Prepare insert statement into the distributor_quote_form table*/
+    $stmt = $conn->prepare("INSERT INTO calendar (
+					event_date,
+					start_time,
+					event_name,
+					description,
+					date_created,
+                    date_modified,
+					employee_id,
+                    modified_by
+					manadtory_attendance)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    /*Bind statement parameters to statement*/
+    $stmt->bind_param("ssssssiii", $eventDate, $startTime, $eventName, $description, $dateCreated,
+        $dateModified, $employeeID, $modified_by, $mandatoryAttendance);
+     
+     //still need to implement more code here
 }
 ?>
