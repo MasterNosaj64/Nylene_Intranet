@@ -267,7 +267,7 @@ CREATE TABLE calendar(
 	date_modified DATE DEFAULT NULL,
 	employee_id INT NOT NULL,
 	modified_by INT DEFAULT NULL,
-    mandatory_attendance INT DEFAULT NULL,
+    mandatory_attendance VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY(calendar_id)
 ) DEFAULT CHARSET = utf8; 
 

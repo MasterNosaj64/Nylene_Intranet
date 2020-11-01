@@ -1,7 +1,7 @@
 <?php
     /* Name: newLtlQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: October 11th, 2020
+     * Last Modified: October 31st, 2020
      * Purpose: File called when user clicks submit on the input light truckload form. Inserts form information into 
      *          the ltl_quote table of the database.
      */

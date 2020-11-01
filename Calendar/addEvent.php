@@ -67,12 +67,12 @@
     			</tr>
     			<tr>
         			<!--Mandatory Attendance-->
-        			<td> Mandatory Attendance* </td>
+        			<td> Mandatory Attendance </td>
         			<td>
-        				<select id="mandatory_attendance" name="mandatory_attendance" required>
+        				<select id="mandatory_attendance" name="mandatory_attendance">
         					<option></option>
-        					<option value="1"> Yes </option>
-        					<option value="0"> No </option>
+        					<option value="Yes"> Yes </option>
+        					<option value="No"> No </option>
         				</select>
         			</td>
     			</tr>

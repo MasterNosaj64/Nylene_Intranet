@@ -146,7 +146,7 @@ float right
 		 <div class="btn-group" role="group" aria-label="Events">
 		 
 		 <div class="text-left">
-		<button type="button" class="btn btn-outline-secondary">Add Event</button>
+		<button type="button" class="btn btn-outline-secondary" onclick="location.href('../Calendar/addEvent.php');">Add Event</button>
 		</div>
 		
 		<div class="text-right">

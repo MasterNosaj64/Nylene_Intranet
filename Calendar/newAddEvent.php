@@ -15,7 +15,9 @@ if ($conn-> connect_error) {
     die("Connection failed: " . $conn-> connect_error);
     
 } else {
-
+    
+    $userID = $_SESSION['userid'];
+    
     /*Prepare insert statement into the distributor_quote_form table*/
     $stmt = $conn->prepare("INSERT INTO calendar (
 					event_date,
@@ -25,14 +27,31 @@ if ($conn-> connect_error) {
 					date_created,
                     date_modified,
 					employee_id,
-                    modified_by
-					manadtory_attendance)
+                    modified_by,
+					mandatory_attendance)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
+    /*Assign values to variables and execute*/
+    $eventDate = htmlspecialchars(strip_tags($_POST["event_date"]));
+    $startTime = htmlspecialchars(strip_tags($_POST["start_time"]));
+    $eventName = htmlspecialchars(strip_tags($_POST["event_name"]));
+    $description = htmlspecialchars(strip_tags($_POST["description"]));
+    $dateCreated  = htmlspecialchars(strip_tags($_POST["date_created"]));
+    $dateModified = htmlspecialchars(strip_tags($_POST["date_created"]));
+    $employeeID = $userID; 
+    $modifiedBy =  $userID; 
+    $mandatoryAttendance = htmlspecialchars(strip_tags($_POST["mandatory_attendance"]));
+   
     /*Bind statement parameters to statement*/
-    $stmt->bind_param("ssssssiii", $eventDate, $startTime, $eventName, $description, $dateCreated,
-        $dateModified, $employeeID, $modified_by, $mandatoryAttendance);
-     
-     //still need to implement more code here
+   $stmt->bind_param("ssssssiis", $eventDate, $startTime, $eventName, $description, $dateCreated,
+        $dateModified, $employeeID, $modifiedBy, $mandatoryAttendance);
+  
+    
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+    exit();
 }
 ?>
