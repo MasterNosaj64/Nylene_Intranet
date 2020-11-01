@@ -38,33 +38,31 @@
                     range12, 
 					range5)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+		
+		/*Assign values to variables and execute*/
+		$dateCreated = htmlspecialchars(strip_tags($_POST["date_created"]));
+		$quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
+		$productName = htmlspecialchars(strip_tags($_POST["product_name"]));
+		$payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
+		$productDesc = htmlspecialchars(strip_tags($_POST["product_desc"]));
+		$ltlQuantities = htmlspecialchars(strip_tags($_POST["ltl_quantities"])); 
+		$annualVol = htmlspecialchars(strip_tags($_POST["annual_vol"]));
+		$specialTerms = htmlspecialchars(strip_tags($_POST["special_terms"]));
+		$OEM = htmlspecialchars(strip_tags($_POST["OEM"]));
+		$application = htmlspecialchars(strip_tags($_POST["application"]));
+		$truckLoad = htmlspecialchars(strip_tags($_POST["truck_load"]));
+		$range1522 = htmlspecialchars(strip_tags($_POST["range1522"]));
+		$range1121 = htmlspecialchars(strip_tags($_POST["range1121"]));
+		$range510 = htmlspecialchars(strip_tags($_POST["range510"]));
+		$range25 = htmlspecialchars(strip_tags($_POST["range25"]));
+		$range12 = htmlspecialchars(strip_tags($_POST["range12"]));
+		$range5 = htmlspecialchars(strip_tags($_POST["range5"]));
 		
 		/*Bind statement parameters to statement*/
 		$stmt->bind_param("ssssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
 		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		    $truckLoad, $range1522, $range1121, $range510, $range25, $range12, $range5);
-		
-		//TODO: KAITLYN implement more security to protect against SQL injection
-		//View ../Database/Company.php for code that can help
-		
-		/*Assign values to variables and execute*/
-		$dateCreated = $_POST["date_created"];
-		$quoteNum = $_POST["quote_num"];
-		$productName = $_POST["product_name"];
-		$payment_terms = $_POST["payment_terms"];
-		$productDesc = $_POST["product_desc"];
-		$ltlQuantities = $_POST["ltl_quantities"]; 
-		$annualVol = $_POST["annual_vol"];
-		$specialTerms = $_POST["special_terms"];
-		$OEM = $_POST["OEM"];
-		$application = $_POST["application"];
-		$truckLoad = $_POST["truck_load"];
-		$range1522 = $_POST["range1522"];
-		$range1121 = $_POST["range1121"];
-		$range510 = $_POST["range510"];
-		$range25 = $_POST["range25"];
-		$range12 = $_POST["range12"];
-		$range5 = $_POST["range5"];
 		
 		$stmt->execute();
 	
