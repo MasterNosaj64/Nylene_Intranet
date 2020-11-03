@@ -1,5 +1,5 @@
 <?php
-$_POST['id'] = 2;//this value is only here until connected to the rest of the system
+$_POST['calendar_id'] = 8;//this value is only here until connected to the rest of the system
 /* Name: editEvent.php
  * Author: Kaitlyn Breker
  * Last Modified: November 2nd, 2020
@@ -25,7 +25,7 @@ if ($conn-> connect_error) {
 
     /*Search calendar info using calendar id posted from edit button*/
     $calendarQuery = "SELECT * FROM calendar
-								WHERE calendar_id = ". $_POST['id'];
+								WHERE calendar_id = ". $_POST['calendar_id'];
     $calendarResults = $conn->query($calendarQuery);
     $calendarRow = mysqli_fetch_array($calendarResults);
     
@@ -131,7 +131,8 @@ if ($conn-> connect_error) {
     		
 			<tr>
     			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
-    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"> </td>
+    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"><input hidden type="number" id="calendar_id" name="calendar_id" value="<?php echo $calendarRow['calendar_id'];?>"/></td>
+    			
     		</tr>
     		</table>
     	</form>
