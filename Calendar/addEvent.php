@@ -69,9 +69,9 @@
         			<!--Mandatory Attendance-->
         			<td> Mandatory Attendance </td>
         			<td>
-    					<input type="checkbox"  name="mandatory_attendance" value="Yes">
+    					<input type="radio"  name="mandatory_attendance" value="Yes">
         				<label for="Yes"> Yes </label>
-        				<input type="checkbox"  name="mandatory_attendance" value="No">
+        				<input type="radio"  name="mandatory_attendance" value="No">
         				<label for="No"> No </label>
         			</td>			
     			</tr>
