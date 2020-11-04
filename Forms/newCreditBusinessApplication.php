@@ -7,6 +7,7 @@
 session_start();
 include '../Database/connect.php';
 
+defined('key') ? null : define('key', '84h84hjbgjrh848693');
 // Check connection
 if ($conn->connect_error) {
 
@@ -15,6 +16,7 @@ if ($conn->connect_error) {
 
     $interaction_id = $_SESSION['interaction_id'];
 
+    $account_number = $_POST["account_number"];
     $sql = "INSERT INTO credit_application_business_form (company_name, 
 							company_address, 
 							contact_name, 
@@ -66,7 +68,7 @@ if ($conn->connect_error) {
 						'" . $_POST["order_amount"] . "', 
 						'" . $_POST["business_email"] . "', 
 						'" . $_POST["bank_name"] . "', 
-						'" . $_POST["account_number"] . "', 
+						AES_ENCRYPT('$account_number', '$key'), 
 						'" . $_POST["bank_address"] . "', 
 						'" . $_POST["bank_email"] . "',
 						'" . $_POST["bank_contact_name"] . "',

@@ -9,6 +9,7 @@ session_start();
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
+defined('key') ? null : define('key', '84h84hjbgjrh848693');
 /* Check the connection */
 if ($conn->connect_error) {
 
@@ -16,10 +17,13 @@ if ($conn->connect_error) {
 } else {
 
     /* Selection statement for credit business form */
-    $creditBusinessQuery = "SELECT * FROM credit_application_business_form 
-								WHERE credit_application_business_id = " . $_POST['id'];
+    $creditBusinessQuery = "SELECT * FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
     $creditBusinessResults = $conn->query($creditBusinessQuery);
     $creditBusinessRow = mysqli_fetch_array($creditBusinessResults);
+
+    $account_number_Query = "SELECT AES_DECRYPT(account_number,'key') AS decrypted FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
+    $account_number_result = $conn->query($account_number_Query);
+    $accountNumberRow = mysqli_fetch_array($account_number_result); 
 
     /* Selection statement for customer information */
     $customerInformation = "SELECT * FROM customer 
@@ -76,8 +80,7 @@ if ($conn->connect_error) {
 				<td id="date_business_commenced">Date business commenced</td>
 				<td colspan="2"><input type="text" name="date_business_commenced"
 					readonly
-					value="<?php echo $creditBusinessRow['date_business_commenced'];?>">
-				</td>
+					value="<?php echo $creditBusinessRow['date_business_commenced'];?>"></td>
 			</tr>
 			<tr>
 				<td id="phone">Phone
@@ -87,8 +90,7 @@ if ($conn->connect_error) {
 				<td id="nylene_representative">Nylene Representative</td>
 				<td colspan="2"><input type="text" name="nylene_representative"
 					readonly
-					value="<?php echo $creditBusinessRow['nylene_representative'];?>">
-				</td>
+					value="<?php echo $creditBusinessRow['nylene_representative'];?>"></td>
 			</tr>
 
 			<tr>
@@ -121,7 +123,7 @@ if ($conn->connect_error) {
 					value="<?php echo $creditBusinessRow['bank_name'];?>"></td>
 				<td id="account_number">Account Number</td>
 				<td colspan="2"><input type="text" name="account_number" readonly
-					value="<?php echo $creditBusinessRow['account_number'];?>"></td>
+					value="<?php echo $accountNumberRow['decrypted'];?>"></td>
 			</tr>
 			<tr>
 				<td id="bank_address">Bank: City, State ZIP Code
