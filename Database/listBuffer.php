@@ -1,8 +1,9 @@
 <?php
+
 /*
  * FileName: listBuffer.php
- * Version Number: 1
- * Date Modified: 10/31/2020
+ * Version Number: 1.1
+ * Date Modified: 11/01/2020
  * Author: Jason Waid
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate the list
@@ -102,4 +103,59 @@ function previous10($sessionBuffer)
     return $buffer;
 }
 
+/*
+ * Function: create_Customer_Buffer
+ * Purpose:
+ * Creates a buffer of Customer objects
+ * Object expected are: Customer
+ * returns the list
+ */
+function create_Customer_Buffer($customerIDs)
+{
+
+    // pass the query result into the function and it will create a node for every row
+    $buffer = new SplDoublyLinkedList();
+
+    // set iteration
+    $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_FIFO);
+
+    // set iteration behavior
+    $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_KEEP);
+
+    // adds all objects to the list
+    while ($cx = mysqli_fetch_array($customerIDs)) {
+
+        $dbConnection = getDBConnection();
+
+        if ($dbConnection->connect_error) {
+            die("A connection failed: Company: " . $dbConnection->connect_error);
+        }
+
+        $customer = new Customer($dbConnection);
+
+        $customerData = $customer->searchById($cx['customer_id']);
+        $customerData->fetch();
+
+        $buffer->push(serialize($customer->get()));
+
+        $dbConnection->close();
+    }
+
+    // rewinds buffer to begining of list
+    $buffer->rewind();
+
+    // prepare buffer for storage
+    // $buffer->serialize();
+
+    // store buffer into session
+    $_SESSION['buffer'] = $buffer;
+
+    // Set the initial offset
+    $_SESSION['offset'] = 0;
+
+    // prepare buffer for printing after sotred into session
+    // $buffer->unserialize($buffer);
+
+    return $buffer;
+}
 ?>

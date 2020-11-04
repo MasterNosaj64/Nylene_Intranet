@@ -9,13 +9,8 @@
  */
 session_start();
 
-//The following is used in sessionController.php
+// The following is used in sessionController.php
 $_SESSION['searchCompanyVisited'] = basename($_SERVER['PHP_SELF']);
-
-// the following variables are used in navigation.php
-// View NavPanel/navigation.php for more information
-unset($_SESSION['company_id']);
-unset($_SESSION['interaction_id']);
 
 // The navigation bar for the website
 include '../NavPanel/navigation.php';
@@ -30,7 +25,7 @@ include '../Database/Company.php';
 // Employee Object
 include '../Database/Employee.php';
 
-// Test file for list buffer
+// list buffer
 include '../Database/listBuffer.php';
 
 // Attempt connection to DB for Companies
@@ -67,31 +62,27 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     $employeeListResult->close();
 
-    // The bulk of the searching logic
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['Search'])) {
 
-        if (isset($_POST['Search'])) {
+        // unset buffer since new search opperation makes current buffer obsolete
+        unset($_SESSION['buffer']);
 
-            // unset buffer since new search opperation makes current buffer obsolete
-            unset($_SESSION['buffer']);
+        // Below is the criteria available to the user for searchings the database
+        // Any combination of the below can be used
+        $name = $_POST["search_By_Name"];
+        $website = $_POST["search_By_Website"];
+        $address = $_POST["search_By_Address"];
+        $city = $_POST["search_By_City"];
+        $state = $_POST["search_By_State"];
+        $country = $_POST["search_By_Country"];
+        $assigned_To = $_POST["search_By_Assigned_To"];
+        $created_By = $_POST["search_By_Created_By"];
 
-            // Below is the criteria available to the user for searchings the database
-            // Any combination of the below can be used
-            $name = $_POST["search_By_Name"];
-            $website = $_POST["search_By_Website"];
-            $address = $_POST["search_By_Address"];
-            $city = $_POST["search_By_City"];
-            $state = $_POST["search_By_State"];
-            $country = $_POST["search_By_Country"];
-            $assigned_To = $_POST["search_By_Assigned_To"];
-            $created_By = $_POST["search_By_Created_By"];
+        $companies = new Company($conn_Company);
 
-            $companies = new Company($conn_Company);
-
-            $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
-        }
+        $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
     } else {
-        
+
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
         $companyResult = $companies->read();
@@ -213,7 +204,6 @@ $maxGridSize = 10;
 if (isset($_SESSION['buffer'])) {
 
     // check if user wants next 10 or previous 10
-
     $sessionBuffer = $_SESSION['buffer'];
 
     if (isset($_POST['next10'])) {
@@ -232,6 +222,9 @@ if (isset($_SESSION['buffer'])) {
 
         $companyBuffer = previous10($sessionBuffer);
     }
+    
+    $companyBuffer = $_SESSION['buffer'];
+    $companyBuffer->rewind();
 } else {
     // attempt of creating a buffer for a list of companies
     $companyBuffer = create_Buffer($companyResult, $companies);
@@ -304,7 +297,7 @@ $conn_Company->close();
 <!-- Next 10 Previous 10 Buttons -->
 	<!-- The following code presents the user with buttons to navigate the list of companies
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	<table class="form-table" align:center;>
+	<table class="form-table"align:center;>
 		<td><form method="post" action="searchCompany.php">
 		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
 				<input hidden name="previous10"

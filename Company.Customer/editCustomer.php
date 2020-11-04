@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
 
     // if found something
     if ($findCustomerToEdit->fetch()) {
-        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getname() . "\" already exists, OPERATION ABORTED</b></p>";
+        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
 
         // close connection and statement
         $conn_Customer->close();
@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
     
 }
 
-$customer_name = explode(" ",$customerToEdit->getname());
+$customer_name = explode(" ",$customerToEdit->getName());
 
 ?>
 

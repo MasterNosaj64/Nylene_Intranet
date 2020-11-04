@@ -3,8 +3,8 @@
 /*
  * FileName: Customer.php
  * Author: Jason Waid
- * Version: 0.6
- * Date Modified: 10/12/2020
+ * Version: 0.8
+ * Date Modified: 11/01/2020
  * Purpose:
  * Object oriented representation of a customer
  * all database manipulation happens here
@@ -102,7 +102,7 @@ class Customer
         $stmt = $this->conn->prepare($query);
 
         $customer_id = htmlspecialchars(strip_tags($customer_id));
-
+        
         $stmt->bind_param("i", $customer_id);
 
         // execute query
@@ -349,7 +349,7 @@ class Customer
      * Purpose: Function returns the company_name of the object
      *
      */
-    function getname()
+    function getName()
     {
         return $this->customer_name;
     }
@@ -393,6 +393,16 @@ class Customer
     {
         return $this->customer_id;
     }
+    
+    /*
+     * Function Name: getDateCreated
+     * Purpose: Function returns date created of the object
+     *
+     */
+    function getDateCreated(){
+        return $this->date_created;
+    }
+    
 
     /*
      * Function Name: get

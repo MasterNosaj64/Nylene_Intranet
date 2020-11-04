@@ -8,36 +8,62 @@
  */
 session_start();
 
+//interaction object
+include '../Database/Interaction.php';
+
+//customer object
+include '../Database/Customer.php';
+
+//company object
+include '../Database/Company.php';
+
+//nav bar
+include '../NavPanel/navigation.php';
+
+//connection to the database
+include '../Database/connect.php';
+
+$conn_Interaction = getDBConnection();
+
+$conn_Company = getDBConnection();
+
+$conn_Customer = getDBConnection();
+
+$conn_Forms = getDBConnection();
+
 if (isset($_POST['interaction_id'])) {
 
     //the following variables are used in navigation.php
     //View navigation.php for more information
     $_SESSION['interaction_id'] = $_POST['interaction_id'];
     //The navigation bar for the website
-    include '../NavPanel/navigation.php';
-    //connection to the database
-    include '../Database/connect.php';
+
 
     //Handler for if the database connection fails
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if ($conn_Interaction->connect_error || $conn_Company->connect_error || $conn_Customer->connect_error || $conn_Forms->connect_error) {
+        die("Connection failed: " . $conn_Interaction->connect_error ." || ".$conn_Company->connect_error." || ". $conn_Customer->connect_error ." || ". $conn_Forms->connect_error);
     } else {
-        // Get Interaction data
-        $query_view_interaction = "SELECT * FROM nylene.interaction WHERE interaction_id = " . $_SESSION['interaction_id'];
-        $viewInteractionData = mysqli_fetch_array($conn->query($query_view_interaction));
-
-        $query_view_company = "SELECT * FROM nylene.company WHERE company_id = " . $viewInteractionData['company_id'];
-        $viewCompanyData = mysqli_fetch_array($conn->query($query_view_company));
-
-        $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
-
-        $query_view_customer = "SELECT * FROM nylene.customer WHERE customer_id = " . $viewInteractionData['customer_id'];
-        $viewCustomerData = mysqli_fetch_array($conn->query($query_view_customer));
-
-        $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
-        $viewInteractionForm = mysqli_fetch_array($conn->query($query_view_form));
         
-        $conn->close();
+        $interaction = new Interaction($conn_Interaction);
+        $interactionData = $interaction->search($_SESSION['interaction_id'], "", "", "", "", "", "");
+        $interactionData->fetch();
+        
+        $_SESSION['company_id'] = $interaction->getCompanyId();
+        
+        $company = new Company($conn_Company);
+        $companyData = $company->searchId($interaction->getCompanyId());
+        $companyData->fetch();
+        $companyAddress = $company->getBillingAddressStreet() . ", " . $company->getBillingAddressCity() . ", " . $company->getBillingAddressState() . ", " . $company->getBillingAddressCounty(). ", " . $company->getBillingAddressPostalCode();
+
+        
+        $customer = new Customer($conn_Customer);
+        $customerData = $customer->searchById($interaction->getCustomerId());
+        $customerData->fetch();
+        
+        $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
+        $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
+        
+        //TODO: JASON close connections and so on
     }
 } else {
     //If the above results in error redirect the user to homepage
@@ -54,26 +80,26 @@ if (isset($_POST['interaction_id'])) {
 	<table class="form-table" border=5>
 		<tr>
 			<td>Company:</td>
-			<td><?php echo $viewCompanyData['company_name'];?></td>
+			<td><?php echo $company->getName();?></td>
 			<td>Address:</td>
 			<td><?php echo $companyAddress;?></td>
 			<td>Company Email:</td>
-			<td><a href="mailto:<?php echo $viewCompanyData['company_email'];?>"><?php echo $viewCompanyData['company_email'];?></a></td>
+			<td><a href="mailto:<?php echo $company->getEmail();?>"><?php echo $company->getEmail();?></a></td>
 		</tr>
 		<tr>
 			<td>Name:</td>
-			<td><?php echo $viewCustomerData['customer_name'];?></td>
+			<td><?php echo $customer->getName();?></td>
 			<td>Email:</td>
 			<td><a
-				href="mailto: <?php echo $viewCustomerData['customer_email'];?>"><?php echo $viewCustomerData['customer_email'];?></a></td>
+				href="mailto: <?php echo $customer->getEmail();?>"><?php echo $customer->getEmail();?></a></td>
 			<td>Phone:</td>
-			<td><?php echo $viewCustomerData['customer_phone'];?></td>
+			<td><?php echo $customer->getPhone();?></td>
 		</tr>
 		<tr>
 			<td>Reason:</td>
-			<td><?php echo $viewInteractionData['reason'];?></td>
+			<td><?php echo $interaction->getReason();?></td>
 			<td>Date Created:</td>
-			<td><?php echo $viewInteractionData['date_created'];?></td>
+			<td><?php echo $interaction->getDateCreated();?></td>
 			<td>Form:</td>
 			<td>
 		<?php
@@ -131,7 +157,7 @@ if ($viewInteractionForm != null) {
 		</td>
 		</tr>
 		<tr>
-			<td colspan=6><textarea readonly rows="20" cols="100"><?php echo $viewInteractionData['comments']; ?> </textarea></td>
+			<td colspan=6><textarea readonly rows="20" cols="100"><?php echo $interaction->getComments(); ?> </textarea></td>
 		</tr>
 	</table>
 </body>
