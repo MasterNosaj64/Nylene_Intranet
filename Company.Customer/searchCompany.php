@@ -9,10 +9,8 @@
  */
 session_start();
 
-// the following variables are used in navigation.php
-// View navigation.php for more information
-unset($_SESSION['company_id']);
-unset($_SESSION['interaction_id']);
+// The following is used in sessionController.php
+$_SESSION['searchCompanyVisited'] = basename($_SERVER['PHP_SELF']);
 
 // The navigation bar for the website
 include '../NavPanel/navigation.php';
@@ -26,15 +24,9 @@ include '../Database/Company.php';
 
 // Employee Object
 include '../Database/Employee.php';
-// cleans input
-/*
- * function clean_input($data) {
- * $data = trim($data);
- * $data = stripslashes($data);
- * $data = htmlspecialchars($data);
- * return $data;
- * }
- */
+
+// list buffer
+include '../Database/listBuffer.php';
 
 // Attempt connection to DB for Companies
 $conn_Company = getDBConnection();
@@ -48,39 +40,12 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 } else {
 
     /*
-     * The following code handles the offset for the list of companies
+     * The following code handles the search functionality
      * Below is an explaination of the variables
-     * next10: the next 10 button
-     * previous10: the previous 10 button
-     * offset: the current offset value for the following query
-     *
-     */
-
-    if (! isset($_POST['offset'])) {
-        $_POST['offset'] = 0;
-    }
-
-    if (isset($_POST['next10'])) {
-        $_POST['offset'] += 10;
-    }
-
-    if (isset($_POST['previous10'])) {
-        $_POST['offset'] -= 10;
-
-        if ($_POST['offset'] < 0) {
-            $_POST['offset'] = 0;
-        }
-    }
-
-    /*
-     * The following code handles the search by name and website functionality
-     * Below is an explaination of the variables
-     * search_by_name: value is set to 1 when search button for search by name is used
-     * search_by_website: value is set to 1 when search button for search by website is used
+     * employeeList = all the employee names used for assigned_to and created_by
      */
 
     // Querys for getting all employee names
-
     $employeeList = new Employee($conn_Employee);
     $employeeListResult = $employeeList->read();
 
@@ -89,6 +54,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $numEmployees = 0;
 
     // Store all employee names and id's in array
+    // THis is later used to the creation of the drop down menus
     while ($employeeListResult->fetch()) {
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
@@ -96,15 +62,13 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     $employeeListResult->close();
 
-    /*
-     * $sqlquery = "SELECT * FROM nylene.employee";
-     * $employeeResult = $conn_Company->query($sqlquery);
-     * $createdResult = $conn_Company->query($sqlquery);
-     */
+    if (isset($_POST['Search'])) {
 
-    // New Searching technique
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // unset buffer since new search opperation makes current buffer obsolete
+        unset($_SESSION['buffer']);
 
+        // Below is the criteria available to the user for searchings the database
+        // Any combination of the below can be used
         $name = $_POST["search_By_Name"];
         $website = $_POST["search_By_Website"];
         $address = $_POST["search_By_Address"];
@@ -116,11 +80,12 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
         $companies = new Company($conn_Company);
 
-        $result = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
+        $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
     } else {
+
+        // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
         $companies = new Company($conn_Company);
-        /* $sqlquery = "SELECT * FROM nylene.company ORDER BY company_name ASC LIMIT 10 OFFSET " . $_POST['offset']; */
-        $result = $companies->read();
+        $companyResult = $companies->read();
     }
 }
 ?>
@@ -132,7 +97,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <!-- NEW Company Search -->
 <!-- Below is the NEW search company functionality -->
 <button type="button" class="collapsible">Toggle Search</button>
-<div class="content">
+<div hidden class="content">
 
 	<form method="post" action=searchCompany.php name="search_company_data">
 		<table class="form-table" border=5>
@@ -146,8 +111,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 						<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"" . $employeeIds[$i] . "\">";
-        echo $employeeNames[$i] . "</option>";
+        echo "<option value=\"{$employeeIds[$i]}\">";
+        echo "{$employeeNames[$i]}</option>";
     }
     ?>
 				</select></td>
@@ -156,8 +121,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 						<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"" . $employeeIds[$i] . "\">";
-        echo $employeeNames[$i] . "</option>";
+        echo "<option value=\"{$employeeIds[$i]}\">";
+        echo "{$employeeNames[$i]}</option>";
     }
     ?>
 				</select></td>
@@ -174,8 +139,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
 			</tr>
 		</table>
-		<input type="submit" value="Search" /> <input type="reset"
-			value="Clear" />
+		<input type="submit" value="Search" name="Search" /> <input
+			type="reset" value="Clear" />
 	</form>
 
 </div>
@@ -232,91 +197,120 @@ if ($_SESSION["role"] == "admin") {
 	<!-- </head> </html> -->
 	<?php
 
-//Buffer of companies
-/* $companyList = new SplDoublyLinkedList();
+// Change this variable to modify the page size
+$maxGridSize = 10;
 
-while ($result->fetch()) {
-    $companyList->push($companies);
+// check if a buffer has already been created
+if (isset($_SESSION['buffer'])) {
+
+    // check if user wants next 10 or previous 10
+    $sessionBuffer = $_SESSION['buffer'];
+
+    if (isset($_POST['next10'])) {
+        $_SESSION['offset'] += $maxGridSize;
+        if ($_SESSION['offset'] > $sessionBuffer->count()) {
+            $_SESSION['offset'] -= $maxGridSize;
+        }
+
+        $companyBuffer = next10($sessionBuffer);
+    } else if (isset($_POST['previous10'])) {
+        $_SESSION['offset'] -= $maxGridSize;
+
+        if ($_SESSION['offset'] < 0) {
+            $_SESSION['offset'] = 0;
+        }
+
+        $companyBuffer = previous10($sessionBuffer);
+    }
+    
+    $companyBuffer = $_SESSION['buffer'];
+    $companyBuffer->rewind();
+} else {
+    // attempt of creating a buffer for a list of companies
+    $companyBuffer = create_Buffer($companyResult, $companies);
 }
-//Reverse to first node
-$companyList->rewind();
 
-echo $companyList->count(). " record(s) found";
- */
-/*
- * Each row of the SQL query is printed in sequence
- * This includes Edit and View buttons
- */
+echo "{$companyBuffer->count()} record(s) found";
 
-// OBJECT VERSION WIP
-while ($result->fetch()) {
+for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->next()) {
 
-    // Run query if Admin is logged in
+    // Unserialize the object stored in the companyBuffer
+    $currentCompanyNode = unserialize($companyBuffer->current());
+
+    // temp var for storing current company data members
+    $companyId = $currentCompanyNode->getCompanyId();
+    $companyName = $currentCompanyNode->getName();
+    $companyWebsite = $currentCompanyNode->getWebsite();
+    $companyEmail = $currentCompanyNode->getEmail();
+
+    $companyStreet = $currentCompanyNode->getBillingAddressStreet();
+    $companyCity = $currentCompanyNode->getBillingAddressCity();
+    $companyState = $currentCompanyNode->getBillingAddressState();
+
+    // Get created by if admin is logged in
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
-        $getCreated_By = $createdByEmployee->search($companies->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
+        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
         $getCreated_By->fetch();
-
-        /*
-         * $getCreated_By = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->created_by."";
-         * $getCreated_By = $conn->query($getCreated_By);
-         * $getCreated_By = mysqli_fetch_array($getCreated_By);
-         */
     }
 
+    // Get assigned to
     $assignedToEmployee = new Employee(getDBConnection());
-    $getAssigned_To = $assignedToEmployee->search($companies->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
+    $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
     $getAssigned_To->fetch();
 
-    /*
-     * $getAssigned_To = "SELECT * FROM nylene.employee WHERE employee_id = ".$companies->assigned_to."";
-     * $getAssigned_To = $conn->query($getAssigned_To);
-     * $getAssigned_To = mysqli_fetch_array($getAssigned_To);
-     */
-
     echo "<tr>";
-    echo "<td>" . $companies->getName() . "</td>";
-    echo "<td><a href=\"" . $companies->website . "\">" . $companies->website . "</a></td>";
-    echo "<td><a href =\"mailto: " . $companies->company_email . "\">" . $companies->company_email . "</a></td>";
-    echo "<td>" . $companies->billing_address_street . "</td>";
-    echo "<td>" . $companies->billing_address_city . "</td>";
-    echo "<td>" . $companies->billing_address_state . "</td>";
-    echo "<td>" . $assignedToEmployee->getName() . "</td>";
+    echo "<td>{$companyName}</td>";
+    echo "<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+    echo "<td><a href =\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+    echo "<td>{$companyStreet}</td>";
+    echo "<td>{$companyCity}</td>";
+    echo "<td>{$companyState}</td>";
+    echo "<td>{$assignedToEmployee->getName()}</td>";
 
     // Show Created by field if Admin is logged in
     if ($_SESSION["role"] == "admin") {
-        echo "<td>" . $createdByEmployee->getName() . "</td>";
+        echo "<td>{$createdByEmployee->getName()}</td>";
     }
-
     echo "<td><form action=\"./editCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_edit\" value=\"" . $companies->getCompanyId() . "\"/>
-		<input type=\"submit\" value=\"edit\"/>
-	</form>
-    <form action=\"./viewCompany.php\" method=\"post\">
-		<input hidden name =\"company_id_view\" value=\"" . $companies->getCompanyId() . "\"/>
-		<input type=\"submit\" value=\"view\"/>
-	</form>
-   </td>";
+     <input hidden name =\"company_id_edit\" value=\"{$companyId}\"/>
+     <input type=\"submit\" value=\"edit\"/>
+     </form>
+     <form action=\"./viewCompany.php\" method=\"post\">
+     <input hidden name =\"company_id_view\" value=\"{$companyId}\"/>
+     <input type=\"submit\" value=\"view\"/>
+     </form>
+     </td>";
     echo "</tr>";
     $getAssigned_To->close();
     $getCreated_By->close();
-}
 
+    $offset ++;
+    if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+        break;
+    }
+}
 $conn_Company->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the query -->
-	<table class="form-table" border=0align:center;>
+	<!-- The following code presents the user with buttons to navigate the list of companies
+	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
+	<table class="form-table"align:center;>
 		<td><form method="post" action="searchCompany.php">
+		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
 				<input hidden name="previous10"
-					value="<?php echo $_POST['offset'];?>" /> <input type="submit"
+					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
 					value="Previous 10" />
+		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
 			</form></td>
 		<td><form method="post" action="searchCompany.php">
-				<input hidden name="next10" value="<?php echo $_POST['offset'];?>" />
-				<input type="submit" value="Next 10" />
+		<?php if($offset == $companyBuffer->count()){ echo "<fieldset disabled =\"disabled\">";}?>
+				<input hidden name="next10"
+					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
+					value="Next 10" />
+					<?php if($offset == $companyBuffer->count()){ echo "</fieldset>";}?>
 			</form></td>
 	</table>
 	</html>

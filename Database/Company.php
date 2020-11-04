@@ -67,7 +67,7 @@ class Company
     {
         $this->conn = $db;
     }
-
+    
     /*
      * Function: read
      * Purpose:
@@ -666,5 +666,10 @@ class Company
     {
         return $this->shipping_address_country;
     }
+    
+    public function _toString(){
+        return "company id is: {$this->company_id}";
+    }
+    
 }
 ?>

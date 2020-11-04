@@ -2,6 +2,7 @@
 
 <?php
 session_start();
+//TODO: MADHAV change database connection file and align code to mysqli standard
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 include '../NavPanel/navigation.php';

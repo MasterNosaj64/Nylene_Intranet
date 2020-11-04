@@ -1,7 +1,7 @@
 <?php
     /* Name: newTLQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: October 11th, 2020
+     * Last Modified: October 31st, 2020
      * Purpose: File called when user clicks submit on the input truckload form. Inserts form information into the 
      *          tl_quote table of the database.
      */
@@ -39,29 +39,29 @@
 					range24)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
+		/*Assign values to variables and execute*/
+		$dateCreated = htmlspecialchars(strip_tags($_POST["date_created"]));
+		$quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
+		$productName = htmlspecialchars(strip_tags($_POST["product_name"]));
+		$payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
+		$productDesc = htmlspecialchars(strip_tags($_POST["product_desc"]));
+		$ltlQuantities = htmlspecialchars(strip_tags($_POST["ltl_quantities"]));
+		$annualVol = htmlspecialchars(strip_tags($_POST["annual_vol"]));
+		$specialTerms = htmlspecialchars(strip_tags($_POST["special_terms"]));
+		$OEM = htmlspecialchars(strip_tags($_POST["OEM"]));
+		$application = htmlspecialchars(strip_tags($_POST["application"]));
+		$truckLoad = htmlspecialchars(strip_tags($_POST["truck_load"]));
+		$range40plus = htmlspecialchars(strip_tags($_POST["range40plus"]));
+		$range2240 = htmlspecialchars(strip_tags($_POST["range2240"]));
+		$range1022 = htmlspecialchars(strip_tags($_POST["range1022"]));
+		$range610 = htmlspecialchars(strip_tags($_POST["range610"]));
+		$range46 = htmlspecialchars(strip_tags($_POST["range46"]));
+		$range24 = htmlspecialchars(strip_tags($_POST["range24"]));
+		
 		/*Bind statement parameters to statement*/
 		$stmt->bind_param("ssssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
-		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
-		    $truckLoad, $range40up, $range2240, $range1022, $range610, $range46, $range24);
-		
-		/*Assign values to variables and execute*/
-		$dateCreated = $_POST["date_created"];
-		$quoteNum = $_POST["quote_num"];
-		$productName = $_POST["product_name"];
-		$payment_terms = $_POST["payment_terms"];
-		$productDesc = $_POST["product_desc"];
-		$ltlQuantities = $_POST["ltl_quantities"];
-		$annualVol = $_POST["annual_vol"];
-		$specialTerms = $_POST["special_terms"];
-		$OEM = $_POST["OEM"];
-		$application = $_POST["application"];
-		$truckLoad = $_POST["truck_load"];
-		$range40up = $_POST["range40up"];
-		$range2240 = $_POST["range2240"];
-		$range1022 = $_POST["range1022"];
-		$range610 = $_POST["range610"];
-		$range46 = $_POST["range46"];
-		$range24 = $_POST["range24"];
+		  $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
+		  $truckLoad, $range40plus, $range2240, $range1022, $range610, $range46, $range24);
 		
 		$stmt->execute();
 		

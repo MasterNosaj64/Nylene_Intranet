@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+session_destroy();?>
 <html>
 <head>
 <link rel="stylesheet" href="CSS/login.css">

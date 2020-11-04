@@ -2,7 +2,7 @@
 <?php 
 session_start();
 	
-    include '../NavPanel/navigation.php';
+    include '../navigation.php';
 	include '../Database/connect.php';
 
 	//Check the connection
@@ -13,18 +13,19 @@ session_start();
 	} else {
 		
 		
-		$sql = "SELECT * FROM market_request_form 
-								WHERE marketing_request_id = ". $_SESSION['userid'];
+		$sql = "SELECT * FROM marketing_request_form 
+								WHERE marketing_request_id = ". $_SESSION['id'];
 		$query = $conn->query($sql);								
 		$row = mysqli_fetch_array($query);
 		
 		
-		$marketingInformation	=  "SELECT * FROM interaction 
-										INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
-											INNER JOIN marketing_request_form ON marketing_request_form.marketing_request_id = interaction_relational_form.form_id
-												INNER JOIN customer ON customer.customer_id = company_relational_customer.customer_id
-													WHERE interaction_relational_form.form_type = 1 AND interaction.employee_id = " . $_SESSION["userid"] . "
-														AND marketing_request_form.marketing_request_id = " . $id;
+		$marketingInformation	=  "SELECT * FROM customer 
+									INNER JOIN company_relational_customer ON company_relational_customer.customer_id = customer.customer_id
+										INNER JOIN company ON company.company_id = company_relational_customer.company_id
+											INNER JOIN interaction ON interaction.company_id = company.company_id
+												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
+													INNER JOIN marketing_request_form ON marketing_request_form.marketing_request_id = interaction_relational_form.form_id
+														WHERE interaction_relational_form.form_type = 4 AND interaction_relational_form.form_id = ". $_SESSION['id'];
 		$marketingResult = $dbConnection->query($marketingInformation); 
 		$row = mysqli_fetch_array($marketingResult); 
 		
@@ -33,7 +34,7 @@ session_start();
 ?>
 <?php
 session_start();
- include '../NavPanel/navigation.php';
+ include '../navigation.php';
 ?>
 
 <!DOCTYPE html>

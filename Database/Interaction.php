@@ -25,7 +25,7 @@ class Interaction
 
     public $customer_id;
 
-    public $employee_id;
+    public $created_by;
 
     public $reason;
 
@@ -52,16 +52,53 @@ class Interaction
 
         $stmt->execute();
         // bind the results
-        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->employee_id, $this->reason, $this->comments, $this->date_created);
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created);
         
         return $stmt;
     }
 
-    function create()
+    
+    
+    /*
+     * Function: create
+     * Purpose:
+     * creates a interaction with the supplied parameters
+     * returns bool on failure or success
+     */
+    function create($company_id, $customer_id, $created_by, $reason, $comments, $date_created)
     {
-
+        
+        // query to insert record
+        $query = "INSERT INTO
+                nylene.interaction (company_id, customer_id, employee_id, reason, comments, date_created)
+            VALUES(
+              ?,?,?,?,?,?)";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $company_id = htmlspecialchars(strip_tags($company_id));
+        $customer_id = htmlspecialchars(strip_tags($customer_id));
+        $created_by = htmlspecialchars(strip_tags($created_by));
+        $reason = htmlspecialchars(strip_tags($reason));
+        $comments = htmlspecialchars(strip_tags($comments));
+        $date_created = htmlspecialchars(strip_tags($date_created));
+      
+        $stmt->bind_param("iiisss", $company_id, $customer_id, $created_by, $reason, $comments, $date_created);
+        
+        if (! $stmt->execute()) {
+            return false;
+        }
+        return $stmt->insert_id;
     }
 
+    /*
+     * Function Name: getCreatedBy
+     * Purpose: Function returns the employee who created the interaction
+     *
+     */
+    function getCreatedBy(){
+        return $this->created_by;
+    }
     
     /*
      * Function Name: getComments
@@ -79,6 +116,15 @@ class Interaction
     function getCompanyId(){
         return $this->company_id;
     }
+    
+    /*
+     * Function Name: getCompanyId
+     * Purpose: Function returns the company_id
+     *
+     */
+    function getDateCreated(){
+        return $this->date_created;
+    }
     /*
      * Function Name: getCustomerId
      * Purpose: Function returns the customer_id
@@ -94,6 +140,14 @@ class Interaction
      */
     function getInteractionId(){
         return $this->interaction_id;
+    }
+    /*
+     * Function Name: getReason
+     * Purpose: Function returns the reason
+     *
+     */
+    function getReason(){
+        return $this->reason;
     }
     /*
      * Function Name: get
@@ -258,15 +312,10 @@ class Interaction
 
         
         // bind the results
-        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->employee_id, $this->reason, $this->comments, $this->date_created);
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created);
         // return objects
         return $stmt;
     }
 
-    // update the product
-    function update()
-    {
-
-    }
 }
 ?>

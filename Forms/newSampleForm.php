@@ -1,7 +1,7 @@
 <?php
     /* Name: newSampleForm.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: October 11th, 2020
+     * Last Modified: October 31st, 2020
      * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
      *          the sample_form table of the database.
      */
@@ -112,36 +112,36 @@
   
 	/*Assign values to variables*/
 	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
-	$dateSubmitted		= $_POST['dateSubmitted'];
-	$marketCode			= $_POST['mCode'];
-	$customer_id        = $_SESSION['customer_id'];
-	$company_id         = $_SESSION['company_id'];
-	$business_case		= $_POST['business_case'];
-	$material_descr		= $_POST['material_descr'];
-	$customer_proc		= $_POST['customer_proc'];
-	$curr_supplier		= $_POST['curr_supplier'];
-	$finished_good_app	= $_POST['finised_good_app'];
-	$annual_vol			= $_POST['annual_vol'];
-	$curr_resin_system	= $_POST['curr_resin_system'];
-	$target_price		= $_POST['target_price'];
-	$melt_reqs			= $_POST['melt_reqs'];
-	$colors				= $_POST['colors'];
-	$known_additives	= $_POST['known_additives'];
-	$uv_reqs			= $_POST['uv_reqs'];
-	$ul_reqs			= $_POST['ul_reqs'];
-	$auto_reqs			= $_POST['auto_reqs'];
-	$fda_reqs			= $_POST['fda_reqs'];
-	$color_specs		= $_POST['color_specs'];
-	$response_date		= $_POST['response_date'];
-	$other_doc			= $_POST['other_doc'];
-	$sample_qty			= $_POST['sample_qty'];
-	$sample_req_date	= $_POST['sample_req_date'];
-	$sample_price		= $_POST['sample_price'];
-	$sample_frt			= $_POST['sample_frt'];
-	$other_contact1		= $_POST['other_contact1'];
-	$other_contact2		= $_POST['other_contact2'];
-	$other_contact3		= $_POST['other_contact3']; 
-	$other_contact4		= $_POST['other_contact4'];
+	$dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
+	$marketCode			= htmlspecialchars(strip_tags($_POST['mCode']));
+	$customer_id        = htmlspecialchars(strip_tags($_SESSION['customer_id']));
+	$company_id         = htmlspecialchars(strip_tags($_SESSION['company_id']));
+	$business_case		= htmlspecialchars(strip_tags($_POST['business_case']));
+	$material_descr		= htmlspecialchars(strip_tags($_POST['material_descr']));
+	$customer_proc		= htmlspecialchars(strip_tags($_POST['customer_proc']));
+	$curr_supplier		= htmlspecialchars(strip_tags($_POST['curr_supplier']));
+	$finished_good_app	= htmlspecialchars(strip_tags($_POST['finised_good_app']));
+	$annual_vol			= htmlspecialchars(strip_tags($_POST['annual_vol']));
+	$curr_resin_system	= htmlspecialchars(strip_tags($_POST['curr_resin_system']));
+	$target_price		= htmlspecialchars(strip_tags($_POST['target_price']));
+	$melt_reqs			= htmlspecialchars(strip_tags($_POST['melt_reqs']));
+	$colors				= htmlspecialchars(strip_tags($_POST['colors']));
+	$known_additives	= htmlspecialchars(strip_tags($_POST['known_additives']));
+	$uv_reqs			= htmlspecialchars(strip_tags($_POST['uv_reqs']));
+	$ul_reqs			= htmlspecialchars(strip_tags($_POST['ul_reqs']));
+	$auto_reqs			= htmlspecialchars(strip_tags($_POST['auto_reqs']));
+	$fda_reqs			= htmlspecialchars(strip_tags($_POST['fda_reqs']));
+	$color_specs		= htmlspecialchars(strip_tags($_POST['color_specs']));
+	$response_date		= htmlspecialchars(strip_tags($_POST['response_date']));
+	$other_doc			= htmlspecialchars(strip_tags($_POST['other_doc']));
+	$sample_qty			= htmlspecialchars(strip_tags($_POST['sample_qty']));
+	$sample_req_date	= htmlspecialchars(strip_tags($_POST['sample_req_date']));
+	$sample_price		= htmlspecialchars(strip_tags($_POST['sample_price']));
+	$sample_frt			= htmlspecialchars(strip_tags($_POST['sample_frt']));
+	$other_contact1		= htmlspecialchars(strip_tags($_POST['other_contact1']));
+	$other_contact2		= htmlspecialchars(strip_tags($_POST['other_contact2']));
+	$other_contact3		= htmlspecialchars(strip_tags($_POST['other_contact3'])); 
+	$other_contact4		= htmlspecialchars(strip_tags($_POST['other_contact4']));
 
 	include "../Database/connect.php";
 
