@@ -4,6 +4,10 @@ session_start();
     include '../Database/databaseConnection.php';
 	//include '../Database/databaseConnection.php';
 include '../Database/connect.php';
+
+//TODO: MADHAV call getDBConnection to get connection
+//$conn = getDBConnection();
+
     $dbConnection = setConnectionInfo();
 	$userQuery = "SELECT * FROM nylene.employee WHERE username = '" .$_POST['username']."'";
 	$result = $dbConnection->query($userQuery);
