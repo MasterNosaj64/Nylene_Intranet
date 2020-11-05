@@ -1,7 +1,7 @@
 <?php
     /* Name: sample.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: October 11th, 2020
+     * Last Modified: November 5th, 2020
      * Purpose: Input for Sample form. User information, company and customer information is 
      *          automatically displayed from database.
      */
@@ -11,8 +11,7 @@
 	include '../Database/connect.php';
 
 	
-	//TODO: KAITLYN call getDBConnection to get connection
-	//$conn = getDBConnection();
+	$conn = getDBConnection();
 	
 	/*Check the connection*/
 	if (mysqli_connect_error())

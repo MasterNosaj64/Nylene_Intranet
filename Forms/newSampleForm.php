@@ -1,7 +1,7 @@
 <?php
     /* Name: newSampleForm.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: October 31st, 2020
+     * Last Modified: November 5th, 2020
      * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
      *          the sample_form table of the database.
      */
@@ -145,8 +145,7 @@
 
 	include "../Database/connect.php";
 
-	//TODO: KAITLYN call getDBConnection to get connection
-	//$conn = getDBConnection();
+	$conn = getDBConnection();
 	
 	
 	/*Check the connection*/

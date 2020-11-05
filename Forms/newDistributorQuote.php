@@ -1,7 +1,7 @@
 <?php
     /* Name: newDistributorQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: October 31st, 2020
+     * Last Modified: November 5th, 2020
      * Purpose: File called when user clicks submit on the input distributor form. Inserts form information into
      *          the distributor_quote_form table of the database.
      */
@@ -9,8 +9,7 @@
     session_start();
 	include '../Database/connect.php';
 	
-	//TODO: KAITLYN call getDBConnection to get connection
-	//$conn = getDBConnection();
+	$conn = getDBConnection();
 	
 	/*Check the connection*/
 	if ($conn-> connect_error) {

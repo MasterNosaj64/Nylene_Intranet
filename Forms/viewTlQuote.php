@@ -1,7 +1,7 @@
 <?php 
     /* Name: viewTLQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: October 11th, 2020
+     * Last Modified: November 5th, 2020
      * Purpose: Displays the information from the Truckload form. 
      */
     
@@ -10,8 +10,7 @@
 	include '../NavPanel/navigation.php';
 	include '../Database/connect.php';
 
-	//TODO: KAITLYN call getDBConnection to get connection
-	//$conn = getDBConnection();
+	$conn = getDBConnection();
 	
 	/*Check the connection*/
 	if ($conn-> connect_error) {

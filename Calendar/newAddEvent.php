@@ -1,13 +1,15 @@
 <?php
 /* Name: newAddEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: October 31st, 2020
+ * Last Modified: November 5th, 2020
  * Purpose: File called when user clicks submit on the add calendarevent form. Inserts form information into
  *          the calendar table of the database.
  */
 
 session_start();
 include '../Database/connect.php';
+
+$conn = getDBConnection();
 
 /*Check the connection*/
 if ($conn-> connect_error) {

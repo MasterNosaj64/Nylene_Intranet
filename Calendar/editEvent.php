@@ -1,13 +1,16 @@
 <?php
-$_POST['calendar_id'] = 8;//this value is only here until connected to the rest of the system
+$_POST['calendar_id'] = 8;//this post value is only here until connected to the rest of the system
 /* Name: editEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: November 2nd, 2020
+ * Last Modified: November 5th, 2020
  * Purpose: Form to edit the event and insert into the database.
  */
+
 session_start();
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
+
+$conn = getDBConnection();
 
 /*Check the connection*/
 if ($conn-> connect_error) {

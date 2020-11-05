@@ -1,7 +1,7 @@
 <?php 
     /* Name: ltlQuoteForm.php
      * Author: Kaitlyn Breker
-     * Last Modified: October 5th, 2020
+     * Last Modified: November 5th, 2020
      * Purpose: Input for distributor quote. User information, company and customer information is
      *          automatically displayed from database. Contains two functions to help automate the
      *          quote calculation and display in the form.
@@ -10,8 +10,7 @@
     include '../NavPanel/navigation.php';	
 	include '../Database/connect.php';
 
-	//TODO: KAITLYN call getDBConnection to get connection
-	//$conn = getDBConnection();
+	$conn = getDBConnection();
 	
 	/*Check the connection*/
 	if ($conn-> connect_error) {

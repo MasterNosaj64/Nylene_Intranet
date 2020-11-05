@@ -1,13 +1,14 @@
 <?php
 /* Name: addEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: October 31st, 2020
+ * Last Modified: November 5th, 2020
  * Purpose: Input for adding an event to the database.
  */
     session_start();
     include '../NavPanel/navigation.php';
     include '../Database/connect.php';
-
+    
+    $conn = getDBConnection();
     
     /*Check the connection*/
     if ($conn-> connect_error) {
