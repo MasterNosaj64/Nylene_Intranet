@@ -8,6 +8,9 @@ session_start();
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
+//TODO: KAITLYN call getDBConnection to get connection
+//$conn = getDBConnection();
+
 // check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

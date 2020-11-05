@@ -145,6 +145,10 @@
 
 	include "../Database/connect.php";
 
+	//TODO: KAITLYN call getDBConnection to get connection
+	//$conn = getDBConnection();
+	
+	
 	/*Check the connection*/
 	if (mysqli_connect_error())
 	{

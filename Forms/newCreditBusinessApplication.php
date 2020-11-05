@@ -8,6 +8,10 @@ session_start();
 include '../Database/connect.php';
 
 defined('key') ? null : define('key', '84h84hjbgjrh848693');
+
+//TODO: ISHA call getDBConnection to get connection
+//$conn = getDBConnection();
+
 // Check connection
 if ($conn->connect_error) {
 

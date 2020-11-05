@@ -2,9 +2,14 @@
 <?php 
 session_start();
 	
+//TODO KARANDEEP update include
     include '../navigation.php';
 	include '../Database/connect.php';
 
+	
+	//TODO KARANDEEP call getDBConnection() to set your connection.
+	//$conn = getDBConnection();
+	
 	//Check the connection
 	if ($conn-> connect_error) {
 	

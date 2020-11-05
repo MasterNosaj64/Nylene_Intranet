@@ -9,6 +9,9 @@ session_start();
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
+//TODO: KAITLYN call getDBConnection to get connection
+//$conn = getDBConnection();
+
 defined('key') ? null : define('key', '84h84hjbgjrh848693');
 /* Check the connection */
 if ($conn->connect_error) {

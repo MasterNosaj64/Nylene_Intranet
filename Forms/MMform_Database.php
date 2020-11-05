@@ -3,7 +3,8 @@
         session_start();
        //include '../Database/connect.php';
     }
-
+    //TODO: KARANDEEP call getDBConnection to get connection
+    //$connect = getDBConnection();
     $DB_HOST = "localhost";
     $DB_USER = "root";
     $DB_PASSWORD = "";
