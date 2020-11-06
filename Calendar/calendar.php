@@ -53,7 +53,7 @@ $weeks = array();
 $week = '';
 
 $week .= str_repeat('<td></td>', $str - 1);
-$_SESSION['userid'] =1;
+//$_SESSION['userid'] =1;
 for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     
     $date = $ym . '-' . $day;
@@ -62,7 +62,8 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     $event_nameStr ='';
     $eventResultStr = '"No"';
     $dateStr =  "'".$date."'";
-    $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr." AND employee_id = " . $_SESSION['userid'];
+    //$eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr." AND employee_id = " . $_SESSION['userid'];
+    $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
     $result = $conn->query($eventInformation);
     $eventResult = array();
     while($row = mysqli_fetch_assoc($result))
@@ -181,7 +182,9 @@ button a{
 		 <div class="btn-group" role="group" aria-label="Events">
 		 
 		 <div class="text-left">
+		 <?php if ($_SESSION['role'] == "admin") { ?>
 		<button type="button" class="btn btn-outline-secondary" onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add Event</button>
+		 <?php } ?>
 		</div>
 		
 		<div class="text-right">
@@ -242,7 +245,11 @@ button a{
 	    	}else{
 				for(var i=0; i<date.length; i++){
 		        //console.log(date[i]);
-				$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
+		         <?php if ($_SESSION['role'] == "admin") { ?>
+					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
+				<?php } else { ?>
+					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"<br><br></p>");
+				<?php } ?>
 		    	}
 	    	}
 			//$("#Contact_Modal").modal('show');
