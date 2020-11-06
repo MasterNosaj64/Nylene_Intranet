@@ -9,6 +9,7 @@ session_start();
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
+date_default_timezone_set('America/Toronto');
 $conn = getDBConnection();
 
 /*Check the connection*/
@@ -19,7 +20,7 @@ if ($conn-> connect_error) {
 } else {
     /*Get eventID from edit button on calendar.php*/
     $eventID = $_GET['e'];
-
+    
     /*Select users name from database as readonly field in form. This information is
      * just for appearances on this page*/
     $userInformation = "SELECT first_name, last_name FROM employee
@@ -49,7 +50,7 @@ if ($conn-> connect_error) {
     /*Assign date created*/
     $todaysDate = date("Y/m/d");
     $currentDate = date_create($todaysDate);
-    date_modify($currentDate, "-1 days");
+    date_modify($currentDate, "-0 days");
     
     $conn->close();
 }
@@ -129,7 +130,7 @@ if ($conn-> connect_error) {
     		</tr>
     		<tr>
     			<!--Date Created-->		
-    			<td><label for="date_modified"> Date Created </label></td>
+    			<td><label for="date_modified"> Date Modified </label></td>
     			<td><input type="date" id="date_modified" name="date_modified" readonly value="<?php echo date_format($currentDate, "Y/m/d"); ?>"></td>
     		</tr>
     		

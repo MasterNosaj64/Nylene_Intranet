@@ -8,6 +8,7 @@
     include '../NavPanel/navigation.php';
     include '../Database/connect.php';
     
+    date_default_timezone_set('America/Toronto');
     $conn = getDBConnection();
     
     /*Check the connection*/
@@ -27,7 +28,7 @@
         /*Assign date created*/
         $todaysDate = date("Y/m/d");
         $currentDate = date_create($todaysDate);
-        date_modify($currentDate, "-1 days");
+        date_modify($currentDate, "-0 days");
         
         $conn->close();
     }
