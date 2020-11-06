@@ -10,6 +10,8 @@
 
 include '../Database/connect.php';
 // Setting the timezone of location
+$conn = getDBConnection();
+
 date_default_timezone_set('America/Toronto');
 error_reporting(0);
 $BASE_URL = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
