@@ -5,9 +5,10 @@
  * Author: Ahmad Syed
  * Purpose:
  * shows calendar for the user to navigate
+ * populates events when added to
  */
 
-include 'Database/connect.php';
+include '../Database/connect.php';
 // Setting the timezone of location
 date_default_timezone_set('America/Toronto');
 error_reporting(0);

@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 include '../NavPanel/navigation.php';
-include '../calendar.php';
+include '../Calendar/calendar.php';
 
 ?>
 <html>
