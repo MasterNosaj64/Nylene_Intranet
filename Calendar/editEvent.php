@@ -1,8 +1,7 @@
 <?php
-$_POST['calendar_id'] = 8;//this post value is only here until connected to the rest of the system
 /* Name: editEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: November 5th, 2020
+ * Last Modified: November 6th, 2020
  * Purpose: Form to edit the event and insert into the database.
  */
 
@@ -18,7 +17,9 @@ if ($conn-> connect_error) {
     die("Connection failed: " . $conn-> connect_error);
     
 } else {
-    
+    /*Get eventID from edit button on calendar.php*/
+    $eventID = $_GET['e'];
+
     /*Select users name from database as readonly field in form. This information is
      * just for appearances on this page*/
     $userInformation = "SELECT first_name, last_name FROM employee
@@ -28,7 +29,7 @@ if ($conn-> connect_error) {
 
     /*Search calendar info using calendar id posted from edit button*/
     $calendarQuery = "SELECT * FROM calendar
-								WHERE calendar_id = ". $_POST['calendar_id'];
+								WHERE calendar_id = ". $eventID;
     $calendarResults = $conn->query($calendarQuery);
     $calendarRow = mysqli_fetch_array($calendarResults);
     
