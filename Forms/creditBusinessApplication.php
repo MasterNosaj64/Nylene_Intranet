@@ -5,11 +5,11 @@
  * Purpose: Input for Credit business application form. The information that is already known is auto filled.
  */
 session_start();
-include '../NavPanel/navigation.php';
+include '../navigation.php';
 include '../Database/connect.php';
 
-//TODO: ISHA call getDBConnection to get connection
-//$conn = getDBConnection();
+// getDBConnection to get connection
+$conn = getDBConnection();
 
 // check the connection
 if ($conn->connect_error) {
