@@ -2,8 +2,8 @@
 /*
  * FileName: Employee.php
  * Author: Jason Waid
- * Version: 0.6
- * Date Modified: 10/12/2020
+ * Version: 0.8
+ * Date Modified: 11/09/2020
  * Purpose:
  *  Object oriented representation of a Employee
  *  all database manipulation happens here
@@ -73,6 +73,39 @@ class Employee
         return $stmt;
     }
 
+    
+    /*
+     * Function Name: searchById
+     * Version: 0.7
+     * Date Modified: 11/09/2020
+     * Author: Jason Waid
+     * Purpose: Function searches for an employee obj by id
+     */
+    function searchById($employee_id)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.employee WHERE employee_id = ?";
+        
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        
+        $employee_id = htmlspecialchars(strip_tags($employee_id));
+        
+        $stmt->bind_param("i", $employee_id);
+        
+        // execute query
+        $stmt->execute();
+        
+        // bind the results
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
+        
+        // return objects
+        return $stmt;
+    }
+    
+    
     function create()
     {
 
