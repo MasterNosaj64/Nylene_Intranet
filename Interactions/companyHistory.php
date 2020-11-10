@@ -23,6 +23,8 @@ include '../Database/Interaction.php';
 include '../Database/Customer.php';
 // Company Object
 include '../Database/Company.php';
+//Employee Object
+include '../Database/Employee.php';
 
 // The following is used in sessionController.php
 $_SESSION['companyHistoryVisited'] = basename($_SERVER['PHP_SELF']);
@@ -52,9 +54,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
          * offset: the current offset value for the following query
          *
          */
-        // TODO: JASON implement list buffer
-        // TODO: JASON implement next/prev buttons
-        // TODO JASON implement object based interactions
 
         $_SESSION['companyHistoryPage'] = $_SESSION['company_id'];
 
@@ -108,6 +107,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 			<td>Customer</td>
 			<td>Reason</td>
 			<td>Notes</td>
+			<td>Author</td>
 			<td>Manage</td>
 		</tr>
 	</thead>
@@ -167,27 +167,35 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     $interactionDateCreated = $currentInteractionNode->getDateCreated();
 
     $customer_Conn = getDBConnection();
+    $employee_Conn = getDBConnection();
     
-    if($customer_Conn->connect_error){
-        die("Connection failed: {$customer_Conn->connect_error}");
+    
+    if($customer_Conn->connect_error || $employee_Conn->connect_error){
+        die("Connection failed: {$customer_Conn->connect_error} || {$employee_Conn->connect_error}");
     }
     
+    //obtain customer data
     $customer = new Customer($customer_Conn);
-    
     $customerData = $customer->searchById($customerID);
     $customerData->fetch();
-    
     $customerName = $customer->getName();
-    
     $customer_Conn->close();
     
     //TODO: JASON add created by column
+    //obtain employee data
+    $employee = new Employee($employee_Conn);
+    $employeeData = $employee->searchById($employeeID);
+    $employeeData->fetch();
+    $employeeName = $employee->getName();
+    $employee_Conn->close();
+    
+    
     
     echo "<tr><td>{$interactionDateCreated}</td>";
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
     echo "<td>".substr($comments, 0, 50)."</td>";
-    
+    echo "<td>{$employeeName}</td>";
     echo "<td><form method=\"post\" action=\"viewInteraction.php\">";
     echo "<input hidden type=\"text\" name=\"interaction_id\" value=\"{$interactionID}\">";
     echo "<input type=\"submit\" value=\"view\"/>";

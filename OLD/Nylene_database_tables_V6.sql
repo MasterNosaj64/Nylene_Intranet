@@ -177,8 +177,8 @@ fax VARCHAR(100) DEFAULT NULL,
 order_pending INT DEFAULT NULL,
 order_amount VARCHAR(10) DEFAULT NULL,
 business_email VARCHAR(50) DEFAULT NULL,
-bank_name VARCHAR(50) DEFAULT NULL,
-account_number VARCHAR(50) DEFAULT NULL,
+bank_name VARBINARY(150) DEFAULT NULL,
+account_number VARBINARY(150) DEFAULT NULL,
 bank_address VARCHAR(100) DEFAULT NULL,
 bank_email  VARCHAR(100) DEFAULT NULL,
 bank_contact_name VARCHAR(50) DEFAULT NULL,
@@ -256,19 +256,6 @@ CREATE TABLE form_code_table(
     form_name VARCHAR(50) NOT NULL,
     form_number INT NOT NULL
 ) DEFAULT CHARSET = utf8;
-
-CREATE TABLE calendar(
-    calendar_id INT NOT NULL AUTO_INCREMENT,
-    event_date DATE DEFAULT NULL,
-    start_time VARCHAR(50) DEFAULT NULL,
-    event_name VARCHAR(50) DEFAULT NULL,
-    description VARCHAR(100) DEFAULT NULL,
-    date_created DATE DEFAULT NULL,
-	date_modified DATE DEFAULT NULL,
-	employee_id INT NOT NULL,
-    mandatory_attendance INT DEFAULT NULL,
-    PRIMARY KEY(calendar_id)
-) DEFAULT CHARSET = utf8; 
 
  ALTER TABLE employee Add CONSTRAINT FK_modified_by FOREIGN KEY (modified_by) REFERENCES employee(employee_id) ON DELETE CASCADE
     ON UPDATE RESTRICT;

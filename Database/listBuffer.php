@@ -60,7 +60,7 @@ function create_Buffer($queryResult, $object)
  * navigates a list of companies and moved the iterator to the next 10 or closest existing index
  * returns the list
  */
-function next10($sessionBuffer)
+function next10(SplDoublyLinkedList $sessionBuffer)
 {
     // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
@@ -84,7 +84,7 @@ function next10($sessionBuffer)
  * navigates a list of companies and moved the iterator to the previous 10 or closest existing index
  * returns the list
  */
-function previous10($sessionBuffer)
+function previous10(SplDoublyLinkedList $sessionBuffer)
 {
 
     // $buffer = unserialize($sessionBuffer);
@@ -158,4 +158,141 @@ function create_Customer_Buffer($customerIDs)
 
     return $buffer;
 }
+
+
+function sort_Interactions_Date(SplDoublyLinkedList $sessionBuffer){
+    
+    
+    if($sessionBuffer->isEmpty()){
+        return $sessionBuffer;
+    }
+    $index = 0;
+    $sortedObjects = 0;
+    $sortedSessionBuffer = new SplDoublyLinkedList;
+    
+    if($sessionBuffer->count() > 1){
+
+        do{
+        
+            //get first object
+            $obj1 = unserialize($sessionBuffer->bottom());
+            
+            echo "new bottom {$obj1->getDateCreated()}";
+            
+            
+        for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
+            
+            $obj2 = unserialize($sessionBuffer->current());
+           
+            if($obj1->getDateCreated() > $obj2->getDateCreated()){
+               
+                $obj1 = $obj2->get();
+                $index = $sessionBuffer->key();
+                
+            }
+               
+        }
+        
+        $sortedSessionBuffer->unshift(serialize($obj2->get()));
+        $sortedObjects++;
+        
+        $sessionBuffer->offsetUnset($index);
+        
+        
+        }while($sortedObjects != $sessionBuffer->count());
+
+    }
+    else
+    {
+        
+        return $sessionBuffer;
+    }
+       
+    return $sortedSessionBuffer;
+    
+}
+
+function sort_Interactions_Customer($sessionBuffer){
+    
+    
+    
+}
+
+
+function sort_Interactions_Reason($sessionBuffer){
+    
+    
+    
+}
+
+function sort_Interactions_Notes($sessionBuffer){
+    
+    
+    
+}
+
+function sort_Interactions_CreatedBy($sessionBuffer){
+    
+    
+    
+}
+
+
+
+function sort_Company_Name(SplDoublyLinkedList $sessionBuffer){
+    
+    
+    if($sessionBuffer->isEmpty()){
+        return $sessionBuffer;
+    }
+    $index = 0;
+    $sortedObjects = 0;
+    $sortedSessionBuffer = new SplDoublyLinkedList;
+    
+    if($sessionBuffer->count() > 1){
+        
+        do{
+            
+            //get first object
+            $obj1 = unserialize($sessionBuffer->bottom());
+            
+            echo "new bottom {$obj1->getName()}";
+            
+            
+            for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
+                
+                $obj2 = unserialize($sessionBuffer->current());
+                
+                if($obj1->getName() > $obj2->getName()){
+                    
+                    $obj1 = $obj2->get();
+                    $index = $sessionBuffer->key();
+                    
+                }
+                
+            }
+            
+            $sortedSessionBuffer->unshift(serialize($obj2->get()));
+            $sortedObjects++;
+            
+            $sessionBuffer->offsetUnset($index);
+            
+            
+        }while($sortedObjects != $sessionBuffer->count());
+        
+    }
+    else
+    {
+        
+        return $sessionBuffer;
+    }
+    
+    return $sortedSessionBuffer;
+    
+}
+
+
+
+
+
 ?>
