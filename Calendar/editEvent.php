@@ -47,7 +47,7 @@ if ($conn-> connect_error) {
     $employeeResult = $conn->query($employeeCreated);
     $employeeCreatedRow = mysqli_fetch_array($employeeResult);
     
-    /*Assign date created*/
+    /*Assign date modified*/
     $todaysDate = date("Y/m/d");
     $currentDate = date_create($todaysDate);
     date_modify($currentDate, "-0 days");
