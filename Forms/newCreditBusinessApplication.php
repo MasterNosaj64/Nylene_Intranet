@@ -76,7 +76,7 @@ if ($conn->connect_error) {
 						'" . $_POST["order_amount"] . "', 
 						'" . $_POST["business_email"] . "', 
 						'" . $_POST["bank_name"] . "', 
-						AES_ENCRYPT('$account_number', '$key'), 
+						AES_ENCRYPT('$account_number', 'key'), 
 						'" . $_POST["bank_address"] . "', 
 						'" . $_POST["bank_email"] . "',
 						'" . $_POST["bank_contact_name"] . "',

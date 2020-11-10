@@ -24,9 +24,9 @@ if ($conn->connect_error) {
     $creditBusinessResults = $conn->query($creditBusinessQuery);
     $creditBusinessRow = mysqli_fetch_array($creditBusinessResults);
 
-    $account_number_Query = "SELECT AES_DECRYPT(account_number,'key') FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
+    $account_number_Query = "SELECT AES_DECRYPT(account_number,'key') as decrypted FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
     $account_number_result = $conn->query($account_number_Query);
-   // $accountNumberRow = mysqli_fetch_array($account_number_result); 
+    $accountNumberRow = mysqli_fetch_array($account_number_result); 
 
     /* Selection statement for customer information */
     $customerInformation = "SELECT * FROM customer 
