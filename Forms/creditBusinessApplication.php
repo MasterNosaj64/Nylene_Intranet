@@ -5,7 +5,7 @@
  * Purpose: Input for Credit business application form. The information that is already known is auto filled.
  */
 session_start();
-include '../navigation.php';
+include '../NavPanel/navigation.php';	
 include '../Database/connect.php';
 
 // getDBConnection to get connection
@@ -91,7 +91,7 @@ if ($conn->connect_error) {
 					type="checkbox">No
 				</td>
 				<td colspan="2" id="order_amount">Order Amount $<input type="text"
-					name="order_amount" required> /lbs.
+					name="order_amount"> /lbs.
 				</td>
 			</tr>
 			<tr>
