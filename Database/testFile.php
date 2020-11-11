@@ -31,7 +31,7 @@ for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
 
 echo "<h1>sorted?</h1><br>";
 
-$buffer = sort_Company_Name($buffer);
+$buffer = sortASC_Company_Name($buffer);
 
 for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
     

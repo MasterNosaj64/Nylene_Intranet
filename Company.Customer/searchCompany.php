@@ -223,8 +223,8 @@ if (isset($_SESSION['buffer'])) {
         $companyBuffer = previous10($sessionBuffer);
     }
     
-    $companyBuffer = $_SESSION['buffer'];
-    $companyBuffer->rewind();
+    /* $companyBuffer = $_SESSION['buffer'];
+    $companyBuffer->rewind(); */
 } else {
     // attempt of creating a buffer for a list of companies
     $companyBuffer = create_Buffer($companyResult, $companies);

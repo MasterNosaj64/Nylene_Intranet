@@ -119,8 +119,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
             $customerBuffer = previous10($sessionBuffer);
         }
         
-        $customerBuffer = $_SESSION['buffer'];
-        $customerBuffer->rewind();
+        /* $customerBuffer = $_SESSION['buffer'];
+        $customerBuffer->rewind(); */
         
     } else {
         // attempt of creating a buffer for a list of companies

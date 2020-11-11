@@ -140,9 +140,10 @@ if (isset($_SESSION['buffer'])) {
         $interactionBuffer = previous10($sessionBuffer);
     }
     
+    
     //page refresh
-    $interactionBuffer = $_SESSION['buffer'];
-    $interactionBuffer->rewind();
+    /* $interactionBuffer = $_SESSION['buffer'];
+    $interactionBuffer->rewind(); */
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);

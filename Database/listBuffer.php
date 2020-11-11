@@ -74,7 +74,6 @@ function next10(SplDoublyLinkedList $sessionBuffer)
 
         $counter ++;
     }
-
     return $buffer;
 }
 
@@ -159,140 +158,140 @@ function create_Customer_Buffer($customerIDs)
     return $buffer;
 }
 
-
-function sort_Interactions_Date(SplDoublyLinkedList $sessionBuffer){
+function sort_Interactions_Date(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
     
+    $sortedItems = 0;
     
-    if($sessionBuffer->isEmpty()){
-        return $sessionBuffer;
-    }
-    $index = 0;
-    $sortedObjects = 0;
-    $sortedSessionBuffer = new SplDoublyLinkedList;
-    
-    if($sessionBuffer->count() > 1){
-
-        do{
+    for ($i = 0; $i < $n; $i ++) {
         
-            //get first object
-            $obj1 = unserialize($sessionBuffer->bottom());
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
             
-            echo "new bottom {$obj1->getDateCreated()}";
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
             
-            
-        for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
-            
-            $obj2 = unserialize($sessionBuffer->current());
-           
-            if($obj1->getDateCreated() > $obj2->getDateCreated()){
-               
-                $obj1 = $obj2->get();
-                $index = $sessionBuffer->key();
+            if (strcmp($obj1->getDateCreated(), $obj2->getDateCreated()) > 0) {
                 
+                //$obj1->getName() > $obj2->getName()
+                
+                echo "{$obj1->getDateCreated()} is larger than {$obj2->getDateCreated()}<br>";
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems++;
             }
-               
         }
-        
-        $sortedSessionBuffer->unshift(serialize($obj2->get()));
-        $sortedObjects++;
-        
-        $sessionBuffer->offsetUnset($index);
-        
-        
-        }while($sortedObjects != $sessionBuffer->count());
-
     }
-    else
-    {
-        
-        return $sessionBuffer;
-    }
-       
-    return $sortedSessionBuffer;
     
+    echo $sortedItems."<br>";
+    return $sessionBuffer;
 }
 
-function sort_Interactions_Customer($sessionBuffer){
-    
-    
-    
-}
+function sortASC_Interactions_Customer($sessionBuffer)
+{}
 
+function sortASC_Interactions_Reason($sessionBuffer)
+{}
 
-function sort_Interactions_Reason($sessionBuffer){
-    
-    
-    
-}
+function sortASC_Interactions_Notes($sessionBuffer)
+{}
 
-function sort_Interactions_Notes($sessionBuffer){
-    
-    
-    
-}
+function sortASC_Interactions_CreatedBy($sessionBuffer)
+{}
 
-function sort_Interactions_CreatedBy($sessionBuffer){
-    
-    
-    
-}
+function sortASC_Company_Name(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
 
+    
+    for ($i = 0; $i < $n; $i ++) {
 
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
 
-function sort_Company_Name(SplDoublyLinkedList $sessionBuffer){
-    
-    
-    if($sessionBuffer->isEmpty()){
-        return $sessionBuffer;
-    }
-    $index = 0;
-    $sortedObjects = 0;
-    $sortedSessionBuffer = new SplDoublyLinkedList;
-    
-    if($sessionBuffer->count() > 1){
-        
-        do{
-            
-            //get first object
-            $obj1 = unserialize($sessionBuffer->bottom());
-            
-            echo "new bottom {$obj1->getName()}";
-            
-            
-            for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
-                
-                $obj2 = unserialize($sessionBuffer->current());
-                
-                if($obj1->getName() > $obj2->getName()){
-                    
-                    $obj1 = $obj2->get();
-                    $index = $sessionBuffer->key();
-                    
-                }
-                
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+
+            if (strcmp(strtolower($obj1->getName()), strtolower($obj2->getName())) > 0) {
+     
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
             }
-            
-            $sortedSessionBuffer->unshift(serialize($obj2->get()));
-            $sortedObjects++;
-            
-            $sessionBuffer->offsetUnset($index);
-            
-            
-        }while($sortedObjects != $sessionBuffer->count());
-        
+        }
     }
-    else
-    {
-        
-        return $sessionBuffer;
-    }
-    
-    return $sortedSessionBuffer;
-    
+
+    return $sessionBuffer;
 }
 
+/*
+ * // Traverse through all array elements
+ * for($i = 0; $i < $n; $i++)
+ * {
+ * // Last i elements are already in place
+ * for ($j = 0; $j < $n - $i - 1; $j++)
+ * {
+ * // traverse the array from 0 to n-i-1
+ * // Swap if the element found is greater
+ * // than the next element
+ * if ($arr[$j] > $arr[$j+1])
+ * {
+ * $t = $arr[$j];
+ * $arr[$j] = $arr[$j+1];
+ * $arr[$j+1] = $t;
+ * }
+ * }
+ * }
+ */
 
-
-
+/*
+ * if($sessionBuffer->isEmpty()){
+ * return $sessionBuffer;
+ * }
+ * $index = 0;
+ * $sortedObjects = 0;
+ * $sortedSessionBuffer = new SplDoublyLinkedList;
+ *
+ * if($sessionBuffer->count() > 1){
+ *
+ * do{
+ *
+ * //get first object
+ * $obj1 = unserialize($sessionBuffer->bottom());
+ *
+ * echo "new bottom {$obj1->getName()}";
+ *
+ *
+ * for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
+ *
+ * $obj2 = unserialize($sessionBuffer->current());
+ *
+ * if($obj1->getName() > $obj2->getName()){
+ *
+ * $obj1 = $obj2->get();
+ * $index = $sessionBuffer->key();
+ *
+ * }
+ *
+ * }
+ *
+ * $sortedSessionBuffer->unshift(serialize($obj2->get()));
+ * $sortedObjects++;
+ *
+ * $sessionBuffer->offsetUnset($index);
+ *
+ *
+ * }while($sortedObjects != $sessionBuffer->count());
+ *
+ * }
+ * else
+ * {
+ *
+ * return $sessionBuffer;
+ * }
+ *
+ * return $sortedSessionBuffer;
+ *
+ * }
+ */
 
 ?>
