@@ -11,22 +11,6 @@ include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 
 $val1=$_GET["w1"] ;
-/*
-$json = filter_input(INPUT_POS
-T, 'json');
- $decoded_json = json_decode($json);
- $val1 = $decoded_json->val1;
- var_dump($decoded_json, $val1);
- */
-
-
-
-
-
-
-
-
-
 
 $_SESSION['field']=$val1;
 $field=$_SESSION['field'];
@@ -65,8 +49,12 @@ $employee_email=$rows['employee_email'];
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <style>
-.variablecolor{
-color: #808080;}
+    select:invalid{
+        color: gray;
+    }
+    option{
+        color: black;
+    }
 </style>
 <body>
 
@@ -97,8 +85,8 @@ color: #808080;}
 			</tr>
 			<tr>
 				<td style="width: 50%"><label for="title">Title </label><br /> <select id="options"
-					name="title">
-						<option value="" class="variablecolor" disabled selected hidden ><?php echo $title; ?></option>
+					name="title"  style="color:gray">
+						<option value="" disabled selected hidden ><?php echo $title; ?></option>
 						<option value="admin">Admin</option>
 						<option value="sales_rep">Sales Rep</option>
 						<option value="sales_manager">Sales Manager</option></td>
@@ -110,12 +98,15 @@ color: #808080;}
 				<td><label for="work_phone">Work Phone </label><br /> <input
 					name="work_phone" type="user" placeholder="<?php echo $work_phone; ?>" maxlength="50" /></td>
 				<td><label for="reports_to">Reports to</label><br /> <select
-					id="options" name="reports_to">
+					id="options" name="reports_to" style="color:gray">
 		<?php
-
-$sql = "SELECT * FROM employee";
-$query = mysqli_query($conn, $sql);
-echo '<option placeholder="'.$reports_to.'"></option>';
+$sql="SELECT * FROM employee";
+$query=mysqli_query($conn, $sql);
+$sqlPlaceHolder = "SELECT first_name,last_name FROM employee WHERE employee_id=$reports_to";
+$queryPlaceHolder = mysqli_query($conn, $sqlPlaceHolder);
+while ($rowPlaceHolder = mysqli_fetch_array($queryPlaceHolder)) {
+echo '<option disabled selected hidden>' . $rowPlaceHolder['first_name'] . " " . $rowPlaceHolder['last_name'] .'</option>';
+}
 while ($row = mysqli_fetch_array($query)) {
     echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
@@ -145,10 +136,10 @@ while ($row = mysqli_fetch_array($query)) {
 			<tr>
 
 				<td style="width: 50%"><label for="is_administrator"> Admin</label><br />
-					<select id="options" name="is_administrator">
+					<select id="options" name="is_administrator"  style="color:gray">
 						<?php 
 						if($is_administrator==1){$pHolder="Yes";}
-								else{$pHolder="No";}?><option placeholder="<?php echo $pHolder; ?>"></option>
+								else{$pHolder="No";}?><option value="" disabled selected hidden ><?php echo $pHolder; ?></option>
 
 						<option value="1">Yes</option>
 						<option value="0">No</option>
