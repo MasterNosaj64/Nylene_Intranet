@@ -15,7 +15,7 @@ include '../Database/connect.php';
 		if(strcmp($row['STATUS'],"blocked")==0){
 			$msg="User is blocked...";
 			$_SESSION['field']=$msg;
-			echo "<meta http-equiv = \"refresh\" content =\"300; url = ../login.php\" />;";
+			echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
 			exit();
 		}
 		else{
@@ -79,7 +79,7 @@ include '../Database/connect.php';
 				$qy->execute();
 				$qy->close();
 				$_SESSION['field']=$msg;
-				echo "<meta http-equiv = \"refresh\" content =\"300; url = ../login.php\" />;";
+				echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
 				exit();	
 			}
 	
