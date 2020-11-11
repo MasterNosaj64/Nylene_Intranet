@@ -10,9 +10,10 @@ include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 
-$val1=1;
+$val1=$_GET["w1"] ;
 /*
-$json = filter_input(INPUT_POST, 'json');
+$json = filter_input(INPUT_POS
+T, 'json');
  $decoded_json = json_decode($json);
  $val1 = $decoded_json->val1;
  var_dump($decoded_json, $val1);
@@ -46,7 +47,7 @@ $work_phone=$rows['work_phone'];
 $reports_to=$rows['reports_to'];
 $date_entered=date("Y-m-d");
 $date_modified=date("Y-m-d");
-$modified_by=$rows['userid'];
+$modified_by=$rows['modified_by'];
 $username=$rows['username'];
 $is_administrator=$rows['is_administrator'];
 $STATUS=$rows['STATUS'];
@@ -63,6 +64,10 @@ $employee_email=$rows['employee_email'];
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
+<style>
+.variablecolor{
+color: #808080;}
+</style>
 <body>
 
 	<form method="post" action="afterEditUser.php">
@@ -86,31 +91,31 @@ $employee_email=$rows['employee_email'];
 	
 			<tr>
 				<td style="width: 50%"><label for="first_name">First Name </label><br /> <input
-					name="first_name" type="user" maxlength="50" value="<?php echo $first_name; ?>"/></td>
+					name="first_name" type="user" maxlength="50"  placeholder="<?php echo $first_name; ?>"/></td>
 				<td style="width: 50%"><label for="last_name">Last Name </label><br /> <input
-					name="last_name" type="user" value="<?php echo $last_name; ?>" maxlength="50" /></td>
+					name="last_name" type="user" placeholder="<?php echo $last_name; ?>" maxlength="50" /></td>
 			</tr>
 			<tr>
 				<td style="width: 50%"><label for="title">Title </label><br /> <select id="options"
 					name="title">
-						<option value="<?php echo $title; ?>"></option>
+						<option value="" class="variablecolor" disabled selected hidden ><?php echo $title; ?></option>
 						<option value="admin">Admin</option>
 						<option value="sales_rep">Sales Rep</option>
 						<option value="sales_manager">Sales Manager</option></td>
 				<td><label for="department">Department</label><br /> <input
-					name="department" type="user" value="<?php echo $department; ?>" maxlength="50" /></td>
+					name="department" type="user" placeholder="<?php echo $department; ?>" maxlength="50" /></td>
 			</tr>
 
 			<tr>
 				<td><label for="work_phone">Work Phone </label><br /> <input
-					name="work_phone" type="user" value="<?php echo $work_phone; ?>" maxlength="50" /></td>
+					name="work_phone" type="user" placeholder="<?php echo $work_phone; ?>" maxlength="50" /></td>
 				<td><label for="reports_to">Reports to</label><br /> <select
 					id="options" name="reports_to">
 		<?php
 
 $sql = "SELECT * FROM employee";
 $query = mysqli_query($conn, $sql);
-echo '<option value="$reports_to"></option>';
+echo '<option placeholder="'.$reports_to.'"></option>';
 while ($row = mysqli_fetch_array($query)) {
     echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
@@ -132,7 +137,7 @@ while ($row = mysqli_fetch_array($query)) {
 
 				
 				<td style="width: 50%"><label for="username">Username </label><br /> <input
-					name="username" type="text" value="<?php echo $username; ?>" maxlength="50"  />
+					name="username" type="text" placeholder="<?php echo $username; ?>" maxlength="50"  />
 				</td>
 			</tr>
 
@@ -141,26 +146,28 @@ while ($row = mysqli_fetch_array($query)) {
 
 				<td style="width: 50%"><label for="is_administrator"> Admin</label><br />
 					<select id="options" name="is_administrator">
-						<option value="<?php echo $is_administrator; ?>"></option>
+						<?php 
+						if($is_administrator==1){$pHolder="Yes";}
+								else{$pHolder="No";}?><option placeholder="<?php echo $pHolder; ?>"></option>
 
 						<option value="1">Yes</option>
 						<option value="0">No</option>
 
 				</select></td>
 				<td style="width: 50%"><label for="STATUS">Status</label><br />
-					<input name="STATUS" type="text" value="<?php echo $STATUS; ?>" maxlength="100"
+					<input name="STATUS" type="text" placeholder="<?php echo $STATUS; ?>" maxlength="100"
 					s/></td>
 
 			</tr>
 
 			<tr>
 				<td colspan="2"><label for="employee_email">Email </label><br />
-					<input name="employee_email" type="text"  value="<?php echo $employee_email; ?>" maxlength="100"
+					<input name="employee_email" type="text"  placeholder="<?php echo $employee_email; ?>" maxlength="100"
 					 /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><label for="password">Password </label><br />
-					<input name="password" type="text" maxlength="100"
+					<input name="password" type="text" maxlength="100" placeholder="******"
 					 /></td>
 			</tr>
 		</table>
