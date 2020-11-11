@@ -21,7 +21,7 @@ session_start();
 		
 		
 		$sql = "SELECT * FROM marketing_request_form 
-								WHERE marketing_request_id =". $_SESSION['id'];
+								WHERE marketing_request_id =". $_POST['id'];
 		$query = $conn->query($sql);								
 		$row = mysqli_fetch_array($query);
 		
@@ -32,7 +32,7 @@ session_start();
 											INNER JOIN interaction ON interaction.company_id = company.company_id
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 													INNER JOIN marketing_request_form ON marketing_request_form.marketing_request_id = interaction_relational_form.form_id
-														WHERE interaction_relational_form.form_type = 5 AND interaction_relational_form.form_id =". $_SESSION['id'];
+														WHERE interaction_relational_form.form_type = 5 AND interaction_relational_form.form_id =". $_POST['id'];
 		$marketingResult = $conn->query($marketingInformation); 
 		$marketingRow = mysqli_fetch_array($marketingResult); 
 		
