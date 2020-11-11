@@ -330,9 +330,10 @@ $(window).ready(function () {
 function updateClick(e) {
     var dataid = $(e.target).closest('tr').find('td:eq(0)').text();
     //alert(dataid);
+    window.location.href = "editUser.php?w1=" + dataid;
 
 
-	 
+/*	 
  $.ajax({
  type: "POST",
  url: 'editUser.php',
@@ -344,7 +345,7 @@ function updateClick(e) {
  console.error(xhr);
  }
 });
-
+*/
 
 }
 </script>
