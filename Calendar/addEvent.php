@@ -89,7 +89,7 @@
     		<tr>
     			<!--Date Created-->		
     			<td><label for="date_created"> Date Created </label></td>
-    			<td><input type="date" id="date_created" name="date_created" readonly value="<?php echo date_format($currentDate, "Y/m/d"); ?>"></td>
+    			<td><input type="text" id="date_created" name="date_created" readonly value="<?php echo date_format($currentDate, "Y/m/d"); ?>"></td>
     		</tr>
     		
 			<tr>

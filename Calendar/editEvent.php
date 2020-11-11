@@ -121,7 +121,7 @@ if ($conn-> connect_error) {
     		<tr>
     			<!--Date Created-->		
     			<td><label for="date_created"> Date Created </label></td>
-    			<td><input type="date" id="date_created" name="date_created" readonly value="<?php echo $calendarRow['date_created'];?>"></td>
+    			<td><input type="text" id="date_created" name="date_created" readonly value="<?php echo $calendarRow['date_created'];?>"></td>
     		</tr>
     		<tr>		
     			<!--Modified By name-->
@@ -131,7 +131,7 @@ if ($conn-> connect_error) {
     		<tr>
     			<!--Date Created-->		
     			<td><label for="date_modified"> Date Modified </label></td>
-    			<td><input type="date" id="date_modified" name="date_modified" readonly value="<?php echo date_format($currentDate, "Y/m/d"); ?>"></td>
+    			<td><input type="text" id="date_modified" name="date_modified" readonly value="<?php echo date_format($currentDate, "Y/m/d"); ?>"></td>
     		</tr>
     		
 			<tr>
