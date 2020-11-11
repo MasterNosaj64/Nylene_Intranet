@@ -3,90 +3,357 @@ if (!session_id()) {
 session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
-//TODO: MADHAV change database connection file and/or align code to mysqli standard
 include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
-//TODO: MADHAV call getDBConnection to get connection
-//$conn = getDBConnection();
-
 } 
 
-$sql = "SELECT * FROM employee";
+/*$sql = "SELECT * FROM employee";
 $query = mysqli_query($conn, $sql);
 $value=array();
 while ($row = mysqli_fetch_array($query)){
     $value[] =  $row['first_name'] . " " . $row['last_name'];
 	}
 	
-	
+	*/
 	
 
 $check=0;
-if(isset($_POST['myInput'] )){
- $field=trim($_POST['myInput']);
+//if(isset($_POST['myInput'] )){
+ //$field=trim($_POST['myInput']);
 	
 
    
 
+$sql = "SELECT * FROM employee"; 
+$query = mysqli_query($conn, $sql);
 
+$myArray =[[]];
+$i=0;
+$rows=mysqli_num_rows($query);
+		if($query  = mysqli_query($conn, $sql)){
+		    if( $rows > 0){ 
+	//echo "<table border='1' id='myTable'>";
+	
+            while($row = mysqli_fetch_array($query)){
+			
+				$myArray[$i][0]=$row['employee_id'];
+				$myArray[$i][1]=$row['first_name'];
+				$myArray[$i][2]=$row['last_name'];
+				$myArray[$i][3]=$row['title'];
+				$myArray[$i][4]=$row['department'];
+				$myArray[$i][5]=$row['work_phone'];
+				$myArray[$i][6]= $row['reports_to'];
+				$myArray[$i][7]=$row['employee_email'];
+				$i++;
+			}
+		  
+		  
+		  /*  <echo "<tr>";
+                echo "<td>" . $row['first_name'] . "</td>";
+                echo "<td>" . $row['last_name'] . "</td>";
+				echo "<td>" . $row['title'] . "</td>";
+				echo "<td>" . $row['department'] . "</td>";
+				echo "<td>" . $row['work_phone'] . "</td>";
+				echo "<td>" . $row['reports_to'] . "</td>";
+                echo "<td>" . $row['employee_email'] . "</td>";
+				
+            echo "</tr>";*/
+        }
+        //echo "</table>";	
+			
+			
+		
+			
+		}
+ 
 
   
 		   
-		$sql = "SELECT * FROM employee";
-		$query = mysqli_query($conn, $sql);
-		while ($row = mysqli_fetch_array($query)) {
-			$str=$row['first_name'] . " " . $row['last_name'];
-			if(strcmp($field,$str)==0){
-				$field=(int)$row['employee_id'];
-				$check=1;
-			}
-		}	
-		
-
+		//echo '<pre>'; print_r($myArray); echo '</pre>';
 
 
 if($check==1 && isset($_POST['Submit'] )){
-   
-	//$field=$_POST['edit_user'];
+  
 			$_SESSION['field'] = $field;
-//echo("'$field'");
-//echo("<script> location.href = '".ADMIN_URL."/index.php?msg=$msg';</script>");
-
 			header('location:editUser.php');
 
 }
-else if($check!=1){
-	echo("Try again");
-}
-}
+
 	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
 <link rel="stylesheet" href="../CSS/table.css">
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-
 <body>
 
 
-<form autocomplete="off" method="post" action="../Admin/editUserDatabase.php" >
-  <tr><h2>Name of the user to be edited</h2>
-</tr><tr>
-  <div class="autocomplete" style="width:300px;">
- <input name="myInput" id="myInput"   />
- </div>
-</tr>
-  <input type="submit" name="Submit">
-			<input type="reset" name="Reset">
-		
-</form>
-<script>
+<style>
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #6495ED;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.block.active {
+  background-color: #F8F8FF;
+  color: black;
+}
+
+
+.block:hover {
+  background-color: #ddd;
+  color: black;
+}
+</style>
+
+<!--<form autocomplete="off" method="post" action="../Admin/editUserDatabase.php" >-->
+<h1>Search by</h1> 
+
+<input id="myInput" onkeyup="myFunction()" >
+
+
+<!--
+<tr>
+<!--<div style="display:inline;">--
+<th><button type="button" name="first_name">First Name</button></th>
+<th><button type="button" name="last_name">Last Name</button></th>
+<th><button type="button" name="title">Title</button></th>
+<th><button type="button" name="department">Department</button></th>
+<th><button type="button" name="work_phone">Work Phone</button></th>
+<th><button type="button" name="reports_to">Reports To</button></th>
+<th><button type="button" name="employee_email">Employee Email</button></th>
+ <!--</div>->
+ </tr>-->
+<script type="text/javascript">	
+var j=1;
+var names = JSON.parse('<?php echo json_encode($myArray)?>');
+var rows= "<?php echo $rows ?>";
+
+
+function generate_table(array) {
+    // get the reference for the body
+    var body = document.getElementsByTagName("body")[0];
+
+    // creates a <table> element and a <tbody> element
+    var tbl = document.createElement("table");
+    tbl.setAttribute("id", "myTable");
+    var header=  document.createElement('thead')
+    var headingRow = document.createElement('tr')
+
+   
+
+var headingCell0 = document.createElement('th')
+    var headingText0 = document.createTextNode('Employee ID')
+	var button0 = document.createElement("button")
+	button0.setAttribute("class", "block")
+	button0.setAttribute("id", "empId")
+	button0.setAttribute("onclick", "j=0")
+	button0.appendChild(headingText0)
+    headingCell0.appendChild(button0)
+    headingRow.appendChild(headingCell0)
+
+
+   var headingCell1 = document.createElement('th')
+    var headingText1 = document.createTextNode('First Name')
+	var button1 = document.createElement("button")
+	button1.setAttribute("class", "block active")
+	button1.setAttribute("id", "fName")
+	button1.setAttribute("onclick", "j=1")
+	button1.appendChild(headingText1)
+    headingCell1.appendChild(button1)
+    headingRow.appendChild(headingCell1)
+    
+    var headingCell2 = document.createElement('th')
+    var headingText2 = document.createTextNode('Last Name')
+   	var button2 = document.createElement("button")
+	button2.setAttribute("class", "block")
+	button2.setAttribute("id", "lName")
+	button2.setAttribute("onclick", "j=2")
+	button2.appendChild(headingText2) 
+	headingCell2.appendChild(button2)
+    headingRow.appendChild(headingCell2)
+	
+	var headingCell3 = document.createElement('th')
+    var headingText3 = document.createTextNode('Title')
+    var button3 = document.createElement("button")
+	button3.setAttribute("class", "block")
+	button3.setAttribute("id", "tilte")
+	button3.setAttribute("onclick", "j=3")
+	button3.appendChild(headingText3)
+	headingCell3.appendChild(button3)
+    headingRow.appendChild(headingCell3)
+	
+	var headingCell4 = document.createElement('th')
+    var headingText4 = document.createTextNode('Department')
+   	var button4 = document.createElement("button")
+	button4.setAttribute("class", "block")
+	button4.setAttribute("id", "department")
+	button4.setAttribute("onclick", "j=4")
+	button4.appendChild(headingText4)
+	headingCell4.appendChild(button4)
+    headingRow.appendChild(headingCell4)
+	
+	
+	var headingCell5 = document.createElement('th')
+    var headingText5 = document.createTextNode('Work Phone')
+    var button5 = document.createElement("button")
+	button5.setAttribute("class", "block")
+	button5.setAttribute("id", "wPhone")
+	button5.setAttribute("onclick", "j=5")
+	button5.appendChild(headingText5)
+	headingCell5.appendChild(button5)
+    headingRow.appendChild(headingCell5)
+	
+	var headingCell6 = document.createElement('th')
+    var headingText6 = document.createTextNode('Reports To')
+    var button6 = document.createElement("button")
+	button6.setAttribute("class", "block")
+	button6.setAttribute("id", "reportsTo")
+	button6.setAttribute("onclick", "j=6")
+	button6.appendChild(headingText6)
+	headingCell6.appendChild(button6)
+    headingRow.appendChild(headingCell6)
+
+
+	var headingCell7 = document.createElement('th')
+    var headingText7 = document.createTextNode('Employee Email')
+   	var button7 = document.createElement("button")
+	button7.setAttribute("class", "block")
+	button7.setAttribute("id", "email")
+	button7.setAttribute("onclick", "j=7")
+	button7.appendChild(headingText7)
+	headingCell7.appendChild(button7)
+    headingRow.appendChild(headingCell7)
+	
+
+    header.appendChild(headingRow)
+    tbl.appendChild(header)
+    //var header = "<th>Header</th>";
+    var tblBody = document.createElement("tbody");
+
+
+    // creating all cells
+    for (var i = 0; i < array.length; i++) {
+        // creates a table row
+        var row = document.createElement("tr");
+    row.setAttribute("class", "clickable-row");
+
+        for (var j = 0; j < array[i].length; j++) {
+            // Create a <td> element and a text node, make the text
+            // node the contents of the <td>, and put the <td> at
+            // the end of the table row
+            var cell = document.createElement("td");
+            //if (j == 0) {
+                var cellText = document.createTextNode(array[i][j]);
+          
+          //      var cellText = document.createTextNode(results.weak_sent[i]);
+            //}
+
+
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+        }
+
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
+    }
+    // This is for the quick solution
+    // tbl.innerHTML = header
+
+    // put the <tbody> in the <table>
+    tbl.appendChild(tblBody);
+
+
+
+    // appends <table> into <body>
+    body.appendChild(tbl);
+    // sets the border attribute of tbl to 2;
+    tbl.setAttribute("border", "2");
+}
+
+generate_table(names)
+
+
+
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+	  
+		td = tr[i].getElementsByTagName("td")[j];
+	
+	  
+    
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+
+
+$("button").click(function() {
+  if ($(this).hasClass("active")) {
+  } else {
+    $(".active").removeClass("active");
+    $(this).addClass('active');
+  }
+});
+
+$(window).ready(function () {
+    //bind the event using jquery not the onclick attribute of the button
+    $('.clickable-row').on('click', updateClick);
+});
+
+function updateClick(e) {
+    var dataid = $(e.target).closest('tr').find('td:eq(0)').text();
+    //alert(dataid);
+
+
+	 
+ $.ajax({
+ type: "POST",
+ url: 'editUser.php',
+ data: {dataid: dataid},
+ success: function(data){
+ window.location.href='editUser.php';
+ },
+ error: function(xhr, status, error){
+ console.error(xhr);
+ }
+});
+
+
+}
+</script>
+
+
+
+
+</html>
+<!--<script>
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -186,7 +453,7 @@ function autocomplete(inp, arr) {
 
 /*An array containing all the country names in the world:*/
 
-var names =<?php echo json_encode($value);?>;
+var names = echo json_encode($value);?>;
 
 //var countries =[];
 // ?php echo json_encode($value); ?>
@@ -194,8 +461,9 @@ var names =<?php echo json_encode($value);?>;
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), names);
-</script>
-</html>
+</script>-->
+
+
 
 <!--?php
 ob_start();

@@ -3,18 +3,17 @@
  * FileName: calendar.php
  * Version Number: 1.2
  * Author: Ahmad Syed
- * Purpose:
- * shows calendar for the user to navigate
- * populates events when added to
+ * Last Modified: November 10th 2020
+ * Purpose: shows calendar for the user to navigate.
+ * As admin, populates events when added to, able to edit events as well
  */
-
 include '../Database/connect.php';
-// Setting the timezone of location
 $conn = getDBConnection();
 
+// Setting the timezone of location
 date_default_timezone_set('America/Toronto');
 error_reporting(0);
-$BASE_URL = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
+$BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
 define('BASE_URL', $BASE_URL);
 
 // this gets the previous and next month
@@ -44,9 +43,6 @@ $next_month = date('Y-m', strtotime('+1 month', $timestamp));
 // gets the count of days
 $day_count = date('t', $timestamp);
 
-// Sets the order (Sunday = 0)
-// $str = date('w', mktime(0, 0, 0, date('m', $timestamp), 1, date('Y', $timestamp)));
-
 // sets order in calendar (Monday = 0)
 $str = date('N', $timestamp);
 
@@ -55,51 +51,46 @@ $weeks = array();
 $week = '';
 
 $week .= str_repeat('<td></td>', $str - 1);
-//$_SESSION['userid'] =1;
+// $_SESSION['userid'] =1;
 for ($day = 1; $day <= $day_count; $day ++, $str ++) {
-    
+
     $date = $ym . '-' . $day;
-    
-    //Adding calendar event into 
-    $event_nameStr ='';
+
+    // Adding calendar event into
+    $event_nameStr = '';
     $eventResultStr = '"No"';
-    $dateStr =  "'".$date."'";
-    //$eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr." AND employee_id = " . $_SESSION['userid'];
+    $dateStr = "'" . $date . "'";
     $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
     $result = $conn->query($eventInformation);
     $eventResult = array();
-    while($row = mysqli_fetch_assoc($result))
-    {
+    while ($row = mysqli_fetch_assoc($result)) {
         $eventResult[] = $row;
     }
-    // echo "<pre>";print_r($eventResult);
-    if (!empty($eventResult)) {
+    if (! empty($eventResult)) {
         $eventResultStr = json_encode($eventResult);
-        //$eventResultStr =  "'".$eventResultStr1."'";
+
         $event_namesArr = array_column($eventResult, 'event_name');
-        $event_nameStr = implode("<br>",$event_namesArr);
+        $event_nameStr = implode("<br>", $event_namesArr);
     }
-   
-    
+
     if ($today == $date) {
-        $week .= "<td class='today' onclick='openPopup(".$eventResultStr.")'>";
+        $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ")'>";
     } else {
-        $week .= "<td onclick='openPopup(".$eventResultStr.")'>";
+        $week .= "<td onclick='openPopup(" . $eventResultStr . ")'>";
     }
-    $week .= $day."<br><span style='display:block;font-size:14px;'>".$event_nameStr. '</span></td>';
-    
+    $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . '</span></td>';
+
     // End of the week OR End of the month
     if ($str % 7 == 0 || $day == $day_count) {
-        
+
         // last day of the month set to Sunday
         if ($day == $day_count && $str % 7 != 0) {
-            
+
             // Add empty cell for formatting purposes
             $week .= str_repeat('<td></td>', 7 - $str % 7);
         }
-        
+
         $weeks[] = '<tr>' . $week . '</tr>';
-        
         $week = '';
     }
 }
@@ -109,9 +100,12 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
 
 <head>
 <title>NyleneCalendar</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
 .list-inline {
 	text-align: center;
@@ -142,14 +136,16 @@ td {
 	max-heigth: 100%;
 }
 
-.table notification{
-max-width: 100%;
-max-heigth: 100%;
-	}
-.btn btn-link{
+.table notification {
+	max-width: 100%;
+	max-heigth: 100%;
+}
 
-}	
-button{
+.btn btn-link {
+	
+}
+
+button {
 	background: #f8a88d;
 	border: medium none;
 	color: #fff;
@@ -159,10 +155,11 @@ button{
 	text-transform: uppercase;
 	cursor: pointer;
 }
-button a{
+
+button a {
 	color: #fff;
 	text-decoration: none;
-	}
+}
 </style>
 </head>
 <body>
@@ -176,23 +173,23 @@ button a{
 				class="btn btn-link">next &gt;</a></li>
 
 		</ul>
-				
-		 <!-- <p class="text-right"> 
-			<a href="../Home/Homepage.php" class="btn btn-link">Today</a>
-		 </p> -->
-		 
-		 <div class="btn-group" role="group" aria-label="Events">
-		 
-		 <div class="text-left">
+
+		<div class="btn-group" role="group" aria-label="Events">
+			<!-- Add Event button as admin, would redirect to addEvent form -->
+			<div class="text-left">
 		 <?php if ($_SESSION['role'] == "admin") { ?>
-		<button type="button" class="btn btn-outline-secondary" onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add Event</button>
+		<button type="button" class="btn btn-outline-secondary"
+					onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add
+					Event</button>
 		 <?php } ?>
 		</div>
-		
-		<div class="text-right">
-		<a href="<?PHP echo BASE_URL; ?>Home/Homepage.php"> <button type="button" class="btn btn-link">Today</button></a>
-		</div>
-		
+
+			<div class="text-right">
+				<a href="<?PHP echo BASE_URL; ?>Home/Homepage.php">
+					<button type="button" class="btn btn-link">Today</button>
+				</a>
+			</div>
+
 		</div>
 		<div class="row">
 			<div class="col-md-8">
@@ -211,17 +208,17 @@ button a{
 					</thead>
 					<tbody>
 		                <?php
-		                foreach ($weeks as $week) {
-		                    echo $week;
-		                }
-		                ?>
+                foreach ($weeks as $week) {
+                    echo $week;
+                }
+                ?>
 		            </tbody>
 				</table>
-				<table class ="notification">
-					<thead>	
-					<tr>
-					
-					</tr>
+				<table class="notification">
+					<thead>
+						<tr>
+
+						</tr>
 					</thead>
 				</table>
 			</div>
@@ -237,16 +234,16 @@ button a{
 				</div>
 			</div>
 		</div>
-<!--checks to see if event exists in calendar, and shows if it does  -->	
-	
-	<script type="text/javascript">
+
+		<!--Checks to see if event exists in calendar, and shows if it does
+    Only available if user is Admin   -->
+		<script type="text/javascript">
 		function openPopup(date) {
 			$("#result").text('');
 	        if (date=='No'){
 	    		$("#result").text(" ");
 	    	}else{
 				for(var i=0; i<date.length; i++){
-		        //console.log(date[i]);
 		         <?php if ($_SESSION['role'] == "admin") { ?>
 					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
 				<?php } else { ?>
@@ -254,9 +251,8 @@ button a{
 				<?php } ?>
 		    	}
 	    	}
-			//$("#Contact_Modal").modal('show');
-			//console.log(date);
 		}
 	</script>
+
 </body>
 </html>
