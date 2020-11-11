@@ -246,13 +246,13 @@ return true; }
        
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
-    <input type="checkbox"  name="photography[]" value="yes">
-    <i><label for="photography">yes</label></i>
+    <input type="checkbox"  name="is_photography_needed[]" value="yes">
+    <i><label for="is_photography_needed">yes</label></i>
     
-    <input type="checkbox" name="photography[]" value="no">
-    <i><label for="photography">no</label></i><br/>
+    <input type="checkbox" name="is_photography_needed[]" value="no">
+    <i><label for="is_photography_needed">no</label></i><br/>
 			</tr>
-        <tr><td ><textarea name="photography" rows="6" cols="120"></textarea></td></tr></table>
+        <tr><td ><textarea name="needed_photography" rows="6" cols="120"></textarea></td></tr></table>
         
         <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td> <td ><input type="text" name="estimate" maxlength="300" style="width:260px"></td> <td><i>If applicable.</i></td> </tr>
       

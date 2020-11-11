@@ -21,7 +21,7 @@ session_start();
 		
 		
 		$sql = "SELECT * FROM marketing_request_form 
-								WHERE marketing_request_id = ". $_SESSION['userid'];
+								WHERE marketing_request_id =". $_SESSION['id'];
 		$query = $conn->query($sql);								
 		$row = mysqli_fetch_array($query);
 		
@@ -32,9 +32,9 @@ session_start();
 											INNER JOIN interaction ON interaction.company_id = company.company_id
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 													INNER JOIN marketing_request_form ON marketing_request_form.marketing_request_id = interaction_relational_form.form_id
-														WHERE interaction_relational_form.form_type = 5 AND interaction_relational_form.form_id = ". $_SESSION['userid'];
+														WHERE interaction_relational_form.form_type = 5 AND interaction_relational_form.form_id =". $_SESSION['id'];
 		$marketingResult = $conn->query($marketingInformation); 
-		$row = mysqli_fetch_array($marketingResult); 
+		$marketingRow = mysqli_fetch_array($marketingResult); 
 		
 		$conn->close();
 	}
@@ -46,31 +46,36 @@ session_start();
     <title> View Marketing Materials Request Form</title>
 </head>
 <form  method="post" action="MMform_Database.php"   name="MMForm";>
-    <table border="1" cellpadding="5" cellspacing="1" class="form-table">
+    <table border="1" cellpadding="5" cellspacing="1" class="form-table"> 
                 
 	<tr>
 	<td style="width: 50%">
 	<label for="Requester_Name">
 	<b>Requester Name</b></label>
-	<input name="Requester_Name" type="text" maxlength="250" style="width: 260px" />
+        <p><?php echo $row['requester_name']?></p>
+	<!--<input name="Requester_Name" type="text" maxlength="250" style="width: 260px" />-->
 	</td>
 
 	<td style="width: 50%">
 	<label for="Market_Segment">
 	<b>Market Segment</b></label>
-	<input name="Market_Segment" type="text" maxlength="250" style="width: 260px" />
+                <p><?php echo $row['market_segment']?></p>
+
+	<!--<input name="Market_Segment" type="text" maxlength="250" style="width: 260px" />-->
 	</td>
 </tr> 
                 <tr>
 	<td style="width: 50%">
 	<label for="Sales_Territory">
 	<b>Sales Territory</b></label>
-	<input name="Sales_Territory" type="text" maxlength="250" style="width: 260px" />
+	        <p><?php echo $row['sales_territory']?></p>
+
 	</td>
         	<td style="width: 50%">
 	<label for="Email">
 	<b>Email</b></label>
-	<input name="Email" type="text" maxlength="250" style="width: 260px" />
+	        <p><?php echo $row['email']?></p>
+
 	</td>
         </tr>
 
@@ -79,13 +84,14 @@ session_start();
         	<td style="width: 50%">
 	<label for="Phone">
 	<b>Phone</b></label>
-	<input name="Phone" type="text" maxlength="250" style="width: 260px" />
+	        <p><?php echo $row['phone']?></p>
+
 	</td>
 
         	<td style="width: 50%">
 	<label for="Date">
 	<b>Today's Date</b></label>
-	<input name="Date" type="text" maxlength="250" style="width: 260px" />
+	        <p><?php echo $row['request_date']?></p>
 	</td> </tr>
     </table>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">
@@ -96,12 +102,15 @@ session_start();
     <table border="1" cellpadding="5" cellspacing="0" class="form-table">
 <tr> <td colspan = "2">
 <label for="Name_of_Project"><b>Name of Project or Piece </b></label>
-<input name="Name_of_Project" type="text" maxlength="500" style="width: 535px" />
+        <p><?php echo $row['name_project_or_piece']?></p>
+
 </td>  
  </tr>
+<!--        
 <tr> <td border="1">
    <label for="type_of_project"></label> <b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
-    <input name="type_of_project">
+            <p><php echo $row['type_of_project']?></p>
+
            </td>
     <td><table><tr><td border="1">
 <input type="checkbox"  name="type_of_project[]" value="brochure">
@@ -155,15 +164,22 @@ session_start();
     <input type="checkbox"  name="type_of_project[]" value="release">
     <label for="release">Press Release/E-blast</label>
         </td>  <td><textarea name="type_of_project" rows="1" column="100"></textarea></td></tr>
-      
+     */ 
+        -->
         
-        
+        <tr> <td colspan = "2">
+<label for="type_of_project"><b>Type of Project </b></label>
+        <p><?php echo $row['type_of_project']?></p>
+
+</td>  
+ </tr>
         
         </table></td>
-    
+    <!--
     <tr> <td border="1">
             <label for="project_content"><b>Is this project:</b></label></td>
-            <input name="project_content">
+                    <p><php echo $row['type_of_project']?></p>
+
             <td><table class="form-table"><tr>
                 <input type="checkbox" id="new" name="project_content[]" value="new">
                 <label for="new">New</label></tr><br/>
@@ -173,7 +189,14 @@ session_start();
         </td></tr></table>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
-	
+	-->
+    <tr> <td colspan = "2">
+<label for="project_content"><b>Project Content </b></label>
+        <p><?php echo $row['is_project_new']?></p>
+
+</td>  
+ </tr>
+    <!--
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
 			</tr></table>
     
@@ -201,7 +224,13 @@ session_start();
     <td> <input type="checkbox" id="other" name="target[]" value="other">
     <label for="Other">Other (Please specify)</label><textarea name="target" rows="1" column="100"></textarea></td></tr>
         </table></td></tr>
-        
+        -->
+    <tr> <td colspan = "2">
+<label for="target"><b>Target Audience </b></label>
+        <p><?php echo $row['target_audiance']?></p>
+
+</td>  
+ </tr>
          <tr> <td border="1">
     <label for="Info"><b>Audience Persona Information</b><br/><ul>
         <li>Personal Demographics</li>
@@ -215,7 +244,8 @@ session_start();
         </ul>
         </label>
              </td>
-             <td><textarea name="Info" rows="11" width="1000px" cols="70"></textarea></td></tr>
+                    <p><?php echo $row['audiance_personal_info']?></p>
+
         <br/>
         <br/>
         <br/>
@@ -225,19 +255,22 @@ session_start();
 	
     <!--<td id="column_heading" colspan="2" border="0" style="text-align: left;">--><b>Purpose</b><br/>
 			</tr>
-        <tr><td><textarea name="purpose" rows="6" cols="120"></textarea></td></tr></table>
+               <p><?php echo $row['purpose']?></p>
+
         
         <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Key Messages</b><br/>
      
 			</tr>
-        <tr><td><textarea name="key_messages" rows="6" cols="120"></textarea></td></tr></table>
+              <p><?php echo $row['key_message']?></p>
+
          <table cellpadding="5" cellspacing="1" class="form-table">
         <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Supporting Information:</b><br/>
 			</tr>
-        <tr><td><textarea name="support" rows="6" cols="120"></textarea></td></tr></table>
+              <p><?php echo $row['supporting_info']?></p>
+<!--
      <table cellpadding="5" cellspacing="1" class="form-table">
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
@@ -245,19 +278,37 @@ session_start();
     <i><label for="photography">yes</label></i>
     
     <input type="checkbox" name="photography[]" value="no">
-    <i><label for="photography">no</label></i><br/>
+-->
+             <tr> <td colspan = "2">
+<label for="is_photography_needed"><b>Photography Needed </b></label>
+        <p><?php echo $row['is_photography_needed']?></p>
+
+</td>  
+ </tr>
+    <i><label for="needed_photography">no</label></i><br/>
 			</tr>
-        <tr><td ><textarea name="photography" rows="6" cols="120"></textarea></td></tr></table>
+               <p><?php echo $row['needed_photography']?></p>
+
         
-        <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td> <td ><input type="text" name="estimate" maxlength="300" style="width:260px"></td> <td><i>If applicable.</i></td> </tr>
+        <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td>      
+            <p><?php echo $row['estimated_quantity']?></p>
+ <td><i>If applicable.</i></td> </tr>
         
-        <tr><td ><b>Means of Delivery:</b></td> <td ><input type="text" name="delivery" maxlength="300" style="width:260px"></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
+        <tr><td ><b>Means of Delivery:</b></td> <td >
+                   <p><?php echo $row['means_of_delivery']?></p>
+ <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
             
-           <tr><td ><b>Date Needed:</b></td> <td ><input type="text" name="date_needed" maxlength="300" style="width:260px"></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
-              <tr><td ><b>Available Budget:</b></td> <td ><input type="text" name="budget" maxlength="300" style="width:260px"></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
+           <tr><td ><b>Date Needed:</b></td> <td >
+                      <p><?php echo $row['date_needed']?></p>
+</td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr>  
+            
+              <tr><td ><b>Available Budget:</b></td>         <p><?php echo $row['available_budget']?></p>
+ <td>To cover printing, photography or other vendor charges.</td></tr> 
             
             
-              <tr><td ><b>Cost Counter #:</b></td> <td ><input type="text" name="cost" maxlength="300" style="width:260px"></td> <td>If applicable</td></tr> 
+              <tr><td ><b>Cost Counter #:</b></td> <td >
+                          <p><?php echo $row['cost_center_number']?></p>
+<td>If applicable</td></tr> 
         </table>
        
 </form>
