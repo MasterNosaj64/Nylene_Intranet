@@ -3,6 +3,8 @@ include 'interaction.php';
 include 'company.php';
 include 'listBuffer.php';
 include 'connect.php';
+include 'Employee.php';
+include 'customer.php';
 
 $interaction_Conn = getDBConnection();
 
@@ -10,33 +12,39 @@ $interaction_Conn = getDBConnection();
 
 /* $interactions = new Interaction($interaction_Conn);
 
-$interactionData = $interactions->read();
- */
+$interactionData = $interactions->read(); */
 
-$companies = new Company($interaction_Conn);
 
-$campanyData = $companies->read();
+$companies = new Customer($interaction_Conn);
 
-$buffer = create_Buffer($campanyData, $companies);
+$companyData = $companies->read();
+
+$buffer = create_Buffer($companyData, $companies);
 
 echo "<h1>unsorted</h1><br>";
 
 for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
     
     $currentInteractionNode = unserialize($buffer->current());
-    
-    echo $currentInteractionNode->getName();
+   // $conn = getDBConnection();
+    //$customer = new Company($conn);
+   // $customer->searchById($currentInteractionNode->getCustomerId());
+    echo $currentInteractionNode->getFax();
     echo "<br>";
+   // $conn->close();
 }
 
 echo "<h1>sorted?</h1><br>";
 
-$buffer = sortASC_Company_Name($buffer);
+$buffer = sortASC_CustomerFax($buffer);
 
 for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
     
     $currentInteractionNode = unserialize($buffer->current());
-    
-    echo $currentInteractionNode->getName();;
+   // $conn = getDBConnection();
+   // $customer = new Company($conn);
+   // $customer->searchById($currentInteractionNode->getCustomerId());
+    echo $currentInteractionNode->getFax();
     echo "<br>";
+    //$conn->close();
 }

@@ -101,8 +101,10 @@ class Employee
         // bind the results
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
         
+        $stmt->fetch();
+        
         // return objects
-        return $stmt;
+        return $this;
     }
     
     

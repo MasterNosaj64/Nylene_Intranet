@@ -2,8 +2,8 @@
 
 /*
  * FileName: listBuffer.php
- * Version Number: 1.1
- * Date Modified: 11/01/2020
+ * Version Number: 1.5
+ * Date Modified: 11/11/2020
  * Author: Jason Waid
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate the list
@@ -132,8 +132,8 @@ function create_Customer_Buffer($customerIDs)
 
         $customer = new Customer($dbConnection);
 
-        $customerData = $customer->searchById($cx['customer_id']);
-        $customerData->fetch();
+        $customer->searchById($cx['customer_id']);
+        // $customerData->fetch();
 
         $buffer->push(serialize($customer->get()));
 
@@ -158,53 +158,197 @@ function create_Customer_Buffer($customerIDs)
     return $buffer;
 }
 
-function sort_Interactions_Date(SplDoublyLinkedList $sessionBuffer)
+/*
+ * function: sortASC_DateCreated
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_DateCreated(SplDoublyLinkedList $sessionBuffer)
 {
     $n = $sessionBuffer->count();
-    
+
     $sortedItems = 0;
-    
+
     for ($i = 0; $i < $n; $i ++) {
-        
+
         for ($j = 0; $j < $n - $i - 1; $j ++) {
-            
+
             $obj1 = unserialize($sessionBuffer->offsetGet($j));
             $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
-            
-            if (strcmp($obj1->getDateCreated(), $obj2->getDateCreated()) > 0) {
-                
-                //$obj1->getName() > $obj2->getName()
-                
-                echo "{$obj1->getDateCreated()} is larger than {$obj2->getDateCreated()}<br>";
-                
+
+            if ($obj1->getDateCreated() > $obj2->getDateCreated()) {
+
                 $sessionBuffer->offsetSet($j, serialize($obj2));
                 $sessionBuffer->offsetSet($j + 1, serialize($obj1));
-                $sortedItems++;
+                $sortedItems ++;
             }
         }
     }
-    
-    echo $sortedItems."<br>";
+
     return $sessionBuffer;
 }
 
+/*
+ * function: sortASC_Interactions_Customer
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
 function sortASC_Interactions_Customer($sessionBuffer)
-{}
+{
+    $dbConnection = getDBConnection();
 
+    $n = $sessionBuffer->count();
+
+    $sortedItems = 0;
+
+    for ($i = 0; $i < $n; $i ++) {
+
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+
+            $dbConnection = getDBConnection();
+            $customer1 = new Customer($dbConnection);
+
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $customer1->searchById($obj1->getCustomerId());
+            $dbConnection->close();
+
+            $dbConnection = getDBConnection();
+            $customer2 = new Customer($dbConnection);
+
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            $customer2->searchById($obj2->getCustomerId());
+            $dbConnection->close();
+
+            if (strcmp(strtolower($customer1->getName()), strtolower($customer2->getName())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Interactions_Reason
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
 function sortASC_Interactions_Reason($sessionBuffer)
-{}
-
-function sortASC_Interactions_Notes($sessionBuffer)
-{}
-
-function sortASC_Interactions_CreatedBy($sessionBuffer)
-{}
-
-function sortASC_Company_Name(SplDoublyLinkedList $sessionBuffer)
 {
     $n = $sessionBuffer->count();
 
-    
+    $sortedItems = 0;
+
+    for ($i = 0; $i < $n; $i ++) {
+
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+
+            if (strcmp(strtolower($obj1->getReason()), strtolower($obj2->getReason())) > 0) {
+
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Interactions_Notes
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Interactions_Notes($sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+
+    $sortedItems = 0;
+
+    for ($i = 0; $i < $n; $i ++) {
+
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+
+            if (strcmp(strtolower($obj1->getComments()), strtolower($obj2->getComments())) > 0) {
+
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_CreatedBy
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_CreatedBy($sessionBuffer)
+{
+    $dbConnection = getDBConnection();
+
+    $n = $sessionBuffer->count();
+
+    $sortedItems = 0;
+
+    for ($i = 0; $i < $n; $i ++) {
+
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+
+            $dbConnection = getDBConnection();
+            $employee1 = new Employee($dbConnection);
+
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $employee1->searchById($obj1->getCreatedBy());
+            $dbConnection->close();
+
+            $dbConnection = getDBConnection();
+            $employee2 = new Employee($dbConnection);
+
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            $employee2->searchById($obj2->getCreatedBy());
+            $dbConnection->close();
+
+            if (strcmp(strtolower($employee1->getName()), strtolower($employee2->getName())) > 0) {
+
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Name
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Name(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+
     for ($i = 0; $i < $n; $i ++) {
 
         for ($j = 0; $j < $n - $i - 1; $j ++) {
@@ -213,7 +357,7 @@ function sortASC_Company_Name(SplDoublyLinkedList $sessionBuffer)
             $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
 
             if (strcmp(strtolower($obj1->getName()), strtolower($obj2->getName())) > 0) {
-     
+
                 $sessionBuffer->offsetSet($j, serialize($obj2));
                 $sessionBuffer->offsetSet($j + 1, serialize($obj1));
             }
@@ -223,75 +367,203 @@ function sortASC_Company_Name(SplDoublyLinkedList $sessionBuffer)
     return $sessionBuffer;
 }
 
-/*
- * // Traverse through all array elements
- * for($i = 0; $i < $n; $i++)
- * {
- * // Last i elements are already in place
- * for ($j = 0; $j < $n - $i - 1; $j++)
- * {
- * // traverse the array from 0 to n-i-1
- * // Swap if the element found is greater
- * // than the next element
- * if ($arr[$j] > $arr[$j+1])
- * {
- * $t = $arr[$j];
- * $arr[$j] = $arr[$j+1];
- * $arr[$j+1] = $t;
- * }
- * }
- * }
- */
 
 /*
- * if($sessionBuffer->isEmpty()){
- * return $sessionBuffer;
- * }
- * $index = 0;
- * $sortedObjects = 0;
- * $sortedSessionBuffer = new SplDoublyLinkedList;
- *
- * if($sessionBuffer->count() > 1){
- *
- * do{
- *
- * //get first object
- * $obj1 = unserialize($sessionBuffer->bottom());
- *
- * echo "new bottom {$obj1->getName()}";
- *
- *
- * for ($sessionBuffer->rewind(); $sessionBuffer->valid(); $sessionBuffer->next()) {
- *
- * $obj2 = unserialize($sessionBuffer->current());
- *
- * if($obj1->getName() > $obj2->getName()){
- *
- * $obj1 = $obj2->get();
- * $index = $sessionBuffer->key();
- *
- * }
- *
- * }
- *
- * $sortedSessionBuffer->unshift(serialize($obj2->get()));
- * $sortedObjects++;
- *
- * $sessionBuffer->offsetUnset($index);
- *
- *
- * }while($sortedObjects != $sessionBuffer->count());
- *
- * }
- * else
- * {
- *
- * return $sessionBuffer;
- * }
- *
- * return $sortedSessionBuffer;
- *
- * }
+ * function: sortASC_Phone
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
  */
+function sortASC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getPhone()), strtolower($obj2->getPhone())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Fax
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_CustomerFax(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getFax()), strtolower($obj2->getFax())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+
+
+/*
+ * function: sortASC_Email
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Email(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getEmail()), strtolower($obj2->getEmail())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Street
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Street(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower(preg_replace('/[0-9]+/', '', $obj1->getBillingAddressStreet())), strtolower(preg_replace('/[0-9]+/', '', $obj2->getBillingAddressStreet()))) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_City
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_City(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getBillingAddressCity()), strtolower($obj2->getBillingAddressCity())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_State
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_State(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getBillingAddressState()), strtolower($obj2->getBillingAddressState())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortASC_Website
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Website(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getWebsite()), strtolower($obj2->getWebsite())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+            }
+        }
+    }
+    
+    return $sessionBuffer;
+}
 
 ?>

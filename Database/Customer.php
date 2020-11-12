@@ -111,8 +111,10 @@ class Customer
         // bind the results
         $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
 
+        $stmt->fetch();
+        
         // return objects
-        return $stmt;
+        return $this;
     }
 
     /*

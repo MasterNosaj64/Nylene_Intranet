@@ -68,8 +68,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         // Get Company data
         $companyInfo = new Company($conn_Company);
 
-        $companyInfoResult = $companyInfo->searchId($_SESSION["company_id"]);
-        $companyInfoResult->fetch();
+        $companyInfo->searchId($_SESSION["company_id"]);
+       // $companyInfoResult->fetch();
 
         // Get customer_id's for company
         $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_SESSION['company_id'];

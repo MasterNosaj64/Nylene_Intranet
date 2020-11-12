@@ -9,13 +9,11 @@
  */
 session_start();
 
-
-
 // The navigation bar for the website
 include '../NavPanel/navigation.php';
 // connection to the database
 include '../Database/connect.php';
-//listBuffer logic
+// listBuffer logic
 include '../Database/listBuffer.php';
 // Interaction object
 include '../Database/Interaction.php';
@@ -23,7 +21,7 @@ include '../Database/Interaction.php';
 include '../Database/Customer.php';
 // Company Object
 include '../Database/Company.php';
-//Employee Object
+// Employee Object
 include '../Database/Employee.php';
 
 // The following is used in sessionController.php
@@ -38,14 +36,13 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
     die("Connection failed: {$interaction_Conn->connect_error} || {$company_Conn->connect_error}");
 } else {
 
-    if (isset($_POST['company_id']) && !isset($_SESSION['company_id'])) {
+    if (isset($_POST['company_id']) && ! isset($_SESSION['company_id'])) {
 
         $_SESSION['company_id'] = $_POST['company_id'];
     }
-    
-    
-    if(isset($_SESSION['company_id'])){
-        
+
+    if (isset($_SESSION['company_id'])) {
+
         /*
          * The following code handles the offset for the list of companies
          * Below is an explaination of the variables
@@ -61,8 +58,8 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
         $companyInfo = new Company($company_Conn);
 
-        $companyInfoResult = $companyInfo->searchId($_SESSION["company_id"]);
-        $companyInfoResult->fetch();
+        $companyInfo->searchId($_SESSION["company_id"]);
+        // $companyInfoResult->fetch();
 
         // Get company info
         $companyAddress = "{$companyInfo->getBillingAddressStreet()} {$companyInfo->getBillingAddressCity()} {$companyInfo->getBillingAddressState()} {$companyInfo->getBillingAddressCounty()} {$companyInfo->getBillingAddressPostalCode()}";
@@ -76,7 +73,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
         echo "<tr><td>Company:</td><td>{$companyInfo->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
         echo "<tr><td>Website:</td><td><a href=\"{$companyInfo->getWebsite()}\">{$companyInfo->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$companyInfo->getEmail()}\">{$companyInfo->getEmail()}</a></td></tr>";
         echo "</table>";
-        
     } else {
         // If the above results in error redirect the user to homepage
         echo "<meta http-equiv = \"refresh\" content = \"5; url = ../Home/Homepage.php\" />;";
@@ -118,32 +114,33 @@ $maxGridSize = 10;
 
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
-    
+
     // check if user wants next 10 or previous 10
-    
+
     $sessionBuffer = $_SESSION['buffer'];
-    
+
     if (isset($_POST['next10'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $sessionBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
-        
+
         $interactionBuffer = next10($sessionBuffer);
     } else if (isset($_POST['previous10'])) {
         $_SESSION['offset'] -= $maxGridSize;
-        
+
         if ($_SESSION['offset'] < 0) {
             $_SESSION['offset'] = 0;
         }
-        
+
         $interactionBuffer = previous10($sessionBuffer);
     }
-    
-    
-    //page refresh
-    /* $interactionBuffer = $_SESSION['buffer'];
-    $interactionBuffer->rewind(); */
+
+    // page refresh
+    /*
+     * $interactionBuffer = $_SESSION['buffer'];
+     * $interactionBuffer->rewind();
+     */
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
@@ -152,7 +149,6 @@ if (isset($_SESSION['buffer'])) {
 }
 
 echo "{$interactionBuffer->count()} record(s) found";
-
 
 for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuffer->next()) {
 
@@ -169,39 +165,33 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
 
     $customer_Conn = getDBConnection();
     $employee_Conn = getDBConnection();
-    
-    
-    if($customer_Conn->connect_error || $employee_Conn->connect_error){
+
+    if ($customer_Conn->connect_error || $employee_Conn->connect_error) {
         die("Connection failed: {$customer_Conn->connect_error} || {$employee_Conn->connect_error}");
     }
-    
-    //obtain customer data
+
+    // obtain customer data
     $customer = new Customer($customer_Conn);
-    $customerData = $customer->searchById($customerID);
-    $customerData->fetch();
+    $customer->searchById($customerID);
+    // $customerData->fetch();
     $customerName = $customer->getName();
     $customer_Conn->close();
-    
-    //TODO: JASON add created by column
-    //obtain employee data
+
     $employee = new Employee($employee_Conn);
-    $employeeData = $employee->searchById($employeeID);
-    $employeeData->fetch();
+    $employee->searchById($employeeID);
     $employeeName = $employee->getName();
     $employee_Conn->close();
-    
-    
-    
+
     echo "<tr><td>{$interactionDateCreated}</td>";
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
-    echo "<td>".substr($comments, 0, 50)."</td>";
+    echo "<td>" . substr($comments, 0, 50) . "</td>";
     echo "<td>{$employeeName}</td>";
     echo "<td><form method=\"post\" action=\"viewInteraction.php\">";
     echo "<input hidden type=\"text\" name=\"interaction_id\" value=\"{$interactionID}\">";
     echo "<input type=\"submit\" value=\"view\"/>";
     echo "</form></td></tr>";
-    
+
     $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;
