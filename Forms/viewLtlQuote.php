@@ -63,9 +63,9 @@
         			<th colspan="4">LTL Quote Form</th>
         		</tr></thead>
         		<tr>
-        			 <!--Date Created -->
-        			<td ><label for="date_created"> Date </label></td>
-        			<td ><input type="date" name="date_created" readonly value="<?php echo $ltlRow['date_created'];?>"></td>
+        			 <!--Quote Date -->
+        			<td ><label for="quote_date"> Date </label></td>
+        			<td ><input type="date" name="quote_date" readonly value="<?php echo $ltlRow['quote_date'];?>"></td>
         		</tr>
         		<tr>
         		    <!--Quote Name/Number -->

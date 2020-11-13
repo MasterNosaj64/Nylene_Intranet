@@ -22,7 +22,7 @@
 
 		/*Prepare insert statement into the ltl_quote table*/
 		$stmt = $conn->prepare("INSERT INTO ltl_quote (
-					date_created,
+					quote_date,
 					quote_num,
 					product_name,
 					payment_terms,
@@ -43,7 +43,7 @@
 
 		
 		/*Assign values to variables and execute*/
-		$dateCreated = htmlspecialchars(strip_tags($_POST["date_created"]));
+		$quoteDate = htmlspecialchars(strip_tags($_POST["quote_date"]));
 		$quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
 		$productName = htmlspecialchars(strip_tags($_POST["product_name"]));
 		$payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
@@ -62,7 +62,7 @@
 		$range5 = htmlspecialchars(strip_tags($_POST["range5"]));
 		
 		/*Bind statement parameters to statement*/
-		$stmt->bind_param("ssssssisssissssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
+		$stmt->bind_param("ssssssisssissssss", $quoteDate, $quoteNum, $productName, $payment_terms, $productDesc,
 		    $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		    $truckLoad, $range1522, $range1121, $range510, $range25, $range12, $range5);
 		

@@ -22,7 +22,7 @@
 		
 		/*Prepare insert statement into the distributor_quote_form table*/
 		$stmt = $conn->prepare("INSERT INTO distributor_quote_form (
-					date_created, 
+					quote_date, 
 					quote_num, 
 					product_name, 
 					payment_terms, 
@@ -41,7 +41,7 @@
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		/*Assign values to variables and execute*/
-		$dateCreated = htmlspecialchars(strip_tags($_POST["date_created"]));
+		$quoteDate = htmlspecialchars(strip_tags($_POST["quote_date"]));
 		$quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
 		$productName = htmlspecialchars(strip_tags($_POST["product_name"]));
 		$payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
@@ -59,7 +59,7 @@
 		$range24 = htmlspecialchars(strip_tags($_POST["range24"]));
 		
 		/*Bind statement parameters to statement*/
-		$stmt->bind_param("ssssssisssisssss", $dateCreated, $quoteNum, $productName, $payment_terms, $productDesc,
+		$stmt->bind_param("ssssssisssisssss", $quoteDate, $quoteNum, $productName, $payment_terms, $productDesc,
 		  $ltlQuantities, $annualVol, $specialTerms, $OEM, $application,
 		  $truckLoad, $range40up, $range2240, $range1122, $range610, $range24); 
 		

@@ -89,9 +89,9 @@
     			<th colspan="4">Distributor Quote Form</th>
     		</tr></thead>
     		<tr>
-    		     <!--Date Created - Mandatory-->
-    			<td ><label for="date_created"> Date* </label></td>
-    			<td ><input type="date" id="date_created" name="date_created" required></td>
+    		     <!--Quote Date - Mandatory-->
+    			<td ><label for="quote_date"> Date* </label></td>
+    			<td ><input type="date" id="quote_date" name="quote_date" required></td>
     		</tr>
     		<tr>
     			<!--Quote Name/Number - Mandatory-->
