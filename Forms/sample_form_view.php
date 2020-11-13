@@ -1,7 +1,7 @@
 <?php
     /* Name: sample_form_view.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 12th, 2020
      * Purpose: Displays the information from the Sample form
      */
 
@@ -18,7 +18,7 @@
     }
     else
     {
-        /*Selection statement for current employee*/
+        /*Selection statement for employee that created the form*/
 		$username = "SELECT first_name, last_name FROM employee
                         INNER JOIN interaction ON interaction.employee_id = employee.employee_id
                             INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id

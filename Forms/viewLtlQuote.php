@@ -1,7 +1,7 @@
 <?php 
     /* Name: viewLtlQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 12th, 2020
      * Purpose: Displays the information from the LightTruckload form. 
      */
     
