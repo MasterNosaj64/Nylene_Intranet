@@ -52,13 +52,13 @@ if (isset($_POST['interaction_id'])) {
         
         $company = new Company($conn_Company);
         $companyData = $company->searchId($interaction->getCompanyId());
-        $companyData->fetch();
+ //       $companyData->fetch();
         $companyAddress = $company->getBillingAddressStreet() . ", " . $company->getBillingAddressCity() . ", " . $company->getBillingAddressState() . ", " . $company->getBillingAddressCounty(). ", " . $company->getBillingAddressPostalCode();
 
         
         $customer = new Customer($conn_Customer);
         $customerData = $customer->searchById($interaction->getCustomerId());
-        $customerData->fetch();
+//        $customerData->fetch();
         
         $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
         $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));

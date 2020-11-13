@@ -19,9 +19,12 @@
 	
 	} else {
 		
-	    /*Selection statement for current employee*/
-		$userInformation = "SELECT first_name, last_name, title, work_phone, employee_email FROM employee 
-								WHERE employee_id = " . $_SESSION['userid'];
+	    /*Selection statement for employee that created the form*/		
+		$userInformation = "SELECT first_name, last_name, title, work_phone, employee_email FROM employee
+                                INNER JOIN interaction ON interaction.employee_id = employee.employee_id
+                                    INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
+                                        INNER JOIN tl_quote ON tl_quote.tl_quote_id = interaction_relational_form.form_id
+                                            WHERE tl_quote_id = " . $_POST['id'];
 		$userResult = $conn->query($userInformation); 
 		$userRow = mysqli_fetch_array($userResult);
 		

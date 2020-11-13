@@ -19,8 +19,11 @@
     else
     {
         /*Selection statement for current employee*/
-		$username = "SELECT first_name, last_name FROM employee WHERE employee_id = " . $_SESSION['userid'];
-
+		$username = "SELECT first_name, last_name FROM employee
+                        INNER JOIN interaction ON interaction.employee_id = employee.employee_id
+                            INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
+                                INNER JOIN sample_form ON sample_form.sample_form_id = interaction_relational_form.form_id
+                                    WHERE sample_form_id = " . $_POST['id'];
 		$result = $conn->query($username);
 		$row = mysqli_fetch_array($result);
 
