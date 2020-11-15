@@ -152,7 +152,6 @@ button {
 	font-size: 16px;
 	margin: 0 0 20px 0;
 	padding: 8px 38px;
-	text-transform: uppercase;
 	cursor: pointer;
 }
 
