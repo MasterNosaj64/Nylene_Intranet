@@ -602,7 +602,7 @@ function sortDESC_Name(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * function: sortASC_Phone
+ * function: sortASC_CustomerPhone
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -662,7 +662,7 @@ function sortDESC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * function: sortASC_Fax
+ * function: sortASC_CustomerFax
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -1452,5 +1452,207 @@ function printHeadersCompany(int $sortType)
         
     echo "<td>Menu</td>";
 }
+
+/*
+ * function: getSortingCustomer
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function getSortingCustomer(SplDoublyLinkedList $sessionBuffer)
+{
+    if (isset($_GET['sort'])) {
+        
+        $sortPreference = $_GET['sort'];
+        
+        $_SESSION['offset'] = 0;
+        
+        switch ($sortPreference) {
+            
+            case '-1':
+                
+                return sortDESC_Name($sessionBuffer);
+                break;
+                
+            case '1':
+                
+                return sortASC_Name($sessionBuffer);
+                break;
+                
+            case '-2':
+                
+                return sortDESC_Email($sessionBuffer);
+                break;
+                
+            case '2':
+                
+                return sortASC_Email($sessionBuffer);
+                break;
+                
+            case '-3':
+                
+                return sortDESC_CustomerPhone($sessionBuffer);
+                break;
+                
+            case '3':
+                
+                return sortASC_CustomerPhone($sessionBuffer);
+                break;
+                
+            case '-4':
+                
+                return sortDESC_CustomerFax($sessionBuffer);
+                break;
+                
+            case '4':
+                
+                return sortASC_CustomerFax($sessionBuffer);
+                break;
+                
+            case '-5':
+                
+                return sortDESC_DateCreated($sessionBuffer);
+                break;
+                
+            case '5':
+                
+                return sortASC_DateCreated($sessionBuffer);
+                break;
+                 
+            default:
+                // unknown sorting preference
+                return $sessionBuffer;
+        }
+    } else {
+        // no sorting preference
+        return $sessionBuffer;
+    }
+}
+
+/*
+ * function: printHeadersCustomer
+ * Param: $sortType
+ * Param Type: Int
+ * Return Type: n/a
+ */
+function printHeadersCustomer(int $sortType)
+{
+    switch ($sortType) {
+        
+        case '-1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='1'>&#8681   Name   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-1'>&#8679   Name   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+         
+            break;
+            
+        case '-2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='2'>&#8681   Email   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-2'>&#8679   Email   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='3'>&#8681   Phone   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+             
+            break;
+            
+        case '3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-3'>&#8679   Phone   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='4'>&#8681   Fax   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-4'>&#8679   Fax   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='5'>&#8681   Date Created   &#8681</td>";
+            
+            break;
+            
+        case '5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8679   Date Created   &#8679</td>";
+            
+            break;
+              
+        default:
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+    }
+    
+    echo "<td>Menu</td>";
+}
+
+
 
 ?>

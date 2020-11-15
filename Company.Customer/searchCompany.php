@@ -226,14 +226,7 @@ if (isset($_GET['sort'])) {
 <table class="form-table" border=5>
 	<thead>
 		<tr> 
-		
-		
-		
-		
-		<?php printHeadersCompany($sortType)?>
-			
-
-			
+		<?php printHeadersCompany($sortType)?>	
 		</tr>
 	</thead>
 
@@ -269,8 +262,6 @@ function colSort(){
 	
 }
 
-
-	
 	</script>
 
 <?php
