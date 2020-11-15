@@ -1,12 +1,12 @@
 <?php
 /*
  * FileName: viewCompany.php
- * Version Number: 1.2
+ * Version Number: 1.9
  * Author: Jason Waid
  * Purpose:
  * View company data in the database.
  * This includes the customers registered to the company
- * Date Modified: 11/01/2020
+ * Date Modified: 11/15/2020
  */
 Session_start();
 
@@ -121,11 +121,6 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 
             $customerBuffer = getSortingCustomer($customerBuffer);
         }
-
-        /*
-         * $customerBuffer = $_SESSION['buffer'];
-         * $customerBuffer->rewind();
-         */
     } else {
         // attempt of creating a buffer for a list of companies
         $customerBuffer = create_Customer_Buffer($customerIDs);

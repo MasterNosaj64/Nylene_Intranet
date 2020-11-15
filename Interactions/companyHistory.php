@@ -96,17 +96,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 		value="Create Interaction" />
 </form>
 
-<table class="form-table" border=5>
-	<thead>
-		<tr>
-			<td>Date</td>
-			<td>Customer</td>
-			<td>Reason</td>
-			<td>Notes</td>
-			<td>Author</td>
-			<td>Manage</td>
-		</tr>
-	</thead>
 <?php
 // Get interactions
 // Change this variable to modify the page size
@@ -117,15 +106,15 @@ if (isset($_SESSION['buffer'])) {
 
     // check if user wants next 10 or previous 10
 
-    $sessionBuffer = $_SESSION['buffer'];
+    $interactionBuffer = $_SESSION['buffer'];
 
     if (isset($_POST['next10'])) {
         $_SESSION['offset'] += $maxGridSize;
-        if ($_SESSION['offset'] > $sessionBuffer->count()) {
+        if ($_SESSION['offset'] > $interactionBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
 
-        $interactionBuffer = next10($sessionBuffer);
+        $interactionBuffer = next10($interactionBuffer);
     } else if (isset($_POST['previous10'])) {
         $_SESSION['offset'] -= $maxGridSize;
 
@@ -133,23 +122,72 @@ if (isset($_SESSION['buffer'])) {
             $_SESSION['offset'] = 0;
         }
 
-        $interactionBuffer = previous10($sessionBuffer);
+        $interactionBuffer = previous10($interactionBuffer);
+    } else {
+        $interactionBuffer = getSortingInteraction($interactionBuffer);
     }
-
-    // page refresh
-    /*
-     * $interactionBuffer = $_SESSION['buffer'];
-     * $interactionBuffer->rewind();
-     */
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
     $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "");
     $interactionBuffer = create_Buffer($interactionResult, $interactions);
+
+    if (isset($_GET['sort'])) {
+        $interactionBuffer = getSortingInteraction($interactionBuffer);
+    }
 }
 
 echo "{$interactionBuffer->count()} record(s) found";
 
+if (isset($_GET['sort'])) {
+    $sortType = $_GET['sort'];
+} else {
+    $sortType = 0;
+}
+
+?>
+
+<table class="form-table" border=5>
+	<thead>
+		<tr>
+<?php printHeadersInteraction($sortType)?>	
+</tr>
+	</thead>
+
+	<!-- Script for Sorting columns -->
+	<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+
+	td[i].addEventListener("click", colSort);
+	td[i].addEventListener("mouseover", function(event){
+	
+	
+		event.target.style.background = "#D3D3D3";
+		event.target.style.color = "black";
+		
+		   //reset the color after a short delay
+		  setTimeout(function() {
+		    event.target.style.background = "";
+		    event.target.style.color = "";
+		  }, 500);
+		}, false);
+	}
+
+function colSort(){
+	
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./companyHistory.php?sort=" + col;
+	
+}
+
+	</script>
+
+
+<?php
 for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuffer->next()) {
 
     // Unserialize the object stored in the companyBuffer
@@ -203,22 +241,67 @@ $company_Conn->close();
 ?>
 
 <!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of companies
+	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	<table class="form-table"align:center;>
-		<td><form method="post" action="companyHistory.php">
-		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="previous10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Previous 10" />
-		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
-			</form></td>
-		<td><form method="post" action="companyHistory.php">
-		<?php if($offset == $interactionBuffer->count()){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="next10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Next 10" />
-					<?php if($offset == $interactionBuffer->count()){ echo "</fieldset>";}?>
-			</form></td>
-	</table>
-	</html>
+	
+	<?php
+
+if (isset($_GET['sort'])) {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous10'";
+    echo "value={$_SESSION["offset"]} /> <input type='submit'";
+    echo "value='Previous 10' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
+    if ($offset == $interactionBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next10'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next 10' />";
+    if ($offset == $interactionBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+} else {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='companyHistory.php'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous10'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Previous 10' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='companyHistory.php'>";
+    if ($offset == $interactionBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next10'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next 10' />";
+    if ($offset == $interactionBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+}
+?>
+</html>
