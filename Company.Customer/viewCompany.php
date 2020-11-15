@@ -66,9 +66,9 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
     if (isset($_SESSION['company_id'])) {
 
         // Get Company data
-        $companyInfo = new Company($conn_Company);
+        $company = new Company($conn_Company);
 
-        $companyInfo->searchId($_SESSION["company_id"]);
+        $company->searchId($_SESSION["company_id"]);
         // $companyInfoResult->fetch();
 
         // Get customer_id's for company
@@ -76,16 +76,16 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         $customerIDs = $conn_CustomerIDs->query($customersqlquery);
 
         // Get company info
-        $companyAddress = "{$companyInfo->getBillingAddressStreet()} {$companyInfo->getBillingAddressCity()} {$companyInfo->getBillingAddressState()} {$companyInfo->getBillingAddressCounty()} {$companyInfo->getBillingAddressPostalCode()}";
-
-        $companyShippingAddress = "{$companyInfo->getShippingAddressStreet()} {$companyInfo->getShippingAddressCity()} {$companyInfo->getShippingAddressState()} {$companyInfo->getShippingAddressCounty()} {$companyInfo->getShippingAddressPostalCode()}";
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
+        
+        $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCounty()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
 
         echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
-        echo "<tr><td>Company:</td><td>{$companyInfo->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
-        echo "<tr><td>Website:</td><td><a href=\"{$companyInfo->getWebsite()}\">{$companyInfo->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$companyInfo->getEmail()}\">{$companyInfo->getEmail()}</a></td></tr>";
+        echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
+        echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
         echo "</table>";
     } else {
         // If the above results in error redirect the user to homepage
@@ -156,7 +156,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			</form>
 		</td>
 		<td>
-			<form method="post" action="../Interactions/companyHistory.php?sort=1">
+			<form method="post"
+				action="../Interactions/companyHistory.php?sort=1">
 				<input hidden name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
 					type="submit" value="View History" />
@@ -177,6 +178,8 @@ if (isset($_GET['sort'])) {
 }
 
 ?>
+
+
 
 
 
@@ -248,6 +251,7 @@ for ($offset = $_SESSION['offset']; $customerBuffer->valid(); $customerBuffer->n
         break;
     }
 }
+$conn_Company->close();
 $conn_Customers->close();
 ?>
 

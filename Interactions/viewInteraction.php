@@ -45,20 +45,18 @@ if (isset($_POST['interaction_id'])) {
     } else {
         
         $interaction = new Interaction($conn_Interaction);
-        $interactionData = $interaction->search($_SESSION['interaction_id'], "", "", "", "", "", "");
-        $interactionData->fetch();
+        $interaction = $interaction->searchId($_SESSION['interaction_id']);
+      
         
         $_SESSION['company_id'] = $interaction->getCompanyId();
         
         $company = new Company($conn_Company);
-        $companyData = $company->searchId($interaction->getCompanyId());
- //       $companyData->fetch();
-        $companyAddress = $company->getBillingAddressStreet() . ", " . $company->getBillingAddressCity() . ", " . $company->getBillingAddressState() . ", " . $company->getBillingAddressCounty(). ", " . $company->getBillingAddressPostalCode();
+        $company = $company->searchId($interaction->getCompanyId());
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
 
         
         $customer = new Customer($conn_Customer);
-        $customerData = $customer->searchById($interaction->getCustomerId());
-//        $customerData->fetch();
+        $customer = $customer->searchById($interaction->getCustomerId());
         
         $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
         $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));

@@ -122,7 +122,7 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
             // $viewCompanyData = mysqli_fetch_array($conn->query($getCompanyDataQuery));
             // Build company address into string
             // $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
-            $companyAddress = "{$company->getBillingAddressStreet()} {$company->getBillingAddressCity()} {$company->getBillingAddressState()} {$company->getBillingAddressCounty()} {$company->getBillingAddressPostalCode()}";
+            $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
         }
     } else {
         // If the above throws an error, kick the user back to the homepage

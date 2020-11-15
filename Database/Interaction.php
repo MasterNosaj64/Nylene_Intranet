@@ -159,6 +159,38 @@ class Interaction
     }
     
     /*
+     * Function Name: searchId
+     * Purpose: A simpler version of search that only searches using the company_id
+     */
+    function searchId($interaction_id)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.interaction WHERE interaction_id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $interaction_id = htmlspecialchars(strip_tags($interaction_id));
+        
+        $stmt->bind_param("i", $interaction_id);
+        
+        // execute query
+        if (! $stmt->execute()) {
+            return false;
+        }
+        
+        // bind the results
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created);
+        
+        
+        $stmt->fetch();
+        
+        // return objects
+        return $this;
+    }
+    
+    /*
      * Function Name: search
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
