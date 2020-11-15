@@ -99,7 +99,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 <?php
 // Get interactions
 // Change this variable to modify the page size
-$maxGridSize = 10;
+$maxGridSize = 5;
 
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {

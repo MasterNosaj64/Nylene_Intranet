@@ -93,7 +93,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
     }
 
     // Change this variable to modify the page size
-    $maxGridSize = 10;
+    $maxGridSize = 4;
 
     // check if a buffer has already been created
     if (isset($_SESSION['buffer'])) {

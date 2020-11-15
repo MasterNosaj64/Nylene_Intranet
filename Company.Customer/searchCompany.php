@@ -168,7 +168,7 @@ for (i = 0; i < coll.length; i++) {
 
 <?php
 // Change this variable to modify the page size
-$maxGridSize = 10;
+$maxGridSize = 4;
 
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
