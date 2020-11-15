@@ -56,7 +56,7 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
 
     $date = $ym . '-' . $day;
 
-    // Adding calendar event into
+    // Adding calendar event 
     $event_nameStr = '';
     $eventResultStr = '"No"';
     $dateStr = "'" . $date . "'";
@@ -73,6 +73,7 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
         $event_nameStr = implode("<br>", $event_namesArr);
     }
 
+    
     if ($today == $date) {
         $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ")'>";
     } else {
@@ -251,6 +252,12 @@ button a {
 		    	}
 	    	}
 		}
+		//changes colour when clicking on date
+		   $('td').click(function() {
+			    $("td").css('backgroundColor', 'unset');
+			    $(".today").css('background-color', 'aliceblue'); 
+			   $(this).css('backgroundColor', 'f8a88d');
+		});
 	</script>
 
 </body>
