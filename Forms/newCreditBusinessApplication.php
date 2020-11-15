@@ -58,7 +58,7 @@ $stmt = $conn->prepare("INSERT INTO credit_application_business_form (company_na
 							ref3_company_fax,
 							ref3_company_address,
 							ref3_company_email)
-						 values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						 values (?,?,?,?,?,?,?,?,?,?,?,?,?,AES_ENCRYPT(?,?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
 $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
@@ -99,7 +99,6 @@ $ref3_company_address = htmlspecialchars(strip_tags($_POST['ref3_company_address
 $ref3_company_email = htmlspecialchars(strip_tags($_POST['ref3_company_email']));
 
  //  $account_number = $_POST["account_number"];
-
   /*    $sql = "INSERT INTO credit_application_business_form (company_name,
       company_address,
       contact_name,
@@ -179,7 +178,7 @@ $ref3_company_email = htmlspecialchars(strip_tags($_POST['ref3_company_email']))
 
     $stmt->bind_param("sssssssssisssssssssssssssssssssssssss", $company_name, $company_address, $contact_name, $time_current_address, $title, 
         $date_business_commenced, $phone, $nylene_representative, 
-        $fax, $order_pending, $order_amount, $business_email, $bank_name,AES_ENCRYPT('$account_number', 'key'), $bank_address,
+        $fax, $order_pending, $order_amount, $business_email, $bank_name,$account_number,$key, $bank_address,
         $bank_email, $bank_contact_name, $bank_fax, $bank_phone, $ref1_company_name, $ref1_company_phone, 
         $ref1_company_contact_name, $ref1_company_fax, $ref1_company_address, $ref1_company_email,
         $ref2_company_name, $ref2_company_phone, $ref2_company_contact_name, $ref2_company_fax, 
