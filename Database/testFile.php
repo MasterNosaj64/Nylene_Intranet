@@ -15,7 +15,7 @@ $interaction_Conn = getDBConnection();
 $interactionData = $interactions->read(); */
 
 
-$companies = new Customer($interaction_Conn);
+$companies = new Company($interaction_Conn);
 
 $companyData = $companies->read();
 
@@ -29,14 +29,14 @@ for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
    // $conn = getDBConnection();
     //$customer = new Company($conn);
    // $customer->searchById($currentInteractionNode->getCustomerId());
-    echo $currentInteractionNode->getFax();
+    echo $currentInteractionNode->getName();
     echo "<br>";
    // $conn->close();
 }
 
 echo "<h1>sorted?</h1><br>";
 
-$buffer = sortASC_CustomerFax($buffer);
+$buffer = sortDESC_Name($buffer);
 
 for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
     
@@ -44,7 +44,7 @@ for ($buffer->rewind(); $buffer->valid(); $buffer->next()) {
    // $conn = getDBConnection();
    // $customer = new Company($conn);
    // $customer->searchById($currentInteractionNode->getCustomerId());
-    echo $currentInteractionNode->getFax();
+    echo $currentInteractionNode->getName();
     echo "<br>";
     //$conn->close();
 }

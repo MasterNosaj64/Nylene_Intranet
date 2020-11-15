@@ -88,5 +88,4 @@ if (isset($_SESSION['companyHistoryVisited'])) {
         unset($_SESSION['buffer']);
     }
 }
-
 ?>
