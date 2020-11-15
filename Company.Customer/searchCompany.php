@@ -95,7 +95,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
-
+<body style="overflow:scroll">
 <!-- NEW Company Search -->
 <!-- Below is the NEW search company functionality -->
 <button type="button" class="collapsible">Toggle Search</button>
@@ -221,8 +221,6 @@ if (isset($_GET['sort'])) {
 
 <!-- Company Search -->
 <!-- Below is the table that is presented to the user for the query results on the Company table -->
-<!--  TODO: Implement Sorting -->
-
 <table class="form-table" border=5>
 	<thead>
 		<tr> 
@@ -256,12 +254,14 @@ if (isset($_GET['sort'])) {
 	}
 
 function colSort(){
-	
+
+		
 		var col = this.getAttribute("data-colnum");
 		window.location.href = "./searchCompany.php?sort=" + col;
 	
 }
 
+	
 	</script>
 
 <?php
@@ -311,7 +311,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 				<input hidden name='company_id_edit' value='{$companyId}'/> <input
 					type='submit' value='edit'/>
 			</form>
-			<form action='./viewCompany.php' method='post'>
+			<form action='./viewCompany.php?sort=1' method='post'>
 				<input hidden name='company_id_view' value='{$companyId}'/> <input
 					type='submit' value='view'/>
 			</form></td>";
@@ -331,9 +331,7 @@ $conn_Company->close();
 	<!-- Next 10 Previous 10 Buttons -->
 	<!-- The following code presents the user with buttons to navigate the list of companies
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	
 	<?php
-
 if (isset($_GET['sort'])) {
 
     echo "<table class='form-table'align:center;>";
@@ -392,8 +390,4 @@ if (isset($_GET['sort'])) {
     echo "</table>";
 }
 ?>
-	
-	
-	
-
 </html>

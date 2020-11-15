@@ -179,7 +179,7 @@ function sortASC_DateCreated(SplDoublyLinkedList $sessionBuffer)
             $obj1 = unserialize($sessionBuffer->offsetGet($j));
             $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
 
-            if ($obj1->getDateCreated() > $obj2->getDateCreated()) {
+            if ($obj1->getDateCreated() < $obj2->getDateCreated()) {
 
                 $sessionBuffer->offsetSet($j, serialize($obj2));
                 $sessionBuffer->offsetSet($j + 1, serialize($obj1));
@@ -213,7 +213,7 @@ function sortDESC_DateCreated(SplDoublyLinkedList $sessionBuffer)
             $obj1 = unserialize($sessionBuffer->offsetGet($j));
             $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
 
-            if ($obj1->getDateCreated() < $obj2->getDateCreated()) {
+            if ($obj1->getDateCreated() > $obj2->getDateCreated()) {
 
                 $sessionBuffer->offsetSet($j, serialize($obj2));
                 $sessionBuffer->offsetSet($j + 1, serialize($obj1));

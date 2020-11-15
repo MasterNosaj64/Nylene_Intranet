@@ -156,7 +156,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			</form>
 		</td>
 		<td>
-			<form method="post" action="../Interactions/companyHistory.php">
+			<form method="post" action="../Interactions/companyHistory.php?sort=1">
 				<input hidden name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
 					type="submit" value="View History" />
