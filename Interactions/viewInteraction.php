@@ -1,7 +1,8 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 0.8
+ * Version Number: 1.0
+ * Date Modified: 11/15/2020
  * Author: Jason Waid
  * Purpose:
  *  View interaction data in the database.
@@ -61,7 +62,10 @@ if (isset($_POST['interaction_id'])) {
         $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
         $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
         
-        //TODO: JASON close connections and so on
+        $conn_Interaction->close();
+        $conn_Company->close();
+        $conn_Customer->close();
+        $conn_Forms->close();
     }
 } else {
     //If the above results in error redirect the user to homepage

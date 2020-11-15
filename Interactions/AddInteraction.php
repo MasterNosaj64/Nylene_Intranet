@@ -109,8 +109,6 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
             }
         } else {
 
-            // TODO: JASON Convert to objects
-
             // Get customers ID's ready for form
             $customerQuery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_POST['company_id'];
             $customerIds = $conn_Customer->query($customerQuery);
@@ -118,10 +116,6 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
 
             $company = new Company($conn_Company);
             $company->searchId($_POST['company_id']);
-            // $getCompanyDataQuery = "SELECT * FROM nylene.company WHERE company_id = " . $_POST['company_id'];
-            // $viewCompanyData = mysqli_fetch_array($conn->query($getCompanyDataQuery));
-            // Build company address into string
-            // $companyAddress = $viewCompanyData["billing_address_street"] . ", " . $viewCompanyData["billing_address_city"] . ", " . $viewCompanyData["billing_address_state"] . ", " . $viewCompanyData["billing_address_country"] . ", " . $viewCompanyData["billing_address_postalcode"];
             $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
         }
     } else {
@@ -161,8 +155,8 @@ while ($id = mysqli_fetch_array($customerIds)) {
     $customer = new Customer($conn_Customer);
     $customer->searchById($id["customer_id"]);
 
-    //$getCustomerData = "SELECT * FROM nylene.customer WHERE customer_id = " . $id["customer_id"];
-    //$customerData = mysqli_fetch_array($conn->query($getCustomerData));
+    // $getCustomerData = "SELECT * FROM nylene.customer WHERE customer_id = " . $id["customer_id"];
+    // $customerData = mysqli_fetch_array($conn->query($getCustomerData));
     echo "<option value='{$customer->getCustomerId()}'>{$customer->getName()}</option>";
 }
 $conn_Customer->close();
@@ -173,7 +167,8 @@ $conn_Company->close();
 				<td><select id="selection" required name="reason">
 						<option></option>
 						<option value="Added Customer">Added Customer</option>
-						<option value="Credit Business Application">Credit Business Application</option>
+						<option value="Credit Business Application">Credit Business
+							Application</option>
 						<option value="Distributor Quote">Distributor Quote</option>
 						<option value="General">General</option>
 						<option value="Light Truckload Quote">Light Truckload Quote</option>
@@ -196,9 +191,8 @@ $conn_Company->close();
 						<option value="1">Sample Request</option>
 						<option value="3">Truckload Quote</option>
 				</select></td>
-
-
-				
+			
+			
 			<tr>
 				<td colspan=6><textarea maxlength="1024" required name="comments"
 						rows="20" cols="100"></textarea></td>
@@ -206,6 +200,7 @@ $conn_Company->close();
 		</table>
 		<input hidden name="company_id"
 			value="<?php echo $company->getCompanyId();?>" /> <input
-					type="submit" name="submit" value="Submit"></form>
+			type="submit" name="submit" value="Submit">
+	</form>
 </body>
 </html>

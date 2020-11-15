@@ -1,11 +1,11 @@
 <?php
 /*
  * FileName: companyHistory.php
- * Version Number: 0.8
+ * Version Number: 1.5
  * Author: Jason Waid
  * Purpose:
  * View a list of interactions for the company
- * Date Modified: 11/01/2020
+ * Date Modified: 11/15/2020
  */
 session_start();
 
@@ -108,21 +108,21 @@ if (isset($_SESSION['buffer'])) {
 
     $interactionBuffer = $_SESSION['buffer'];
 
-    if (isset($_POST['next10'])) {
+    if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $interactionBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
 
-        $interactionBuffer = next10($interactionBuffer);
-    } else if (isset($_POST['previous10'])) {
+        $interactionBuffer = nextBufferPage($interactionBuffer);
+    } else if (isset($_POST['previous'])) {
         $_SESSION['offset'] -= $maxGridSize;
 
         if ($_SESSION['offset'] < 0) {
             $_SESSION['offset'] = 0;
         }
 
-        $interactionBuffer = previous10($interactionBuffer);
+        $interactionBuffer = previousBufferPage($interactionBuffer);
     } else {
         $interactionBuffer = getSortingInteraction($interactionBuffer);
     }
@@ -240,7 +240,7 @@ $interaction_Conn->close();
 $company_Conn->close();
 ?>
 
-<!-- Next 10 Previous 10 Buttons -->
+<!-- Next & Previous Buttons -->
 	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
 	
@@ -253,9 +253,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -266,9 +266,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $interactionBuffer->count()) {
         echo "</fieldset>";
     }
@@ -281,9 +281,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -294,9 +294,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $interactionBuffer->count()) {
         echo "</fieldset>";
     }

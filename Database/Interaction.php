@@ -160,7 +160,7 @@ class Interaction
     
     /*
      * Function Name: searchId
-     * Purpose: A simpler version of search that only searches using the company_id
+     * Purpose: A simpler version of search that only searches using the interaction_id
      */
     function searchId($interaction_id)
     {

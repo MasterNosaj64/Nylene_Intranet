@@ -173,23 +173,23 @@ $maxGridSize = 10;
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
 
-    // check if user wants next 10 or previous 10
+    // check if user wants next or previous page
     $companyBuffer = $_SESSION['buffer'];
 
-    if (isset($_POST['next10'])) {
+    if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $companyBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
 
-        $companyBuffer = next10($companyBuffer);
-    } else if (isset($_POST['previous10'])) {
+        $companyBuffer = nextBufferPage($companyBuffer);
+    } else if (isset($_POST['previous'])) {
         $_SESSION['offset'] -= $maxGridSize;
 
         if ($_SESSION['offset'] < 0) {
             $_SESSION['offset'] = 0;
         }
-        $companyBuffer = previous10($companyBuffer);
+        $companyBuffer = previousBufferPage($companyBuffer);
     } else {
 
         $companyBuffer = getSortingCompany($companyBuffer);
@@ -339,9 +339,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -352,9 +352,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $companyBuffer->count()) {
         echo "</fieldset>";
     }
@@ -367,9 +367,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -380,9 +380,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $companyBuffer->count()) {
         echo "</fieldset>";
     }

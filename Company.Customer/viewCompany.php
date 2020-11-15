@@ -69,7 +69,6 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         $company = new Company($conn_Company);
 
         $company->searchId($_SESSION["company_id"]);
-        // $companyInfoResult->fetch();
 
         // Get customer_id's for company
         $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_SESSION['company_id'];
@@ -102,21 +101,21 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         // check if user wants next 10 or previous 10
         $customerBuffer = $_SESSION['buffer'];
 
-        if (isset($_POST['next10'])) {
+        if (isset($_POST['next'])) {
             $_SESSION['offset'] += $maxGridSize;
             if ($_SESSION['offset'] > $customerBuffer->count()) {
                 $_SESSION['offset'] -= $maxGridSize;
             }
 
-            $customerBuffer = next10($customerBuffer);
-        } else if (isset($_POST['previous10'])) {
+            $customerBuffer = nextBufferPage($customerBuffer);
+        } else if (isset($_POST['previous'])) {
             $_SESSION['offset'] -= $maxGridSize;
 
             if ($_SESSION['offset'] < 0) {
                 $_SESSION['offset'] = 0;
             }
 
-            $customerBuffer = previous10($customerBuffer);
+            $customerBuffer = previousBufferPage($customerBuffer);
         } else {
 
             $customerBuffer = getSortingCustomer($customerBuffer);
@@ -268,9 +267,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -281,9 +280,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $customerBuffer->count()) {
         echo "</fieldset>";
     }
@@ -296,9 +295,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -309,9 +308,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $customerBuffer->count()) {
         echo "</fieldset>";
     }

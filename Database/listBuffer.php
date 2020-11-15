@@ -56,12 +56,12 @@ function create_Buffer($queryResult, $object)
 }
 
 /*
- * Function: next10
+ * Function: nextBufferPage
  * Purpose:
  * navigates a list of companies and moved the iterator to the next 10 or closest existing index
  * returns the list
  */
-function next10(SplDoublyLinkedList $sessionBuffer)
+function nextBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
     // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
@@ -79,12 +79,12 @@ function next10(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * Function: previous10
+ * Function: previousBufferPage
  * Purpose:
  * navigates a list of companies and moved the iterator to the previous 10 or closest existing index
  * returns the list
  */
-function previous10(SplDoublyLinkedList $sessionBuffer)
+function previousBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
 
     // $buffer = unserialize($sessionBuffer);
