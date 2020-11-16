@@ -98,7 +98,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <body style="overflow:scroll">
 <!-- NEW Company Search -->
 <!-- Below is the NEW search company functionality -->
-<button type="button" class="collapsible">Toggle Search</button>
+<button type="button" id="searchButton" value="0" class="collapsible">Expand Search</button>
 <div hidden class="content">
 
 	<form method="post" action=searchCompany.php name="search_company_data">
@@ -150,6 +150,20 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <!-- Script for collapsible search menu -->
 <!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
 <script>
+document.getElementById("searchButton").addEventListener("click", function() {
+
+if(this.value == 0){
+	this.innerHTML = "Hide Search";
+	this.value = 1;
+}
+else if(this.value == 1){
+	this.innerHTML = "Expand Search";
+	this.value = 0;
+}	
+});
+
+
+
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
