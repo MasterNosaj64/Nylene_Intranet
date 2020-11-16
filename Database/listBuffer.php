@@ -56,12 +56,12 @@ function create_Buffer($queryResult, $object)
 }
 
 /*
- * Function: next10
+ * Function: nextBufferPage
  * Purpose:
  * navigates a list of companies and moved the iterator to the next 10 or closest existing index
  * returns the list
  */
-function next10(SplDoublyLinkedList $sessionBuffer)
+function nextBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
     // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
@@ -79,12 +79,12 @@ function next10(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * Function: previous10
+ * Function: previousBufferPage
  * Purpose:
  * navigates a list of companies and moved the iterator to the previous 10 or closest existing index
  * returns the list
  */
-function previous10(SplDoublyLinkedList $sessionBuffer)
+function previousBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
 
     // $buffer = unserialize($sessionBuffer);
@@ -161,44 +161,12 @@ function create_Customer_Buffer($customerIDs)
 
 /*
  * function: sortASC_DateCreated
+ * Purpose: Sorts a given buffer by DateCreated in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
  */
 function sortASC_DateCreated(SplDoublyLinkedList $sessionBuffer)
-{
-    $n = $sessionBuffer->count();
-
-    $sortedItems = 0;
-
-    for ($i = 0; $i < $n; $i ++) {
-
-        for ($j = 0; $j < $n - $i - 1; $j ++) {
-
-            $obj1 = unserialize($sessionBuffer->offsetGet($j));
-            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
-
-            if ($obj1->getDateCreated() > $obj2->getDateCreated()) {
-
-                $sessionBuffer->offsetSet($j, serialize($obj2));
-                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
-                $sortedItems ++;
-            }
-        }
-    }
-
-    $sessionBuffer->rewind();
-
-    return $sessionBuffer;
-}
-
-/*
- * function: sortDESC_DateCreated
- * Param: sessionBuffer
- * Param Type: SplDoublyLinkedList
- * Return Type: SplDoublyLinkedList
- */
-function sortDESC_DateCreated(SplDoublyLinkedList $sessionBuffer)
 {
     $n = $sessionBuffer->count();
 
@@ -226,7 +194,42 @@ function sortDESC_DateCreated(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
+ * function: sortDESC_DateCreated
+ * Purpose: Sorts a given buffer by DateCreated in Descending Order
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortDESC_DateCreated(SplDoublyLinkedList $sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+
+    $sortedItems = 0;
+
+    for ($i = 0; $i < $n; $i ++) {
+
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+
+            if ($obj1->getDateCreated() > $obj2->getDateCreated()) {
+
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+
+    $sessionBuffer->rewind();
+
+    return $sessionBuffer;
+}
+
+/*
  * function: sortASC_Interactions_Customer
+ * Purpose: Sorts a given interaction buffer by Customer in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -273,6 +276,7 @@ function sortASC_Interactions_Customer($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Customer
+ * Purpose: Sorts a given interaction buffer by Customer in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -319,6 +323,7 @@ function sortDESC_Interactions_Customer($sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Reason
+ * Purpose: Sorts a given interaction buffer by Reason in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -352,6 +357,7 @@ function sortASC_Interactions_Reason($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Reason
+ * Purpose: Sorts a given interaction buffer by Reason in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -385,6 +391,7 @@ function sortDESC_Interactions_Reason($sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Notes
+ * Purpose: Sorts a given interaction buffer by Notes in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -417,7 +424,8 @@ function sortASC_Interactions_Notes($sessionBuffer)
 }
 
 /*
- * function: sortASC_Interactions_Notes
+ * function: sortDESC_Interactions_Notes
+ * Purpose: Sorts a given interaction buffer by Notes in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -451,6 +459,7 @@ function sortDESC_Interactions_Notes($sessionBuffer)
 
 /*
  * function: sortASC_CreatedBy
+ * Purpose: Sorts a given buffer by CreatedBy in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -497,6 +506,7 @@ function sortASC_CreatedBy($sessionBuffer)
 
 /*
  * function: sortDESC_CreatedBy
+ * Purpose: Sorts a given buffer by CreatedBy in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -543,6 +553,7 @@ function sortDESC_CreatedBy($sessionBuffer)
 
 /*
  * function: sortASC_Name
+ * Purpose: Sorts a given buffer by Name in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -573,6 +584,7 @@ function sortASC_Name(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Name
+ * Purpose: Sorts a given buffer by Name in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -602,7 +614,8 @@ function sortDESC_Name(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * function: sortASC_Phone
+ * function: sortASC_CustomerPhone
+ * Purpose: Sorts a given customer buffer by phone in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -633,6 +646,7 @@ function sortASC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_CustomerPhone
+ * Purpose: Sorts a given customer buffer by phone in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -662,7 +676,8 @@ function sortDESC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
 }
 
 /*
- * function: sortASC_Fax
+ * function: sortASC_CustomerFax
+ * Purpose: Sorts a given customer buffer by fax in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -693,6 +708,7 @@ function sortASC_CustomerFax(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_CustomerFax
+ * Purpose: Sorts a given customer buffer by fax in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -723,6 +739,7 @@ function sortDESC_CustomerFax(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Email
+ * Purpose: Sorts a given buffer by email in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -753,6 +770,7 @@ function sortASC_Email(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Email
+ * Purpose: Sorts a given buffer by email in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -783,6 +801,7 @@ function sortDESC_Email(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Street
+ * Purpose: Sorts a given company buffer by street in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -813,6 +832,7 @@ function sortASC_Street(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Street
+ * Purpose: Sorts a given company buffer by street in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -843,6 +863,7 @@ function sortDESC_Street(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_City
+ * Purpose: Sorts a given company buffer by city in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -873,6 +894,7 @@ function sortASC_City(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_City
+ * Purpose: Sorts a given company buffer by city in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -903,6 +925,7 @@ function sortDESC_City(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_State
+ * Purpose: Sorts a given company buffer by state in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -933,6 +956,7 @@ function sortASC_State(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_State
+ * Purpose: Sorts a given company buffer by state in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -963,6 +987,7 @@ function sortDESC_State(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Website
+ * Purpose: Sorts a given company buffer by website in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -993,6 +1018,7 @@ function sortASC_Website(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Website
+ * Purpose: Sorts a given company buffer by website in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -1023,6 +1049,7 @@ function sortDESC_Website(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: getSortingCompany
+ * Purpose: Get's the sorting preference for the company buffer
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
  * Return Type: SplDoublyLinkedList
@@ -1116,6 +1143,7 @@ function getSortingCompany(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: printHeadersCompany
+ * Purpose: Prints the table headers for the company table
  * Param: $sortType
  * Param Type: Int
  * Return Type: n/a
@@ -1453,4 +1481,408 @@ function printHeadersCompany(int $sortType)
     echo "<td>Menu</td>";
 }
 
+/*
+ * function: getSortingCustomer
+ * Purpose: Gets the sorting preference for the customer buffer
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function getSortingCustomer(SplDoublyLinkedList $sessionBuffer)
+{
+    if (isset($_GET['sort'])) {
+        
+        $sortPreference = $_GET['sort'];
+        
+        $_SESSION['offset'] = 0;
+        
+        switch ($sortPreference) {
+            
+            case '-1':
+                
+                return sortDESC_Name($sessionBuffer);
+                break;
+                
+            case '1':
+                
+                return sortASC_Name($sessionBuffer);
+                break;
+                
+            case '-2':
+                
+                return sortDESC_Email($sessionBuffer);
+                break;
+                
+            case '2':
+                
+                return sortASC_Email($sessionBuffer);
+                break;
+                
+            case '-3':
+                
+                return sortDESC_CustomerPhone($sessionBuffer);
+                break;
+                
+            case '3':
+                
+                return sortASC_CustomerPhone($sessionBuffer);
+                break;
+                
+            case '-4':
+                
+                return sortDESC_CustomerFax($sessionBuffer);
+                break;
+                
+            case '4':
+                
+                return sortASC_CustomerFax($sessionBuffer);
+                break;
+                
+            case '-5':
+                
+                return sortDESC_DateCreated($sessionBuffer);
+                break;
+                
+            case '5':
+                
+                return sortASC_DateCreated($sessionBuffer);
+                break;
+                 
+            default:
+                // unknown sorting preference
+                return $sessionBuffer;
+        }
+    } else {
+        // no sorting preference
+        return $sessionBuffer;
+    }
+}
+
+/*
+ * function: printHeadersCustomer
+ * Purpose: Prints the table headers for the customer buffer
+ * Param: $sortType
+ * Param Type: Int
+ * Return Type: n/a
+ */
+function printHeadersCustomer(int $sortType)
+{
+    switch ($sortType) {
+        
+        case '-1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='1'>&#8681   Name   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-1'>&#8679   Name   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+         
+            break;
+            
+        case '-2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='2'>&#8681   Email   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-2'>&#8679   Email   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='3'>&#8681   Phone   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+             
+            break;
+            
+        case '3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-3'>&#8679   Phone   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='4'>&#8681   Fax   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-4'>&#8679   Fax   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+            
+        case '-5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='5'>&#8681   Date Created   &#8681</td>";
+            
+            break;
+            
+        case '5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8679   Date Created   &#8679</td>";
+            
+            break;
+              
+        default:
+            
+            echo "<td class='ColSort' data-colnum='1'>Name</td>";
+            echo "<td class='ColSort' data-colnum='2'>Email</td>";
+            echo "<td class='ColSort' data-colnum='3'>Phone</td>";
+            echo "<td class='ColSort' data-colnum='4'>Fax</td>";
+            echo "<td class='ColSort' data-colnum='5'>Date Created</td>";
+            
+            break;
+    }
+    
+    echo "<td>Menu</td>";
+}
+
+
+/*
+ * function: getSortingInteraction
+ * Purpose: Gets the sorting preference for the Interaction buffer
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function getSortingInteraction(SplDoublyLinkedList $sessionBuffer)
+{
+    if (isset($_GET['sort'])) {
+        
+        $sortPreference = $_GET['sort'];
+        
+        $_SESSION['offset'] = 0;
+        
+        switch ($sortPreference) {
+            
+            case '-1':
+                
+                return sortDESC_DateCreated($sessionBuffer);
+                break;
+                
+            case '1':
+                
+                return sortASC_DateCreated($sessionBuffer);
+                break;
+                
+            case '-2':
+                
+                return sortDESC_Interactions_Customer($sessionBuffer);
+                break;
+                
+            case '2':
+                
+                return sortASC_Interactions_Customer($sessionBuffer);
+                break;
+                
+            case '-3':
+                
+                return sortDESC_Interactions_Reason($sessionBuffer);
+                break;
+                
+            case '3':
+                
+                return sortASC_Interactions_Reason($sessionBuffer);
+                break;
+                
+            case '-4':
+                
+                return sortDESC_Interactions_Notes($sessionBuffer);
+                break;
+                
+            case '4':
+                
+                return sortASC_Interactions_Notes($sessionBuffer);
+                break;
+                
+            case '-5':
+                
+                return sortDESC_CreatedBy($sessionBuffer);
+                break;
+                
+            case '5':
+                
+                return sortASC_CreatedBy($sessionBuffer);
+                break;
+                
+            default:
+                // unknown sorting preference
+                return $sessionBuffer;
+        }
+    } else {
+        // no sorting preference
+        return $sessionBuffer;
+    }
+}
+
+/*
+ * function: printHeadersInteraction
+ * Purpose: Prints the table headers for the interaction table
+ * Param: $sortType
+ * Param Type: Int
+ * Return Type: n/a
+ */
+function printHeadersInteraction(int $sortType)
+{
+    switch ($sortType) {
+        
+        case '-1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='1'>&#8681   Date   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '1':
+            
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-1'>&#8679   Date   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '-2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='2'>&#8681   Customer   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '2':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-2'>&#8679   Customer   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '-3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='3'>&#8681   Reason   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '3':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-3'>&#8679   Reason   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '-4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='4'>&#8681   Notes   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '4':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-4'>&#8679   Notes   &#8679</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+            
+        case '-5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='5'>&#8681   Author   &#8681</td>";
+            
+            break;
+            
+        case '5':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8679   Author   &#8679</td>";
+            
+            break;
+            
+        default:
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            
+            break;
+    }
+    
+    echo "<td>Menu</td>";
+}
 ?>

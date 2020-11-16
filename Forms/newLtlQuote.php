@@ -1,7 +1,7 @@
 <?php
     /* Name: newLtlQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 15th, 2020
      * Purpose: File called when user clicks submit on the input light truckload form. Inserts form information into 
      *          the ltl_quote table of the database.
      */
@@ -10,6 +10,7 @@
 	include '../Database/connect.php';
 
 	$conn = getDBConnection();
+
 	
 	/*Check the connection*/
 	if ($conn-> connect_error) {
@@ -68,10 +69,6 @@
 		
 		$stmt->execute();
 	
-		/*Select the form Id from the database*/
-		$getFormId = "SELECT ltl_quote_id FROM ltl_quote ORDER BY ltl_quote_id DESC";
-		$formId = $conn->query($getFormId);
-		$id_form = mysqli_fetch_array($formId);
 
 		/*Prepare insert statement into the interaction_relational_form table*/
 		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
@@ -80,14 +77,15 @@
                     form_type)
                     VALUES (?, ?, ?)");
 		
-		/*Bind statement parameters to statement*/
-		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
-		
-		/*Assign values to variables and execute*/
+		/*Assign values to variables*/
 		$interactionNum = $interaction_id;
-		$formID = $id_form['ltl_quote_id'];
+		$formID = $conn->insert_id; //retrieve id of last query under $conn
 		$formType = 2;
 		
+		/*Bind statement parameters to statement*/
+		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
+
+		/*Execute statement*/
 		$stmt2->execute();
 		
 		/*Close statements and connection*/

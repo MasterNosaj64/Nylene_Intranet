@@ -1,11 +1,11 @@
 <?php
 /*
  * FileName: companyHistory.php
- * Version Number: 0.8
+ * Version Number: 1.5
  * Author: Jason Waid
  * Purpose:
  * View a list of interactions for the company
- * Date Modified: 11/01/2020
+ * Date Modified: 11/15/2020
  */
 session_start();
 
@@ -56,22 +56,22 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
         // Company info table
 
-        $companyInfo = new Company($company_Conn);
+        $company = new Company($company_Conn);
 
-        $companyInfo->searchId($_SESSION["company_id"]);
+        $company->searchId($_SESSION["company_id"]);
         // $companyInfoResult->fetch();
 
         // Get company info
-        $companyAddress = "{$companyInfo->getBillingAddressStreet()} {$companyInfo->getBillingAddressCity()} {$companyInfo->getBillingAddressState()} {$companyInfo->getBillingAddressCounty()} {$companyInfo->getBillingAddressPostalCode()}";
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
 
-        $companyShippingAddress = "{$companyInfo->getShippingAddressStreet()} {$companyInfo->getShippingAddressCity()} {$companyInfo->getShippingAddressState()} {$companyInfo->getShippingAddressCounty()} {$companyInfo->getShippingAddressPostalCode()}";
+        $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCounty()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
 
         echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
-        echo "<tr><td>Company:</td><td>{$companyInfo->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
-        echo "<tr><td>Website:</td><td><a href=\"{$companyInfo->getWebsite()}\">{$companyInfo->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$companyInfo->getEmail()}\">{$companyInfo->getEmail()}</a></td></tr>";
+        echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
+        echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
         echo "</table>";
     } else {
         // If the above results in error redirect the user to homepage
@@ -96,60 +96,95 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 		value="Create Interaction" />
 </form>
 
-<table class="form-table" border=5>
-	<thead>
-		<tr>
-			<td>Date</td>
-			<td>Customer</td>
-			<td>Reason</td>
-			<td>Notes</td>
-			<td>Author</td>
-			<td>Manage</td>
-		</tr>
-	</thead>
 <?php
 // Get interactions
 // Change this variable to modify the page size
-$maxGridSize = 10;
+$maxGridSize = 5;
 
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
 
     // check if user wants next 10 or previous 10
 
-    $sessionBuffer = $_SESSION['buffer'];
+    $interactionBuffer = $_SESSION['buffer'];
 
-    if (isset($_POST['next10'])) {
+    if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
-        if ($_SESSION['offset'] > $sessionBuffer->count()) {
+        if ($_SESSION['offset'] > $interactionBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
 
-        $interactionBuffer = next10($sessionBuffer);
-    } else if (isset($_POST['previous10'])) {
+        $interactionBuffer = nextBufferPage($interactionBuffer);
+    } else if (isset($_POST['previous'])) {
         $_SESSION['offset'] -= $maxGridSize;
 
         if ($_SESSION['offset'] < 0) {
             $_SESSION['offset'] = 0;
         }
 
-        $interactionBuffer = previous10($sessionBuffer);
+        $interactionBuffer = previousBufferPage($interactionBuffer);
+    } else {
+        $interactionBuffer = getSortingInteraction($interactionBuffer);
     }
-
-    // page refresh
-    /*
-     * $interactionBuffer = $_SESSION['buffer'];
-     * $interactionBuffer->rewind();
-     */
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
     $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "");
     $interactionBuffer = create_Buffer($interactionResult, $interactions);
+
+    if (isset($_GET['sort'])) {
+        $interactionBuffer = getSortingInteraction($interactionBuffer);
+    }
 }
 
 echo "{$interactionBuffer->count()} record(s) found";
 
+if (isset($_GET['sort'])) {
+    $sortType = $_GET['sort'];
+} else {
+    $sortType = 0;
+}
+
+?>
+
+<table class="form-table" border=5>
+	<thead>
+		<tr>
+<?php printHeadersInteraction($sortType)?>	
+</tr>
+	</thead>
+
+	<!-- Script for Sorting columns -->
+	<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+
+		td[i].addEventListener("click", colSort);
+		td[i].addEventListener("mouseover", function(event){
+		
+			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+			}, false);
+
+		td[i].addEventListener("mouseout", function(event){
+		
+			event.target.style = "";
+			}, false);
+	}
+
+function colSort(){
+	
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./companyHistory.php?sort=" + col;
+	
+}
+
+	</script>
+
+
+<?php
 for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuffer->next()) {
 
     // Unserialize the object stored in the companyBuffer
@@ -202,23 +237,72 @@ $interaction_Conn->close();
 $company_Conn->close();
 ?>
 
-<!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of companies
+<!-- Next & Previous Buttons -->
+	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	<table class="form-table"align:center;>
-		<td><form method="post" action="companyHistory.php">
-		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="previous10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Previous 10" />
-		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
-			</form></td>
-		<td><form method="post" action="companyHistory.php">
-		<?php if($offset == $interactionBuffer->count()){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="next10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Next 10" />
-					<?php if($offset == $interactionBuffer->count()){ echo "</fieldset>";}?>
-			</form></td>
-	</table>
-	</html>
+	
+	<?php
+
+if (isset($_GET['sort'])) {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous'";
+    echo "value={$_SESSION["offset"]} /> <input type='submit'";
+    echo "value='&#x21DA; Previous' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
+    if ($offset == $interactionBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next &#x21DB;' />";
+    if ($offset == $interactionBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+} else {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='companyHistory.php'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='&#x21DA; Previous' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='companyHistory.php'>";
+    if ($offset == $interactionBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next &#x21DB;' />";
+    if ($offset == $interactionBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+}
+?>
+
+
+
+
+</html>

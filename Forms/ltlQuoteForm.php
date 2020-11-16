@@ -1,7 +1,7 @@
 <?php 
     /* Name: ltlQuoteForm.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 15th, 2020
      * Purpose: Input for distributor quote. User information, company and customer information is
      *          automatically displayed from database. Contains two functions to help automate the
      *          quote calculation and display in the form.
@@ -204,26 +204,28 @@
     		<tr>
     			<!--Payment Terms-->
     			<td>Payment terms are USD $ Funds, Net:</td>
-    			<td><select id="payment_terms" name="payment_terms">
-    					<option></option>
-    					<option value="30 days">30 days</option>
-    					<option value="40 days">45 days</option>
-    					<option value="60 days">60 days</option>
-    					<option value="90 days">90 days</option>
-    					<option value="1%/10, Net 30 days">1%/10, Net 30 days</option>
-    					<option value="Other">Other</option>
-    				</select>
+    			<td>
+     				<label for="payment_terms">Select/enter payment terms:</label>
+     				<input type="text" id="payment_terms" name="payment_terms" list="payment_options"/>
+     				<datalist id="payment_options">
+     					<option value="30 days">
+     					<option value="45 days">
+        				<option value="60 days">
+        				<option value="90 days">
+        				<option value="1%/10, Net 30 days">
+     				</datalist>
     			</td>
     		</tr>
     		<tr>
     			<!--LTL Quantities-->
     			<td>LTL quantities are </td>
-    			<td><select id="ltl_quantities" name="ltl_quantities">
-    					<option></option>
-    					<option value="FOB Shipping Point, customer pick-up">FOB Shipping Point, customer pick-up</option>
-    					<option value="Ex-Works">Ex-Works</option>
-    					<option value="Other">Other</option>
-    				</select>
+    			<td>
+    				<label for="ltl_quantities">Select/enter quantities:</label>
+     				<input type="text" id="ltl_quantities" name="ltl_quantities" list="ltl_options"></input>
+     				<datalist id="ltl_options">
+     					<option value="FOB Shipping Point, customer pick-up">
+        				<option value="Ex-Works">
+     				</datalist>
     			</td>
     		</tr>
     		<tr>

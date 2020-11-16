@@ -1,12 +1,12 @@
 <?php
 /*
  * FileName: viewCompany.php
- * Version Number: 1.2
+ * Version Number: 1.9
  * Author: Jason Waid
  * Purpose:
  * View company data in the database.
  * This includes the customers registered to the company
- * Date Modified: 11/01/2020
+ * Date Modified: 11/15/2020
  */
 Session_start();
 
@@ -66,26 +66,25 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
     if (isset($_SESSION['company_id'])) {
 
         // Get Company data
-        $companyInfo = new Company($conn_Company);
+        $company = new Company($conn_Company);
 
-        $companyInfo->searchId($_SESSION["company_id"]);
-       // $companyInfoResult->fetch();
+        $company->searchId($_SESSION["company_id"]);
 
         // Get customer_id's for company
         $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_SESSION['company_id'];
         $customerIDs = $conn_CustomerIDs->query($customersqlquery);
 
         // Get company info
-        $companyAddress = "{$companyInfo->getBillingAddressStreet()} {$companyInfo->getBillingAddressCity()} {$companyInfo->getBillingAddressState()} {$companyInfo->getBillingAddressCounty()} {$companyInfo->getBillingAddressPostalCode()}";
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
 
-        $companyShippingAddress = "{$companyInfo->getShippingAddressStreet()} {$companyInfo->getShippingAddressCity()} {$companyInfo->getShippingAddressState()} {$companyInfo->getShippingAddressCounty()} {$companyInfo->getShippingAddressPostalCode()}";
+        $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCounty()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
 
         echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
-        echo "<tr><td>Company:</td><td>{$companyInfo->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
-        echo "<tr><td>Website:</td><td><a href=\"{$companyInfo->getWebsite()}\">{$companyInfo->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$companyInfo->getEmail()}\">{$companyInfo->getEmail()}</a></td></tr>";
+        echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
+        echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
         echo "</table>";
     } else {
         // If the above results in error redirect the user to homepage
@@ -94,37 +93,40 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
     }
 
     // Change this variable to modify the page size
-    $maxGridSize = 10;
+    $maxGridSize = 4;
 
     // check if a buffer has already been created
     if (isset($_SESSION['buffer'])) {
 
         // check if user wants next 10 or previous 10
-        $sessionBuffer = $_SESSION['buffer'];
+        $customerBuffer = $_SESSION['buffer'];
 
-        if (isset($_POST['next10'])) {
+        if (isset($_POST['next'])) {
             $_SESSION['offset'] += $maxGridSize;
-            if ($_SESSION['offset'] > $sessionBuffer->count()) {
+            if ($_SESSION['offset'] > $customerBuffer->count()) {
                 $_SESSION['offset'] -= $maxGridSize;
             }
 
-            $customerBuffer = next10($sessionBuffer);
-        } else if (isset($_POST['previous10'])) {
+            $customerBuffer = nextBufferPage($customerBuffer);
+        } else if (isset($_POST['previous'])) {
             $_SESSION['offset'] -= $maxGridSize;
 
             if ($_SESSION['offset'] < 0) {
                 $_SESSION['offset'] = 0;
             }
 
-            $customerBuffer = previous10($sessionBuffer);
+            $customerBuffer = previousBufferPage($customerBuffer);
+        } else {
+
+            $customerBuffer = getSortingCustomer($customerBuffer);
         }
-        
-        /* $customerBuffer = $_SESSION['buffer'];
-        $customerBuffer->rewind(); */
-        
     } else {
         // attempt of creating a buffer for a list of companies
         $customerBuffer = create_Customer_Buffer($customerIDs);
+
+        if (isset($_GET['sort'])) {
+            $customerBuffer = getSortingCustomer($customerBuffer);
+        }
     }
 }
 ?>
@@ -153,7 +155,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			</form>
 		</td>
 		<td>
-			<form method="post" action="../Interactions/companyHistory.php">
+			<form method="post"
+				action="../Interactions/companyHistory.php?sort=1">
 				<input hidden name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
 					type="submit" value="View History" />
@@ -163,7 +166,21 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 	<tr>
 		<td>
 
-<?php echo "{$customerBuffer->count()} record(s) found";?>
+<?php
+
+echo "{$customerBuffer->count()} record(s) found";
+
+if (isset($_GET['sort'])) {
+    $sortType = $_GET['sort'];
+} else {
+    $sortType = 0;
+}
+
+?>
+
+
+
+
 
 
 
@@ -171,14 +188,38 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 <table class="form-table" border=5>
 	<thead>
 		<tr>
-			<td>Name</td>
-			<td>Email</td>
-			<td>Phone</td>
-			<td>Fax</td>
-			<td>Date Created</td>
-			<td>Manage</td>
+		<?php printHeadersCustomer($sortType)?>	
 		</tr>
 	</thead>
+
+	<!-- Script for Sorting columns -->
+	<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+		td[i].addEventListener("click", colSort);
+		td[i].addEventListener("mouseover", function(event){
+		
+			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+			}, false);
+
+		td[i].addEventListener("mouseout", function(event){
+		
+			event.target.style = "";
+			}, false);
+	}
+
+function colSort(){
+	
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./viewCompany.php?sort=" + col;
+	
+}
+
+	</script>
+
 
 	<?php
 // Customers List
@@ -207,26 +248,72 @@ for ($offset = $_SESSION['offset']; $customerBuffer->valid(); $customerBuffer->n
         break;
     }
 }
+$conn_Company->close();
 $conn_Customers->close();
 ?>
 
-<!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of companies
+	<!-- Next 10 Previous 10 Buttons -->
+	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	<table class="form-table"align:center;>
-		<td><form method="post" action="viewCompany.php">
-		<?php if($_SESSION['offset'] == 0){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="previous10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Previous 10" />
-		<?php if($_SESSION['offset'] == 0){ echo "</fieldset>";}?>
-			</form></td>
-		<td><form method="post" action="viewCompany.php">
-		<?php if($offset == $customerBuffer->count()){ echo "<fieldset disabled =\"disabled\">";}?>
-				<input hidden name="next10"
-					value="<?php echo $_SESSION['offset'];?>" /> <input type="submit"
-					value="Next 10" />
-					<?php if($offset == $customerBuffer->count()){ echo "</fieldset>";}?>
-			</form></td>
-	</table>
+	
+	<?php
+
+if (isset($_GET['sort'])) {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='viewCompany.php?sort={$_GET['sort']}'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous'";
+    echo "value={$_SESSION["offset"]} /> <input type='submit'";
+    echo "value='&#x21DA; Previous' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='viewCompany.php?sort={$_GET['sort']}'>";
+    if ($offset == $customerBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next &#x21DB;' />";
+    if ($offset == $customerBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+} else {
+
+    echo "<table class='form-table'align:center;>";
+    echo "<td><form method='post' action='viewCompany.php'>";
+    if ($_SESSION['offset'] == 0) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+    echo "<input hidden name='previous'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='&#x21DA; Previous' />";
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+
+    echo "</form></td>";
+    echo "<td><form method='post' action='viewCompany.php'>";
+    if ($offset == $customerBuffer->count()) {
+        echo "<fieldset disabled ='disabled'>";
+    }
+
+    echo "<input hidden name='next'";
+    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
+    echo "value='Next &#x21DB;' />";
+    if ($offset == $customerBuffer->count()) {
+        echo "</fieldset>";
+    }
+    echo "</form></td>";
+    echo "</table>";
+}
+?>
 	</html>

@@ -72,7 +72,7 @@ if ($conn->connect_error) {
 				<td id="title">Title</td>
 				<td colspan="2"><input type="text" name="title" required></td>
 				<td id="date_business_commenced">Date business commenced</td>
-				<td colspan="2"><input type="text" name="date_business_commenced"
+				<td colspan="2"><input type="date" name="date_business_commenced"
 					required></td>
 			</tr>
 			<tr>
@@ -87,8 +87,11 @@ if ($conn->connect_error) {
 			<tr>
 				<td id="fax">Fax</td>
 				<td colspan="2"><input type="text" name="fax" required></td>
-				<td id="order_pending">Order Pending?<input type="checkbox">Yes<input
-					type="checkbox">No
+				<td>Order Pending?
+					<input type="radio" name="order_pending" value="1">
+					<label for="1"> Yes </label>
+					<input type="radio" name="order_pending" value="0">
+					<label for="0"> No </label>
 				</td>
 				<td colspan="2" id="order_amount">Order Amount $<input type="text"
 					name="order_amount"> /lbs.

@@ -95,22 +95,25 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
+<body style="overflow: scroll">
+	<!-- NEW Company Search -->
+	<!-- Below is the NEW search company functionality -->
+	<button type="button"
+		style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;"
+		id="searchButton" value="0" class="collapsible">Expand Search</button>
+	<div hidden class="content">
 
-<!-- NEW Company Search -->
-<!-- Below is the NEW search company functionality -->
-<button type="button" class="collapsible">Toggle Search</button>
-<div hidden class="content">
-
-	<form method="post" action=searchCompany.php name="search_company_data">
-		<table class="form-table" border=5>
-			<tr>
-				<td>Name:</td>
-				<td><input type="text" name="search_By_Name" /></td>
-				<td>Website:</td>
-				<td><input type="text" value="http://" name="search_By_Website" /></td>
-				<td>Assigned To:</td>
-				<td><select name="search_By_Assigned_To">
-						<option></option>
+		<form method="post" action=searchCompany.php
+			name="search_company_data">
+			<table class="form-table" border=5>
+				<tr>
+					<td>Name:</td>
+					<td><input type="text" name="search_By_Name" /></td>
+					<td>Website:</td>
+					<td><input type="text" value="http://" name="search_By_Website" /></td>
+					<td>Assigned To:</td>
+					<td><select name="search_By_Assigned_To">
+							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
         echo "<option value=\"{$employeeIds[$i]}\">";
@@ -118,9 +121,9 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     ?>
 				</select></td>
-				<td>Created By:</td>
-				<td><select name="search_By_Created_By">
-						<option></option>
+					<td>Created By:</td>
+					<td><select name="search_By_Created_By">
+							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
         echo "<option value=\"{$employeeIds[$i]}\">";
@@ -128,28 +131,44 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     ?>
 				</select></td>
-			</tr>
-			<tr>
-				<td>Address:</td>
-				<td><input type="text" name="search_By_Address" /></td>
-				<td>City</td>
-				<td><input type="text" name="search_By_City" /></td>
-				<td>State</td>
-				<td><input type="text" name="search_By_State" /></td>
-				<td>Country</td>
-				<td><input type="text" name="search_By_Country" /></td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td><input type="text" name="search_By_Address" /></td>
+					<td>City</td>
+					<td><input type="text" name="search_By_City" /></td>
+					<td>State</td>
+					<td><input type="text" name="search_By_State" /></td>
+					<td>Country</td>
+					<td><input type="text" name="search_By_Country" /></td>
 
-			</tr>
-		</table>
-		<input type="submit" value="Search" name="Search" /> <input
-			type="reset" value="Clear" />
-	</form>
+				</tr>
+			</table>
+			<input type="submit" value="Search" name="Search" /> <input
+				type="reset" value="Clear" />
+		</form>
 
-</div>
+	</div>
 
-<!-- Script for collapsible search menu -->
-<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
-<script>
+	<!-- Script for collapsible search menu -->
+	<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
+	<script>
+document.getElementById("searchButton").addEventListener("click", function() {
+
+if(this.value == 0){
+	this.innerHTML = "Hide Search";
+	this.value = 1;
+	event.target.style = "background-color: rgb(211, 211, 211); color: #000000; font-weight: bold;";
+}
+else if(this.value == 1){
+	this.innerHTML = "Expand Search";
+	this.value = 0;
+	event.target.style = "background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;";
+}	
+});
+
+
+
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -168,37 +187,32 @@ for (i = 0; i < coll.length; i++) {
 
 <?php
 // Change this variable to modify the page size
-$maxGridSize = 10;
+$maxGridSize = 4;
 
 // check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
 
-    // check if user wants next 10 or previous 10
+    // check if user wants next or previous page
     $companyBuffer = $_SESSION['buffer'];
 
-    if (isset($_POST['next10'])) {
+    if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $companyBuffer->count()) {
             $_SESSION['offset'] -= $maxGridSize;
         }
 
-        $companyBuffer = next10($companyBuffer);
-    } else if (isset($_POST['previous10'])) {
+        $companyBuffer = nextBufferPage($companyBuffer);
+    } else if (isset($_POST['previous'])) {
         $_SESSION['offset'] -= $maxGridSize;
 
         if ($_SESSION['offset'] < 0) {
             $_SESSION['offset'] = 0;
         }
-        $companyBuffer = previous10($companyBuffer);
+        $companyBuffer = previousBufferPage($companyBuffer);
     } else {
 
         $companyBuffer = getSortingCompany($companyBuffer);
     }
-
-    /*
-     * $companyBuffer = $_SESSION['buffer'];
-     * $companyBuffer->rewind();
-     */
 } else {
 
     // attempt of creating a buffer for a list of companies
@@ -220,26 +234,17 @@ if (isset($_GET['sort'])) {
 ?>
 
 <!-- Company Search -->
-<!-- Below is the table that is presented to the user for the query results on the Company table -->
-<!--  TODO: Implement Sorting -->
-
-<table class="form-table" border=5>
-	<thead>
-		<tr> 
-		
-		
-		
-		
-		<?php printHeadersCompany($sortType)?>
-			
-
-			
+	<!-- Below is the table that is presented to the user for the query results on the Company table -->
+	<table class="form-table" border=5>
+		<thead>
+			<tr> 
+		<?php printHeadersCompany($sortType)?>	
 		</tr>
-	</thead>
+		</thead>
 
 
-	<!-- Script for Sorting columns -->
-	<script>
+		<!-- Script for Sorting columns -->
+		<script>
 	
 	var td = document.getElementsByClassName("ColSort");
 	var i;
@@ -247,28 +252,25 @@ if (isset($_GET['sort'])) {
 	for (i = 0; i < td.length; i++) {
 
 	td[i].addEventListener("click", colSort);
-	//td[i].addEventListener("mouseenter", function(event){
 	td[i].addEventListener("mouseover", function(event){
 	
-	
-		event.target.style.background = "#D3D3D3";
-		event.target.style.color = "black";
-		
-		   //reset the color after a short delay
-		  setTimeout(function() {
-		    event.target.style.background = "";
-		    event.target.style.color = "";
-		  }, 500);
+		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
 		}, false);
+
+	td[i].addEventListener("mouseout", function(event){
+	
+		event.target.style = "";
+		}, false);
+	
 	}
 
 function colSort(){
-	
+
+		
 		var col = this.getAttribute("data-colnum");
 		window.location.href = "./searchCompany.php?sort=" + col;
 	
 }
-
 
 	
 	</script>
@@ -320,7 +322,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 				<input hidden name='company_id_edit' value='{$companyId}'/> <input
 					type='submit' value='edit'/>
 			</form>
-			<form action='./viewCompany.php' method='post'>
+			<form action='./viewCompany.php?sort=1' method='post'>
 				<input hidden name='company_id_view' value='{$companyId}'/> <input
 					type='submit' value='view'/>
 			</form></td>";
@@ -338,11 +340,9 @@ $conn_Company->close();
 ?>
 
 	<!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of companies
+		<!-- The following code presents the user with buttons to navigate the list of companies
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	
 	<?php
-
 if (isset($_GET['sort'])) {
 
     echo "<table class='form-table'align:center;>";
@@ -350,9 +350,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -363,9 +363,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $companyBuffer->count()) {
         echo "</fieldset>";
     }
@@ -378,9 +378,9 @@ if (isset($_GET['sort'])) {
     if ($_SESSION['offset'] == 0) {
         echo "<fieldset disabled ='disabled'>";
     }
-    echo "<input hidden name='previous10'";
+    echo "<input hidden name='previous'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Previous 10' />";
+    echo "value='&#x21DA; Previous' />";
     if ($_SESSION['offset'] == 0) {
         echo "</fieldset>";
     }
@@ -391,9 +391,9 @@ if (isset($_GET['sort'])) {
         echo "<fieldset disabled ='disabled'>";
     }
 
-    echo "<input hidden name='next10'";
+    echo "<input hidden name='next'";
     echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next 10' />";
+    echo "value='Next &#x21DB;' />";
     if ($offset == $companyBuffer->count()) {
         echo "</fieldset>";
     }
@@ -401,8 +401,4 @@ if (isset($_GET['sort'])) {
     echo "</table>";
 }
 ?>
-	
-	
-	
-
 </html>

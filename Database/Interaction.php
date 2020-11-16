@@ -1,9 +1,9 @@
 <?php
 /*
  * FileName: Interaction.php
- * Author: Jason Waid
- * Version: 0.6
- * Date Modified: 10/12/2020
+ * Author: Jason Waid, Modified by Kaitlyn Breker
+ * Version: 0.7
+ * Date Modified: 11/15/2020
  * Purpose:
  *  Object oriented representation of a interaction
  *  all database manipulation happens here
@@ -32,6 +32,12 @@ class Interaction
     public $comments;
 
     public $date_created;
+    
+    public $status;
+    
+    public $follow_up_type;
+    
+    public $follow_up_date;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -52,7 +58,7 @@ class Interaction
 
         $stmt->execute();
         // bind the results
-        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created);
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created, $this->status, $this->follow_up_type, $this->follow_up_date);
         
         return $stmt;
     }
@@ -65,14 +71,14 @@ class Interaction
      * creates a interaction with the supplied parameters
      * returns bool on failure or success
      */
-    function create($company_id, $customer_id, $created_by, $reason, $comments, $date_created)
+    function create($company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date)
     {
         
         // query to insert record
         $query = "INSERT INTO
-                nylene.interaction (company_id, customer_id, employee_id, reason, comments, date_created)
+                nylene.interaction (company_id, customer_id, employee_id, reason, comments, date_created, status, follow_up_type, follow_up_date)
             VALUES(
-              ?,?,?,?,?,?)";
+              ?,?,?,?,?,?,?,?,?)";
         
         $stmt = $this->conn->prepare($query);
         
@@ -82,8 +88,11 @@ class Interaction
         $reason = htmlspecialchars(strip_tags($reason));
         $comments = htmlspecialchars(strip_tags($comments));
         $date_created = htmlspecialchars(strip_tags($date_created));
+        $status = htmlspecialchars(strip_tags($status));
+        $follow_up_type = htmlspecialchars(strip_tags($follow_up_type));
+        $follow_up_date = htmlspecialchars(strip_tags($follow_up_date));
       
-        $stmt->bind_param("iiisss", $company_id, $customer_id, $created_by, $reason, $comments, $date_created);
+        $stmt->bind_param("iiissssss", $company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date);
         
         if (! $stmt->execute()) {
             return false;
@@ -150,11 +159,67 @@ class Interaction
         return $this->reason;
     }
     /*
+     * Function Name: getStatus
+     * Purpose: Function returns the status
+     *
+     */
+    function getStatus(){
+        return $this->status;
+    }
+    /*
+     * Function Name: getFollowUpType
+     * Purpose: Function returns the follow_up_type
+     *
+     */
+    function getFollowUpType(){
+        return $this->follow_up_type;
+    }
+    /*
+     * Function Name: getFollowUpDate
+     * Purpose: Function returns the follow_up_date
+     *
+     */
+    function getFollowUpDate(){
+        return $this->follow_up_date;
+    }
+    /*
      * Function Name: get
      * Purpose: Function returns the object
      *
      */
     function get(){
+        return $this;
+    }
+    
+    /*
+     * Function Name: searchId
+     * Purpose: A simpler version of search that only searches using the interaction_id
+     */
+    function searchId($interaction_id)
+    {
+        $query = "SELECT
+                *
+            FROM
+			  nylene.interaction WHERE interaction_id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $interaction_id = htmlspecialchars(strip_tags($interaction_id));
+        
+        $stmt->bind_param("i", $interaction_id);
+        
+        // execute query
+        if (! $stmt->execute()) {
+            return false;
+        }
+        
+        // bind the results
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created, $this->status, $this->follow_up_type, $this->follow_up_date);
+        
+        
+        $stmt->fetch();
+        
+        // return objects
         return $this;
     }
     
@@ -312,7 +377,7 @@ class Interaction
 
         
         // bind the results
-        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created);
+        $stmt->bind_result($this->interaction_id, $this->company_id, $this->customer_id, $this->created_by, $this->reason, $this->comments, $this->date_created, $this->status, $this->follow_up_type, $this->follow_up_date);
         // return objects
         return $stmt;
     }

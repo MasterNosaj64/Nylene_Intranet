@@ -1,7 +1,8 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 0.8
+ * Version Number: 1.0
+ * Date Modified: 11/15/2020
  * Author: Jason Waid
  * Purpose:
  *  View interaction data in the database.
@@ -45,25 +46,26 @@ if (isset($_POST['interaction_id'])) {
     } else {
         
         $interaction = new Interaction($conn_Interaction);
-        $interactionData = $interaction->search($_SESSION['interaction_id'], "", "", "", "", "", "");
-        $interactionData->fetch();
+        $interaction = $interaction->searchId($_SESSION['interaction_id']);
+      
         
         $_SESSION['company_id'] = $interaction->getCompanyId();
         
         $company = new Company($conn_Company);
-        $companyData = $company->searchId($interaction->getCompanyId());
- //       $companyData->fetch();
-        $companyAddress = $company->getBillingAddressStreet() . ", " . $company->getBillingAddressCity() . ", " . $company->getBillingAddressState() . ", " . $company->getBillingAddressCounty(). ", " . $company->getBillingAddressPostalCode();
+        $company = $company->searchId($interaction->getCompanyId());
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
 
         
         $customer = new Customer($conn_Customer);
-        $customerData = $customer->searchById($interaction->getCustomerId());
-//        $customerData->fetch();
+        $customer = $customer->searchById($interaction->getCustomerId());
         
         $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
         $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
         
-        //TODO: JASON close connections and so on
+        $conn_Interaction->close();
+        $conn_Company->close();
+        $conn_Customer->close();
+        $conn_Forms->close();
     }
 } else {
     //If the above results in error redirect the user to homepage
