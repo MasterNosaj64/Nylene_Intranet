@@ -63,7 +63,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
         // Get company info
         $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
-        
+
         $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCounty()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
@@ -162,19 +162,16 @@ if (isset($_GET['sort'])) {
 
 	for (i = 0; i < td.length; i++) {
 
-	td[i].addEventListener("click", colSort);
-	td[i].addEventListener("mouseover", function(event){
-	
-	
-		event.target.style.background = "#D3D3D3";
-		event.target.style.color = "black";
+		td[i].addEventListener("click", colSort);
+		td[i].addEventListener("mouseover", function(event){
 		
-		   //reset the color after a short delay
-		  setTimeout(function() {
-		    event.target.style.background = "";
-		    event.target.style.color = "";
-		  }, 500);
-		}, false);
+			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+			}, false);
+
+		td[i].addEventListener("mouseout", function(event){
+		
+			event.target.style = "";
+			}, false);
 	}
 
 function colSort(){
@@ -304,6 +301,8 @@ if (isset($_GET['sort'])) {
     echo "</table>";
 }
 ?>
+
+
 
 
 </html>
