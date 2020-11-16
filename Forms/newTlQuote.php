@@ -1,7 +1,7 @@
 <?php
     /* Name: newTLQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 15th, 2020
      * Purpose: File called when user clicks submit on the input truckload form. Inserts form information into the 
      *          tl_quote table of the database.
      */
@@ -67,11 +67,6 @@
 		
 		$stmt->execute();
 		
-		/*Select the form Id from the database*/
-		$getFormId = "SELECT tl_quote_id FROM tl_quote ORDER BY tl_quote_id DESC";
-		$formId = $conn->query($getFormId);
-		$id_form = mysqli_fetch_array($formId);
-
 		/*Prepare insert statement into the interaction_relational_form table*/
 		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
 					interaction_id, 
@@ -79,14 +74,15 @@
                     form_type) 
                     VALUES (?, ?, ?)");
 		
+		/*Assign values to variables*/
+		$interactionNum = $interaction_id;
+		$formID = $conn->insert_id; //retrieve id of last query under $conn
+		$formType = 3;
+		
 		/*Bind statement parameters to statement*/
 		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
-		
-		/*Assign values to variables and execute*/
-		$interactionNum = $interaction_id;
-        $formID = $id_form['tl_quote_id'];
-        $formType = 3;
         
+		/*Execute statement*/
         $stmt2->execute();
         
         /*Close statements and connection*/

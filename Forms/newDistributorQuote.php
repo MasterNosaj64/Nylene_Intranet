@@ -1,7 +1,7 @@
 <?php
     /* Name: newDistributorQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 15th, 2020
      * Purpose: File called when user clicks submit on the input distributor form. Inserts form information into
      *          the distributor_quote_form table of the database.
      */
@@ -64,12 +64,7 @@
 		  $truckLoad, $range40up, $range2240, $range1122, $range610, $range24); 
 		
 		$stmt->execute();
-			
-		/*Select the form Id from the database*/
-		$getFormId = "SELECT distributor_quote_id FROM distributor_quote_form ORDER BY distributor_quote_id DESC";
-		$formId = $conn->query($getFormId);
-		$id_form = mysqli_fetch_array($formId);
-		
+				
 		/*Prepare insert statement into the interaction_relational_form table*/
 		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
 					interaction_id,
@@ -77,14 +72,15 @@
                     form_type)
                     VALUES (?, ?, ?)");	
 			
-		/*Assign values to variables and execute*/
+		/*Assign values to variables*/
 		$interactionNum = $interaction_id;
-		$formID = $id_form['distributor_quote_id'];
+		$formID = $conn->insert_id; //retrieve id of last query under $conn
 		$formType = 4;
 		
 		/*Bind statement parameters to statement*/
 		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
 		
+		/*Execute statement*/
 		$stmt2->execute();
 		
 		/*Close statements and connection*/

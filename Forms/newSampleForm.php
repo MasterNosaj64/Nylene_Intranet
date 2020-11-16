@@ -1,7 +1,7 @@
 <?php
     /* Name: newSampleForm.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 15th, 2020
      * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
      *          the sample_form table of the database.
      */
@@ -211,23 +211,22 @@
 		/*Modified by Jason, to take Interaction_id generated previously*/
 		$id = $_SESSION['interaction_id'];
 		
-		/*Select the form Id from the database*/
-		$getFormId = "SELECT sample_form_id FROM sample_form ORDER BY sample_form_id DESC";
-		$formId = $conn->query($getFormId);
-		$idf = mysqli_fetch_array($formId);
-		
 		/*Prepare insert statement into the interaction_relational_form table*/
 		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
 					interaction_id,
                     form_id,
                     form_type)
                     VALUES (?, ?, ?)");
+	
+		/*Assign values to variables*/
+		$interactionNum = $id;
+		$formID = $conn->insert_id; //retrieve id of last query under $conn
+		$formType = 1;
+
+		/*Bind statement parameters to statement*/
 		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
 		
-		/*Assign values to variables and execute*/
-		$interactionNum = $id;
-		$formID = $idf['sample_form_id'];
-		$formType = 1;
+		/*Execute statement*/
 		$stmt2->execute();
 		
 		/*Close statements and connection*/
