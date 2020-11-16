@@ -106,14 +106,13 @@ if ($conn->connect_error) {
 				<td id="fax">Fax</td>
 				<td colspan="2"><input type="text" name="fax" readonly
 					value="<?php echo $creditBusinessRow['fax'];?>"></td>
-				<td id="order_pending">Order Pending?</td>
-				<td>
+				<td id="order_pending">Order Pending?
         			<?php if ($checked){ ?>
-        				<input type="radio" name="order_pending" value="Yes"
+        			<input type="radio" name="order_pending" value="Yes"
 					checked> <label for="Yes"> Yes </label> <input type="radio"
 					name="order_pending" value="No"> <label for="No"> No </label>
         			<?php } else { ?>
-        				<input type="radio" name="order_pending" value="Yes">
+        			<input type="radio" name="order_pending" value="Yes">
 					<label for="Yes"> Yes </label> <input type="radio"
 					name="order_pending" value="No" checked> <label for="No"> No
 				</label>
