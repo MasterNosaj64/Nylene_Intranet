@@ -25,6 +25,9 @@ CREATE TABLE interaction(
 	reason VARCHAR(50) DEFAULT NULL,
     comments VARCHAR(1024) DEFAULT NULL,
     date_created DATE,
+	status VARCHAR(15) NOT NULL,
+	follow_up_type VARCHAR(50),
+	follow_up_date DATE,
     PRIMARY KEY(interaction_id)
 ) DEFAULT CHARSET = utf8; 
 

@@ -52,6 +52,11 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
             $employee_id = $_SESSION['userid'];
             $reason = $_POST['reason'];
             $comments = $_POST['comments'];
+            
+            //placeholder for now
+            $status = "";
+            $follow_up_type = "";
+            $follow_up_date = "";
 
             $t = time();
             $date_created = date("Y-m-d", $t);
@@ -59,7 +64,7 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
             $newInteraction = new Interaction($conn_Interaction);
 
             // Create method returns the insert id if it was successful
-            $addInteraction = $newInteraction->create($company_id, $customer_id, $employee_id, $reason, $comments, $date_created);
+            $addInteraction = $newInteraction->create($company_id, $customer_id, $employee_id, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date);
 
             if ($addInteraction == false) {
                 echo "Opperation failed, please try again. If this happens again, inform management";
