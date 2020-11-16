@@ -6,9 +6,36 @@
 // starts the session
 session_start();
  include '../NavPanel/navigation.php';
+include '../Database/connect.php';
+	
+	$conn = getDBConnection();
+	if ($conn-> connect_error) {
+	
+	    die("Connection failed: " . $conn-> connect_error);
+	
+	} else {
+		
+		/*Selection statement for current employee*/
+		$userInformation = "SELECT first_name, last_name, title, work_phone, employee_email FROM employee 
+								WHERE employee_id = " . $_SESSION['userid'];
+		$result = $conn->query($userInformation); 
+		$row = mysqli_fetch_array($result);
+		
+		/*Selection statement for customer passed from interaction*/
+		$customerSelect = "SELECT * FROM customer WHERE customer_id = " . $_SESSION['customer_id'];
+		$customerInfo = $conn->query($customerSelect);
+		$customerRow = mysqli_fetch_array($customerInfo);
+
+		/*Selection statement for company passed from interaction*/
+		$companySelect = "SELECT * FROM company WHERE company_id = " . $_SESSION['company_id'];
+		$companyInfo = $conn->query($companySelect);
+		$companyRow = mysqli_fetch_array($companyInfo);
+		
+		$conn->close();
+	}
 ?>
 
-<!DOCTYPE html>
+
 <html>
 <head> 
     
@@ -16,59 +43,46 @@ session_start();
     <title>Marketing Materials Request Form</title>
 </head>
     
-<form  method="post" action="MMform_Database.php"   onsubmit="return ValidateForm(this)";>
+<form  method="post" action="MMform_Database.php";>
+    
 <script type="text/javascript">
     //checks if the fields are not blank
+    /*
+    
 function ValidateForm(frm) {
 if (frm.Requester_Name.value == "") { alert(' Requesters name is required.'); frm.Requester_Name.focus(); return false; }
 if (frm.Marketing_Segment.value == "") { alert('Marketing Segment is required.'); frm.Marketing_Segment.focus(); return false; }
 if (frm.Email_Address.value == "") { alert('Email address is required.'); frm.Email_Address.focus(); return false; }
 if (frm.Email_Address.value.indexOf("@") < 1 || frm.Email_Address.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.Email_Address.focus(); return false; }
 return true; }
+    */
 </script>
-    
+
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">          
 	<tr>
-	<td style="width: 50%">
-	<label for="Requester_Name">
-	<b>Requester Name</b></label>
-	<input name="Requester_Name" type="text" maxlength="250" style="width: 260px" />
-	</td>
+        <td style="width :50%"><label for="Requester_Name"> <b>Requester Name*</b> </label></td>
+    			<td ><input type="text" id="Requester_Name" name="Requester_Name" maxlength="250" style="width: 260px" required> </td>
+	
 
-	<td style="width: 50%">
-	<label for="Market_Segment">
-	<b>Market Segment</b></label>
-	<input name="Market_Segment" type="text" maxlength="250" style="width: 260px" />
-	</td>
+        <td ><label for="Market_Segment"> <b>Market Segment*</b> </label></td>
+    			<td ><input type="text" id="Market_Segment" name="Market_Segment" maxlength="250" style="width: 260px" required></td>
 </tr> 
       
                 <tr>
-	<td style="width: 50%">
-	<label for="Sales_Territory">
-	<b>Sales Territory</b></label>
-	<input name="Sales_Territory" type="text" maxlength="250" style="width: 260px" />
-	</td>
-    
-        	<td style="width: 50%">
-	<label for="Email">
-	<b>Email</b></label>
-	<input name="Email" type="text" maxlength="250" style="width: 260px" />
-	</td>
+                    <td ><label for="Sales_Territory"> <b>Sales Territory </b></label></td>
+    			<td ><input type="text" id="Sales_Territory" name="Sales_Territory" maxlength="250" style="width: 260px"></td>
+                    
+        	 <td ><label for="Email"> <b>Email* </b></label></td>
+    			<td ><input type="text" id="Email" name="Email" maxlength="250" style="width: 260px" required></td>
         </tr>
 
                 <tr>
 	
-        	<td style="width: 50%">
-	<label for="Phone">
-	<b>Phone</b></label>
-	<input name="Phone" type="text" maxlength="250" style="width: 260px" />
-	</td>
+        	 <td ><label for="Phone"> <b>Phone</b></label></td>
+    			<td ><input type="text" id="Phone" name="Phone" maxlength="250" style="width: 260px"></td>
        
-        	<td style="width: 50%">
-	<label for="Date">
-	<b>Today's Date</b></label>
-	<input name="Date" type="text" maxlength="250" style="width: 260px" />
-	</td> </tr>
+        <td ><label for="Date"> <b>Today's Date </b></label></td>
+    			<td ><input type="date" id="Date" name="Date" maxlength="250" style="width: 260px"></td> </tr>
     </table>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
@@ -145,11 +159,12 @@ return true; }
       
     <input type="checkbox"  name="type_of_project[]" value="other">
     <label for="other">Other (Please specify)</label>
+        <textarea name="type_of_project" rows="1" column="100"></textarea>
     </td></tr><tr><td>
         
     <input type="checkbox"  name="type_of_project[]" value="release">
     <label for="release">Press Release/E-blast</label>
-        </td>  <td><textarea name="type_of_project" rows="1" column="100"></textarea></td></tr> 
+        </td> </tr> 
         </table></td>
     
     <tr> <td border="1">
@@ -158,10 +173,10 @@ return true; }
             <input name="project_content">
             <td><table class="form-table"><tr>
               
-                <input type="checkbox" id="new" name="project_content[]" value="new">
+                <input type="radio" id="new" name="project_content[]" value="new">
                 <label for="new">New</label></tr><br/>
              
-                <tr><input type="checkbox" id="update" name="project_content[]" value="update">
+                <tr><input type="radio" id="update" name="project_content[]" value="update">
                 <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
                  
                 <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
@@ -176,7 +191,6 @@ return true; }
         <tr> <td border="1">
     <label for="target"><b>Choose all that apply</b>
         </label>
-            <input name="target"></td>
     <td><table><tr><td border="1">
       
 <input type="checkbox" id="prospective_customers" name="target[]" value="prospective_customers">
@@ -246,11 +260,11 @@ return true; }
        
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
-    <input type="checkbox"  name="is_photography_needed[]" value="yes">
-    <i><label for="is_photography_needed">yes</label></i>
+    <input type="radio"  name="is_photography_needed[]" value="yes">
+    <i><label for="Yes">Yes</label></i>
     
-    <input type="checkbox" name="is_photography_needed[]" value="no">
-    <i><label for="is_photography_needed">no</label></i><br/>
+    <input type="radio" name="is_photography_needed[]" value="no">
+    <i><label for="No">No</label></i><br/>
 			</tr>
         <tr><td ><textarea name="needed_photography" rows="6" cols="120"></textarea></td></tr></table>
         
@@ -260,7 +274,7 @@ return true; }
         <tr><td ><b>Means of Delivery:</b></td> <td ><input type="text" name="delivery" maxlength="300" style="width:260px"></td> <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
            
             
-           <tr><td ><b>Date Needed:</b></td> <td ><input type="text" name="date_needed" maxlength="300" style="width:260px"></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr> 
+           <tr><td ><b>Date Needed:</b></td> <td ><input type="date" name="date_needed" maxlength="300" style="width:260px"></td> <td>A minimum of 4-8 weeks may be required for many printed materials requests.<br/> The scope of some requests, especially new projects or items to be mailed, may require more time.</td></tr> 
            
             
               <tr><td ><b>Available Budget:</b></td> <td ><input type="text" name="budget" maxlength="300" style="width:260px"></td> <td>To cover printing, photography or other vendor charges.</td></tr> 
