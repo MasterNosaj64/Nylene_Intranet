@@ -106,20 +106,17 @@ if ($conn->connect_error) {
 
     $stmt->execute();
 
-    $getFormId = "SELECT credit_application_business_id FROM credit_application_business_form ORDER BY credit_application_business_id DESC";
-    $formId = $conn->query($getFormId);
-    $id_form = mysqli_fetch_array($formId);
-
     $stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
                                      interaction_id,
                                      form_id, form_type)
                                       VALUES (?,?,?)");
 
+    $interactionNum = $interaction_id;
+    $formId = $conn -> insert_id;
+    $formType = 6;
     $stmt2->bind_param("iii", $interactionNum, $formId, $formType);
 
-    $interactionNum = $interaction_id;
-    $formId = $id_form['credit_application_business_id'];
-    $formType = 6;
+   
 
     $stmt2->execute();
 
