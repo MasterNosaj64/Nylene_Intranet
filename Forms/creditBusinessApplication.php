@@ -72,7 +72,7 @@ if ($conn->connect_error) {
 				<td id="title">Title</td>
 				<td colspan="2"><input type="text" name="title" required></td>
 				<td id="date_business_commenced">Date business commenced</td>
-				<td colspan="2"><input type="text" name="date_business_commenced"
+				<td colspan="2"><input type="date" name="date_business_commenced"
 					required></td>
 			</tr>
 			<tr>

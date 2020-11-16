@@ -6,7 +6,7 @@
  */
 session_start();
 
-include '../NavPanel/navigation.php';	
+include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 
 // getDBConnection to get connection
@@ -24,9 +24,15 @@ if ($conn->connect_error) {
     $creditBusinessResults = $conn->query($creditBusinessQuery);
     $creditBusinessRow = mysqli_fetch_array($creditBusinessResults);
 
+    if ($creditBusinessRow['order_pending'] == 'Yes') {
+        $checked = 1;
+    } else {
+        $checked = 0;
+    }
+
     $account_number_Query = "SELECT AES_DECRYPT(account_number,'key') as decrypted FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
     $account_number_result = $conn->query($account_number_Query);
-    $accountNumberRow = mysqli_fetch_array($account_number_result); 
+    $accountNumberRow = mysqli_fetch_array($account_number_result);
 
     /* Selection statement for customer information */
     $customerInformation = "SELECT * FROM customer 
@@ -100,9 +106,19 @@ if ($conn->connect_error) {
 				<td id="fax">Fax</td>
 				<td colspan="2"><input type="text" name="fax" readonly
 					value="<?php echo $creditBusinessRow['fax'];?>"></td>
-				<td id="order_pending">Order Pending?<input type="checkbox">Yes<input
-					type="checkbox">No
-				</td>
+				<td id="order_pending">Order Pending?</td>
+				<td>
+        			<?php if ($checked){ ?>
+        				<input type="radio" name="order_pending" value="Yes"
+					checked> <label for="Yes"> Yes </label> <input type="radio"
+					name="order_pending" value="No"> <label for="No"> No </label>
+        			<?php } else { ?>
+        				<input type="radio" name="order_pending" value="Yes">
+					<label for="Yes"> Yes </label> <input type="radio"
+					name="order_pending" value="No" checked> <label for="No"> No
+				</label>
+        			<?php } ?> </td>
+        			
 				<td colspan="2" id="order_amount">Order Amount $<input type="text"
 					name="order_amount" readonly
 					value="<?php echo $creditBusinessRow['order_amount'];?>"> /lbs.

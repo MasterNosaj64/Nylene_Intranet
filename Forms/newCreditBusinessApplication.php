@@ -60,6 +60,7 @@ $stmt = $conn->prepare("INSERT INTO credit_application_business_form (company_na
 							ref3_company_email)
 						 values (?,?,?,?,?,?,?,?,?,?,?,?,?,AES_ENCRYPT(?,?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
+$key = key;
 $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
 $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
 $contact_name = htmlspecialchars(strip_tags($_POST['contact_name']));
@@ -176,7 +177,7 @@ $ref3_company_email = htmlspecialchars(strip_tags($_POST['ref3_company_email']))
       '" . $_POST["ref3_company_email"] . "')"; */
   
 
-    $stmt->bind_param("sssssssssisssssssssssssssssssssssssss", $company_name, $company_address, $contact_name, $time_current_address, $title, 
+    $stmt->bind_param("sssssssssissssssssssssssssssssssssssss", $company_name, $company_address, $contact_name, $time_current_address, $title, 
         $date_business_commenced, $phone, $nylene_representative, 
         $fax, $order_pending, $order_amount, $business_email, $bank_name,$account_number,$key, $bank_address,
         $bank_email, $bank_contact_name, $bank_fax, $bank_phone, $ref1_company_name, $ref1_company_phone, 
