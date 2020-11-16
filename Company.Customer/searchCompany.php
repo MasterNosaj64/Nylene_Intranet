@@ -98,7 +98,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <body style="overflow:scroll">
 <!-- NEW Company Search -->
 <!-- Below is the NEW search company functionality -->
-<button type="button" id="searchButton" value="0" class="collapsible">Expand Search</button>
+<button type="button" style="background-color:rgb(65, 95, 142); color: #ffffff; font-weight: bold;" id="searchButton" value="0" class="collapsible">Expand Search</button>
 <div hidden class="content">
 
 	<form method="post" action=searchCompany.php name="search_company_data">
