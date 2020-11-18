@@ -271,7 +271,6 @@ CREATE TABLE calendar(
 	employee_id INT NOT NULL,
 	modified_by INT DEFAULT NULL,
     mandatory_attendance VARCHAR(50) DEFAULT NULL,
-	event_visibility VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY(calendar_id)
 ) DEFAULT CHARSET = utf8; 
 
@@ -319,3 +318,27 @@ ALTER TABLE `sample_form`
 COMMIT;
 
 INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `is_administrator`, `STATUS`, `employee_email`, `password`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, 'admin', '1', NULL, NULL, 'admin');
+
+ALTER TABLE `marketing_request_form` ADD `brochure` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `ppt` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `fact_sheet` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `video` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `direct_mail` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `web` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `page` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `section` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `blog` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `landing_page` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `updt` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `graphic` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `tradeshow` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `promotional_item` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `print_aid` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `press_release` INT(50) NULL DEFAULT NULL
+ALTER TABLE `marketing_request_form` ADD `other_type_of_project` TEXT NULL DEFAULT NULL ;
+ALTER TABLE `marketing_request_form` ADD `prospective_customers` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `engineers` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `procurement_managers` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `current_customers` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `plant_managers` INT(50) NULL DEFAULT NULL;
+ALTER TABLE `marketing_request_form` ADD `other_audience` TEXT NULL DEFAULT NULL;
