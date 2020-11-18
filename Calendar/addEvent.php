@@ -75,7 +75,39 @@
         				<label for="Yes"> Yes </label>
         				<input type="radio"  name="mandatory_attendance" value="No">
         				<label for="No"> No </label>
-        			</td>			
+        			</td>	
+        			</tr>
+        			<tr>
+        			
+        					<!-- Event Visibility-->
+        					<td> Event Visibility </td>
+        					
+        			<!-- If the user is admin, they will have access to the option: "for all" and those stated below.
+        			     Other users ie: employee/independent have access to their team, and individual only -->
+        			     
+        					 <?php if ($_SESSION['role'] == "admin") { ?>
+        					<td>
+        						<input type="radio" name="event_visibility" value="for_all">
+        						<label for="for_all">For All </label>
+        						
+        						<input type="radio"  name="event_visibility" value="for_team">
+        						<label for="for_team"> For Team </label>
+        						
+        						<input type="radio"  name="event_visibility" value="for_individual">
+        						<label for="for_individual"> For Individual </label>
+        					
+        					<?php } else { ?>
+        						
+        						<td>
+        					    <input type="radio"  name="event_visibility" value="for_team">
+        						<label for="for_team"> For Team </label>
+        						
+        						<input type="radio"  name="event_visibility" value="for_individual">
+        						<label for="for_individual"> For Individual </label>
+        						
+        					
+        					<?php } ?>
+        							
     			</tr>
     			
     		<thead><tr>
