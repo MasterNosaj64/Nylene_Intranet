@@ -159,7 +159,11 @@
 			document.getElementById('follow_up_date').readOnly = false;
 			document.getElementById('selector_disabled').disabled = true;
 		}
-		/*Function determines what the input for the follow up date will be if there is a date based on the follow_up_type*/
+		/*Function determines what the input for the follow up date will be if there is a date based on the follow_up_type
+			Follow up for quote forms is the set quote date, 
+			follow up for sample forms is the request date, 
+			credit app date is ... and 
+			market material date is ... */
 		function followDate(){
 			var x = document.getElementById('set_date');
 			var followDate = x.defaultValue;

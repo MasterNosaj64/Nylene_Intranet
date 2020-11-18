@@ -1,7 +1,7 @@
 <?php
     /* Name: newDistributorQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 15th, 2020
+     * Last Modified: November 17th, 2020
      * Purpose: File called when user clicks submit on the input distributor form. Inserts form information into
      *          the distributor_quote_form table of the database.
      */
@@ -83,9 +83,42 @@
 		/*Execute statement*/
 		$stmt2->execute();
 		
-		/*Close statements and connection*/
+		/*Close statements*/
 		$stmt->close();
 		$stmt2->close();
+		
+		/*Search calendar info using calendar id posted from edit button*/
+		$interactionQuery = "SELECT status, follow_up_type FROM interaction
+								WHERE interaction_id = ". $interactionNum;
+		$interactionResult = $conn->query($interactionQuery);
+		$interactionRow = mysqli_fetch_array($interactionResult);
+		
+
+		/*Code for updating date in interaction table if form selected*/
+		if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+		    /*Prepare Update statement into the interaction table to update notification date*/
+		    $stmt3 = $conn->prepare("UPDATE interaction SET follow_up_date = ?
+                                        WHERE interaction_id = ?");
+		    
+		    /*Assign follow up modified - must convert to date, modify, than convert back to string*/
+		    $fDate = strtotime($quoteDate);
+		    $followDate = date("Y/m/d", $fDate);
+		    $followUpDate = date_create($followDate);
+		    date_modify($followUpDate, "+30 days");
+		    $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+		    
+		    /*Bind statement parameters to statement*/
+		    $stmt3->bind_param("si", $followUpDateFormatted, $interactionNum);
+		    
+		    /*Execute statement*/
+		    $stmt3->execute();
+		    $stmt3->close();
+		    
+		} else {
+		   //do nothing
+		}
+		
+		/*Close connection*/
 		$conn->close();
 
 		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
