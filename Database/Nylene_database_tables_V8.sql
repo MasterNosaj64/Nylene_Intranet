@@ -163,7 +163,6 @@ CREATE TABLE ltl_quote(
   `other_contact_2` varchar(50) DEFAULT NULL,
   `other_contact_3` varchar(50) DEFAULT NULL,
   `other_contact_4` varchar(50) DEFAULT NULL,
-  `credit_date` DATE DEFAULT NULL,
    PRIMARY KEY(sample_form_id)
 ) DEFAULT CHARSET = utf8; 
 
@@ -207,6 +206,7 @@ ref3_company_fax VARCHAR(100) DEFAULT NULL,
 ref3_company_address VARCHAR(150) DEFAULT NULL,
 ref3_company_email VARCHAR(100) DEFAULT NULL,
 got_signature INT DEFAULT NULL,
+credit_date DATE DEFAULT NULL,
 PRIMARY KEY(credit_application_business_id)
 ) DEFAULT CHARSET = utf8;
 
