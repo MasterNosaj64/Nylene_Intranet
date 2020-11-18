@@ -129,6 +129,8 @@ if ($conn->connect_error) {
 				<td id="business_email">E-mail</td>
 				<td colspan="2"><input type="text" name="business_email" readonly
 					value="<?php echo $creditBusinessRow['business_email'];?>"></td>
+				<td ><label for="credit_date"> Credit Businees Application Date </label></td>
+    			<td ><input type="date" id="credit_date" name="credit_date" value="<?php echo $creditBusinessRow['credit_date'];?>" readonly></td>
 			</tr>
 
 			<thead>
