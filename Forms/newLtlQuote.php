@@ -93,7 +93,7 @@
 		$stmt2->close();
 		
 		
-		/*Search calendar info using calendar id posted from edit button*/
+		 /*Search follow up info using interaction id posted from session value*/
 		$interactionQuery = "SELECT status, follow_up_type FROM interaction
 								WHERE interaction_id = ". $interactionNum;
 		$interactionResult = $conn->query($interactionQuery);
