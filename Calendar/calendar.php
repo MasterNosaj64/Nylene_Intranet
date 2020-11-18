@@ -177,11 +177,13 @@ button a {
 		<div class="btn-group" role="group" aria-label="Events">
 			<!-- Add Event button as admin, would redirect to addEvent form -->
 			<div class="text-left">
-		 <?php if ($_SESSION['role'] == "admin") { ?>
+		
+		<!-- All users have access to addEvent button -->	
+		
 		<button type="button" class="btn btn-outline-secondary"
 					onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add
 					Event</button>
-		 <?php } ?>
+		 
 		</div>
 
 			<div class="text-right">
@@ -235,8 +237,7 @@ button a {
 			</div>
 		</div>
 
-		<!--Checks to see if event exists in calendar, and shows if it does
-    Only available if user is Admin   -->
+		<!--Checks to see if event exists in calendar, and shows to all users-->
 		<script type="text/javascript">
 		function openPopup(date) {
 			$("#result").text('');
@@ -244,11 +245,7 @@ button a {
 	    		$("#result").text(" ");
 	    	}else{
 				for(var i=0; i<date.length; i++){
-		         <?php if ($_SESSION['role'] == "admin") { ?>
 					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
-				<?php } else { ?>
-					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"<br><br></p>");
-				<?php } ?>
 		    	}
 	    	}
 		}
