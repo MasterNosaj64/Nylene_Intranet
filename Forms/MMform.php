@@ -103,80 +103,80 @@ return true; }
            </td>
     
     <td><table><tr><td border="1">
-<input type="checkbox"  name="type_of_project[]" value="brochure">
+<input type="checkbox"  name="brochure" value="1">
   <label for="brochure">Brochure</label>
         </td><td>
        
-    <input type="checkbox"  name="type_of_project[]" value="ppt">
+    <input type="checkbox"  name="ppt" value="1">
   <label for="ppt">PowerPoint Presentation</label>
         </td></tr><tr><td>
        
-    <input type="checkbox"  name="type_of_project[]" value="Fact_Sheet">
-  <label for="Fact_Sheet">Fact Sheet</label>
+    <input type="checkbox"  name="fact_sheet" value="1">
+  <label for="fact_sheet">Fact Sheet</label>
     </td><td>
        
-    <input type="checkbox"  name="type_of_project[]" value="video">
+    <input type="checkbox"  name="video" value="1">
   <label for="video">Video</label>
     </td></tr><tr><td>
        
-    <input type="checkbox"  name="type_of_project[]" value="mail">
-  <label for="mail">Direct Mail</label>
+    <input type="checkbox"  name="direct_mail" value="1">
+  <label for="direct_mail">Direct Mail</label>
     </td><td>
       
-    <input type="checkbox"  name="type_of_project[]" value="web">
+    <input type="checkbox"  name="web" value="1">
   <label for="web">Web(specify)</label>
    
-    <input type="checkbox"  name="type_of_project[]" value="Page">
-    <i><label for="Page">Page</label></i>
+    <input type="checkbox"  name="page" value="1">
+    <i><label for="page">Page</label></i>
   
-    <input type="checkbox"  name="type_of_project[]" value="Section">
-    <i><label for="Section">Section</label></i>
+    <input type="checkbox"  name="section" value="1">
+    <i><label for="section">Section</label></i>
     
-    <input type="checkbox"  name="type_of_project[]" value="Blog">
-    <i><label for="Blog">Blog</label></i>
+    <input type="checkbox"  name="blog" value="1">
+    <i><label for="blog">Blog</label></i>
 
-    <input type="checkbox"  name="type_of_project[]" value="Landing_Page">
-    <i><label for="Landing_Page">Landing Page</label></i>
+    <input type="checkbox"  name="landing_page" value="1">
+    <i><label for="landing_page">Landing Page</label></i>
    
-    <input type="checkbox"  name="type_of_project[]" value="Update">
-    <i><label for="Update">Update</label></i>
+    <input type="checkbox"  name="updt" value="1">
+    <i><label for="update">Update</label></i>
    
-    <input type="checkbox"  name="type_of_project[]" value="graphic">
+    <input type="checkbox"  name="graphic" value="1">
     <i><label for="graphic">Graphic</label></i>
     </td></tr><tr><td>
      
-    <input type="checkbox"  name="type_of_project[]" value="Tradeshow">
-    <label for="Tradeshow">Tradeshow</label>
+    <input type="checkbox"  name="tradeshow" value="1">
+    <label for="tradeshow">Tradeshow</label>
     </td><td>
      
-    <input type="checkbox"  name="type_of_project[]" value="item">
-    <label for="item">Promotional item/Giveaway</label>
+    <input type="checkbox"  name="promotional_item" value="1">
+    <label for="promotional_item">Promotional item/Giveaway</label>
     </td></tr><tr><td>
      
-    <input type="checkbox"  name="type_of_project[]" value="print">
-    <label for="print">Print Aid</label>
+    <input type="checkbox"  name="print_aid" value="1">
+    <label for="print_aid">Print Aid</label>
     </td><td>
       
-    <input type="checkbox"  name="type_of_project[]" value="other">
-    <label for="other">Other (Please specify)</label>
+    <input type="checkbox"  name="other_type_of_project" value="1">
+    <label for="other_type_of_project">Other (Please specify)</label>
         <textarea name="type_of_project" rows="1" column="100"></textarea>
     </td></tr><tr><td>
         
-    <input type="checkbox"  name="type_of_project[]" value="release">
-    <label for="release">Press Release/E-blast</label>
+    <input type="checkbox"  name="press_release" value="1">
+    <label for="press_release">Press Release/E-blast</label>
         </td> </tr> 
         </table></td>
     
     <tr> <td border="1">
       
             <label for="project_content"><b>Is this project:</b></label></td>
-            <input name="project_content">
+            <input name="project_content" id="project_content">
             <td><table class="form-table"><tr>
               
-                <input type="radio" id="new" name="project_content[]" value="new">
+                <input type="radio" id="new" name="project_content" value="new">
                 <label for="new">New</label></tr><br/>
              
-                <tr><input type="radio" id="update" name="project_content[]" value="update">
+                <tr><input type="radio" id="update" name="project_content" value="update">
                 <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
                  
                 <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
@@ -193,28 +193,28 @@ return true; }
         </label>
     <td><table><tr><td border="1">
       
-<input type="checkbox" id="prospective_customers" name="target[]" value="prospective_customers">
+<input type="checkbox"  name="prospective_customers" value="1">
   <label for="prospective_customers">Prospective Customers</label>
         </td><td>
        
-    <input type="checkbox" id="Engineers" name="target[]" value="Engineers">
+    <input type="checkbox" name="Engineers"  value="1">
   <label for="Engineers">Engineers</label>
         </td></tr><tr><td>
       
-    <input type="checkbox" id="buyers" name="target[]" value="buyers">
-  <label for="buyers">Procurement Managers/Buyers</label>
+    <input type="checkbox" name="procurement_managers"  value="1">
+  <label for="procurement_managers">Procurement Managers/Buyers</label>
     </td><td>
        
-    <input type="checkbox" id="current" name="target[]" value="current">
-  <label for="current">Current Customers</label>
+    <input type="checkbox" name="current_customers"  value="1">
+  <label for="current_customers">Current Customers</label>
     </td></tr><tr><td>
    
-    <input type="checkbox" id="plant_managers" name="tagret[]" value="plant_managers">
+    <input type="checkbox" name="plant_managers" value="1">
   <label for="plant_managers">Plant/MRO Managers</label>
     </td>
      
-    <td> <input type="checkbox" id="other" name="target[]" value="other">
-    <label for="Other">Other (Please specify)</label><textarea name="target" rows="1" column="100"></textarea></td></tr>
+    <td> <input type="checkbox" name="other_audience"  value="1">
+    <label for="other_audience">Other (Please specify)</label><textarea name="other_audience" rows="1" column="100"></textarea></td></tr>
         </table></td></tr>
         
          <tr> <td border="1">
@@ -260,10 +260,10 @@ return true; }
        
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
         <b>Photography Needed?</b> 
-    <input type="radio"  name="is_photography_needed[]" value="yes">
+    <input type="radio"  name="is_photography_needed" value="Yes">
     <i><label for="Yes">Yes</label></i>
     
-    <input type="radio" name="is_photography_needed[]" value="no">
+    <input type="radio"  name="is_photography_needed" value="No">
     <i><label for="No">No</label></i><br/>
 			</tr>
         <tr><td ><textarea name="needed_photography" rows="6" cols="120"></textarea></td></tr></table>
