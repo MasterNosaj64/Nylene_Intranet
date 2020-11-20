@@ -210,6 +210,7 @@ if ($conn->connect_error) {
                                                             request_date,
                                                             name_project_or_piece,
                                                             type_of_project,
+                                                            other_type_of_project,
                                                             brochure,
                                                             ppt,
                                                             fact_sheet,
@@ -233,17 +234,19 @@ if ($conn->connect_error) {
                                                             procurement_managers,
                                                             current_customers,
                                                             plant_managers,
+                                                            other_audience,
                                                             audiance_personal_info,
                                                             purpose, 
                                                             key_message, 
                                                             supporting_info,
+                                                            is_photography_needed,
                                                             needed_photography,
                                                             estimated_quantity,
                                                             means_of_delivery,
                                                             date_needed,
                                                             available_budget,
                                                             cost_center_number )
-                                                            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                                                            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     
     
     $Requester_Name = htmlspecialchars(strip_tags($_POST['Requester_Name']));
@@ -254,15 +257,15 @@ if ($conn->connect_error) {
     $Date = htmlspecialchars(strip_tags($_POST['Date']));
     $Name_of_Project = htmlspecialchars(strip_tags($_POST['Name_of_Project']));
     $type_of_project = ($_POST['type_of_project']);
-   // $other_type_of_project=htmlspecialchars(strip_tags($_POST['other_type_of_project']));
+    $other_type_of_project=htmlspecialchars(strip_tags($_POST['other_type_of_project']));
     $project_content = htmlspecialchars(strip_tags($_POST['project_content']));
     $update_info = htmlspecialchars(strip_tags($_POST['update_info']));
-  //  $target = htmlspecialchars(strip_tags($_POST['target']));
+    $other_audience = htmlspecialchars(strip_tags($_POST['other_audience']));
     $Info = htmlspecialchars(strip_tags($_POST['Info']));
     $purpose = htmlspecialchars(strip_tags($_POST['purpose']));
     $key_messages = htmlspecialchars(strip_tags($_POST['key_messages']));
     $support = htmlspecialchars(strip_tags($_POST['support']));
-   // $is_photography_needed = htmlspecialchars(strip_tags($_POST['is_photography_needed']));
+    $is_photography_needed = htmlspecialchars(strip_tags($_POST['is_photography_needed']));
     $needed_photography = htmlspecialchars(strip_tags($_POST['needed_photography']));
     $estimate = htmlspecialchars(strip_tags($_POST['estimate']));
     $delivery = htmlspecialchars(strip_tags($_POST['delivery']));
@@ -272,7 +275,7 @@ if ($conn->connect_error) {
     
     if($stmt!== FALSE){
             
-     $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssss", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers, $Info, $purpose,  $key_messages, $support,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost);
+     $stmt->bind_param("ssssssssssssssssssssssssssssssssssssssssssss", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project,$other_type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers,$other_audience, $Info, $purpose,  $key_messages, $support, $is_photography_needed,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost);
     
      $stmt -> execute();
     

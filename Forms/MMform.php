@@ -159,7 +159,7 @@ return true; }
       
     <input type="checkbox"  name="other_type_of_project" value="1">
     <label for="other_type_of_project">Other (Please specify)</label>
-        <textarea name="type_of_project" rows="1" column="100"></textarea>
+        <textarea name="other_type_of_project" rows="1" column="100"></textarea>
     </td></tr><tr><td>
         
     <input type="checkbox"  name="press_release" value="1">
@@ -173,10 +173,10 @@ return true; }
             <input name="project_content" id="project_content">
             <td><table class="form-table"><tr>
               
-                <input type="radio" id="new" name="project_content" value="new">
+                <input type="radio" id="new" name="project_content" value="Yes">
                 <label for="new">New</label></tr><br/>
              
-                <tr><input type="radio" id="update" name="project_content" value="update">
+                <tr><input type="radio" id="update" name="project_content" value="No">
                 <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
                  
                 <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
@@ -197,8 +197,8 @@ return true; }
   <label for="prospective_customers">Prospective Customers</label>
         </td><td>
        
-    <input type="checkbox" name="Engineers"  value="1">
-  <label for="Engineers">Engineers</label>
+    <input type="checkbox" name="engineers"  value="1">
+  <label for="engineers">Engineers</label>
         </td></tr><tr><td>
       
     <input type="checkbox" name="procurement_managers"  value="1">
@@ -259,7 +259,8 @@ return true; }
      <table cellpadding="5" cellspacing="1" class="form-table">
        
        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
-        <b>Photography Needed?</b> 
+        <label for="is_photography_needed" ><b>Is photography needed?</b></label>
+            <input name="is_photography_needed" id="is_photography_needed">
     <input type="radio"  name="is_photography_needed" value="Yes">
     <i><label for="Yes">Yes</label></i>
     

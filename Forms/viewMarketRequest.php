@@ -24,6 +24,14 @@ session_start();
 								WHERE marketing_request_id =". $_POST['id'];
 		$query = $conn->query($sql);								
 		$row = mysqli_fetch_array($query);
+        
+        if ($row['is_photography_needed'] == 'Yes') {
+        $checked = 1;
+    } else {
+        $checked = 0;
+    }
+        
+        
 		
 		
 		$marketingInformation	=  "SELECT * FROM customer 
@@ -82,19 +90,19 @@ session_start();
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Project Background</b></td>
-			</tr></table>
-    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
-<tr> <td colspan ="2" id="Name_of_Project">Name of Project</td>
-			<td colspan="2"><input type="text" name="Name_of_Project" maxlength="250" style="width: 500px" readonly
+        </tr></table>
+     <table border="1" cellpadding="5" cellspacing="0" class="form-table">
+<tr> <td colspan ="2" id="Name_of_Project">Name of Project
+			<input type="text" name="Name_of_Project" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['name_project_or_piece'];?>"></td>
  </tr>
        
 
 
-   <td> <table>    
-    <td id="type_of_project">Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.</td>
-			<td ><input type="text" name="type_of_project" maxlength="250" style="width: 260" readonly
-				value="<?php echo $row['type_of_project'];?>"></td>
+      
+       <td id="type_of_project"><b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
+			<input type="text" name="type_of_project" maxlength="250" style="width: 260" readonly
+                        value="<?php echo $row['type_of_project'];?>"></td>
         
          <td><table><tr><td border="1">
 <input type="checkbox"  name="brochure" value=1 <?php if($row['brochure'] == 1) {echo "checked";} ?>>
@@ -104,19 +112,19 @@ session_start();
              <td border="1">
 <input type="checkbox"  name="ppt" value=1 <?php if($row['ppt'] == 1) {echo "checked";} ?>>
   <label for="ppt">PowerPoint Presentation</label>
-        </td>
+             </td></tr>
              
-             <td border="1">
+           <tr>  <td border="1">
 <input type="checkbox"  name="fact_sheet" value=1 <?php if($row['fact_sheet'] == 1) {echo "checked";} ?>>
   <label for="fact_sheet">Fact Sheet</label>
-        </td>
+             </td>
              
              <td border="1">
 <input type="checkbox"  name="video" value=1 <?php if($row['video'] == 1) {echo "checked";} ?>>
-  <label for="video">video</label>
-        </td>
+  <label for="video">Video</label>
+               </td></tr>
              
-             <td border="1">
+           <tr>  <td border="1">
 <input type="checkbox"  name="direct_mail" value=1 <?php if($row['direct_mail'] == 1) {echo "checked";} ?>>
   <label for="direct_mail">Direct Mail</label>
         </td>
@@ -124,38 +132,38 @@ session_start();
              <td border="1">
 <input type="checkbox"  name="web" value=1 <?php if($row['web'] == 1) {echo "checked";} ?>>
   <label for="web">Web(specify)</label>
-        </td>
+      
              
-             <td border="1">
+            
 <input type="checkbox"  name="page" value=1 <?php if($row['page'] == 1) {echo "checked";} ?>>
-  <label for="page">Page</label>
-        </td>
-             <td border="1">
+                 <label for="page"><i>Page</i></label>
+       
+            
 <input type="checkbox"  name="section" value=1 <?php if($row['section'] == 1) {echo "checked";} ?>>
-  <label for="section">Section</label>
-        </td>
+                 <label for="section"><i>Section</i></label>
+        
              
-             <td border="1">
+             
 <input type="checkbox"  name="blog" value=1 <?php if($row['blog'] == 1) {echo "checked";} ?>>
-  <label for="blog">Blog</label>
-        </td>
+                 <label for="blog"><i>Blog</i></label>
+              
              
-             <td border="1">
+            
 <input type="checkbox"  name="landing_page" value=1 <?php if($row['landing_page'] == 1) {echo "checked";} ?>>
-  <label for="landing_page">Landing Page</label>
-        </td>
+                 <label for="landing_page"><i>Landing Page</i></label>
+       
              
-             <td border="1">
+             
 <input type="checkbox"  name="updt" value=1 <?php if($row['updt'] == 1) {echo "checked";} ?>>
-  <label for="updt">Update</label>
-        </td>
+                 <label for="updt"><i>Update</i></label>
+       
              
-             <td border="1">
+            
 <input type="checkbox"  name="graphic" value=1 <?php if($row['graphic'] == 1) {echo "checked";} ?>>
-  <label for="graphic">Graphic</label>
-        </td>
+                 <label for="graphic"><i>Graphic</i></label>
+                </td>
              
-             <td border="1">
+           <tr> <td border="1">
 <input type="checkbox"  name="tradeshow" value=1 <?php if($row['tradeshow'] == 1) {echo "checked";} ?>>
   <label for="tradeshow">Tradeshow</label>
         </td>
@@ -163,9 +171,9 @@ session_start();
              <td border="1">
 <input type="checkbox"  name="promotional_item" value=1 <?php if($row['promotional_item'] == 1) {echo "checked";} ?>>
   <label for="promotional_item">Promotional Item/Giveaway</label>
-        </td>
+               </td></tr>
              
-             <td border="1">
+            <tr><td border="1">
 <input type="checkbox"  name="print_aid" value=1 <?php if($row['print_aid'] == 1) {echo "checked";} ?>>
   <label for="print_aid">Print Aid</label>
         </td>
@@ -173,33 +181,33 @@ session_start();
              <td border="1">
 <input type="checkbox"  name="press_release" value=1 <?php if($row['press_release'] == 1) {echo "checked";} ?>>
   <label for="press_release">Press Release/E-Blast</label>
-        </td>
+                </td></tr>
              
-              <input type="text"  name="other_type_of_project" readonly value="<?php echo $row['other_type_of_project']?>">
-    <label for="other_type_of_project">Other (Please specify)</label>
-    </table></td>
+           <td> <input type="checkbox" name="other_type_of_project"  value =1 <?php if($row['other_type_of_project'] == 1) {echo "checked";} ?>>
+               <label for="other_type_of_project">Other (Please specify)</label><input type="text"  name="other_type_of_project" rows="1" column="100" readonly value="<?php echo $row['other_type_of_project']?>"></td></table></td>
    
-    <tr> <td id="project_content">Is this Project:
-        			<?php if ($checked){ ?>
-        			<input type="radio" name="project_content" value="New"
-					checked> <label for="New"> New </label> <input type="radio"
-					name="project_content" value="update"> <label for="update"> Update </label>
+         <tr> <td id="project_content"><b>Is this Project:</b></td>
+        			<td><table class="form-table"><tr><?php if ($checked){ ?>
+        		<input type="radio" name="project_content" value="Yes"
+                                                         checked> <label for="new"> New </label> </tr> <tr><input type="radio"
+                                                                                                                  name="project_content" value="No"> <label for="update"> Update </label></tr>
         			<?php } else { ?>
-        			<input type="radio" name="project_content" value="New">
-					<label for="New"> New </label> <input type="radio"
-					name="project_content" value="update" checked> <label for="update"> Update
+        			<tr><input type="radio" name="project_content" value="Yes">
+                        <label for="new"> New </label></tr><tr><input type="radio"
+                                                                      name="project_content" value="No" checked> <label for="update"> Update
         
-                <td colspan="2"><input type="text" name="update_info" maxlength="250" style="width: 260px" readonly
-				value="<?php echo $row['if_project_new'];?>"></td>
-				</label>
-        			<?php } ?> </td>
- </tr>
+              
+                    </label>
+        			<?php } ?>
+                          <td colspan="2"><input type="text" name="update_info" maxlength="250" style="width: 260px" readonly
+				value="<?php echo $row['if_piece_new'];?>"></td></tr></table></td>
+         </tr></table>
     
   <table border="1" cellpadding="5" cellspacing="1" class="form-table">
 <tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
-			</tr></table>
+      </tr></table>
     
          <table border="1" cellpadding="5" cellspacing="0" class="form-table">
         <tr> <td border="1">
@@ -215,9 +223,10 @@ session_start();
       
 <input type="checkbox"  name="engineers" value=1 <?php if($row['engineers'] == 1) {echo "checked";} ?>>
   <label for="engineers">Engineers</label>
-        </td>
+                </td></tr>
+                
     
-                <td border="1">
+                <tr><td border="1">
       
 <input type="checkbox"  name="procurement_managers" value=1 <?php if($row['procurement_managers'] == 1) {echo "checked";} ?>>
   <label for="procurement_managers">Procurement Managers/Buyers</label>
@@ -225,11 +234,11 @@ session_start();
                 
                 <td border="1">
       
-<input type="checkbox"  name="current_customers" value=1 <?php if($row['customer_customers'] == 1) {echo "checked";} ?>>
+<input type="checkbox"  name="current_customers" value=1 <?php if($row['current_customers'] == 1) {echo "checked";} ?>>
   <label for="current_customers">Current Customers</label>
-        </td>
+                    </td></tr>
                 
-                <td border="1">
+              <tr>  <td border="1">
       
 <input type="checkbox"  name="plant_managers" value=1 <?php if($row['plant_managers'] == 1) {echo "checked";} ?>>
   <label for="plant_managers">Plant/MRO Managers</label>
@@ -258,20 +267,20 @@ session_start();
         <br/>
         <br/>
     <table cellpadding="5" cellspacing="1" class="form-table">
-<tr id="purpose">Purpose</tr>
+        <tr id="purpose"><b>Purpose</b></tr>
 			<tr><td colspan="2"><input type="text" name="purpose" rows="6" cols="120" readonly
         value="<?php echo $row['purpose'];?>"></td>
         </tr> </table>
 
         
        <table cellpadding="5" cellspacing="1" class="form-table">
-<tr id="key_messages">Key Messages</tr>
+           <tr id="key_messages"><b>Key Messages</b></tr>
 			<tr><td colspan="2"><input type ="text" name="key_messages" rows="6" cols="120" readonly
         value="<?php echo $row['key_message'];?>"></td>
         </tr> </table>
 
           <table cellpadding="5" cellspacing="1" class="form-table">
-<tr id="support">Supporting Information</tr>
+              <tr id="support"><b>Supporting Information</b></tr>
 			<tr><td colspan="2"><input type ="text" name="support" rows="6" cols="120" readonly
         value="<?php echo $row['supporting_info'];?>"></td>
         </tr> </table>
@@ -284,7 +293,7 @@ session_start();
     
     <input type="checkbox" name="photography[]" value="no">
 -->
-           <tr> <td id="is_photography_needed">Is this Project:
+             <tr> <td id="is_photography_needed"><b>Needed Photography?</b>
         			<?php if ($checked){ ?>
         			<input type="radio" name="is_photography_needed" value="Yes"
 					checked> <label for="Yes"> Yes </label> <input type="radio"
@@ -298,9 +307,9 @@ session_start();
         			<?php } ?> </td>
  </tr>
              
-     
+     <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="needed_photography">
-			<tr><td colspan="2"><input type="text" name="needed_phtography" rows="6" cols="120" readonly
+			<tr><td colspan="2"><input type="text" name="needed_phtography" rows="2" cols="120" readonly
         value="<?php echo $row['needed_photography'];?>"></td>
         </tr> </table>
         
