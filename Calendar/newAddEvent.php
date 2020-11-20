@@ -47,7 +47,7 @@ if ($conn-> connect_error) {
     $eventVisibility =     htmlspecialchars(strip_tags($_POST["event_visibility"]));
    
     /*Bind statement parameters to statement*/
-   $stmt->bind_param("ssssssiis", $eventDate, $startTime, $eventName, $description, $dateCreated,
+   $stmt->bind_param("ssssssiiss", $eventDate, $startTime, $eventName, $description, $dateCreated,
        $dateModified, $employeeID, $modifiedBy, $mandatoryAttendance, $eventVisibility);
   
     
