@@ -22,6 +22,18 @@ include '../Database/connect.php';
 	
 	//$_SESSION['field']=$qsr[sample_form_id];
     /*Check required variables for value, if none input 0*/
+
+	if (isset($_POST['m_code']))
+	{
+		$m_code = $_POST['m_code'];
+		
+	}
+	else 
+	{
+		$m_code = $qsr['mcode'];
+	}
+
+
 	if (isset($_POST['credit_app_submitted']))
 	{
 		$credit_app_submitted = $_POST['credit_app_submitted'];
