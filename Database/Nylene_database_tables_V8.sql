@@ -344,3 +344,4 @@ ALTER TABLE `marketing_request_form` ADD `procurement_managers` INT(50) NULL DEF
 ALTER TABLE `marketing_request_form` ADD `current_customers` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `plant_managers` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `other_audience` TEXT NULL DEFAULT NULL;
+ALTER TABLE 'marketing_request_form' ADD 'requester_name' VARCHAR(50) NULL DEFAULT NULL:
