@@ -30,7 +30,7 @@ if ($conn-> connect_error) {
                     date_modified,
 					employee_id,
                     modified_by,
-					mandatory_attendance
+					mandatory_attendance,
                     event_visibility)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); 
     
