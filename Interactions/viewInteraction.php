@@ -111,9 +111,14 @@ if ($viewInteractionForm != null) {
     // Sample Form
     if ($viewInteractionForm['form_type'] == 1) {
 
-        echo "<form method=\"post\" action=\"../Forms/sample_form_view.php\">
+					echo "<form method=\"post\" action=\"../Forms/sample_form_view.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"View Sample Request Form\"/>
+                    </form>";
+					
+					echo "<form method=\"post\" action=\"../Forms/editSample.php\">
+                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+                        <input type=\"submit\" value=\"Edit Sample Request Form\"/>
                     </form>";
     } // Light Truck Load Quote Form
     else if ($viewInteractionForm['form_type'] == 2) {
