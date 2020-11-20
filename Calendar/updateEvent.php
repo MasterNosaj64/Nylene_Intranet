@@ -28,7 +28,8 @@ if ($conn-> connect_error) {
 					description = ?,
                     date_modified = ?,
                     modified_by = ?,
-					mandatory_attendance = ?
+					mandatory_attendance = ?,
+                    event_visibility = ?
                 WHERE calendar_id = ?");
     
     /*Assign values to variables and execute*/
@@ -39,11 +40,12 @@ if ($conn-> connect_error) {
     $dateModified = htmlspecialchars(strip_tags($_POST["date_modified"]));
     $modifiedBy =  $userID;
     $mandatoryAttendance = htmlspecialchars(strip_tags($_POST["mandatory_attendance"]));
+    $eventVisibility =     htmlspecialchars(strip_tags($_POST["event_visibility"]));
     $calendarID = htmlspecialchars(strip_tags($_POST["calendar_id"]));
     
     /*Bind statement parameters to statement*/
     $stmt->bind_param("sssssisi", $eventDate, $startTime, $eventName, $description, 
-        $dateModified, $modifiedBy, $mandatoryAttendance, $calendarID);
+        $dateModified, $modifiedBy, $mandatoryAttendance,$eventVisibility, $calendarID);
     
     
     $stmt->execute();

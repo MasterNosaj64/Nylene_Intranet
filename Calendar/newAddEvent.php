@@ -30,8 +30,9 @@ if ($conn-> connect_error) {
                     date_modified,
 					employee_id,
                     modified_by,
-					mandatory_attendance)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					mandatory_attendance
+                    event_visibility)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); 
     
     /*Assign values to variables and execute*/
     $eventDate = htmlspecialchars(strip_tags($_POST["event_date"]));
@@ -43,10 +44,11 @@ if ($conn-> connect_error) {
     $employeeID = $userID; 
     $modifiedBy =  NULL; 
     $mandatoryAttendance = htmlspecialchars(strip_tags($_POST["mandatory_attendance"]));
+    $eventVisibility =     htmlspecialchars(strip_tags($_POST["event_visibility"]));
    
     /*Bind statement parameters to statement*/
    $stmt->bind_param("ssssssiis", $eventDate, $startTime, $eventName, $description, $dateCreated,
-        $dateModified, $employeeID, $modifiedBy, $mandatoryAttendance);
+       $dateModified, $employeeID, $modifiedBy, $mandatoryAttendance, $eventVisibility);
   
     
     $stmt->execute();
