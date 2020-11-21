@@ -99,11 +99,11 @@ if (isset($_POST['submit'])) {
     			</thead>
     			<tr>
     				<td><label for="quote_date"> Date </label></td>
-    				<td><input type="text" name="quote_date" readonly value="11/21/2020" /></td>
+    				<td>11/21/2020</td>
     			</tr>
     			<tr>
     				<td><label for="quote_num"> Quote Name/Number </label></td>
-    				<td><input type="text" name="quote_num" readonly value="ABDJA5854" /></td>
+    				<td>ABDJA5854</td>
     			</tr>
     			<thead>
     				<tr>
@@ -112,29 +112,27 @@ if (isset($_POST['submit'])) {
     			</thead>
     			<tr>
     				<td><label for="first_name"> First Name </label></td>
-    				<td><input type="text" name="first_name" readonly value="Jason" /></td>
+    				<td>Jason</td>
     			</tr>
     			<tr>
     				<td><label for="last_name"> Last Name </label></td>
-    				<td><input type="text" name="last_name" readonly value="Waid" /></td>
+    				<td>Waid</td>
     			</tr>
     			<tr>
     				<td><label for="nyleneCompany"> Nylene Company </label></td>
-    				<td><input type="text" id="nyleneCompany" readonly value="Nylene" /></td>
+    				<td>Nylene</td>
     			</tr>
     			<tr>
     				<td><label for="work_phone"> Nylene Phone </label></td>
-    				<td><input type="number" name="work_phone" readonly
-    					value="0123456789" /></td>
+    				<td>0123456789</td>
     			</tr>
     			<tr>
     				<td><label for="employee_email"> Your Email </label></td>
-    				<td><input type="email" name="employee_email" readonly
-    					value="test@test.com" /></td>
+    				<td>test@test.com</td>
     			</tr>
     			<tr>
     				<td><label for="title"> Your Title </label></td>
-    				<td><input type="text" name="title" readonly value="BOSS" /></td>
+    				<td>BOSS</td>
     			</tr>
     			<thead>
     				<tr>
@@ -143,23 +141,19 @@ if (isset($_POST['submit'])) {
     			</thead>
     			<tr>
     				<td><label for="company_name"> Customer Company </label></td>
-    				<td><input type="text" name="company_name" readonly
-    					value="Company Test Name" /></td>
+    				<td>Company Test Name</td>
     			</tr>
     			<tr>
     				<td><label for="customer_name"> Customer Name </label></td>
-    				<td><input type="text" name="customer_name" readonly
-    					value="Billy Bob" /></td>
+    				<td>Billy Bob</td>
     			</tr>
     			<tr>
     				<td><label for="customer_phone"> Customer Phone </label></td>
-    				<td><input type="text" name="customer_phone" readonly
-    					value="0123456789" /></td>
+    				<td>0123456789</td>
     			</tr>
     			<tr>
     				<td><label for="customer_email"> Customer Email </label></td>
-    				<td><input type="email" name="customer_email" readonly
-    					value="test@test.com" /></td>
+    				<td>test@test.com</td>
     			</tr>
     			<thead>
     				<tr>
@@ -168,29 +162,27 @@ if (isset($_POST['submit'])) {
     			</thead>
     			<tr>
     				<td><label for="product_name"> Product Name </label></td>
-    				<td><input type="text" name="product_name" readonly
-    					value="Product name" /></td>
+    				<td>Product name</td>
     			</tr>
     			<tr>
     				<td><label for="product_desc"> Description </label></td>
-    				<td><input type="text" name="product_desc" readonly
-    					value="Product Description" /></td>
+    				<td>Product Description</td>
     			</tr>
     			<tr>
     				<td><label for="annual_vol"> Est. Annual Volume </label></td>
-    				<td><input type="text" name="annual vol" readonly value="100" /></td>
+    				<td>100</td>
     			</tr>
     			<tr>
     				<td><label for="OEM"> OEM </label></td>
-    				<td><input type="text" name="OEM" readonly value="Test" /></td>
+    				<td>Test</td>
     			</tr>
     			<tr>
     				<td><label for="application"> Application </label></td>
-    				<td><input type="text" name="application" readonly value="Test" /></td>
+    				<td>Test</td>
     			</tr>
     			<tr>
     				<td><label for="truck_load"> TL Price </label></td>
-    				<td><input type="number" name="truck_load" readonly value="100" /></td>
+    				<td>100</td>
     			</tr>
     			<thead>
     				<tr>
@@ -199,40 +191,39 @@ if (isset($_POST['submit'])) {
     			</thead>
     			<tr>
     				<td>Payment terms are USD $ Funds, Net</td>
-    				<td><input type="text" name="payment_terms" readonly value="TEST" /></td>
+    				<td>TEST</td>
     			</tr>
     			<tr>
     				<td>LTL quantities are</td>
-    				<td><input type="text" name="ltl_quantities" readonly value="1234" /></td>
+    				<td>1234</td>
     			</tr>
     			<tr>
     				<td><label for="special_terms"> Special terms and conditions </label></td>
-    				<td><input type="text" name="special_terms" readonly value="1523" /></td>
+    				<td>1523</td>
     			</tr>
     			<tr>
     				<td>40,000 lb.+</td>
-    				<td><input type="text" name="range40plus" readonly
-    					value="range40plus" /></td>
+    				<td>range40plus</td>
     			</tr>
     			<tr>
     				<td>22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box</td>
-    				<td><input type="text" name="range2240" readonly value="range2240" /></td>
+    				<td>range2240</td>
     			</tr>
     			<tr>
     				<td>11,000 - 21,999 lb. bags, 10,500 - 20,999 lb. box</td>
-    				<td><input type="text" name="range1022" readonly value="range1022" /></td>
+    				<td>range1022</td>
     			</tr>
     			<tr>
     				<td>6,600 - 10,999 lb. bags, 6,000 - 10,499 lb. box</td>
-    				<td><input type="text" name="range610" readonly value="range610" /></td>
+    				<td>range610</td>
     			</tr>
     			<tr>
     				<td>4,400 - 6,599 lb. bags, 3,000 - 5,999 lb. box</td>
-    				<td><input type="text" name="range46" readonly value="range46" /></td>
+    				<td>range46</td>
     			</tr>
     			<tr>
     				<td>2,200 - 4,399 lb. bags, 1,500 - 2,999 lb. box</td>
-    				<td><input type="text" name="range24" readonly value="range24"></td>
+    				<td>range24</td>
     			</tr>
     		</table>
     </body>
