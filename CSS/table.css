@@ -217,6 +217,18 @@ input[type=tel] {
 	cursor: pointer
 }
 
+#edit_interaction{
+	width: 100%;
+	margin: 15 5 1 5;
+	text-align: center box-sizing: border-box;
+	border: 2px solid #000;
+	border-radius: 4px;
+	font-size: 20px;
+	background-color: rgb(167, 197, 244);
+	padding: 5px 12px 5px 12px;
+	cursor: pointer
+}
+
 #title {
 	width: 100%;
 	margin: 5 0 0 0;

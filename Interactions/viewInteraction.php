@@ -81,6 +81,10 @@ if (isset($_POST['interaction_id'])) {
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>
+	<form name="edit_interaction" action="editInteraction.php" method="post">
+        <input hidden type="text" name="interaction_id" value="4"> <!-- change value to dynamic -->
+        <input type="Submit" id="edit_interaction" style="width:100%" value="Edit Interaction">
+    </form>
 	<!-- <h1>Interaction</h1> -->
 	<table class="form-table" border=5>
 		<tr>
