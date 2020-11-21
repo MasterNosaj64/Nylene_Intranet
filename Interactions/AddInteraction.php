@@ -137,7 +137,6 @@
 <!-- Add interaction Page -->
 <!-- The following is the Add interaction interface -->
 <html>
- <link rel="stylesheet" href="../CSS/table.css">
 <head>
     <title>Add Interaction</title>
     <link rel="stylesheet" href="../CSS/table.css">
