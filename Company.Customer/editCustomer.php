@@ -35,9 +35,9 @@ $customer_id = $_POST['customer_id'];
 
 $customerToEdit = new Customer($conn_Customer);
 
-$customerGetDataResult = $customerToEdit->searchById($customer_id);
+$customerToEdit = $customerToEdit->searchById($customer_id);
 
-if (! $customerGetDataResult->fetch()) {
+if (!$customerToEdit) {
     die("Company data corrupt or connection failed, OPPERATION ABORTED");
 } // else didn't find something
 
@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
             die("Company data corrupt or connection failed, OPPERATION ABORTED");
         }
 
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
         exit();
     }
     
