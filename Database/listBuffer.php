@@ -458,6 +458,74 @@ function sortDESC_Interactions_Notes($sessionBuffer)
 }
 
 /*
+ * function: sortASC_Interactions_Status
+ * Purpose: Sorts a given interaction buffer by Status in Ascending Order
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortASC_Interactions_Status($sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    $sortedItems = 0;
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getStatus()), strtolower($obj2->getStatus())) > 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+    
+    $sessionBuffer->rewind();
+    
+    return $sessionBuffer;
+}
+
+/*
+ * function: sortDESC_Interactions_Status
+ * Purpose: Sorts a given interaction buffer by Status in Descending Order
+ * Param: sessionBuffer
+ * Param Type: SplDoublyLinkedList
+ * Return Type: SplDoublyLinkedList
+ */
+function sortDESC_Interactions_Status($sessionBuffer)
+{
+    $n = $sessionBuffer->count();
+    
+    $sortedItems = 0;
+    
+    for ($i = 0; $i < $n; $i ++) {
+        
+        for ($j = 0; $j < $n - $i - 1; $j ++) {
+            
+            $obj1 = unserialize($sessionBuffer->offsetGet($j));
+            $obj2 = unserialize($sessionBuffer->offsetGet($j + 1));
+            
+            if (strcmp(strtolower($obj1->getStatus()), strtolower($obj2->getStatus())) < 0) {
+                
+                $sessionBuffer->offsetSet($j, serialize($obj2));
+                $sessionBuffer->offsetSet($j + 1, serialize($obj1));
+                $sortedItems ++;
+            }
+        }
+    }
+    
+    $sessionBuffer->rewind();
+    
+    return $sessionBuffer;
+}
+
+/*
  * function: sortASC_CreatedBy
  * Purpose: Sorts a given buffer by CreatedBy in Ascending Order
  * Param: sessionBuffer
@@ -1740,13 +1808,23 @@ function getSortingInteraction(SplDoublyLinkedList $sessionBuffer)
                 
                 return sortASC_Interactions_Notes($sessionBuffer);
                 break;
-                
+            
             case '-5':
+                
+                sortASC_Interactions_Status($sessionBuffer);
+                break;
+                
+            case '5':
+                
+                sortDESC_Interactions_Status($sessionBuffer);
+                break;
+                
+            case '-6':
                 
                 return sortDESC_CreatedBy($sessionBuffer);
                 break;
                 
-            case '5':
+            case '6':
                 
                 return sortASC_CreatedBy($sessionBuffer);
                 break;
@@ -1778,7 +1856,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1788,7 +1867,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1798,7 +1878,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='2'>&#8681   Customer   &#8681</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1808,7 +1889,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-2'>&#8679   Customer   &#8679</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1818,7 +1900,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='3'>&#8681   Reason   &#8681</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1828,7 +1911,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-3'>&#8679   Reason   &#8679</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1838,7 +1922,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='4'>&#8681   Notes   &#8681</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1848,17 +1933,19 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-4'>&#8679   Notes   &#8679</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
-            
+        
         case '-5':
             
             echo "<td class='ColSort' data-colnum='1'>Date</td>";
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='5'>&#8681   Author   &#8681</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='5'>&#8681   Status   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
             
@@ -1868,7 +1955,31 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8679   Author   &#8679</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8681   Status   &#8681</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
+            
+            break;
+            
+            
+        case '-6':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='6'>&#8681   Author   &#8681</td>";
+            
+            break;
+            
+        case '6':
+            
+            echo "<td class='ColSort' data-colnum='1'>Date</td>";
+            echo "<td class='ColSort' data-colnum='2'>Customer</td>";
+            echo "<td class='ColSort' data-colnum='3'>Reason</td>";
+            echo "<td class='ColSort' data-colnum='4'>Notes</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-6'>&#8679   Author   &#8679</td>";
             
             break;
             
@@ -1878,7 +1989,8 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td class='ColSort' data-colnum='5'>Author</td>";
+            echo "<td class='ColSort' data-colnum='5'>Status</td>";
+            echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;
     }

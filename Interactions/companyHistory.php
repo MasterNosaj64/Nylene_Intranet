@@ -197,6 +197,7 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     $reason = $currentInteractionNode->getReason();
     $comments = $currentInteractionNode->getComments();
     $interactionDateCreated = $currentInteractionNode->getDateCreated();
+    $status = $currentInteractionNode->getStatus();
 
     $customer_Conn = getDBConnection();
     $employee_Conn = getDBConnection();
@@ -221,6 +222,7 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
     echo "<td>" . substr($comments, 0, 50) . "</td>";
+    echo "<td>{$status}</td>";
     echo "<td>{$employeeName}</td>";
     echo "<td><form method=\"post\" action=\"viewInteraction.php\">";
     echo "<input hidden type=\"text\" name=\"interaction_id\" value=\"{$interactionID}\">";
