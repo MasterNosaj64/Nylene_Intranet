@@ -1,10 +1,10 @@
 <?php
     /*
      * FileName: addInteraction.php
-     * Version Number: 0.9
+     * Version Number: 1.0
      * Author: Jason Waid, Modified by Kaitlyn Breker
-     * Purpose:
-     * Add companies in the database.
+     * Date Modified: Nov 21, 2020
+     * Purpose: Add companies in the database.
      */
     date_default_timezone_set('America/Toronto');
     session_start();
@@ -182,7 +182,27 @@
 				document.getElementById('selector_disabled').disabled = true;
 			}
 		}
-		
+
+		/*Function disables selection for form if the reason is not a form*/
+		function formSelect(){
+			if ((document.getElementById('reason').value == "Credit Business Application") 
+				|| (document.getElementById('reason').value == "Distributor Quote")
+				|| (document.getElementById('reason').value == "Light Truckload Quote")
+				|| (document.getElementById('reason').value == "Marketing Request")
+				|| (document.getElementById('reason').value == "Sample")
+				|| (document.getElementById('reason').value == "Truckload Quote")) {
+
+					document.getElementById('form').disabled = false;
+    				document.getElementById('form').readOnly = false;
+    				document.getElementById('form_disabled').disabled = true;
+
+				} else {
+					document.getElementById('form').disabled = true;
+					document.getElementById('form_disabled').disabled = false;
+    				document.getElementById('form').value = "0";
+    				
+				}
+		}
 		</script>
     </head>
     <body>
@@ -217,11 +237,10 @@
                         ?>
             		</select></td>
     				<td>Reason:</td>
-    				<td><select id="selection" required name="reason"">
+    				<td><select id="reason" name="reason" onclick="formSelect()" required>
     						<option></option>
     						<option value="Added Customer">Added Customer</option>
-    						<option value="Credit Business Application">Credit Business
-    							Application</option>
+    						<option value="Credit Business Application">Credit Business Application</option>
     						<option value="Distributor Quote">Distributor Quote</option>
     						<option value="General">General</option>
     						<option value="Light Truckload Quote">Light Truckload Quote</option>
@@ -235,7 +254,7 @@
     						<option value="Update">Update</option>
     				</select></td>
     				<td>Form (if applicable):</td>
-    				<td><select id="selection" required name="form">
+    				<td><select id="form" name="form" disabled>
     						<option value="0"></option>
     						<option value="6">Credit Business Application</option>
     						<option value="4">Distributor Quote</option>
@@ -243,7 +262,9 @@
     						<option value="5">Marketing Request</option>
     						<option value="1">Sample Request</option>
     						<option value="3">Truckload Quote</option>
-    				</select></td>
+    					</select>
+    					<input hidden id="form_disabled" name="form" value="0" disabled/>
+    				</td>
     			<tr>
     				<td>Interaction Status: </td>
     				<td>
