@@ -1,9 +1,9 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 1.0
- * Date Modified: 11/15/2020
- * Author: Jason Waid
+ * Version Number: 1.1
+ * Date Modified: 11/20/2020
+ * Author: Jason Waid, Modified by Kaitlyn Breker
  * Purpose:
  *  View interaction data in the database.
  */
@@ -115,6 +115,7 @@ if ($viewInteractionForm != null) {
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"View Sample Request Form\"/>
                     </form>";
+
 					echo "<form method=\"post\" action=\"../Forms/editSample.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"Edit Sample Request Form\"/>
@@ -166,6 +167,7 @@ if ($viewInteractionForm != null) {
 			<td>Interaction Status:</td>
 			<td>
 			<?php
+			     /*status of the interaction open/closed*/
                    if ($interaction->getStatus() == 'open'){
         		      echo 'Open';
                    } else if ($interaction->getStatus() == 'closed') {
@@ -178,7 +180,7 @@ if ($viewInteractionForm != null) {
 			<td>Follow Up Type:</td>
 			<td>
 			<?php 
-			    
+			    /*switch between the type in the db*/
     			switch($interaction->getFollowUpType()){
     			    case 'interaction':
     			        echo 'Follow up based on interaction date';
@@ -201,6 +203,7 @@ if ($viewInteractionForm != null) {
 			<td>Follow Up Date:</td>
 			<td>
     			<?php 
+    			/*display followupdate or no date*/
     			if ($interaction->getFollowUpDate() == 0){
     			    echo '--';
     			} else {
