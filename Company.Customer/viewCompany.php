@@ -140,10 +140,11 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 <head>
 <!--
   <link rel="stylesheet" href="../CSS/table.css">
-</head>
+
 
 -->
-
+<title>View Company</title>
+</head>
 <!-- Buttons for adding customer or viewing Comapny History -->
 <table>
 	<tr>

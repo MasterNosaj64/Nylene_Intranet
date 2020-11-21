@@ -86,6 +86,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
 <html>
 <head>
+<title>Company History</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <!-- Button to add an interaction -->

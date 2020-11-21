@@ -107,6 +107,7 @@ $customer_name = explode(" ",$customerToEdit->getName());
 
 <html>
 <head>
+<title>Edit Customer</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 

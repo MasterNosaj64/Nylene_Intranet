@@ -78,6 +78,7 @@ if (isset($_SESSION['company_id'])) {
 
 <html>
 <head>
+<title>Add Customer</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 

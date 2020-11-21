@@ -105,6 +105,7 @@ if (isset($_POST['submit'])) {
 <!-- The following is the Add company interface -->
 <html>
 <head>
+<title>Add Company</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>

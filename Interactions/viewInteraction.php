@@ -76,7 +76,10 @@ if (isset($_POST['interaction_id'])) {
 ?>
 <!-- Table containing the company/customer information -->
 <html>
+<head>
+<title>View Interaction</title>
 <link rel="stylesheet" href="../CSS/table.css">
+</head>
 <body>
 	<!-- <h1>Interaction</h1> -->
 	<table class="form-table" border=5>

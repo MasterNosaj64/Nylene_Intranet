@@ -93,6 +93,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 ?>
 <html>
 <head>
+<title>Search Company</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body style="overflow: scroll">

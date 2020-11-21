@@ -137,6 +137,7 @@ if (isset($_POST['company_id_edit'])) {
 <!-- The following is the edit company interface -->
 <html>
 <head>
+<title>Edit Company</title>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>
