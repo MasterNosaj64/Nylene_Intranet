@@ -115,7 +115,6 @@ if ($viewInteractionForm != null) {
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"View Sample Request Form\"/>
                     </form>";
-					
 					echo "<form method=\"post\" action=\"../Forms/editSample.php\">
                    <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
                         <input type=\"submit\" value=\"Edit Sample Request Form\"/>
@@ -163,6 +162,52 @@ if ($viewInteractionForm != null) {
 ?>
 		</td>
 		</tr>
+		<tr>
+			<td>Interaction Status:</td>
+			<td>
+			<?php
+                   if ($interaction->getStatus() == 'open'){
+        		      echo 'Open';
+                   } else if ($interaction->getStatus() == 'closed') {
+        		      echo 'Closed';
+                   } else {
+                       echo '--';
+                   }
+        	?>
+        	</td>
+			<td>Follow Up Type:</td>
+			<td>
+			<?php 
+			    
+    			switch($interaction->getFollowUpType()){
+    			    case 'interaction':
+    			        echo 'Follow up based on interaction date';
+    			        break;
+    			    case 'form':
+    			        echo 'Follow up based on form date';
+    			        break;
+    			    case 'manual':
+    			        echo 'Follow up determined by user';
+    			        break;
+    			    case 'none':
+    			        echo 'No follow up required';
+    			        break;
+    			    default:
+    			        echo 'No follow up designated';
+    			        break;
+    			}
+    		?>
+			</td>
+			<td>Follow Up Date:</td>
+			<td>
+    			<?php 
+    			if ($interaction->getFollowUpDate() == 0){
+    			    echo '--';
+    			} else {
+    			     echo $interaction->getFollowUpDate();
+                }
+    			?>
+			</td>
 		<tr>
 			<td colspan=6><textarea readonly rows="20" cols="100"><?php echo $interaction->getComments(); ?> </textarea></td>
 		</tr>
