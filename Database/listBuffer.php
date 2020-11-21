@@ -2,8 +2,8 @@
 
 /*
  * FileName: listBuffer.php
- * Version Number: 2.0
- * Date Modified: 11/15/2020
+ * Version Number: 2.1
+ * Date Modified: 11/20/2020
  * Author: Jason Waid
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate/sort the list
@@ -1811,12 +1811,12 @@ function getSortingInteraction(SplDoublyLinkedList $sessionBuffer)
             
             case '-5':
                 
-                sortASC_Interactions_Status($sessionBuffer);
+                return sortDESC_Interactions_Status($sessionBuffer);
                 break;
                 
             case '5':
                 
-                sortDESC_Interactions_Status($sessionBuffer);
+                return sortASC_Interactions_Status($sessionBuffer);
                 break;
                 
             case '-6':
@@ -1955,7 +1955,7 @@ function printHeadersInteraction(int $sortType)
             echo "<td class='ColSort' data-colnum='2'>Customer</td>";
             echo "<td class='ColSort' data-colnum='3'>Reason</td>";
             echo "<td class='ColSort' data-colnum='4'>Notes</td>";
-            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8681   Status   &#8681</td>";
+            echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-5'>&#8679   Status   &#8679</td>";
             echo "<td class='ColSort' data-colnum='6'>Author</td>";
             
             break;

@@ -3,7 +3,7 @@
  * FileName: Interaction.php
  * Author: Jason Waid, Modified by Kaitlyn Breker
  * Version: 0.7
- * Date Modified: 11/15/2020
+ * Date Modified: 11/20/2020
  * Purpose:
  *  Object oriented representation of a interaction
  *  all database manipulation happens here
@@ -228,7 +228,7 @@ class Interaction
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
-    function search($interaction_id, $company_id, $customer_id, $employee_id, $reason, $comments, $date_created)
+    function search($interaction_id, $company_id, $customer_id, $employee_id, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date)
     {
 
         // number of string parameters
@@ -328,6 +328,45 @@ class Interaction
             $date_created = htmlspecialchars(strip_tags($date_created));
             array_push($params, $date_created);
         }
+        
+        if ($status != "") {
+            if ($interaction_id == "" && $company_id == "" && $customer_id == "" && $employee_id == "" && $reason == "" && $comments == "" && $date_created == "") {
+                $query .= " WHERE status LIKE ?";
+            } else {
+                $query .= " AND status LIKE ?";
+            }
+            $stringCount ++;
+            $paramTypes .= "s";
+            $status = htmlspecialchars(strip_tags($status));
+            $status .= "%";
+            array_push($params, $status);
+        }
+        
+        if ($follow_up_type != "") {
+            if ($interaction_id == "" && $company_id == "" && $customer_id == "" && $employee_id == "" && $reason == "" && $comments == "" && $date_created == "" && $status == "") {
+                $query .= " WHERE follow_up_type LIKE ?";
+            } else {
+                $query .= " AND follow_up_type LIKE ?";
+            }
+            $stringCount ++;
+            $paramTypes .= "s";
+            $follow_up_type = htmlspecialchars(strip_tags($follow_up_type));
+            $follow_up_type .= "%";
+            array_push($params, $follow_up_type);
+        }
+        
+        if ($follow_up_date != "") {
+            if ($interaction_id == "" && $company_id == "" && $customer_id == "" && $employee_id == "" && $reason == "" && $comments == "" && $date_created == "" && $status == ""  && $follow_up_type == "") {
+                $query .= " WHERE follow_up_date LIKE ?";
+            } else {
+                $query .= " AND follow_up_date LIKE ?";
+            }
+            $stringCount ++;
+            $paramTypes .= "s";
+            $follow_up_date = htmlspecialchars(strip_tags($follow_up_date));
+            array_push($params, $follow_up_date);
+        }
+        
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -366,7 +405,21 @@ class Interaction
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6]);
                 break;
+           
+            case 8:
                 
+                $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7]);
+                break;
+                
+            case 9:
+                
+                $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8]);
+                break;
+                
+            case 10:
+                
+                $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9]);
+                break;
            /*  default: */
                 //no params
                 

@@ -1,11 +1,11 @@
 <?php
 /*
  * FileName: companyHistory.php
- * Version Number: 1.5
+ * Version Number: 1.6
  * Author: Jason Waid
  * Purpose:
  * View a list of interactions for the company
- * Date Modified: 11/15/2020
+ * Date Modified: 11/20/2020
  */
 session_start();
 
@@ -129,7 +129,7 @@ if (isset($_SESSION['buffer'])) {
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
-    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "");
+    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "" ,"");
     $interactionBuffer = create_Buffer($interactionResult, $interactions);
 
     if (isset($_GET['sort'])) {
