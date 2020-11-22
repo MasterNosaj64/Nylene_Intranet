@@ -10,18 +10,20 @@ include '../admin/sessionController.php';
 ?>
 
 <html>
+
+<head>
+<link rel="stylesheet" href="../CSS/nav.css" />
+<link rel="icon" href="../favicon.png">
+</head>
 <div>
-	<head>
-<link rel="stylesheet" href="../CSS/nav.css">
+	<div class="navigation">
 
-<div class="navigation">
+		<!-- 	<a href="homepage.php">Nylene</a> -->
 
-	<!-- 	<a href="homepage.php">Nylene</a> -->
+		<a href="../Home/homepage.php"><span title="Home"><img width="180"
+				align="middle" heigth="auto" src="../Graphics/Nylene-alt.png"></span></a>
 
-	<a href="../Home/homepage.php"><span title="Home"><img width="180"
-			align="middle" heigth="auto" src="../Graphics/Nylene-alt.png"></span></a>
-
-	<!--  <a href="sample.php">Sample</a> -->
+		<!--  <a href="sample.php">Sample</a> -->
 
  <?php //$image_url='Nylene.png'; ?>
 
@@ -46,8 +48,8 @@ if ($_SESSION['role'] == "admin") {
 
 
   <div class="dropdown-user">
-		<button class="dropbtn">Company Directory</button>
-		<div class="dropdown-content">
+			<button class="dropbtn">Company Directory</button>
+			<div class="dropdown-content">
     <?php
 
     // hides searchCompany button if user is already on the searchCompany.php page
@@ -60,7 +62,7 @@ if ($_SESSION['role'] == "admin") {
     }
     ?>
 		</div>
-	</div>
+		</div>
 
 <?php
 if (isset($_SESSION['company_id'])) {
@@ -84,32 +86,32 @@ if (isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || iss
 
 
 <!--   <div class="dropdown"> -->
-	<!--     <button class="dropbtn">Clients -->
-	<!--     </button> -->
-	<!--     <div class="dropdown-content"> -->
-	<!--       <a href="#">Search Client</a> -->
-	<!--       <a href="#">Add Client</a> -->
-	<!--     </div> -->
-	<!--   </div> -->
+		<!--     <button class="dropbtn">Clients -->
+		<!--     </button> -->
+		<!--     <div class="dropdown-content"> -->
+		<!--       <a href="#">Search Client</a> -->
+		<!--       <a href="#">Add Client</a> -->
+		<!--     </div> -->
+		<!--   </div> -->
 
-	<!--   <a href="InteractionManager.php">interaction Manager</a> -->
+		<!--   <a href="InteractionManager.php">interaction Manager</a> -->
 
 
-	<div class="dropdown-user">
+		<div class="dropdown-user">
 
-		<button class="dropbtn">
-			<img src="../Graphics/userIcon.png" width="20" heigth="auto"
-				align="middle"> <?php echo $_SESSION['name'];?>
+			<button class="dropbtn">
+				<img src="../Graphics/userIcon.png" width="20" heigth="auto"
+					align="middle"> <?php echo $_SESSION['name'];?>
     </button>
-		<div class="dropdown-content">
-			<a href="../logout.php">Log Out</a>
-			<!--  -->
+			<div class="dropdown-content">
+				<a href="../logout.php">Log Out</a>
+				<!--  -->
 
+			</div>
 		</div>
+
+
 	</div>
-
-
-</div>
 
 </div>
 </html>

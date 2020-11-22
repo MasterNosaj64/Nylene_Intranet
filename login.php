@@ -13,6 +13,8 @@ if(isset($_SESSION['field'])){
 <html>
 <head>
 <link rel="stylesheet" href="CSS/login.css">
+  <link rel="icon" href="favicon.png">
+  <title>Login</title>
 </head>
 <div class="background">
 <div class="login">

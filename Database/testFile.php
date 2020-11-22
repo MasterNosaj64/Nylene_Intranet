@@ -85,16 +85,13 @@ if (isset($_POST['submit'])) {
     $pdf_obj->Write(0, 'Test Conv to PDF', '', 0, 'L', true, 0, false, false, 0);
     $content = '';
 
+    $content .= '<style>' . file_get_contents(_BASE_PATH . '../CSS/form.css') . '</style>';
+
     $content = <<<EOF
-    <html>
-    <head>
-    <link rel="stylesheet" href="../CSS/form.css">
-    </head>
-    <body>
     		<table class="form-table" border="1">
     			<thead>
     				<tr>
-    					<th colspan="4">TL Quote Form</th>
+    					<th colspan="2">TL Quote Form</th>
     				</tr>
     			</thead>
     			<tr>
@@ -105,6 +102,8 @@ if (isset($_POST['submit'])) {
     				<td><label for="quote_num"> Quote Name/Number </label></td>
     				<td>ABDJA5854</td>
     			</tr>
+            </table>
+            <table class="form-table" border="1">
     			<thead>
     				<tr>
     					<th colspan="2">- Employee Information -</th>
@@ -134,6 +133,8 @@ if (isset($_POST['submit'])) {
     				<td><label for="title"> Your Title </label></td>
     				<td>BOSS</td>
     			</tr>
+                </table>
+                <table class="form-table" border="1">
     			<thead>
     				<tr>
     					<th colspan="2">- Customer Information -</th>
@@ -155,6 +156,8 @@ if (isset($_POST['submit'])) {
     				<td><label for="customer_email"> Customer Email </label></td>
     				<td>test@test.com</td>
     			</tr>
+                </table>
+                <table class="form-table" border="1">
     			<thead>
     				<tr>
     					<th colspan="2">- Product Information -</th>
@@ -184,6 +187,8 @@ if (isset($_POST['submit'])) {
     				<td><label for="truck_load"> TL Price </label></td>
     				<td>100</td>
     			</tr>
+                </table>
+                <table class="form-table" border="1">
     			<thead>
     				<tr>
     					<th colspan="2">- Terms -</th>
@@ -226,8 +231,6 @@ if (isset($_POST['submit'])) {
     				<td>range24</td>
     			</tr>
     		</table>
-    </body>
-    </html>   
     EOF;
     /*
      * $content .= "<html><table class='form-table' border=5><tr><td>col1</td><td>col2</td><td>col3</td></tr>";
