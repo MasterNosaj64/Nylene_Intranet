@@ -1,8 +1,8 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 1.1
- * Date Modified: 11/20/2020
+ * Version Number: 1.2
+ * Date Modified: 11/22/2020
  * Author: Jason Waid, Modified by Kaitlyn Breker
  * Purpose:
  *  View interaction data in the database.
@@ -99,76 +99,17 @@ if (isset($_POST['interaction_id'])) {
 			<td>Name:</td>
 			<td><?php echo $customer->getName();?></td>
 			<td>Email:</td>
-			<td><a
-				href="mailto: <?php echo $customer->getEmail();?>"><?php echo $customer->getEmail();?></a></td>
+			<td ><a href="mailto: <?php echo $customer->getEmail();?>"><?php echo $customer->getEmail();?></a></td>
 			<td>Phone:</td>
 			<td><?php echo $customer->getPhone();?></td>
 		</tr>
 		<tr>
+			
 			<td>Reason:</td>
-			<td><?php echo $interaction->getReason();?></td>
-			<td>Date Created:</td>
-			<td><?php echo $interaction->getDateCreated();?></td>
-			<td>Form:</td>
-			<td>
-		<?php
-//The following code checks which form (if any) is assigned to this interaction
-//Then it adds a button to link to the corresponding form.
-if ($viewInteractionForm != null) {
-    // Sample Form
-    if ($viewInteractionForm['form_type'] == 1) {
-
-					echo "<form method=\"post\" action=\"../Forms/sample_form_view.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Sample Request Form\"/>
-                    </form>";
-
-					echo "<form method=\"post\" action=\"../Forms/editSample.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"Edit Sample Request Form\"/>
-                    </form>";
-    } // Light Truck Load Quote Form
-    else if ($viewInteractionForm['form_type'] == 2) {
-
-        echo "<form method=\"post\" action=\"../Forms/viewLtlQuote.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Light Truckload Form\"/>
-                    </form>";
-    } // Truck Load Quote Form
-    else if ($viewInteractionForm['form_type'] == 3) {
-
-        echo "<form method=\"post\" action=\"../Forms/viewTlQuote.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Truckload Quote Form\"/>
-                    </form>";
-    } // Distributor Quote Form
-    else if ($viewInteractionForm['form_type'] == 4) {
-
-        echo "<form method=\"post\" action=\"../Forms/viewDistributorQuote.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Distributor Quote Form\"/>
-                    </form>";
-    } // Marketing Request Form
-    else if ($viewInteractionForm['form_type'] == 5) {
-
-        echo "<form method=\"post\" action=\"../Forms/viewMarketRequest.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Market Request Form\"/>
-                    </form>";
-    } // Business Credit Application Form
-    else if ($viewInteractionForm['form_type'] == 6) {
-
-        echo "<form method=\"post\" action=\"../Forms/viewCreditBusinessApplication.php\">
-                   <input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-                        <input type=\"submit\" value=\"View Business Credit App. Form\"/>
-                    </form>";
-    }
-} else {
-    //No Form
-    echo "--";
-}
-?>
-		</td>
+			<td colspan=3><?php echo $interaction->getReason();?></td>
+			
+    		<td>Date Created:</td>
+    		<td><?php echo $interaction->getDateCreated();?></td>
 		</tr>
 		<tr>
 			<td>Interaction Status:</td>
@@ -183,7 +124,7 @@ if ($viewInteractionForm != null) {
                        echo '--';
                    }
         	?>
-        	</td>
+     	   	</td>
 			<td>Follow Up Type:</td>
 			<td>
 			<?php 
@@ -218,6 +159,102 @@ if ($viewInteractionForm != null) {
                 }
     			?>
 			</td>
+		<tr>
+			<td>Form:</td>
+		
+<?php if ($viewInteractionForm != null) { 
+			
+              // Sample Form
+            if ($viewInteractionForm['form_type'] == 1) {
+         echo "<td>
+				<form method=\"post\" action=\"../Forms/sample_form_view.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Sample Request Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editSample.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"Edit Sample Request Form\"/>
+				</form>
+			</td>";
+       } // Light Truck Load Quote Form
+            else if ($viewInteractionForm['form_type'] == 2) { 
+   echo "<td>
+				<form method=\"post\" action=\"../Forms/viewLtlQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Light Truckload Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editLtlQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" value=\"Edit Light Truckload Form\"/>
+				</form>
+			</td>";
+     } // Truck Load Quote Form
+            else if ($viewInteractionForm['form_type'] == 3) { 
+       echo  "<td>
+				<form method=\"post\" action=\"../Forms/viewTlQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Truckload Quote Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editTlQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"Edit Truckload Quote Form\"/>
+				</form>
+			</td>";
+} // Distributor Quote Form
+            else if ($viewInteractionForm['form_type'] == 4) {
+                echo "<td>
+				<form method=\"post\" action=\"../Forms/viewDistributorQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Distributor Quote Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editDistributorQuote.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"Edit Distributor Quote Form\"/>
+				</form>
+			</td>";
+            } // Marketing Request Form
+            else if ($viewInteractionForm['form_type'] == 5) {
+echo       "<td>
+				<form method=\"post\" action=\"../Forms/viewMarketRequest.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Market Request Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editMarketRequest.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"Edit Market Request Form\"/>
+				</form> 
+			</td>";
+       } // Business Credit Application Form
+            else if ($viewInteractionForm['form_type'] == 6) {
+  echo "<td>
+				<form method=\"post\" action=\"../Forms/viewCreditBusinessApplication.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"View Business Credit App. Form\"/>
+				</form>
+			</td>
+			<td>
+				<form method=\"post\" action=\"../Forms/editCreditBusinessApplication.php\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input type=\"submit\" style=\"width:100%\" value=\"Edit Business Credit App. Form\"/>
+				</form> 
+			</td>";
+       } 
+         
+             
+   } else { //No Form 
+			echo "<td colspan=\"5\"> -- </td>";
+   } ?>
+    </tr>
 		<tr>
 			<td colspan=6><textarea readonly rows="20" cols="100"><?php echo $interaction->getComments(); ?> </textarea></td>
 		</tr>
