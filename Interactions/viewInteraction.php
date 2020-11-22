@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 1.2
+ * Version Number: 1.3
  * Date Modified: 11/22/2020
  * Author: Jason Waid, Modified by Kaitlyn Breker
  * Purpose:
@@ -81,10 +81,12 @@ if (isset($_POST['interaction_id'])) {
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>
-	<form name="edit_interaction" action="editInteraction.php" method="post">
-        <input hidden type="text" name="interaction_id" value="36"> <!-- change value to dynamic -->
-        <input type="Submit" id="edit_interaction" style="width:100%" value="Edit Interaction">
-    </form>
+<?php 
+echo"<form name=\"edit_interaction\" action=\"editInteraction.php\" method=\"post\">
+        <input hidden type=\"text\" name=\"interaction_id\" value=\"" . $interaction->getInteractionId() . "\">
+        <input type=\"Submit\" id=\"edit_interaction\" style=\"width:100%\" value=\"Edit Interaction\">
+    </form>";
+?> 
 	<!-- <h1>Interaction</h1> -->
 	<table class="form-table" border=5>
 		<tr>
