@@ -1,12 +1,13 @@
 <?php
+
 /*
  * FileName: Employee.php
  * Author: Jason Waid
  * Version: 0.8
  * Date Modified: 11/09/2020
  * Purpose:
- *  Object oriented representation of a Employee
- *  all database manipulation happens here
+ * Object oriented representation of a Employee
+ * all database manipulation happens here
  *
  *
  */
@@ -54,11 +55,218 @@ class Employee
     {
         $this->conn = $db;
     }
+
+    /*
+     * Function Name: getId
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the id
+     */
+    function getId()
+    {
+        return $this->employee_id;
+    }
+
+    /*
+     * Function Name: getFirst_Name
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the first name
+     */
+    function getFirst_Name()
+    {
+        return $this->first_name;
+    }
+
+    /*
+     * Function Name: getLast_Name
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the last name
+     */
+    function getLast_Name()
+    {
+        return $this->last_name;
+    }
+
+    /*
+     * Function Name: getName
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the full name
+     */
+    function getName()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    /*
+     * Function Name: getTitle
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the title
+     */
+    function getTitle()
+    {
+        return $this->title;
+    }
+
+    /*
+     * Function Name: getDepartment
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the department
+     */
+    function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /*
+     * Function Name: getWork_Phone
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the Work_Phone
+     */
+    function getWork_Phone()
+    {
+        return $this->work_phone;
+    }
+
+    /*
+     * Function Name: getWork_Phone
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the Work_Phone
+     */
+    function getWork_Phone()
+    {
+        return $this->work_phone;
+    }
+
+    /*
+     * Function Name: getReports_To
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the reports_to
+     */
+    function getReports_To()
+    {
+        return $this->reports_to;
+    }
+
+    /*
+     * Function Name: getDate_Entered
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the date_entered
+     */
+    function getDate_Entered()
+    {
+        return $this->date_entered;
+    }
+
+    /*
+     * Function Name: getDate_Modified
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the date_modified
+     */
+    function getDate_Modified()
+    {
+        return $this->date_modified;
+    }
+
+    /*
+     * Function Name: getModified_By
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the modified_by
+     */
+    function getModified_By()
+    {
+        return $this->modified_by;
+    }
+
+    /*
+     * Function Name: getUsername
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the username
+     */
+    function getUsername()
+    {
+        return $this->username;
+    }
+
+    /*
+     * Function Name: getIs_Administrator
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the is_administrator
+     */
+    function getIs_Administrator()
+    {
+        return $this->is_administrator;
+    }
+
+    /*
+     * Function Name: getSTATUS
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the STATUS
+     */
+    function getSTATUS()
+    {
+        return $this->STATUS;
+    }
+
+    /*
+     * Function Name: getEmployee_Email
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the employee_email
+     */
+    function getEmployee_Email()
+    {
+        return $this->employee_email;
+    }
+
+    /*
+     * Function Name: getPassword
+     * Version: 1.0
+     * Date Modified: 11/22/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the password
+     */
+    function getPassword()
+    {
+
+        // return $this->password;
+        return "";
+    }
+
     /*
      * Function: read
      * Purpose:
-     *  grabs all Employees from the connected db
-     *  returns the objects
+     * grabs all Employees from the connected db
+     * returns the objects
      */
     public function read()
     {
@@ -69,11 +277,10 @@ class Employee
         $stmt->execute();
         // bind the results
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
-        
+
         return $stmt;
     }
 
-    
     /*
      * Function Name: searchById
      * Version: 0.7
@@ -87,55 +294,29 @@ class Employee
                 *
             FROM
 			  nylene.employee WHERE employee_id = ?";
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
-        
+
         $employee_id = htmlspecialchars(strip_tags($employee_id));
-        
+
         $stmt->bind_param("i", $employee_id);
-        
+
         // execute query
         $stmt->execute();
-        
+
         // bind the results
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
-        
+
         $stmt->fetch();
-        
+
         // return objects
         return $this;
     }
-    
-    
+
     function create()
-    {
+    {}
 
-        
-    }
-
-    /*
-     * Function Name: getName
-     * Version: 0.7
-     * Date Modified: 10/11/2020
-     * Author: Jason Waid
-     * Purpose: Function returns the full name
-     */
-    
-    function getName(){
-        
-        return $this->first_name." ". $this->last_name;
-    }
-    
-    /*
-     * Function Name: getId
-     * Purpose: Function returns the id
-     */
-    
-    function getId(){
-        return $this->employee_id;
-    }
-      
     /*
      * Function Name: search
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
@@ -154,7 +335,7 @@ class Employee
         $params = array();
 
         // append query string, sanitize then apply % wildcard character to end of entered parmeter
-        
+
         $query = "SELECT * FROM nylene.employee";
 
         if ($employee_id != "") {
@@ -254,7 +435,7 @@ class Employee
             $modified_by = htmlspecialchars(strip_tags($modified_by));
             array_push($params, $modified_by);
         }
-        
+
         if ($username != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "") {
                 $query .= "  WHERE username LIKE ?";
@@ -278,7 +459,7 @@ class Employee
             $is_administrator = htmlspecialchars(strip_tags($is_administrator));
             array_push($params, $is_administrator);
         }
-        
+
         if ($STATUS != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "") {
                 $query .= "  WHERE STATUS LIKE ?";
@@ -290,7 +471,7 @@ class Employee
             $STATUS = htmlspecialchars(strip_tags($STATUS));
             array_push($params, $STATUS);
         }
-        
+
         if ($employee_email != "") {
             if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "" && $STATUS == "") {
                 $query .= "  WHERE employee_email LIKE ?";
@@ -302,7 +483,7 @@ class Employee
             $employee_email = htmlspecialchars(strip_tags($employee_email));
             array_push($params, $employee_email);
         }
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -345,39 +526,37 @@ class Employee
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7]);
                 break;
             case 9:
-                
+
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8]);
                 break;
             case 10:
-                
+
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9]);
                 break;
             case 11:
-                
+
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10]);
                 break;
             case 12:
-                
+
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10], $params[11]);
                 break;
-                
+
             /* default: */
-                //no params
+            // no params
         }
-        
+
         // execute query
-        $stmt->execute();      
+        $stmt->execute();
         // bind the results
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
-        
+
         // return objects
         return $stmt;
     }
 
     // update the product
     function update()
-    {
-
-    }
+    {}
 }
 ?>

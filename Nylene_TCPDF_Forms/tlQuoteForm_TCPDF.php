@@ -1,160 +1,99 @@
-<link rel="stylesheet" href="../CSS/form.css">
-
-<form method="post" action=jasonTestFile.php name="convertToPdf">
-	<table>
-
-		<tr>
-			<td>Form Type</td>
-			<td><select id="selection" required name="formType">
-					<option value="0"></option>
-					<option value="6">Credit Business Application</option>
-					<option value="4">Distributor Quote</option>
-					<option value="2">Light Truckload Quote</option>
-					<option value="5">Marketing Request</option>
-					<option value="1">Sample Request</option>
-					<option value="3">Truckload Quote</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td>Form ID:</td>
-			<td><input type="text" name="formID" /></td>
-		</tr>
-		<tr>
-			<td><input type="submit" name="submit" value="submit" /></td>
-		</tr>
-	</table>
-</form>
-
 <?php
 
 // Include the main TCPDF library (search for installation path).
-require_once ('../TCPDF/tcpdf.php');
-
-
-class TCPDF_NYLENE extends TCPDF
-{
-    // Page header override
-    public function Header()
-    {
-        // Logo
-        // Image Fix
-        // Images in header not showing after the 1st page is a known bug, used file_get_contents to convert file to a string
-        //https://stackoverflow.com/questions/52662271/tcpdf-header-image-only-displays-on-first-page/56681901#56681901
-        $this->Image('@'.file_get_contents('../Graphics/nylene_form_logo.png'), 15, 7.5, 65, '', '', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        
-        // Set font
-        $this->SetFont('helvetica', '', 10);
-        
-        // Nylene Address
-        $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior, ON<br> K7S 2C7", 0, 2);
-        $this->writeHTMLCell(0, 0, 15, 25, "", array(
-            'B' => array(
-                'width' => 1,
-                'cap' => 'butt',
-                'join' => 'miter',
-                'dash' => 0,
-                'color' => array(
-                    0,
-                    0,
-                    0
-                )
-            )
-        ), 2);
-    }
-}
 
 
 if (isset($_POST['submit'])) {
-
     
-
+    
+    
     // create new PDF document obj
     $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+    
     // set document information
     $pdf_obj->SetCreator(PDF_CREATOR);
     $pdf_obj->SetAuthor("Jason Waid");
     $pdf_obj->SetTitle("Export to PDF TEST");
     $pdf_obj->SetSubject("Testing");
-
+    
     // set default header data
     // $pdf_obj->SetHeaderData($img_PATH, 40, "Form TEST", PDF_HEADER_STRING);
-
+    
     // Header and Footer Fonts
     $pdf_obj->setHeaderFont(Array(
         PDF_FONT_NAME_MAIN,
         '',
         PDF_FONT_SIZE_MAIN
-    ));
+        ));
     $pdf_obj->setFooterFont(array(
         PDF_FONT_NAME_DATA,
         '',
         PDF_FONT_SIZE_DATA
     ));
-
+    
     // set default monospaced font
     $pdf_obj->SetDefaultMonospacedFont('helvetica');
-
+    
     // set margins
     $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '35', PDF_MARGIN_RIGHT);
     $pdf_obj->SetHeaderMargin(PDF_MARGIN_HEADER);
     $pdf_obj->SetFooterMargin(PDF_MARGIN_FOOTER);
-
+    
     $pdf_obj->setPrintHeader(true);
     $pdf_obj->setPrintFooter(true);
-
+    
     // set image scale factor
     $pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
+    
     // set auto page breaks
     $pdf_obj->SetAutoPageBreak(True, PDF_MARGIN_BOTTOM);
-
+    
     // set image scale factor
     $pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
+    
     // add a page
     $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
-
+    
     // set font
     $pdf_obj->SetFont('helvetica', 'B', 20);
-
+    
     $pdf_obj->Write(0, 'Test Conv to PDF', '', 0, 'L', true, 0, false, false, 0);
     $content = '';
-
-/*     $content .= '<style>
-.form-table {
-  border-collapse: collapse;
-  margin: 0 0;
-  font-size: 20px;
-  width: 100%;
-  border-radius: 5px 5px 0 0;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  transition: max-height 0.2s ease-out;
-}
-.form-table thead tr {
-	font-size: 20px;
-  background-color: rgb(65,95,142);
-  color: #ffffff;
-  text-align: left;
-  font-weight: bold;
-  text-align: center;
-}
-.form-table th{
-	 padding: 12px 15px
-}
-.form-table td {
-	 font-size: 20px;
-  padding: 6px 15px;
-}
-.form-table tbody tr {
-  border-bottom: 1px solid #dddddd;
-}
-.form-table tbody tr:nth-of-type(even) {
-  background-color: rgb(223, 223, 223);
-}
-</style>'; */
-
+    
+    /*     $content .= '<style>
+     .form-table {
+     border-collapse: collapse;
+     margin: 0 0;
+     font-size: 20px;
+     width: 100%;
+     border-radius: 5px 5px 0 0;
+     overflow: hidden;
+     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+     transition: max-height 0.2s ease-out;
+     }
+     .form-table thead tr {
+     font-size: 20px;
+     background-color: rgb(65,95,142);
+     color: #ffffff;
+     text-align: left;
+     font-weight: bold;
+     text-align: center;
+     }
+     .form-table th{
+     padding: 12px 15px
+     }
+     .form-table td {
+     font-size: 20px;
+     padding: 6px 15px;
+     }
+     .form-table tbody tr {
+     border-bottom: 1px solid #dddddd;
+     }
+     .form-table tbody tr:nth-of-type(even) {
+     background-color: rgb(223, 223, 223);
+     }
+     </style>'; */
+    
     $content .= <<<EOF
     		<table border="1">
     			<thead>
@@ -300,19 +239,19 @@ if (isset($_POST['submit'])) {
     			</tr>
     		</table>
     EOF;
-
+    
     // set font
     $pdf_obj->SetFont('helvetica', '', 12);
-
+    
     // output the HTML content
     $pdf_obj->writeHTML($content, true, false, true, false, '');
-
+    
     // add a page
     $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
-
+    
     // Terms and conditions
     $terms .= "";
-
+    
     $terms .= <<<EOF
             <p style="font-size:30px; text-align: center;">
     	<strong>TERMS AND CONDITIONS OF SALE</strong>
@@ -332,10 +271,10 @@ if (isset($_POST['submit'])) {
     					For bulk rail car shipments, when supported by certified railroad
     					scale tickets. (4) When buyer proves to satisfaction of the seller
     					that the container in question was emptied in it entirety.</div>
-    				
+    					
     				<div>2. Shipments shall not be diverted nor reconsigned except with
     					consent of Seller.</div>
-    				
+    					
     				<div>3. Seller makes no warranty of any kind, express or implied,
     					except that the goods shall be of processable quality; that is, of
     					fair average quality in the trade and within the description
@@ -363,7 +302,7 @@ if (isset($_POST['submit'])) {
     					herein set forth. Seller shall not be liable for normal
     					manufacturing defects or for customary variations from
     					specifications.</div>
-    				
+    					
     				<div>4. Orders are accepted based on inspection and acceptance by
     					the buyer at the factory. If Buyer does not wish to inspect the
     					material, the Manufacturer will, on request, furnish a certified
@@ -407,7 +346,7 @@ if (isset($_POST['submit'])) {
     					constitute an irrevocable acceptance of the goods and an admission
     					that they fully comply with all of the terms, conditions and
     					specifications of this agreement.</div>
-    				
+    					
     				<div>5. The Buyer shall reimburse the Seller for all taxes, excises
     					or other charges which the Seller may be required to pay to any
     					Governmental Authority (Federal, Provincial, or Local) upon the
@@ -424,7 +363,7 @@ if (isset($_POST['submit'])) {
     					processed in any manner or in any way altered from the form
     					delivered, except for laboratory quantities necessary to ascertain
     					quality.</div>
-    
+    					
     			</td>
     			<td width="59%" align="left" valign="top">
                     <div>6. No claim of any kind shall be allowed in amount greater than
@@ -436,12 +375,12 @@ if (isset($_POST['submit'])) {
     					equipment has been installed or used or processed in any manner or
     					in any way altered from the form delivered, except for laboratory
     					quantities necessary to ascertain quality.</div>
-
+    					
                         <div>7. Additional charges may apply if goods or materials are
     					shipped in a non-standard form of transportation. These charges
     					shall be agreed to by Buyer prior to such shipment.
     				</div>
-
+    				
     				<div>8. Seller shall have the right, in addition to all others it
     					may possess, at any time, for credit reasons or because of Buyers
     					default or defaults, to withhold shipments in whole or in part and
@@ -457,7 +396,7 @@ if (isset($_POST['submit'])) {
     					conditions hereof shall constitute a waiver of any subsequent
     					breach, default or violation of the same or other term or
     					condition.</div>
-
+    					
     				<div>9. Except as otherwise agreed to in writing, the parties
     					recognize and consent to the jurisdiction over them of the Courts
     					of the State of New York, for all purposes hereunder. Except as
@@ -465,7 +404,7 @@ if (isset($_POST['submit'])) {
     					parties shall be governed by the terms of document only and by the
     					laws of the State of New York without giving effect to the conflict
     					of laws provision thereof.</div>
-
+    					
     				<div>10. Seller will not be liable for any delay in the performance
     					of orders or contracts or in the delivery or shipment of goods or
     					for any damages suffered by Buyer if such delay is directly or
@@ -475,7 +414,7 @@ if (isset($_POST['submit'])) {
     					labor, fuel, power, materials or supplies, transportation delays or
     					any other causes (whether or not similar in nature to any of these
     					herein above specified) beyond its control.</div>
-
+    					
     				<div>11. Special orders. If any materials shall be manufactured and
     					/ or sold by Seller to meet Buyer*s particular specifications or
     					requirements and such material or goods are not part of Sellers
@@ -487,7 +426,7 @@ if (isset($_POST['submit'])) {
     					actions which may be brought against Seller for any alleged
     					infringement because of the manufacture and/or sale of the material
     					covered thereby.</div>
-
+    					
     				<div>12. Fitting up charges. Fitting up charges to Buyer cover part
     					of the necessary tools and fixtures required for the particular
     					work. Such tools and fixtures remain Seller's sole property and are
@@ -499,7 +438,7 @@ if (isset($_POST['submit'])) {
     					disposition of such tools and fixtures as Seller desired, without
     					any accounting to Buyer for such use or disposition of the proceeds
     					thereof.</div>
-
+    					
     				<div>13. It is further understood and agreed between Buyer and
     					Seller that if the material and/or equipment sold is manufactured
     					especially for the Buyer and if suspended or terminated by the
@@ -510,10 +449,10 @@ if (isset($_POST['submit'])) {
     					cannot or does not accept delivery of such material, buyer will
     					make payment as though delivery has been made and Seller will store
     					such material for Buyer*s account at Buyer's expense.</div>
-
+    					
     				<div>14. This agreement is not assignable or transferable by Buyer,
     					in whole or in part, except with the written consent of Seller.</div>
-
+    					
     				<div>15. Technical advice. Upon buyers request, Seller shall furnish
     					such technical advice as it has available in reference to the use
     					of the goods sold. It is expressly understood that any technical
@@ -523,20 +462,20 @@ if (isset($_POST['submit'])) {
     					of its products or their use after sale, Seller assumes no
     					obligation or liability for the advice given or the results
     					obtained, all such advice being given and accepted at Buyer*s risk.</div>
-
+    					
     				<div>16. These terms and conditions shall supersede any provisions,
     					terms and conditions contained in any Purchase Order or other
     					writing Buyer may give or receive and the rights of the parties
     					shall be governed exclusively by the provisions, terms and
     					conditions hereof. Seller makes no representations or warranties
     					except such as are expressly contained herein.</div>
-
+    					
     				<div>17. No modification of the terms hereof shall have any force
     					and effect unless in writing and signed by an executive officer of
     					the corporation. Salesmen and sales representatives are not
     					executive officers and have no authority to whatsoever to modify or
     					alter the terms hereof.</div>
-
+    					
     				<div>18. In the event of the failure of the buyer to make payment
     					for the goods shipped, the Buyer shall be obligated to pay to the
     					Seller, interest on all unpaid amounts due at the rate of one and
@@ -546,7 +485,7 @@ if (isset($_POST['submit'])) {
     					hereunder, the seller shall be entitled to recover all of the costs
     					and expenses in recovering any unpaid amounts and interest due
     					thereon, including reasonable legal fees.</div>
-  
+    					
     				<div>19. Unless otherwise indicated, all monetary amounts are in United States of America currency.
                     <br>
     				</div>
@@ -571,18 +510,18 @@ if (isset($_POST['submit'])) {
     	</tbody>
     </table>
 EOF;
-
+    
     // set font
     $pdf_obj->SetFont('helvetica', '', 8);
-
+    
     // output the HTML content
     $pdf_obj->writeHTML($terms, true, false, true, false, '');
-
+    
     // reset pointer to the last page
     $pdf_obj->lastPage();
-
+    
     ob_end_clean();
-
+    
     $pdf_obj->Output("test.pdf", "I");
 }
 ?>
