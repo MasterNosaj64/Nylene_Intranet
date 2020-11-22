@@ -28,46 +28,50 @@
 </form>
 
 <?php
+
+// Include the main TCPDF library (search for installation path).
+require_once ('../TCPDF/tcpdf.php');
+
+
+class TCPDF_NYLENE extends TCPDF
+{
+    // Page header override
+    public function Header()
+    {
+        // Logo
+        // Image Fix
+        // Images in header not showing after the 1st page is a known bug, used file_get_contents to convert file to a string
+        //https://stackoverflow.com/questions/52662271/tcpdf-header-image-only-displays-on-first-page/56681901#56681901
+        $this->Image('@'.file_get_contents('../Graphics/nylene_form_logo.png'), 15, 7.5, 65, '', '', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        
+        // Set font
+        $this->SetFont('helvetica', '', 10);
+        
+        // Nylene Address
+        $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior, ON<br> K7S 2C7", 0, 2);
+        $this->writeHTMLCell(0, 0, 15, 25, "", array(
+            'B' => array(
+                'width' => 1,
+                'cap' => 'butt',
+                'join' => 'miter',
+                'dash' => 0,
+                'color' => array(
+                    0,
+                    0,
+                    0
+                )
+            )
+        ), 2);
+    }
+}
+
+
 if (isset($_POST['submit'])) {
 
-    // Include the main TCPDF library (search for installation path).
-    require_once ('../TCPDF/tcpdf.php');
-
-    class MYPDF extends TCPDF
-    {
-
-        // Page header override
-        public function Header()
-        {
-            // Logo
-            // Image Fix
-            // Images in header not showing after the 1st page is a known bug, used file_get_contents to convert file to a string
-            //https://stackoverflow.com/questions/52662271/tcpdf-header-image-only-displays-on-first-page/56681901#56681901
-            $this->Image('@'.file_get_contents('../Graphics/nylene_form_logo.png'), 15, 7.5, 65, '', '', '', 'T', false, 300, '', false, false, 0, false, false, false);
-            
-            // Set font
-            $this->SetFont('helvetica', '', 10);
-           
-            // Nylene Address
-            $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior,<br>ON K7S 2C7", 0, 2);
-            $this->writeHTMLCell(0, 0, 15, 25, "", array(
-                'B' => array(
-                    'width' => 1,
-                    'cap' => 'butt',
-                    'join' => 'miter',
-                    'dash' => 0,
-                    'color' => array(
-                        0,
-                        0,
-                        0
-                    )
-                )
-            ), 2);
-           }
-    }
+    
 
     // create new PDF document obj
-    $pdf_obj = new MYPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
     // set document information
     $pdf_obj->SetCreator(PDF_CREATOR);
