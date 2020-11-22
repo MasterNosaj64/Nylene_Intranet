@@ -35,10 +35,8 @@
         
         } else {
             
-            /*Assign date modified*/
-            $todaysDate = date("Y/m/d");
-            $currentDate = date_create($todaysDate);
-            date_modify($currentDate, "-0 days");
+            
+            
             
             $interaction = new Interaction($conn_Interaction);
             $interaction = $interaction->searchId($_SESSION['interaction_id']);
@@ -54,6 +52,17 @@
             
             $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
             $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
+            
+            /*create follow_up date based on interaction date*/
+            $intDate = strtotime($interaction->getDateCreated());
+            $interDate = date("Y/m/d", $intDate);
+            $interactionDate = date_create($interDate);
+            date_modify($interactionDate, "+30 days");
+            
+            /*convert follow_up_date to date from db string*/
+            $fDate = strtotime($interaction->getFollowUpDate());
+            $followDate = date("Y/m/d", $fDate);
+            $followUpDate = date_create($followDate);
             
             $conn_Interaction->close();
             $conn_Company->close();
@@ -208,9 +217,15 @@
         				<input hidden id="selector_disabled" name="follow_up_type" value="none" disabled/>
         			</td>
             		<td><label for="follow_up_date"> Follow Up Date: </label></td>
-            		<td><input type="date" id="follow_up_date" name="follow_up_date" value="<?php echo $interaction->getFollowUpDate();?>" readonly />
-            			<input hidden type="date" id="set_date" value="<?php echo date_format($followDate, "Y/m/d"); ?>" disabled>
-            		</td>
+            		<td>
+						<?php if ($interaction->getFollowUpDate() == 0){ ?>
+						   	<input type="date" id="follow_up_date" name="follow_up_date" value="" readonly />
+            				<input hidden type="date" id="set_date" value="<?php echo date_format($interactionDate,"Y/m/d"); ?>" disabled>
+						<?php } else { ?>
+						    <input type="date" id="follow_up_date" name="follow_up_date" value="<?php echo date_format($followUpDate,"Y/m/d"); ?>" readonly />
+            				<input hidden type="date" id="set_date" value="<?php echo date_format($interactionDate,"Y/m/d"); ?>" disabled>
+						<?php }?>
+					</td>
     			</tr>
     			<tr>
     				<td colspan=6><textarea maxlength="1024" name="comments" rows="20" cols="100" required><?php echo $interaction->getComments(); ?></textarea></td>
