@@ -147,10 +147,10 @@ class Employee
      * Author: Jason Waid
      * Purpose: Function returns the Work_Phone
      */
-    function getWork_Phone()
+/*     function getWork_Phone()
     {
         return $this->work_phone;
-    }
+    } */
 
     /*
      * Function Name: getReports_To
