@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../CSS/form.css">
 
-<form method="post" action=testFile.php name="convertToPdf">
+<form method="post" action=jasonTestFile.php name="convertToPdf">
 	<table>
 
 		<tr>
@@ -33,8 +33,26 @@ if (isset($_POST['submit'])) {
     // Include the main TCPDF library (search for installation path).
     require_once ('../TCPDF/tcpdf.php');
 
+    class MYPDF extends TCPDF
+    {
+
+        // Page header override
+        public function Header()
+        {
+            // Logo
+            $image_file = '../Graphics/nylene_form_logo.png';
+            $this->Image($image_file, 15, 7.5, 65, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+            // Set font
+            $this->SetFont('helvetica', '', 10);
+            // Title
+            $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior,<br>ON K7S 2C7",0,2);
+            $this->writeHTMLCell(0, 0, 15, 25, "",array('B' => array('width' => 1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))) ,2);
+            //$this->Cell(0, 0, '', array('B' => array('width' => 1, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0))), false, 'C', 0, '', 0, false, 'M', 'M');
+        }
+    }
+
     // create new PDF document obj
-    $pdf_obj = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf_obj = new MYPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
     // set document information
     $pdf_obj->SetCreator(PDF_CREATOR);
@@ -43,7 +61,7 @@ if (isset($_POST['submit'])) {
     $pdf_obj->SetSubject("Testing");
 
     // set default header data
-    $pdf_obj->SetHeaderData('', '', PDF_HEADER_TITLE, PDF_HEADER_STRING);
+    // $pdf_obj->SetHeaderData($img_PATH, 40, "Form TEST", PDF_HEADER_STRING);
 
     // Header and Footer Fonts
     $pdf_obj->setHeaderFont(Array(
@@ -61,14 +79,15 @@ if (isset($_POST['submit'])) {
     $pdf_obj->SetDefaultMonospacedFont('helvetica');
 
     // set margins
-    $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);
+    $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '30', PDF_MARGIN_RIGHT);
     $pdf_obj->SetHeaderMargin(PDF_MARGIN_HEADER);
     $pdf_obj->SetFooterMargin(PDF_MARGIN_FOOTER);
 
-    /*
-     * $pdf_obj->setPrintHeader(false);
-     * $pdf_obj->setPrintFooter(false);
-     */
+    $pdf_obj->setPrintHeader(true);
+    $pdf_obj->setPrintFooter(true);
+
+    // set image scale factor
+    $pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
     // set auto page breaks
     $pdf_obj->SetAutoPageBreak(True, PDF_MARGIN_BOTTOM);
@@ -85,10 +104,50 @@ if (isset($_POST['submit'])) {
     $pdf_obj->Write(0, 'Test Conv to PDF', '', 0, 'L', true, 0, false, false, 0);
     $content = '';
 
-    $content .= '<style>' . file_get_contents(_BASE_PATH . '../CSS/form.css') . '</style>';
+    $content .= '<style>
+.form-table {
+  border-collapse: collapse;
+  margin: 0 0;
+  font-size: 20px;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  transition: max-height 0.2s ease-out;
+}
+
+.form-table thead tr {
+	font-size: 20px;
+  background-color: rgb(65,95,142);
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-table th{
+	 padding: 12px 15px
+}
+.form-table td {
+	 font-size: 20px;
+  padding: 6px 15px;
+}
+
+.form-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+
+.form-table tbody tr:nth-of-type(even) {
+  background-color: rgb(223, 223, 223);
+}
+
+
+
+</style>';
 
     $content = <<<EOF
-    		<table class="form-table" border="1">
+    		<table style='background-color: rgb(223, 223, 223);' class="form-table" border="1">
     			<thead>
     				<tr>
     					<th colspan="2">TL Quote Form</th>
