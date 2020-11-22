@@ -37,7 +37,7 @@
     if ($conn_Customer->connect_error || $conn_Company->connect_error) {
         die("Connection failed: " . $conn_Customer->connect_error . " || " . $conn_Company->connect_error);
     } else {
-        $todaysDate = date("Y/m/d");
+        $todaysDate = date("Y-m-d");
         $followDate = date_create($todaysDate);
         date_modify($followDate, "+30 days");
         
@@ -287,7 +287,7 @@
 
         			<td><label for="follow_up_date"> Follow Up Date: </label></td>
         			<td><input type="date" id="follow_up_date" name="follow_up_date" value="" readonly >
-        				<input hidden type="date" id="set_date" value="<?php echo date_format($followDate, "Y/m/d"); ?>" disabled></td>
+        				<input hidden type="date" id="set_date" value="<?php echo date_format($followDate, "Y-m-d"); ?>" disabled></td>
     			</tr>
     			<tr>
     				<td colspan=6><textarea maxlength="1024" required name="comments"

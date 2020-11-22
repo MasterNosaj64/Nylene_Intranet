@@ -54,15 +54,15 @@
             $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
             
             /*create follow_up date based on interaction date*/
-            $intDate = strtotime($interaction->getDateCreated());
-            $interDate = date("Y/m/d", $intDate);
+           /*  $intDate = strtotime($interaction->getDateCreated());
+            $interDate = date("Y-m-d", $intDate);
             $interactionDate = date_create($interDate);
-            date_modify($interactionDate, "+30 days");
+            date_modify($interactionDate, "+30 days"); */
             
-            /*convert follow_up_date to date from db string*/
-            $fDate = strtotime($interaction->getFollowUpDate());
-            $followDate = date("Y/m/d", $fDate);
-            $followUpDate = date_create($followDate);
+            /**/
+            $followDate = date_create($interaction->getDateCreated());
+            date_modify($followDate, "+30 days");
+            
             
             $conn_Interaction->close();
             $conn_Company->close();
@@ -220,10 +220,10 @@
             		<td>
 						<?php if ($interaction->getFollowUpDate() == 0){ ?>
 						   	<input type="date" id="follow_up_date" name="follow_up_date" value="" readonly />
-            				<input hidden type="date" id="set_date" value="<?php echo date_format($interactionDate,"Y/m/d"); ?>" disabled>
+            				<input hidden type="date" id="set_date" value="<?php echo date_format($followDate,"Y-m-d"); ?>" disabled>
 						<?php } else { ?>
-						    <input type="date" id="follow_up_date" name="follow_up_date" value="<?php echo date_format($followUpDate,"Y/m/d"); ?>" readonly />
-            				<input hidden type="date" id="set_date" value="<?php echo date_format($interactionDate,"Y/m/d"); ?>" disabled>
+						    <input type="date" id="follow_up_date" name="follow_up_date" value="<?php echo $interaction->getFollowUpDate(); ?>" readonly />
+            				<input hidden type="date" id="set_date" value="<?php echo date_format($followDate,"Y-m-d"); ?>" disabled>
 						<?php }?>
 					</td>
     			</tr>
