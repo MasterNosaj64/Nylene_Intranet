@@ -141,18 +141,6 @@ class Employee
     }
 
     /*
-     * Function Name: getWork_Phone
-     * Version: 1.0
-     * Date Modified: 11/22/2020
-     * Author: Jason Waid
-     * Purpose: Function returns the Work_Phone
-     */
-    function getWork_Phone()
-    {
-        return $this->work_phone;
-    }
-
-    /*
      * Function Name: getReports_To
      * Version: 1.0
      * Date Modified: 11/22/2020

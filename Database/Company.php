@@ -570,6 +570,17 @@ class Company
         return $this->type;
     }
 
+    
+    /*
+     * Function Name: getBillingAddress
+     * Purpose: Function returns the billing address
+     *
+     */
+    function getBillingAddress()
+    {
+        return $this->billing_address_street.', '.$this->billing_address_city.', '.$this->billing_address_state.', '.$this->billing_address_country.', '.$this->billing_address_country;
+    }
+    
     /*
      * Function Name: getBillingAddressStreet
      * Purpose: Function returns the billing address street
