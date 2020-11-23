@@ -2,8 +2,8 @@
 /*
  * FileName: Interaction.php
  * Author: Jason Waid, Modified by Kaitlyn Breker
- * Version: 0.7
- * Date Modified: 11/20/2020
+ * Version: 0.8
+ * Date Modified: 11/22/2020
  * Purpose:
  *  Object oriented representation of a interaction
  *  all database manipulation happens here

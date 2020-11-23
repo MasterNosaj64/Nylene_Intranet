@@ -1,9 +1,9 @@
 <?php
 /*
  * FileName: updateInteractionDB.php
- * Version Number: 1.0
+ * Version Number: 1.1
  * Author: Kaitlyn Breker
- * Date Modified: Nov 21, 2020
+ * Date Modified: Nov 22, 2020
  * Purpose: Update database with new interaction information.
  */
 date_default_timezone_set('America/Toronto');

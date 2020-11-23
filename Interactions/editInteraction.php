@@ -1,9 +1,9 @@
 <?php
     /*
      * FileName: editInteraction.php
-     * Version Number: 1.0
+     * Version Number: 1.1
      * Author: Kaitlyn Breker modified from AddInteraction.php
-     * Date Modified: Nov 21, 2020
+     * Date Modified: Nov 22, 2020
      * Purpose: Edit interaction information from database by autofilling fields from db.
      */
     
