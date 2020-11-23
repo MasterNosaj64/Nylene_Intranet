@@ -8,7 +8,7 @@
  * Extends TCPDF, overrides Header() to include Nylene header
  */
 
-
+// Include the main TCPDF library (search for installation path).
 require_once ('../TCPDF/tcpdf.php');
 
 class TCPDF_NYLENE extends TCPDF
@@ -26,7 +26,7 @@ class TCPDF_NYLENE extends TCPDF
         $this->SetFont('helvetica', '', 10);
         
         // Nylene Address
-        $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior, ON<br> K7S 2C7", 0, 2);
+        $this->writeHTMLCell(0, 0, 85, 12.5, "200 McNab St,<br>Arnprior, ON<br>K7S 2C7", 0, 2);
         $this->writeHTMLCell(0, 0, 15, 25, "", array(
             'B' => array(
                 'width' => 1,

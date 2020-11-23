@@ -53,7 +53,7 @@ if (isset($_POST['interaction_id'])) {
         
         $company = new Company($conn_Company);
         $company = $company->searchId($interaction->getCompanyId());
-        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
+        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
 
         
         $customer = new Customer($conn_Customer);

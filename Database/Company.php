@@ -626,7 +626,7 @@ class Company
      * Purpose: Function returns the billing address country
      *
      */
-    function getBillingAddressCounty()
+    function getBillingAddressCountry()
     {
         return $this->billing_address_country;
     }
@@ -676,7 +676,7 @@ class Company
      * Purpose: Function returns the Shipping address country
      *
      */
-    function getShippingAddressCounty()
+    function getShippingAddressCountry()
     {
         return $this->shipping_address_country;
     }

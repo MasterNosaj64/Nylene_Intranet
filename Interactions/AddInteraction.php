@@ -124,7 +124,7 @@
     
                 $company = new Company($conn_Company);
                 $company->searchId($_POST['company_id']);
-                $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCounty()}, {$company->getBillingAddressPostalCode()}";
+                $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
             }
         } else {
             // If the above throws an error, kick the user back to the homepage
