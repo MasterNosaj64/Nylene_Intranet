@@ -166,7 +166,8 @@ if ($conn-> connect_error) {
         					
         					<?php } else { ?>		<?php } ?>	
         					
-        					<?php } ?>			
+        					<?php } ?>		
+        					</td>	
     			</tr>
     			
     		<thead><tr>

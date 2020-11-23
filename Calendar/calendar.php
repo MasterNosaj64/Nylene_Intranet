@@ -53,10 +53,10 @@ $week = '';
 $week .= str_repeat('<td></td>', $str - 1);
 // $_SESSION['userid'] =1;
 for ($day = 1; $day <= $day_count; $day ++, $str ++) {
-
+    
     $date = $ym . '-' . $day;
-
-    // Adding calendar event 
+    
+    // Adding calendar event
     $event_nameStr = '';
     $eventResultStr = '"No"';
     $dateStr = "'" . $date . "'";
@@ -68,29 +68,76 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     }
     if (! empty($eventResult)) {
         $eventResultStr = json_encode($eventResult);
-
+        
         $event_namesArr = array_column($eventResult, 'event_name');
         $event_nameStr = implode("<br>", $event_namesArr);
     }
-
     
-    if ($today == $date) {
-        $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ")'>";
-    } else {
-        $week .= "<td onclick='openPopup(" . $eventResultStr . ")'>";
+    
+    // Adding Interaction
+    $interaction_nameStr = '';
+    $interactionResultStr = '"No"';
+    $dateStr = "'" . $date . "'";
+    $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
+    $result_interactions = $conn->query($interactionInformation);
+    $interactionResult = array();
+    while ($row = mysqli_fetch_assoc($result_interactions)) {
+        $interactionResult[] = $row;
     }
-    $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . '</span></td>';
-
+    if (! empty($interactionResult)) {
+        $interactionResultStr = json_encode($interactionResult);
+        
+        $interaction_namesArr = array_column($interactionResult, 'interaction_id');
+        $interaction_nameStr = implode("<br>", $interaction_namesArr);
+    }
+    
+    
+    
+    if($interaction_nameStr != "") {
+        if ($today == $date) {
+            $week .= "<td class='today' onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
+        } else {
+            $week .= "<td onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
+        }
+        
+        $week .= $day . "<br><span style='display:block;font-size:14px;'>followup: " . $interaction_nameStr . '</span></td>';
+        
+    } else {
+        if ($today == $date) {
+            $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ")'>";
+        } else {
+            $week .= "<td onclick='openPopup(" . $eventResultStr . ")'>";
+        }
+        $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . '</span></td>';
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    /*if ($today == $date) {
+     $week .= "<td class='today' onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
+     } else {
+     $week .= "<td onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
+     }
+     if($interaction_nameStr != "") {
+     $week .= $day . "<br><span style='display:block;font-size:14px;'>followup: " . $interaction_nameStr . '</span></td>';
+     }*/
+    
+    
     // End of the week OR End of the month
     if ($str % 7 == 0 || $day == $day_count) {
-
+        
         // last day of the month set to Sunday
         if ($day == $day_count && $str % 7 != 0) {
-
+            
             // Add empty cell for formatting purposes
             $week .= str_repeat('<td></td>', 7 - $str % 7);
         }
-
+        
         $weeks[] = '<tr>' . $week . '</tr>';
         $week = '';
     }
@@ -179,7 +226,6 @@ button a {
 			<div class="text-left">
 		
 		<!-- All users have access to addEvent button -->	
-		
 		<button type="button" class="btn btn-outline-secondary"
 					onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add
 					Event</button>
@@ -194,7 +240,18 @@ button a {
 
 		</div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-3" id="interactionDiv">
+				<div class="" id="interaction_Modal" style="">
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="mb-2">
+							<h3>Interactions</h3>
+							<h4 id="result_interactions"></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -224,7 +281,7 @@ button a {
 					</thead>
 				</table>
 			</div>
-			<div class="col-md-4" id="eventDiv">
+			<div class="col-md-3" id="eventDiv">
 				<div class="" id="event_Modal" style="">
 					<!-- Modal body -->
 					<div class="modal-body">
@@ -249,6 +306,18 @@ button a {
 		    	}
 	    	}
 		}
+
+		function openPopupInteractions(date) {
+			$("#result_interactions").text('');
+	        if (date=='No'){
+	    		$("#result_interactions").text(" ");
+	    	}else{
+				for(var i=0; i<date.length; i++){
+					$("#result_interactions").append("<p style='margin-left:20px;'>Follow up date : "+date[i].follow_up_date+"<br>Reason : "+date[i].reason+"<br>Comment : "+date[i].comments+"</p><a class='' href='<?php echo BASE_URL; ?>/Interactions/viewInteraction.php?interaction_id="+date[i].interaction_id+"'><button class='' type='button'>View Interaction</button></a>");
+		    	}
+	    	}
+		}
+
 		//changes colour when clicking on date
 		   $('td').click(function() {
 			    $("td").css('backgroundColor', 'unset');
