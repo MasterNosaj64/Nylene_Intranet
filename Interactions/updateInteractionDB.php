@@ -29,6 +29,39 @@ if ($conn_Customer->connect_error || $conn_Company->connect_error) {
     die("Connection failed: " . $conn_Customer->connect_error . " || " . $conn_Company->connect_error);
     
 } else {
-    
+    if (isset($_SESSION['company_id'])) {
+        if (isset($_POST['submit'])) {
+           
+            /*Variables that can be edited*/
+            $interaction_id = $_POST['interaction_id'];
+            $comments = $_POST['comments'];
+            $status = $_POST['status'];
+            $follow_up_type = $_POST['follow_up_type'];
+            $follow_up_date = $_POST['follow_up_date'];
+            
+            $newInteraction = new Interaction($conn_Interaction);
+            
+            /*if the old form type changed from manual, none or intercation to  follow_up_type == form*/
+            //find form date and update db
+            
+            /*Modify interaction*/
+            $editInteraction = $newInteraction->modify($interaction_id, $comments, $status, $follow_up_type, $follow_up_date);
+            
+            if ($editInteraction == false) {
+                echo "Modifying interaction failed";
+            }
+            
+            echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php\" />";
+            exit();
+        
+        } else {
+            echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php\" />";
+            exit();
+        }
+    } else {
+
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />";
+        exit();
+    }
 }
 ?>

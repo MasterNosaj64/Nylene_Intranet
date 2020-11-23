@@ -99,6 +99,33 @@ class Interaction
         }
         return $stmt->insert_id;
     }
+    
+    /* Function: modify
+     * Purpose: modify a interaction with the parameters
+     */
+    function modify($interaction_id, $comments, $status, $follow_up_type, $follow_up_date){
+
+        $query = "UPDATE interaction SET
+                        comments = ?, 
+                        status = ?, 
+                        follow_up_type = ?, 
+                        follow_up_date = ?
+                    WHERE interaction_id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $comments = htmlspecialchars(strip_tags($comments));
+        $status = htmlspecialchars(strip_tags($status));
+        $follow_up_type = htmlspecialchars(strip_tags($follow_up_type));
+        $follow_up_date = htmlspecialchars(strip_tags($follow_up_date));
+        
+        $stmt->bind_param("ssssi", $comments, $status, $follow_up_type, $follow_up_date, $interaction_id);
+        
+        if (! $stmt->execute()) {
+            return false;
+        }
+        return true;
+    }
 
     /*
      * Function Name: getCreatedBy

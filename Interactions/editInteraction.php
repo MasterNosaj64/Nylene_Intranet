@@ -35,9 +35,7 @@
         
         } else {
             
-            
-            
-            
+
             $interaction = new Interaction($conn_Interaction);
             $interaction = $interaction->searchId($_SESSION['interaction_id']);
             
@@ -231,7 +229,7 @@
     				<td colspan=6><textarea maxlength="1024" name="comments" rows="20" cols="100" required><?php echo $interaction->getComments(); ?></textarea></td>
     			</tr>
     		</table>
-    		<input hidden name="company_id" value="<?php echo $company->getCompanyId();?>" />
+    		<input hidden name="interaction_id" value="<?php echo $interaction->getInteractionId();?>" />
     		<input type="submit" name="submit" value="Submit">
     	</form>
     </body>
