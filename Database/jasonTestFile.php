@@ -3,7 +3,7 @@ if (isset($_POST['submit'])) {
 
     if ($_POST['formType'] == 3) {
 
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Nylene_TCPDF_Forms/tlQuoteForm_TCPDF.php?id=3\" />";
+        echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Nylene_TCPDF_Forms/tlQuoteForm_TCPDF.php?id={$_POST['formID']}\" />";
         exit();
     }
 }

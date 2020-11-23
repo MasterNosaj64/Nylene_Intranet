@@ -142,7 +142,7 @@ $content .= '
     		<table border="1">
     			<thead>
     				<tr>
-    					<th colspan="2" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>- TL Quote Form -</strong></th>
+    					<th colspan="2" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>- Truckload Quote -</strong></th>
     				</tr>
     			</thead>
     			<tr>
