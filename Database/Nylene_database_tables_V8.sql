@@ -336,7 +336,7 @@ ALTER TABLE `marketing_request_form` ADD `graphic` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `tradeshow` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `promotional_item` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `print_aid` INT(50) NULL DEFAULT NULL;
-ALTER TABLE `marketing_request_form` ADD `press_release` INT(50) NULL DEFAULT NULL
+ALTER TABLE `marketing_request_form` ADD `press_release` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `other_type_of_project` TEXT NULL DEFAULT NULL ;
 ALTER TABLE `marketing_request_form` ADD `prospective_customers` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `engineers` INT(50) NULL DEFAULT NULL;
@@ -344,4 +344,4 @@ ALTER TABLE `marketing_request_form` ADD `procurement_managers` INT(50) NULL DEF
 ALTER TABLE `marketing_request_form` ADD `current_customers` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `plant_managers` INT(50) NULL DEFAULT NULL;
 ALTER TABLE `marketing_request_form` ADD `other_audience` TEXT NULL DEFAULT NULL;
-ALTER TABLE 'marketing_request_form' ADD 'requester_name' VARCHAR(50) NULL DEFAULT NULL:
+ALTER TABLE 'marketing_request_form' ADD 'requester_name' VARCHAR(50) NULL DEFAULT NULL;

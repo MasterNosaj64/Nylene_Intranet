@@ -7,7 +7,7 @@
      */
 	
    	if (!session_id()) {
- session_start();}Q
+ session_start();}
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 			
