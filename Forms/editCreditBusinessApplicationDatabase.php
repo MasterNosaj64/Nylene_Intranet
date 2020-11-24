@@ -3,15 +3,13 @@ session_start();
 include '../Database/connect.php';
 
 $conn = getDBConnection();
-
+defined('key') ? null : define('key', '84h84hjbgjrh848693');
 /*Check the connection*/
 if ($conn-> connect_error) {
     
     die("Connection failed: " . $conn-> connect_error);
     
 } else {
-    
-  //  $userID = $_SESSION['userid'];
 
     $stmt = $conn->prepare("UPDATE credit_application_business_form SET
                             company_name = ?,
@@ -54,6 +52,7 @@ if ($conn-> connect_error) {
                             credit_date = ? 
                             WHERE credit_business_application_id = ?");
     
+    $key = key;
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
     $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
     $contact_name = htmlspecialchars(strip_tags($_POST['contact_name']));

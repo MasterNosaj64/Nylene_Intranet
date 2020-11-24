@@ -1,8 +1,8 @@
 <?php
 /*
- * Name: viewCreditBusinessApplication.php
+ * Name: editCreditBusinessApplication.php
  * Author: Isha Isha
- * Purpose: View credit business application form. Displays all the information filled in the form.
+ * Purpose: Edit credit business application form.
  */
 session_start();
 
@@ -12,8 +12,7 @@ include '../Database/connect.php';
 // getDBConnection to get connection
 $conn = getDBConnection();
 
-// defined('key') ? null : define('key', '84h84hjbgjrh848693');
-
+ 
 /* Check the connection */
 if ($conn->connect_error) {
 
@@ -337,6 +336,12 @@ if ($conn->connect_error) {
 				<td colspan="6"><p>Upon completion please scan and return by email
 						to tgreenstein@nylene.com or fax to: Toby Greenstein at
 						973-694-3549</p></td>
+			</tr>
+			<tr>
+				<td colspan="4" align="center"><input type="submit" value="submit"
+					style="width: 100%"></td>
+				<td colspan="4" align="center"><input type="reset" value="reset"
+					style="width: 100%"></td>
 			</tr>
 		</table>
 
