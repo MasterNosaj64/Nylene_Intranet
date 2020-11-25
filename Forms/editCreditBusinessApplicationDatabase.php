@@ -50,7 +50,7 @@ if ($conn-> connect_error) {
 							ref3_company_address = ?,
 							ref3_company_email = ?,
                             credit_date = ? 
-                            WHERE credit_business_application_id = ?");
+                            WHERE credit_application_business_id = ?");
     
     $key = key;
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
@@ -91,12 +91,14 @@ if ($conn-> connect_error) {
     $ref3_company_address = htmlspecialchars(strip_tags($_POST['ref3_company_address']));
     $ref3_company_email = htmlspecialchars(strip_tags($_POST['ref3_company_email']));
     $credit_date = htmlspecialchars(strip_tags($_POST['credit_date']));
+    $credit_application_business_id = htmlspecialchars(strip_tags($_POST['credit_application_business_id']));
     
-    $stmt->bind_param("sssssssssisssssssssssssssssssssssssssss", $company_name, $company_address, $contact_name, $time_current_address, $title, $date_business_commenced,
+    
+    $stmt->bind_param("sssssssssisssssssssssssssssssssssssssssi", $company_name, $company_address, $contact_name, $time_current_address, $title, $date_business_commenced,
         $phone, $nylene_representative, $fax, $order_pending, $order_amount, $business_email, $bank_name, $account_number, $key, $bank_address, $bank_email,
         $bank_contact_name, $bank_fax, $bank_phone, $ref1_company_name, $ref1_company_phone, $ref1_company_contact_name, $ref1_company_fax, $ref1_company_address,
         $ref1_company_email, $ref2_company_name, $ref2_company_phone, $ref2_company_contact_name, $ref2_company_fax, $ref2_company_address, $ref2_company_email,
-        $ref3_company_name, $ref3_company_phone, $ref3_company_contact_name, $ref3_company_fax, $ref3_company_address, $ref3_company_email, $credit_date);
+        $ref3_company_name, $ref3_company_phone, $ref3_company_contact_name, $ref3_company_fax, $ref3_company_address, $ref3_company_email, $credit_date, $credit_application_business_id);
    
     $stmt->execute();
     $stmt->close();
