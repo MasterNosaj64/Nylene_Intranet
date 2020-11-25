@@ -11,6 +11,8 @@ include '../Database/connect.php';
 	$msg="";
 	$username="";
 	$num_tries="";
+	/* 
+}*/
 	if($row>0){
 		if(strcmp($row['STATUS'],"blocked")==0){
 			$msg="User is blocked...";
@@ -49,6 +51,8 @@ include '../Database/connect.php';
 			if(password_verify($password1,$password2)){	
 				$_SESSION['name'] = $row['first_name']." ".$row['last_name'];
 				$_SESSION['role'] = $row['title'];
+				$_SESSION['admin'] = $row['is_administrator'];
+
 				$_SESSION['userid'] = $row['employee_id'];
 				$num_tries="0";
 				$qy=$conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");
@@ -64,6 +68,8 @@ include '../Database/connect.php';
 				$_SESSION['name'] = $row['first_name']." ".$row['last_name'];
 				$_SESSION['role'] = $row['title'];
 				$_SESSION['userid'] = $row['employee_id'];
+								$_SESSION['admin'] = $row['is_administrator'];
+
 				$num_tries="0";
 				$qy=$conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");
 				$qy->bind_param("ss" , $num_tries, $username);

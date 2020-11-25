@@ -19,6 +19,7 @@ $query = mysqli_query($conn, $sql);
 
 $rows=mysqli_fetch_array($query);
 
+$accessLevel=$_SESSION['role'];
 
 
 
@@ -29,14 +30,12 @@ $title=$rows['title'];
 $department=$rows['department'];
 $work_phone=$rows['work_phone'];
 $reports_to=$rows['reports_to'];
-$date_entered=date("Y-m-d");
-$date_modified=date("Y-m-d");
-$modified_by=$rows['modified_by'];
+//$date_entered=date("Y-m-d");
+//$date_modified=date("Y-m-d");
+//$modified_by=$rows['modified_by'];
 $username=$rows['username'];
-$is_administrator=$rows['is_administrator'];
 $STATUS=$rows['STATUS'];
 $employee_email=$rows['employee_email'];
-
 
 
 
@@ -48,6 +47,37 @@ $employee_email=$rows['employee_email'];
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
+
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+		<script language="javascript">
+		
+		 var userRole= <?php echo $_SESSION['role']; ?>;
+		 var editRole=<?php echo $title; ?>;
+document.write (userRole);
+
+if ((userRole=='admin')){
+  
+}
+else if ((userRole=='supervisor')&&(userRole == editRole)){
+  $(document).ready(function(){
+        $("#form1 :input").prop("disabled", true);
+    });
+}
+else{
+  $(document).ready(function(){
+        $("#form1 :input").prop("disabled", true);
+    });
+}
+	
+	
+	
+	
+	
+		</script>
+	</head>
+
+
 <style>
     select:invalid{
         color: gray;
@@ -58,7 +88,7 @@ $employee_email=$rows['employee_email'];
 </style>
 <body>
 
-	<form method="post" action="afterEditUser.php">
+	<form method="post" action="afterEditUser.php" id="form1">
 
 
 
@@ -86,10 +116,23 @@ $employee_email=$rows['employee_email'];
 			<tr>
 				<td style="width: 50%"><label for="title">Title </label><br /> <select id="options"
 					name="title"  style="color:gray">
-						<option value="" disabled selected hidden ><?php echo $title; ?></option>
-						<option value="admin">Admin</option>
-						<option value="sales_rep">Sales Rep</option>
-						<option value="sales_manager">Sales Manager</option></td>
+							<?php 
+				
+				if ($accessLevel==admin){
+					echo '<option style="width: 260px" value="" disabled selected hidden>'.$title.'</option>';
+					echo '<option style="width: 260px" value="supervisor">Supervisor</option>';
+					echo '<option style="width: 260px" value="sales_rep">Sales Representative</option>';
+					echo '<option style="width: 260px" value="ind_rep">Independent Representative</option>';
+
+				}
+				else if ($accessLevel==supervisor){
+					echo '<option style="width: 260px" value="" disabled selected hidden>'.$title.'</option>';
+					echo '<option style="width: 260px" value="sales_rep">Sales Representative</option>';
+					echo '<option style="width: 260px" value="ind_rep">Independent Representative</option>';
+				}
+
+				
+				?></select></td>
 				<td><label for="department">Department</label><br /> <input
 					name="department" type="user" placeholder="<?php echo $department; ?>" maxlength="50" /></td>
 			</tr>
@@ -127,7 +170,7 @@ while ($row = mysqli_fetch_array($query)) {
 
 
 				
-				<td style="width: 50%"><label for="username">Username </label><br /> <input
+				<td colspan="2" style="width: 100%"><label for="username">Username </label><br /> <input
 					name="username" type="text" placeholder="<?php echo $username; ?>" maxlength="50"  />
 				</td>
 			</tr>
@@ -135,17 +178,8 @@ while ($row = mysqli_fetch_array($query)) {
 
 			<tr>
 
-				<td style="width: 50%"><label for="is_administrator"> Admin</label><br />
-					<select id="options" name="is_administrator"  style="color:gray">
-						<?php 
-						if($is_administrator==1){$pHolder="Yes";}
-								else{$pHolder="No";}?><option value="" disabled selected hidden ><?php echo $pHolder; ?></option>
-
-						<option value="1">Yes</option>
-						<option value="0">No</option>
-
-				</select></td>
-				<td style="width: 50%"><label for="STATUS">Status</label><br />
+			
+				<td colspan="2" style="width: 100%"><label for="STATUS">Status</label><br />
 					<input name="STATUS" type="text" placeholder="<?php echo $STATUS; ?>" maxlength="100"
 					s/></td>
 
@@ -165,12 +199,16 @@ while ($row = mysqli_fetch_array($query)) {
 
 		<table class="form-table">
 			<tr>
-				<td><input type="submit" value="Submit"></td>
-				<td><input type="reset" value="Reset"></td>
+				<td><input  id="myDIV" type="submit" value="Submit"></td>
+				<td><input id="myDIV" type="reset" value="Reset"></td>
 			</tr>
 		</table>
 	</form>
+	
 </body>
+
+
+
 </html>
 
 

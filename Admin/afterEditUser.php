@@ -101,7 +101,7 @@ $qy=$conn->prepare("UPDATE employee SET date_modified=? WHERE employee_id=?");
 			$modified_by=$_SESSION['userid'];
 				//array_push($qry,"UPDATE employee SET modified_by='$modified_by' WHERE employee_id='$field'");
 $qy=$conn->prepare("UPDATE employee SET modified_by=? WHERE employee_id=?");
-				$qy->bind_param("ss" , $modified_id, $field);
+				$qy->bind_param("ss" , $modified_by, $field);
 			//array_push($qry,qy->execute());
 				$qy->execute();
 				$qy->close();
