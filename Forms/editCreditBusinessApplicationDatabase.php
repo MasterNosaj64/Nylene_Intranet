@@ -25,7 +25,7 @@ if ($conn-> connect_error) {
 							order_amount = ?,
 							business_email = ?,
 							bank_name = ?,
-							account_number = ?,
+							account_number = AES_ENCRYPT(?,?),
 							bank_address = ?,
 							bank_email = ?,
 							bank_contact_name = ?,
