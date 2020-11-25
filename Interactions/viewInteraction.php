@@ -231,7 +231,7 @@ echo       "<td>
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editMarketRequest.php\">
+				<form method=\"post\" action=\"../Forms/editMMform.php\">
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Market Request Form\"/>
 				</form> 
