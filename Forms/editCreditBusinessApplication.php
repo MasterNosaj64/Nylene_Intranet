@@ -341,7 +341,7 @@ if ($conn->connect_error) {
 				<td colspan="4" align="center"><input type="submit" value="submit"
 					style="width: 100%"></td>
 				<td colspan="4" align="center"><input type="reset" value="reset"
-					style="width: 100%"></td>
+					style="width: 100%"><input hidden type="number" id="credit_application_business_id" name="credit_application_business_id" value="<?php echo $creditBusinessRow['credit_application_business_id'];?>"/></td>
 			</tr>
 		</table>
 
