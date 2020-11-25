@@ -35,33 +35,29 @@
         
         } else {
             
-
             $interaction = new Interaction($conn_Interaction);
             $interaction = $interaction->searchId($_SESSION['interaction_id']);
             
             $_SESSION['company_id'] = $interaction->getCompanyId();
             
+            /*Retrieve company address*/
             $company = new Company($conn_Company);
             $company = $company->searchId($interaction->getCompanyId());
             $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
-            
+
             $customer = new Customer($conn_Customer);
             $customer = $customer->searchById($interaction->getCustomerId());
             
+            /*Select interaction from relational table*/
             $query_view_form = "SELECT * FROM nylene.interaction_relational_form WHERE interaction_id = " . $_SESSION['interaction_id'];
             $viewInteractionForm = mysqli_fetch_array($conn_Forms->query($query_view_form));
             
-            /*create follow_up date based on interaction date*/
-           /*  $intDate = strtotime($interaction->getDateCreated());
-            $interDate = date("Y-m-d", $intDate);
-            $interactionDate = date_create($interDate);
-            date_modify($interactionDate, "+30 days"); */
             
-            /**/
+            /*modify date +30days*/
             $followDate = date_create($interaction->getDateCreated());
             date_modify($followDate, "+30 days");
             
-            
+            /*close connections*/
             $conn_Interaction->close();
             $conn_Company->close();
             $conn_Customer->close();
