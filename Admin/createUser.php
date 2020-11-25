@@ -12,6 +12,14 @@ include '../Database/connect.php';
 //TODO: MADHAV call getDBConnection to get connection
 //$conn = getDBConnection();
 
+
+
+
+$accessLevel=$_SESSION['role'];
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -83,10 +91,31 @@ x[1].value = today;
 			<tr>
 			
 				<td> Title* <select id="title" name="title">
-										<option value=""></option>
-						<option value="admin">Admin</option>
-						<option value="sales_rep">Sales Rep</option>
-						<option value="sales_manager">Sales Manager</option></select> 
+				
+				<?php 
+				
+				if ($accessLevel==admin){
+					echo '<option style="width: 260px" value=""></option>';
+					echo '<option style="width: 260px" value="admin">Supervisor</option>';
+					echo '<option style="width: 260px" value="supervisor">Supervisor</option>';
+					echo '<option style="width: 260px" value="sales_rep">Sales Representative</option>';
+					echo '<option style="width: 260px" value="ind_rep">Independent Representative</option>';
+
+				}
+				else if ($accessLevel==supervisor){
+					echo '<option style="width: 260px" value=""></option>';
+					echo '<option style="width: 260px" value="sales_rep">Sales Representative</option>';
+					echo '<option style="width: 260px" value="ind_rep">Independent Representative</option>';
+				}
+
+				
+				?>
+				
+								<!--		<option value=""></option>
+						<option value="1">Admin</option>
+						<option value="2">Manager</option>
+						<option value="3">Independent/Member</option>
+						--></select> 
 						</td>
 						 
 						
@@ -101,9 +130,14 @@ x[1].value = today;
 				</td>
 				<td>Reports to <select id="employee" name="reports_to">
 		<?php
-
-$sql = "SELECT * FROM employee";
+if ($accessLevel==admin){
+	$sql = "SELECT * FROM employee WHERE title='admin' OR title='supervisor'";
+}
+else if($accessLevel==supervisor){
+	$sql = "SELECT * FROM employee WHERE title='supervisor'";
+}
 $query = mysqli_query($conn, $sql);
+ echo '<option style="width: 260px" value=""</option>';
 while ($row = mysqli_fetch_array($query)) {
     echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
 }
@@ -122,21 +156,15 @@ while ($row = mysqli_fetch_array($query)) {
 		</table>
 		<table class="form-table" border="1" cellpadding="5" cellspacing="0">
 		
-			<tr>	<td><label for="username">Username *</label><br /> <input
-					name="username" type="text" maxlength="100" />
+			<tr>	<td colspan="2"><label for="username">Username *</label><br /> <input
+					name="username" type="text" />
 				</td>
 			</tr>
 
 			<tr>
 
-				<td>Admin<select id="Admin" name="is_administrator">
-										<option value=""></option>
-						<option value="1">Yes</option>
-						<option value="0">No</option></select></td>
-						
-
-				</select></td>
-				<td style="width: 50%"><label for="Status">Status</label><br />
+				
+				<td colspan="2" style="width: 100%"><label for="Status">Status</label><br />
 					<input name="STATUS" type="text" maxlength="100"/></td>
 
 			</tr>

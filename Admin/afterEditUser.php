@@ -101,7 +101,7 @@ $qy=$conn->prepare("UPDATE employee SET date_modified=? WHERE employee_id=?");
 			$modified_by=$_SESSION['userid'];
 				//array_push($qry,"UPDATE employee SET modified_by='$modified_by' WHERE employee_id='$field'");
 $qy=$conn->prepare("UPDATE employee SET modified_by=? WHERE employee_id=?");
-				$qy->bind_param("ss" , $modified_id, $field);
+				$qy->bind_param("ss" , $modified_by, $field);
 			//array_push($qry,qy->execute());
 				$qy->execute();
 				$qy->close();
@@ -117,16 +117,7 @@ $qy=$conn->prepare("UPDATE employee SET modified_by=? WHERE employee_id=?");
 				$qy->close();
 				}
 
-			if(trim($_POST['is_administrator'])!=""){
-
-				$is_administrator=$_POST['is_administrator'];
-				//array_push($qry,"UPDATE employee SET is_administrator='$is_administrator' WHERE employee_id='$field'");
-			$qy=$conn->prepare("UPDATE employee SET is_administrator=? WHERE employee_id=?");
-				$qy->bind_param("ss" , $is_administrator, $field);
-			//array_push($qry,qy->execute());
-				$qy->execute();
-				$qy->close();
-				}
+			
 
 			if(trim($_POST['STATUS'])!=""){
 

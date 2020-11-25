@@ -7,7 +7,7 @@ include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 } 
-
+$accessLevel=$_SESSION['role'];
 /*$sql = "SELECT * FROM employee";
 $query = mysqli_query($conn, $sql);
 $value=array();
@@ -21,18 +21,22 @@ while ($row = mysqli_fetch_array($query)){
 $check=0;
 //if(isset($_POST['myInput'] )){
  //$field=trim($_POST['myInput']);
-	
+$sql=NULL;	
+if($accessLevel=='admin'){
+	$sql = "SELECT * FROM employee"; 
+}else if($accessLevel=='supervisor'){
+		$sql = "SELECT * FROM employee WHERE title='sales_rep' OR title='ind_rep'"; 
+}
 
-   
 
-$sql = "SELECT * FROM employee"; 
+
 $query = mysqli_query($conn, $sql);
 
 $myArray =[[]];
 $i=0;
 $rows=mysqli_num_rows($query);
 		if($query  = mysqli_query($conn, $sql)){
-		    if( $rows > 0){ 
+		   if( $rows > 0){ 
 	//echo "<table border='1' id='myTable'>";
 	
             while($row = mysqli_fetch_array($query)){
@@ -43,6 +47,12 @@ $rows=mysqli_num_rows($query);
 				$myArray[$i][3]=$row['title'];
 				$myArray[$i][4]=$row['department'];
 				$myArray[$i][5]=$row['work_phone'];
+				
+				/*$sqlReportsTo = "SELECT Concat(Ifnull(first_name,' ') ,' ', Ifnull(last_name,' ')) FROM employee WHERE employee_id=$row['reports_to']"; 
+				$queryRT = mysqli_query($conn, $sqlReportsTo);	
+				$rowRT = mysqli_fetch_array($queryRT)
+				*/
+				
 				$myArray[$i][6]= $row['reports_to'];
 				$myArray[$i][7]=$row['employee_email'];
 				$i++;
@@ -290,7 +300,7 @@ generate_table(names)
 
 
 function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
+  var input, filter, table, tr,b, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
@@ -305,6 +315,8 @@ function myFunction() {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
+
+		
       } else {
         tr[i].style.display = "none";
       }

@@ -67,11 +67,23 @@
                     <td id="info"> Date Created: </td>
                     <td> <input name="dateSubmitted" type="text" readonly value="<?php echo $qsr['date_submitted']; ?>"> </td>
                     <td><label for="m_code">
-                        Market Code:</label><br /> <input
-					name="m_code" placeholder="<?php echo $qsr['m_code']; ?>"/></td>
+                        Market Code:</label><br /> <select
+					name="m_code" ><?php
+
+echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] .'</option>'; 
+    echo '<option style="width: 260px" value="A-Auto">' . "A  - Auto"	.'</option>';
+    echo '<option style="width: 260px" value="EE-Electrical">' . "EE-Electrical" . '</option>';
+    echo '<option style="width: 260px" value="WC-Wire&Cable">' . "WC-Wire&Cable"  . '</option>';
+    echo '<option style="width: 260px" value="C-Consumer">' . "C-Consumer" . '</option>';
+    echo '<option style="width: 260px" value="P-Packaging">' ."P-Packaging" . '</option>';
+    echo '<option style="width: 260px" value="I-Industrial">' . "I-Industrial" . '</option>';
+    echo '<option style="width: 260px" value="O-Other">' . "O-Other" . '</option>';
+
+
+?></select></td>
+							
     
-    
-                   
+                 
                 </tr>
                 <tr>
                     <td id="info"> Company: </td>
@@ -134,7 +146,7 @@
                     <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1 <?php if($qsr['match_sample_sub'] == 1) {echo "checked";} ?>> Sample Submission  </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="match_data_sheet" value=1<?php if($qsr['match_data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
+                    <td colspan="2"> <input type="checkbox" name="match_data_sheet" value=1 <?php if($qsr['match_data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <input type="checkbox" name="match_descr" value=1 <?php if($qsr['match_description'] == 1) {echo "checked";} ?>> Description  </td>
@@ -300,7 +312,7 @@
                     <td colspan="3" style="width:50%">Other Contact 1: <label for="other_contact_1">
                    </label>
     				 <input
-					name="other_contact_1" placeholder="<?php echo $qsr['other_contact_1']; if ($qsr['other_contact_1'] == "") {echo "<br/>";} ?>"> </td>
+					name="other_contact_1" placeholder="<?php echo $qsr['other_contact_1'];  ?>"> </td>
     				<td colspan="3" style="width:50%"> Other Contact 2: <label for="other_contact_2">
                    </label>
     				 <input
@@ -310,7 +322,7 @@
                     <td colspan="3" style="width:50%">Other Contact 3:  <label for="other_contact_3">
                    </label>
     				 <input
-					name="other_contact_3" placeholder="<?php echo $qsr['other_contact_3']; if ($qsr['other_contact_3'] == "") {echo "<br/>";} ?> "></td>
+					name="other_contact_3" placeholder="<?php echo $qsr['other_contact_3']; ?> "></td>
     				<td colspan="3" style="width:50%">Other Contact 4: <label for="other_contact_4">
                    </label>
     				 <input
