@@ -31,7 +31,6 @@ $date_entered=date("Y-m-d");
 $date_modified=date("Y-m-d");
 $modified_by=$rows['modified_by'];
 $username=$rows['username'];
-$is_administrator=$rows['is_administrator'];
 $STATUS=$rows['STATUS'];
 $employee_email=$rows['employee_email'];
 
@@ -129,7 +128,7 @@ echo '<option disabled selected hidden>' . $rowvalue['first_name'] . " " . $rowv
 
 
 				
-				<td style="width: 50%"><label for="username">Username </label><br /> <input
+				<td colspan="2" style="width: 100%"><label for="username">Username </label><br /> <input
 					name="username" type="text" value="<?php echo $username; ?>" maxlength="50"  />
 				</td>
 			</tr>
@@ -137,17 +136,10 @@ echo '<option disabled selected hidden>' . $rowvalue['first_name'] . " " . $rowv
 
 			<tr>
 
-				<td style="width: 50%"><label for="is_administrator"> Admin</label><br />
-					<select id="options" name="is_administrator"  style="color:gray">
-						<?php 
-						if($is_administrator==1){$pHolder="Yes";}
-								else{$pHolder="No";}?><option value=""<?php echo $pHolder; ?>></option>
 
-
-				</select></td>
-				<td style="width: 50%"><label for="STATUS">Status</label><br />
+				<td colspan="2" style="width: 100%"><label for="STATUS">Status</label><br />
 					<input name="STATUS" type="text" value="<?php echo $STATUS; ?>" maxlength="100"
-					s/></td>
+					/></td>
 
 			</tr>
 

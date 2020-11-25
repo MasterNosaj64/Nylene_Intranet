@@ -20,7 +20,6 @@ $date_entered=date("Y-m-d");
 $date_modified=date("Y-m-d");
 $modified_by=$_SESSION['userid'];
 $username=$_POST['username'];
-$is_administrator=$_POST['is_administrator'];
 $STATUS=$_POST['STATUS'];
 $employee_email=$_POST['employee_email'];
 $password=password_hash($_POST['password'],PASSWORD_BCRYPT);
@@ -43,12 +42,11 @@ $password=password_hash($_POST['password'],PASSWORD_BCRYPT);
 	date_modified,
 	modified_by,
 	username,
-	is_administrator,
 	STATUS,
 	employee_email,
 	password
-	) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); //14 columns
-	    $query->bind_param("ssssssssssssss" , $first_name, $last_name, $title,$department,$work_phone,$reports_to,$date_entered,$date_modified,$modified_by,$username,$is_administrator,$STATUS,$employee_email,$password);
+	) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"); //13 columns
+	    $query->bind_param("sssssssssssss" , $first_name, $last_name, $title,$department,$work_phone,$reports_to,$date_entered,$date_modified,$modified_by,$username,$STATUS,$employee_email,$password);
 
 	   /* 
 	   
