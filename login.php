@@ -31,11 +31,6 @@ if(isset($_SESSION['field'])){
 
 
 
-
-
-
-
-
 </html>
 
 

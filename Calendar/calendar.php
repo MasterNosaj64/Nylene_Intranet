@@ -1,11 +1,12 @@
 <?php
 /*
  * FileName: calendar.php
- * Version Number: 1.2
+ * Version Number: 1.3
  * Author: Ahmad Syed
- * Last Modified: November 10th 2020
+ * Last Modified: November 25th 2020
  * Purpose: shows calendar for the user to navigate.
- * As admin, populates events when added to, able to edit events as well
+ * All users are able to create events 
+ * Users are able to view their follow up dates within the calendar
  */
 include '../Database/connect.php';
 $conn = getDBConnection();
@@ -53,9 +54,9 @@ $week = '';
 $week .= str_repeat('<td></td>', $str - 1);
 // $_SESSION['userid'] =1;
 for ($day = 1; $day <= $day_count; $day ++, $str ++) {
-    
+
     $date = $ym . '-' . $day;
-    
+
     // Adding calendar event
     $event_nameStr = '';
     $eventResultStr = '"No"';
@@ -68,12 +69,11 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     }
     if (! empty($eventResult)) {
         $eventResultStr = json_encode($eventResult);
-        
+
         $event_namesArr = array_column($eventResult, 'event_name');
         $event_nameStr = implode("<br>", $event_namesArr);
     }
-    
-    
+
     // Adding Interaction
     $interaction_nameStr = '';
     $interactionResultStr = '"No"';
@@ -86,58 +86,36 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     }
     if (! empty($interactionResult)) {
         $interactionResultStr = json_encode($interactionResult);
-        
+
         $interaction_namesArr = array_column($interactionResult, 'interaction_id');
         $interaction_nameStr = implode("<br>", $interaction_namesArr);
     }
-    
-    
-    
-    if($interaction_nameStr != "") {
-        if ($today == $date) {
-            $week .= "<td class='today' onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
-        } else {
-            $week .= "<td onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
-        }
-        
-        $week .= $day . "<br><span style='display:block;font-size:14px;'>followup: " . $interaction_nameStr . '</span></td>';
-        
+
+    if ($today == $date) {
+
+        $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
     } else {
-        if ($today == $date) {
-            $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ")'>";
-        } else {
-            $week .= "<td onclick='openPopup(" . $eventResultStr . ")'>";
-        }
-        $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . '</span></td>';
-        
+        $week .= "<td onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
     }
-    
-    
-    
-    
-    
-    
-    
-    /*if ($today == $date) {
-     $week .= "<td class='today' onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
-     } else {
-     $week .= "<td onclick='openPopupInteractions(" . $interactionResultStr . ")'>";
-     }
-     if($interaction_nameStr != "") {
-     $week .= $day . "<br><span style='display:block;font-size:14px;'>followup: " . $interaction_nameStr . '</span></td>';
-     }*/
-    
-    
+
+    $text_to_add = "";
+
+    if ($interaction_nameStr != "") {
+        $text_to_add = "<br>followup: " . $interaction_nameStr;
+    }
+
+    $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . "" . $text_to_add . "</span></td>";
+
     // End of the week OR End of the month
     if ($str % 7 == 0 || $day == $day_count) {
-        
+
         // last day of the month set to Sunday
         if ($day == $day_count && $str % 7 != 0) {
-            
+
             // Add empty cell for formatting purposes
             $week .= str_repeat('<td></td>', 7 - $str % 7);
         }
-        
+
         $weeks[] = '<tr>' . $week . '</tr>';
         $week = '';
     }
@@ -224,13 +202,14 @@ button a {
 		<div class="btn-group" role="group" aria-label="Events">
 			<!-- Add Event button as admin, would redirect to addEvent form -->
 			<div class="text-left">
-		
-		<!-- All users have access to addEvent button -->	
-		<button type="button" class="btn btn-outline-secondary"
+
+				<!-- All users have access to addEvent button -->
+
+				<button type="button" class="btn btn-outline-secondary"
 					onclick='location.href="<?php echo BASE_URL; ?>Calendar/addEvent.php"'>Add
 					Event</button>
-		 
-		</div>
+
+			</div>
 
 			<div class="text-right">
 				<a href="<?PHP echo BASE_URL; ?>Home/Homepage.php">
@@ -294,9 +273,10 @@ button a {
 			</div>
 		</div>
 
-		<!--Checks to see if event exists in calendar, and shows to all users-->
+		<!--Checks to see if event exists and followuup date in calendar, and shows to all users-->
 		<script type="text/javascript">
-		function openPopup(date) {
+		function openPopup(date, date2) {
+			
 			$("#result").text('');
 	        if (date=='No'){
 	    		$("#result").text(" ");
@@ -305,19 +285,19 @@ button a {
 					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
 		    	}
 	    	}
-		}
 
-		function openPopupInteractions(date) {
-			$("#result_interactions").text('');
-	        if (date=='No'){
+
+	    	$("#result_interactions").text('');
+	        if (date2=='No'){
 	    		$("#result_interactions").text(" ");
 	    	}else{
-				for(var i=0; i<date.length; i++){
-					$("#result_interactions").append("<p style='margin-left:20px;'>Follow up date : "+date[i].follow_up_date+"<br>Reason : "+date[i].reason+"<br>Comment : "+date[i].comments+"</p><a class='' href='<?php echo BASE_URL; ?>/Interactions/viewInteraction.php?interaction_id="+date[i].interaction_id+"'><button class='' type='button'>View Interaction</button></a>");
+				for(var i=0; i<date2.length; i++){
+					$("#result_interactions").append("<p style='margin-left:20px;'>Follow up date : "+date2[i].follow_up_date+"<br>Reason : "+date2[i].reason+"<br>Comment : "+date2[i].comments+"</p><a class='' href='<?php echo BASE_URL; ?>/Interactions/viewInteraction.php?interaction_id="+date2[i].interaction_id+"'><button class='' type='button'>View Interaction</button></a>");
 		    	}
 	    	}
 		}
 
+	
 		//changes colour when clicking on date
 		   $('td').click(function() {
 			    $("td").css('backgroundColor', 'unset');
