@@ -33,11 +33,11 @@ session_start();
 		$query = $conn->query($sql);								
 		$row = mysqli_fetch_array($query);
         
-    /*    if ($row['is_photography_needed'] == 'Yes') {
+        if ($row['is_photography_needed'] == 'Yes') {
         $checked = 1;
     } else {
         $checked = 0;
-    }*/
+    }
         
         $_SESSION['field']=$row['marketing_request_id'];
 		
@@ -64,8 +64,8 @@ session_start();
     <table border="1" cellpadding="5" cellspacing="1" class="form-table"> 
         <tr>
 
-        <td id="Requester_name">Requester Name</td>
-			<td colspan="2"><input type="text" name="Requester_name" maxlength="250" style="width: 260px" placeholder="<?php echo $row['requester_name'];?>"></td>
+        <td id="Requester_Name">Requester Name</td>
+			<td colspan="2"><input type="text" name="Requester_Name" maxlength="250" style="width: 260px" placeholder="<?php echo $row['requester_name'];?>"></td>
             
             
 	<td id="Market_Segment">Market Segment</td>
@@ -293,14 +293,14 @@ session_start();
              
         <table cellpadding="5" cellspacing="1" class="form-table">
 <tr id="needed_photography">
-			<tr><td colspan="2"><input type="text" name="needed_phtography" rows="2" cols="120" placeholder="<?php echo $row['needed_photography'];?>"></td>
+			<tr><td colspan="2"><input type="text" name="needed_photography" rows="2" cols="120" placeholder="<?php echo $row['needed_photography'];?>"></td>
         </tr> </table>
      <table border="1" style="text-align: left;" class="form-table"><tr><td ><b>Estimated Quantity:</b></td>      
             <td>   <input type="text" name="estimate" maxlength="300" style="width:260px" placeholder="<?php echo $row['estimated_quantity'];?>"></td>
  <td><i>If applicable.</i></td> </tr>
         
         <tr><td ><b>Means of Delivery:</b></td> <td >
-            <input type="text" name="means_of_delivery" maxlength= "300" style="width:260px" placeholder="<?php echo $row['means_of_delivery'];?>"></td>
+            <input type="text" name="delivery" maxlength= "300" style="width:260px" placeholder="<?php echo $row['means_of_delivery'];?>"></td>
  <td>Anticipated plan for delivering the piece, tradiotional mailing, blogging,<br/> e-mailing, handing out of events, etc.</td></tr>
             
            <tr><td ><b>Date Needed:</b></td> <td >

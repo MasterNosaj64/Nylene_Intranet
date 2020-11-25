@@ -3,9 +3,8 @@
  * Name: editMMform_Database.php
  * Author: Karandeep Singh
  */
-if (!session_id()) {
- session_start();}Q
-include '../Database/databaseConnection.php';
+ session_start();
+//include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 			
 			$field=$_SESSION['field'];
@@ -13,6 +12,8 @@ include '../Database/connect.php';
 $query_marketing	= "SELECT * FROM marketing_request_form WHERE marketing_request_id = " . $field;
 	$query_marketing_results = $conn->query($query_marketing);
 	$row = mysqli_fetch_array($query_marketing_results);
+    
+
 
 if (isset($_POST['requester_name']))
 	{
@@ -257,11 +258,11 @@ if (isset($_POST['is_project_new']))
 
 if (isset($_POST['if_piece_new']))
 	{
-		$update_info = $_POST['is_piece_new'];
+		$update_info = $_POST['if_piece_new'];
 	}
 	else 
 	{
-		$update_info = $row['is_piece_new'];
+		$update_info = $row['if_piece_new'];
 	}
 
 if (isset($_POST['prospective_customers']))
@@ -416,7 +417,7 @@ if (isset($_POST['cost_center_number']))
 	{
 		$cost = $row['cost_center_number'];
 	}
-
+    
 $conn = getDBConnection();
 // if connection is established,
 if ($conn->connect_error) {
@@ -425,53 +426,54 @@ if ($conn->connect_error) {
 } else {
     
     $interaction_id = $_SESSION['interaction_id'];
-    $stmt = $conn->prepare("INSERT INTO marketing_request_form(requester_name,
-                                                            market_segment, 
-                                                            sales_territory, 
-                                                            email,
-                                                            phone,
-                                                            request_date,
-                                                            name_project_or_piece,
-                                                            type_of_project,
-                                                            other_type_of_project,
-                                                            brochure,
-                                                            ppt,
-                                                            fact_sheet,
-                                                            video,
-                                                            direct_mail,
-                                                            web,
-                                                            page,
-                                                            section,
-                                                            blog,
-                                                            landing_page,
-                                                            updt,
-                                                            graphic,
-                                                            tradeshow,
-                                                            promotional_item,
-                                                            print_aid,
-                                                            press_release,
-                                                            is_project_new,
-                                                            if_piece_new,
-                                                            prospective_customers,
-                                                            engineers,
-                                                            procurement_managers,
-                                                            current_customers,
-                                                            plant_managers,
-                                                            other_audience,
-                                                            audiance_personal_info,
-                                                            purpose, 
-                                                            key_message, 
-                                                            supporting_info,
-                                                            is_photography_needed,
-                                                            needed_photography,
-                                                            estimated_quantity,
-                                                            means_of_delivery,
-                                                            date_needed,
-                                                            available_budget,
-                                                            cost_center_number )
-                                                            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    
-    
+    $stmt = $conn->prepare("UPDATE marketing_request_form SET
+                                                            requester_name= ?,
+                                                            market_segment= ?, 
+                                                            sales_territory= ?, 
+                                                            email= ?,
+                                                            phone= ?,
+                                                            request_date= ?,
+                                                            name_project_or_piece= ?,
+                                                            type_of_project= ?,
+                                                            other_type_of_project= ?,
+                                                            brochure= ?,
+                                                            ppt= ?,
+                                                            fact_sheet= ?,
+                                                            video =?,
+                                                            direct_mail= ?,
+                                                            web= ?,
+                                                            page= ?,
+                                                            section= ?,
+                                                            blog= ?,
+                                                            landing_page= ?,
+                                                            updt= ?,
+                                                            graphic= ?,
+                                                            tradeshow= ?,
+                                                            promotional_item= ?,
+                                                            print_aid= ?,
+                                                            press_release= ?,
+                                                            is_project_new= ?,
+                                                            if_piece_new= ?,
+                                                            prospective_customers= ?,
+                                                            engineers= ?,
+                                                            procurement_managers= ?,
+                                                            current_customers= ?,
+                                                            plant_managers= ?,
+                                                            other_audience= ?,
+                                                            audiance_personal_info= ?,
+                                                            purpose= ?, 
+                                                            key_message= ?, 
+                                                            supporting_info= ?,
+                                                            is_photography_needed= ?,
+                                                            needed_photography= ?,
+                                                            estimated_quantity= ?,
+                                                            means_of_delivery= ?,
+                                                            date_needed= ?,
+                                                            available_budget= ?,
+                                                            cost_center_number= ? 
+                                                            WHERE marketing_request_id = " .$field);
+                                                
+   /* 
     $Requester_Name = htmlspecialchars(strip_tags($_POST['Requester_Name']));
     $Market_Segment = htmlspecialchars(strip_tags($_POST['Market_Segment']));
     $Sales_Territory = htmlspecialchars(strip_tags($_POST['Sales_Territory']));
@@ -494,13 +496,16 @@ if ($conn->connect_error) {
     $delivery = htmlspecialchars(strip_tags($_POST['delivery']));
     $date_needed = htmlspecialchars(strip_tags($_POST['date_needed']));
     $budget = htmlspecialchars(strip_tags($_POST['budget']));
-    $cost = htmlspecialchars(strip_tags($_POST['cost']));
+    $cost = htmlspecialchars(strip_tags($_POST['cost']));*/
     
-  //  if($stmt!== FALSE){
+    if($stmt!== FALSE){
             
-     $stmt->bind_param("ssssssssssssssssssssssssssssssssssssssssssss", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project,$other_type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers,$other_audience, $Info, $purpose,  $key_messages, $support, $is_photography_needed,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost);
+     $stmt->bind_param("sssssssssssssssssssssssssssssssssssssssssssss", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project,$other_type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers,$other_audience, $Info, $purpose,  $key_messages, $support, $is_photography_needed,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost);
     
      $stmt -> execute();
+        }else{
+        die('prepare() failed: ' . htmlspecialchars($conn->error));
+    }
     
     /*
      $getFormId = "SELECT marketing_request_id FROM marketing_request_form ORDER BY marketing_request_id DESC";
@@ -510,6 +515,7 @@ if ($conn->connect_error) {
         die('prepare() failed: ' . htmlspecialchars($conn->error));
     }
     */
+    
      $stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
                                      interaction_id,
                                      form_id, form_type)
@@ -526,16 +532,20 @@ if ($conn->connect_error) {
         $stmt->close();
         $stmt2->close();
     
+    
          /*Search follow up info using interaction id posted from session value*/
+    /*
 		$interactionQuery = "SELECT status, follow_up_type FROM interaction
 								WHERE interaction_id = ". $interactionNum;
 		$interactionResult = $conn->query($interactionQuery);
 		$interactionRow = mysqli_fetch_array($interactionResult);
+        */
         
         /*Code for updating date in interaction table if form selected*/
-		if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+    
+		//if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
 		    /*Prepare Update statement into the interaction table to update notification date*/
-		    $stmt3 = $conn->prepare("UPDATE interaction SET follow_up_date = ?
+		/*    $stmt3 = $conn->prepare("UPDATE interaction SET follow_up_date = ?
                                         WHERE interaction_id = ?");
             $fDate = strtotime($Date);
 		    $followDate = date("Y/m/d", $fDate);
@@ -545,14 +555,14 @@ if ($conn->connect_error) {
             
              $stmt3->bind_param("si", $followUpDateFormatted, $interactionNum);
 		    
-		    /*Execute statement*/
+		    
 		    $stmt3->execute();
 		    $stmt3->close();
         }else{
             
-        };
+        };*/
         $conn->close();
-       echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
+      echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
         exit();
     
    }
