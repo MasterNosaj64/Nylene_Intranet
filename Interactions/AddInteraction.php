@@ -1,9 +1,9 @@
 <?php
     /*
      * FileName: addInteraction.php
-     * Version Number: 1.0
+     * Version Number: 1.1
      * Author: Jason Waid, Modified by Kaitlyn Breker
-     * Date Modified: Nov 21, 2020
+     * Date Modified: Nov 27, 2020
      * Purpose: Add companies in the database.
      */
     date_default_timezone_set('America/Toronto');
@@ -159,10 +159,8 @@
 			document.getElementById('selector_disabled').disabled = true;
 		}
 		/*Function determines what the input for the follow up date will be if there is a date based on the follow_up_type
-			Follow up for quote forms is the set quote date, 
-			follow up for sample forms is the request date, 
-			credit app date is ... and 
-			market material date is ... */
+			Follow up for quote forms is the set quote date, follow up for sample forms is the request date, 
+			credit app date is credit_date and market material date is date_needed */
 		function followDate(){
 			var x = document.getElementById('set_date');
 			var followDate = x.defaultValue;

@@ -1,15 +1,15 @@
 <?php
-    /* Name: newSampleForm.php
-     * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 15th, 2020
-     * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
-     *          the sample_form table of the database.
+    /* Name: editSampleDatabase.php
+     * Author: Madhav Sachdeva, modified by Kaitlyn Breker
+     * Last Modified: November 27th, 2020
+     * Purpose: Update fields in the db sample table
      */
 	
    	if (!session_id()) {
  session_start();}
-include '../Database/databaseConnection.php';
+
 include '../Database/connect.php';
+$conn = getDBConnection();
 			
 			$field=$_SESSION['field'];
 			
@@ -536,8 +536,8 @@ include '../Database/connect.php';
 	  }
 	}
   
-	/*Assign values to variables*/
-	/*$dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
+	 /* /*Assign values to variables*/
+	$dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
 	$marketCode			= htmlspecialchars(strip_tags($_POST['mCode']));
 	$customer_id        = htmlspecialchars(strip_tags($_SESSION['customer_id']));
 	$company_id         = htmlspecialchars(strip_tags($_SESSION['company_id']));
@@ -567,10 +567,8 @@ include '../Database/connect.php';
 	$other_contact2		= htmlspecialchars(strip_tags($_POST['other_contact2']));
 	$other_contact3		= htmlspecialchars(strip_tags($_POST['other_contact3'])); 
 	$other_contact4		= htmlspecialchars(strip_tags($_POST['other_contact4']));
-*/
-	//include "../Database/connect.php";
 
-	//$conn = getDBConnection();
+
 	
 	
 	/*Check the connection*/
@@ -630,31 +628,46 @@ include '../Database/connect.php';
 		
 		$stmt->execute();
 
-		/*Modified by Jason, to take Interaction_id generated previously*/
-		$id = $_SESSION['interaction_id'];
+		/*Required for followup update*/
+		$interactionNum = $_SESSION['interaction_id'];
 		
-		/*Prepare insert statement into the interaction_relational_form table*/
-		$stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
-					interaction_id,
-                    form_id,
-                    form_type)
-                    VALUES (?, ?, ?)");
-	
-		/*Assign values to variables*/
-		$interactionNum = $id;
-		$formID = $conn->insert_id; //retrieve id of last query under $conn
-		$formType = 1;
+		/*Search follow up info using interaction id posted from session value*/
+		$interactionQuery = "SELECT status, follow_up_type FROM interaction
+								WHERE interaction_id = ". $interactionNum;
+		$interactionResult = $conn->query($interactionQuery);
+		$interactionRow = mysqli_fetch_array($interactionResult);
+		
+		
+		/*Code for updating date in interaction table if form selected*/
+		if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+		    /*Prepare Update statement into the interaction table to update notification date*/
+		    $stmt2 = $conn->prepare("UPDATE interaction SET
+                                    follow_up_date = ?
+                                    WHERE interaction_id = ?");
+		    
+		    /*Assign follow up modified - must convert to date, modify, than convert back to string*/
+		    $fDate = strtotime($sample_req_date);
+		    $followDate = date("Y/m/d", $fDate);
+		    $followUpDate = date_create($followDate);
+		    date_modify($followUpDate, "+30 days");
+		    $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+		    
+		    /*Bind statement parameters to statement*/
+		    $stmt2->bind_param("si", $followUpDateFormatted, $interactionNum);
+		    
+		    /*Execute statement*/
+		    $stmt2->execute();
+		    $stmt2->close();
+		    
+		} else {
+		    //do nothing
+		}
 
-		/*Bind statement parameters to statement*/
-		$stmt2->bind_param("iii", $interactionNum, $formID, $formType);
-		
-		/*Execute statement*/
-		$stmt2->execute();
 		
 		/*Close statements and connection*/
 		$stmt->close();
-		$stmt2->close();
-		//$conn->close();
+
+		$conn->close();
 	  
 		echo "<meta http-equiv = \"refresh\" content = \"100; url = ../Interactions/companyHistory.php\" />;";
 		exit();

@@ -1,7 +1,7 @@
 <?php
     /* Name: newSampleForm.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 15th, 2020
+     * Last Modified: November 27th, 2020
      * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
      *          the sample_form table of the database.
      */
@@ -111,11 +111,9 @@
 	}
   
 	/*Assign values to variables*/
-	$submittedBy		= filter_input(INPUT_POST, 'submittedBy');
 	$dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
 	$marketCode			= htmlspecialchars(strip_tags($_POST['mCode']));
 	$customer_id        = htmlspecialchars(strip_tags($_SESSION['customer_id']));
-	$company_id         = htmlspecialchars(strip_tags($_SESSION['company_id']));
 	$business_case		= htmlspecialchars(strip_tags($_POST['business_case']));
 	$material_descr		= htmlspecialchars(strip_tags($_POST['material_descr']));
 	$customer_proc		= htmlspecialchars(strip_tags($_POST['customer_proc']));
@@ -199,7 +197,7 @@
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
         /*Bind statement parameters to statement and execute*/
-		$stmt->bind_param("sssisiiissssssssssssssssiiisiisiissssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
+		$stmt->bind_param("sssisiiissssssssssssssssiiisiisisssssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
 		    $match_data_sheet, $match_descr, $material_descr, $customer_proc, $curr_supplier, $finished_good_app,
 		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filter_sys, $colors, $known_additives,
 		    $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty,

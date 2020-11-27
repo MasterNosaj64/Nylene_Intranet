@@ -2,7 +2,7 @@
     /*
      * FileName: updateInteractionDB.php
      * Author: Kaitlyn Breker
-     * Date Modified: Nov 24, 2020
+     * Date Modified: Nov 27th, 2020
      * Purpose: Update database with new interaction information.
      */
     date_default_timezone_set('America/Toronto');
@@ -104,7 +104,7 @@
                             $selectDate = mysqli_fetch_array($selectDateFormResult);
                             
                             if ($selectDate != null){
-                                $formDate = $selectDate['request_date'];
+                                $formDate = $selectDate['date_needed'];
                             }
                             
                         } else if ($FormInteraction['form_type'] == 6) {

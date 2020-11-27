@@ -1,7 +1,9 @@
 <?php
 /*
  * Name: editMMform_Database.php
- * Author: Karandeep Singh
+ * Author: Karandeep Singh, modified by Kaitlyn Breker
+ * Date Modifed: November 27th, 2020
+ * Purpose: Edit MM database table
  */
  session_start();
 //include '../Database/databaseConnection.php';
@@ -202,7 +204,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
     
-   // $interaction_id = $_SESSION['interaction_id'];
+    $interactionNum = $_SESSION['interaction_id'];
+    
     $stmt = $conn->prepare("UPDATE marketing_request_form SET
                                                             requester_name= ?,
                                                             market_segment= ?, 
@@ -281,12 +284,44 @@ if ($conn->connect_error) {
      $stmt->bind_param("sssssssssiiiiiiiiiiiiiiiiiiiisiiiiisssssssssi", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project,$other_type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers,$other_audience, $Info, $purpose,  $key_messages, $support, $is_photography_needed,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost, $marketing_request_id);
     
      $stmt -> execute();
-          $stmt->close();
+     $stmt->close();
   
+     /*Search follow up info using interaction id posted from session value*/
+     $interactionQuery = "SELECT status, follow_up_type FROM interaction
+								WHERE interaction_id = ". $interactionNum;
+     $interactionResult = $conn->query($interactionQuery);
+     $interactionRow = mysqli_fetch_array($interactionResult);
+     
+     
+     /*Code for updating date in interaction table if form selected*/
+     if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+         /*Prepare Update statement into the interaction table to update notification date*/
+         $stmt2 = $conn->prepare("UPDATE interaction SET
+                                    follow_up_date = ?
+                                    WHERE interaction_id = ?");
+         
+         /*Assign follow up modified - must convert to date, modify, than convert back to string*/
+         $fDate = strtotime($date_needed);
+         $followDate = date("Y/m/d", $fDate);
+         $followUpDate = date_create($followDate);
+         date_modify($followUpDate, "+30 days");
+         $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+         
+         /*Bind statement parameters to statement*/
+         $stmt2->bind_param("si", $followUpDateFormatted, $interactionNum);
+         
+         /*Execute statement*/
+         $stmt2->execute();
+         $stmt2->close();
+         
+     } else {
+         //do nothing
+     }
+          
         $conn->close();
         echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
         exit();
-        }else{
+    }else{
         die('prepare() failed: ' . htmlspecialchars($conn->error));
     }
     

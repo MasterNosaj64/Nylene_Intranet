@@ -1,7 +1,7 @@
 <?php
     /* Name: editDistributorQuoteDatabase.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 26th, 2020
+     * Last Modified: November 27th, 2020
      * Purpose: Update file for edit distributor form
      */
 session_start();
@@ -16,7 +16,7 @@ if ($conn-> connect_error) {
     
 } else {
     
-   // $interaction_id = $_SESSION['interaction_id'];
+    $interactionNum = $_SESSION['interaction_id'];
     
     /*Prepare update statement into the distributor_quote_form table*/
     $stmt = $conn->prepare("UPDATE distributor_quote_form SET
@@ -67,36 +67,37 @@ if ($conn-> connect_error) {
     $stmt->close();
 
     
-//     /*Search follow up info using interaction id posted from session value*/
-//     $interactionQuery = "SELECT status, follow_up_type FROM interaction
-// 								WHERE interaction_id = ". $interactionNum;
-//     $interactionResult = $conn->query($interactionQuery);
-//     $interactionRow = mysqli_fetch_array($interactionResult);
+    /*Search follow up info using interaction id posted from session value*/
+    $interactionQuery = "SELECT status, follow_up_type FROM interaction
+								WHERE interaction_id = ". $interactionNum;
+    $interactionResult = $conn->query($interactionQuery);
+    $interactionRow = mysqli_fetch_array($interactionResult);
     
     
-//     /*Code for updating date in interaction table if form selected*/
-//     if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
-//         /*Prepare Update statement into the interaction table to update notification date*/
-//         $stmt3 = $conn->prepare("UPDATE interaction SET follow_up_date = ?
-//                                         WHERE interaction_id = ?");
+    /*Code for updating date in interaction table if form selected*/
+    if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+        /*Prepare Update statement into the interaction table to update notification date*/
+        $stmt2 = $conn->prepare("UPDATE interaction SET 
+                                    follow_up_date = ?
+                                    WHERE interaction_id = ?");
         
-//         /*Assign follow up modified - must convert to date, modify, than convert back to string*/
-//         $fDate = strtotime($quoteDate);
-//         $followDate = date("Y/m/d", $fDate);
-//         $followUpDate = date_create($followDate);
-//         date_modify($followUpDate, "+30 days");
-//         $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+        /*Assign follow up modified - must convert to date, modify, than convert back to string*/
+        $fDate = strtotime($quoteDate);
+        $followDate = date("Y/m/d", $fDate);
+        $followUpDate = date_create($followDate);
+        date_modify($followUpDate, "+30 days");
+        $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
         
-//         /*Bind statement parameters to statement*/
-//         $stmt3->bind_param("si", $followUpDateFormatted, $interactionNum);
+        /*Bind statement parameters to statement*/
+        $stmt2->bind_param("si", $followUpDateFormatted, $interactionNum);
         
-//         /*Execute statement*/
-//         $stmt3->execute();
-//         $stmt3->close();
+        /*Execute statement*/
+        $stmt2->execute();
+        $stmt2->close();
         
-//     } else {
-//         //do nothing
-//     }
+    } else {
+        //do nothing
+    }
     
     /*Close connection*/
     $conn->close();

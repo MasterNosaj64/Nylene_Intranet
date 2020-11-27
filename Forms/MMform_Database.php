@@ -1,5 +1,12 @@
-<html>
+ <html>
 <?php
+
+/* Name: MMform_database.php
+ * Author: Karandeep Singh, modified by Kaitlyn Breker
+ * Last Modified: November 27th, 2020
+ * Purpose: insert into db
+ */
+
 // if a session is not started, start a session
 
     session_start();
@@ -314,7 +321,7 @@ if ($conn->connect_error) {
 		    /*Prepare Update statement into the interaction table to update notification date*/
 		    $stmt3 = $conn->prepare("UPDATE interaction SET follow_up_date = ?
                                         WHERE interaction_id = ?");
-            $fDate = strtotime($Date);
+            $fDate = strtotime($date_needed);
 		    $followDate = date("Y/m/d", $fDate);
 		    $followUpDate = date_create($followDate);
 		    date_modify($followUpDate, "+30 days");

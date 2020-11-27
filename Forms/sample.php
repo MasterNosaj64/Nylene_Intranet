@@ -1,7 +1,7 @@
 <?php
     /* Name: sample.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 5th, 2020
+     * Last Modified: November 27th, 2020
      * Purpose: Input for Sample form. User information, company and customer information is 
      *          automatically displayed from database.
      */
@@ -213,7 +213,7 @@
                 </tr>
                 <thead>
                 <tr>
-                    <th colspan="6" align="center"> - Type Of Response Needed By - <input type="date" name="response_date"> </th>
+                    <th colspan="6" align="center"> - Type Of Response Needed By - <input type="date" name="response_date" required> </th>
                 </tr>
                 </thead>
                 <tr>
@@ -227,7 +227,7 @@
                     <td> <input type="checkbox" name="coa" value=1 > COA  </td>
                     <td colspan="2" id="info"> Sample Quantity </td>
                     <td> QTY: <input type="text" style="width:100%;" name="sample_qty"> </td>
-                    <td> Date REQ: <input type="date" name="sample_req_date"> </td>
+                    <td> Date Required*: <input type="date" name="sample_req_date" required> </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <input type="checkbox" name="data_sheet" value=1> Data Sheet  </td>

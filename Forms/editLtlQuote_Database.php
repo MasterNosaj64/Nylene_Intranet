@@ -1,6 +1,6 @@
 <?php
     /* Name: editLtlQuote_Database.php
-     * Author: Karandeep Singh
+     * Author: Karandeep Singh, modified by Kaitlyn Breker
      * Last Modified: November 27th, 2020
      * Purpose: File called when user clicks submit on the edit light truckload form. Updates form information into 
      *          the ltl_quote table of the database.
@@ -18,7 +18,7 @@
 	    die("Connection failed: " . $conn-> connect_error);
 	
 	} else {
-        
+	    $interactionNum = $_SESSION['interaction_id'];
 
 		/*Prepare insert statement into the ltl_quote table*/
 		$stmt = $conn->prepare("UPDATE ltl_quote SET
@@ -68,6 +68,40 @@
 		
 		$stmt->execute();
         $stmt->close();
+        
+        /*Search follow up info using interaction id posted from session value*/
+        $interactionQuery = "SELECT status, follow_up_type FROM interaction
+								WHERE interaction_id = ". $interactionNum;
+        $interactionResult = $conn->query($interactionQuery);
+        $interactionRow = mysqli_fetch_array($interactionResult);
+        
+        
+        /*Code for updating date in interaction table if form selected*/
+        if (($interactionRow['status'] == 'open') && ($interactionRow['follow_up_type'] == 'form')){
+            /*Prepare Update statement into the interaction table to update notification date*/
+            $stmt2 = $conn->prepare("UPDATE interaction SET
+                                    follow_up_date = ?
+                                    WHERE interaction_id = ?");
+            
+            /*Assign follow up modified - must convert to date, modify, than convert back to string*/
+            $fDate = strtotime($quoteDate);
+            $followDate = date("Y/m/d", $fDate);
+            $followUpDate = date_create($followDate);
+            date_modify($followUpDate, "+30 days");
+            $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+            
+            /*Bind statement parameters to statement*/
+            $stmt2->bind_param("si", $followUpDateFormatted, $interactionNum);
+            
+            /*Execute statement*/
+            $stmt2->execute();
+            $stmt2->close();
+            
+        } else {
+            //do nothing
+        }
+        
+        
         $conn->close();
 
 		echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";

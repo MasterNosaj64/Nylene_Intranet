@@ -1,7 +1,7 @@
 <?php
     /* Name: sample_form_view.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 12th, 2020
+     * Last Modified: November 27th, 2020
      * Purpose: Displays the information from the Sample form
      */
 
@@ -196,7 +196,7 @@
                     <td> <input type="checkbox" name="coa" value=1 <?php if($qsr['coa'] == 1) {echo "checked";} ?>> COA  </td>
                     <td colspan="2" id="info"> Sample Quantity </td>
                     <td> QTY: <?php echo $qsr['sample_qty'] ?> </td>
-                    <td> Date REQ: <?php echo $qsr['sample_req_date'] ?> </td>
+                    <td> Date Required: <?php echo $qsr['sample_req_date'] ?> </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <input type="checkbox" name="data_sheet" value=1 <?php if($qsr['data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
