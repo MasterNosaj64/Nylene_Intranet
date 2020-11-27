@@ -34,7 +34,11 @@
         $distributorResults = $conn->query($distributorQuery);
         $distRow = mysqli_fetch_array($distributorResults);
         
-        $PaymentTerms = $distRow['payment_terms'];
+        if ($distRow['range40up'] != null) {
+            $quoteProduced = 1;
+        } else {
+            $quoteProduced = 0;
+        }
         
         
         
@@ -61,7 +65,7 @@
         		 * base value (truck_load) if the generateQuote checkbox is checked, otherwise it will keep 
         		 * the fields blank */
         			function updateQuoteConversion(){
-        
+            			 
         				if (document.getElementById('generateQuote').checked) { 
         				    document.getElementById('range40up').value=
         				    	document.getElementById('truck_load').value + '.00/lb'; 
@@ -197,17 +201,29 @@
             			<td><label for="application"> Application </label></td>
             			<td><input type="text" name="application" value="<?php echo $distRow['application'];?>"></td>
             		</tr>
+            <?php if ($quoteProduced == 1){ ?>
             		<tr>
             			<!--Truck_load - Base Value-->
             			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
-            			<td><input type="number" name="truck_load" onkeyup="valuePresent('generateQuote', this)" value="<?php echo $distRow['truck_load'];?>"></td>
+            			<td><input type="number" id=truck_load name="truck_load" onkeyup="valuePresent('generateQuote', this)" value="<?php echo $distRow['truck_load'];?>"></td>
+            		</tr>
+            		<tr>
+            			<!--Checkbox to Generate Quote -->
+            			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" checked/>
+            			<label for = "generateQuote">Check box to generate quote below</label></td>
+            		</tr>
+    		<?php } else { ?>
+    				<tr>
+            			<!--Truck_load - Base Value-->
+            			<td><label for="truck_load"> Truckload, 40,000lb </label></td>
+            			<td><input type="number" id=truck_load name="truck_load" onkeyup="valuePresent('generateQuote', this)" value="<?php echo $distRow['truck_load'];?>"></td>
             		</tr>
             		<tr>
             			<!--Checkbox to Generate Quote -->
             			<td><input type="checkbox" id="generateQuote" name="generateQuote" value="N" onchange="updateQuoteConversion()" disabled/>
             			<label for = "generateQuote">Check box to generate quote below</label></td>
             		</tr>
-    		
+            <?php } ?>
             		<thead><tr>
             			<th colspan="2">- Terms -</th>
             		</tr></thead>
@@ -216,7 +232,7 @@
             			<td> Payment terms are USD $ Funds, Net </td>
             			<td>
                 	  		<label for="payment_terms">Select/enter payment terms:</label>
-             				<input type="text" id="payment_terms" name="payment_terms" list="payment_options" value="<?php echo $PaymentTerms; ?>"/>
+             				<input type="text" id="payment_terms" name="payment_terms" list="payment_options" value=<?php echo $distRow['payment_terms'];?>/>
              				<datalist id="payment_options">
              					<option selected value="30 days">
              					<option value="45 days">
@@ -245,35 +261,37 @@
             			<td><label for="special_terms"> Special terms and conditions </label></td>
             			<td><input type="text" name="special_terms" value="<?php echo $distRow['special_terms'];?>"></td>
             		</tr>
-            
             		<tr>
             			<!--Quote -  40,000+ lb.-->
             			<td> 40,000 lb. + </td>
-            			<td><input type="text" name="range40up" readonly value="<?php echo $distRow['range40up'];?>"></td>
+            			<td><input type="text" id="range40up" name="range40up" readonly value="<?php echo $distRow['range40up'];?>"></td>
             		</tr>
             		<tr>
             		 <!--Quote - 22,000 - 39,999 lb-->	
             			<td> 22,000 - 39,999 lb. bags, 21,000 - 39,999 lb. box </td>
-            			<td><input type="text" name="range2240" readonly value="<?php echo $distRow['range2240'];?>"></td>
+            			<td><input type="text" id="range2240" name="range2240" readonly value="<?php echo $distRow['range2240'];?>"></td>
             		</tr>
             		<tr>
             			 <!--Quote - 11,000 - 21,999 lb-->
             			<td> 11,000 - 21,999 lb. bags, 10,500 - 20,999 lb. box </td>
-            			<td><input type="text" name="range1122" readonly value="<?php echo $distRow['range1122'];?>"></td>
+            			<td><input type="text" id="range1122" name="range1122" readonly value="<?php echo $distRow['range1122'];?>"></td>
             		</tr>
             		<tr>
             			<!--Quote - 6,600 - 10,999 lb-->
             			<td> 6,600 - 10,999 lb. bags, 6,000 - 10,499 lb. box </td>
-            			<td><input type="text" name="range610"  readonly value="<?php echo $distRow['range610'];?>"></td>
+            			<td><input type="text" id="range610" name="range610"  readonly value="<?php echo $distRow['range610'];?>"></td>
             		</tr>
             		<tr>
             			 <!--Quote - 2,200 - 4,399 lb.-->
             			<td> 2,200 - 4,399 lb. bags, 1,500 - 2,999 lb. box </td>
-            			<td><input type="text" name="range24" readonly value="<?php echo $distRow['range24'];?>"></td>
+            			<td><input type="text" id="range24" name="range24" readonly value="<?php echo $distRow['range24'];?>"></td>
             		</tr>
+            
             		<tr>
             			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
-            			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"> </td>
+            			<td colspan="1"> <input type="reset" value= "reset" style="width:100%">
+							<input hidden type="number" id="distributor_id" name="distributor_id" value="<?php echo $distRow['distributor_quote_id'];?>"/>
+						</td>
             		</tr>
         		</table>
         	</form>
