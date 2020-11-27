@@ -295,7 +295,7 @@
         		</tr>
             <tr>
     			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
-    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"><input hidden type="number" id="tl_quote_id" name="tl_quote_id" value="<?php echo $tlRow['tl_quote_id'];?>" </td>
+    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"><input hidden type="number" id="tl_quote_id" name="tl_quote_id" value="<?php echo $tlRow['tl_quote_id'];?>"/> </td>
     		</tr>
             </table>
         </form>
