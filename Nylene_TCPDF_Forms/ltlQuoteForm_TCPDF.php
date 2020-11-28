@@ -1,11 +1,11 @@
 <?php
 /*
- * FileName: tlQuoteForm_TCPDF.php
- * Version Number: 0.5
- * Date Modified: 11/22/2020
+ * FileName: ltlQuoteForm_TCPDF.php
+ * Version Number: 1.0
+ * Date Modified: 11/28/2020
  * Author: Jason Waid
  * Purpose:
- * Creates PDF file for tlquote
+ * Creates PDF file for ltlquote
  */
 
 // Include the Extended TCPDF library

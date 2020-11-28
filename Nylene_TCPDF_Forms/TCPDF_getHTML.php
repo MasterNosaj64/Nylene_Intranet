@@ -1,8 +1,8 @@
 <?php
 /*
  * FileName: TCPDF_getHTML.php
- * Version Number: 0.5
- * Date Modified: 11/22/2020
+ * Version Number: 0.9
+ * Date Modified: 11/28/2020
  * Author: Jason Waid
  * Purpose:
  * All function for handling and creating html data for TCPDF Forms
@@ -150,7 +150,7 @@ function create_QuoteOutroHTML($employee_id)
 
     $content .= '
     <div>
-        <div>Prices quoted price is based on the current economic conditions and supplier reserves the right to evaluate the pricing in the case of any significant changes in the cost of the components of the product.
+        <div>Prices quoted are based on the current economic conditions and supplier reserves the right to evaluate the pricing in the case of any significant changes in the cost of the components of the product.
         </div>
         <div>Lead time of this product is 4 to 6 weeks. Customer is to supply an accurate 90 day rolling forecast.
         </div>
