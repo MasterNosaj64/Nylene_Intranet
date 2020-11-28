@@ -229,6 +229,8 @@ $content .= '
     			</tr>
     		</table>';
 
+$content .= create_QuoteOutroHTML($userRow['employee_id']);
+
 // set font
 $pdf_obj->SetFont('helvetica', '', 12);
 

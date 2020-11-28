@@ -56,7 +56,7 @@ function create_CompanyHTML($company_id)
     $db_conn->close();
 
     $companyName = $companyObj->getName();
-    //$companyAddress = $companyObj->getBillingAddress();
+    // $companyAddress = $companyObj->getBillingAddress();
     $companyAddressStreet = $companyObj->getBillingAddressStreet();
     $companyAddressCity = $companyObj->getBillingAddressCity();
     $companyAddressState = $companyObj->getBillingAddressState();
@@ -67,7 +67,7 @@ function create_CompanyHTML($company_id)
     $content = "";
 
     $content .= '
-    <div>' . $companyName . '<br>' . $companyAddressStreet . '<br>'.$companyAddressCity.', '.$companyAddressState.'<br>'.$companyAddressPostalCode.'<br>'.$companyAddressCountry.'<br><a href="' . $companyEmail . '">' . $companyEmail . '</a>
+    <div>' . $companyName . '<br>' . $companyAddressStreet . '<br>' . $companyAddressCity . ', ' . $companyAddressState . '<br>' . $companyAddressPostalCode . '<br>' . $companyAddressCountry . '<br><a href="' . $companyEmail . '">' . $companyEmail . '</a>
     </div>';
 
     return $content;
@@ -124,3 +124,46 @@ function create_QuoteIntroHTML($customer_id)
 
     return $content;
 }
+
+/*
+ * Function: create_EmployeeHTML
+ * Purpose:
+ * Creates Employee HTML elements
+ * returns a string containing the HTML mark up
+ */
+function create_QuoteOutroHTML($employee_id)
+{
+
+    // database connection
+    $db_conn = getDBConnection();
+    $employeeObj = new Employee($db_conn);
+    $employeeObj = $employeeObj->searchById($employee_id);
+    $db_conn->close();
+
+    $employeeName = $employeeObj->getName();
+    // $employeePhone = $employeeObj->getWork_Phone();
+    // $employeeEmail = $employeeObj->getEmployee_Email();
+    $employeeTitle = $employeeObj->getTitle();
+
+    // Quoted by
+    $content = "";
+
+    $content .= '
+    <div>
+        <div>Prices quoted price is based on the current economic conditions and supplier reserves the right to evaluate the pricing in the case of any significant changes in the cost of the components of the product.
+        </div>
+        <div>Lead time of this product is 4 to 6 weeks. Customer is to supply an accurate 90 day rolling forecast.
+        </div>
+        <div>Purchase orders should include: Nylene product number, packaging type and release quantity, credit terms, required ship date, 
+        specifications and approvals required, customer part number if required, and any other special instructions.
+        </div>
+        <p>Please review this information and let me know if there are any questions.</p>
+        <p>We thank you for your business.</p>
+        <p><span>' . $employeeName . '</span></p>
+        <p><br>' . $employeeTitle . '</p>
+</div>
+';
+
+    return $content;
+}
+
