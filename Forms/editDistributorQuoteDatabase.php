@@ -2,7 +2,8 @@
     /* Name: editDistributorQuoteDatabase.php
      * Author: Kaitlyn Breker
      * Last Modified: November 28th, 2020
-     * Purpose: Update file for edit distributor form
+     * Purpose: Update file for edit distributor form. Inserts into interaction 
+     * autoupdated fields, and followup date information.
      */
 session_start();
 include '../Database/connect.php';
