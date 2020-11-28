@@ -232,9 +232,9 @@
             			<td> Payment terms are USD $ Funds, Net </td>
             			<td>
                 	  		<label for="payment_terms">Select/enter payment terms:</label>
-             				<input type="text" id="payment_terms" name="payment_terms" list="payment_options" value=<?php echo $distRow['payment_terms'];?>/>
+             				<input type="text" id="payment_terms" name="payment_terms" list="payment_options" value="<?php echo $distRow['payment_terms'];?>"/>
              				<datalist id="payment_options">
-             					<option selected value="30 days">
+             					<option value="30 days">
              					<option value="45 days">
                 				<option value="60 days">
                 				<option value="90 days">

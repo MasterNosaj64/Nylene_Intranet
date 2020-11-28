@@ -61,70 +61,70 @@ if ($conn-> connect_error) {
     $old_range1122 = $distRow['range1122'];
     $old_range610 = $distRow['range610'];
     $old_range24 = $distRow['range24'];
+    
     $commentString = "";
-    $dateModified = "thisisthedatefornow";
     $autoUpdate = 0;
+    $dateModified = date("Y-m-d");
+
     
     /*CREATE STRING OF EDITS*/
-    $commentString = "Date Modified: {$dateModified}, Fields: ";
+    $commentString = "Form Modified on {$dateModified}. Old form value(s): ";
     
     /*Compare with fields passed from edit forms, set autoUpdate to 1 if changes, 0 if no changes*/
     /*If any fields changes, Create string by apending changes "Date Modified: Todays Date, Fields: ... -> ..., ... -> ..."*/
-  //  if ($old_quoteDate != $quoteDate){
- //       $autoUpdate = 1;
-  //      $commentString .= "{$old_quoteDate} -> {$quoteDate}, ";
-    //}
+    if ($old_quoteDate != $quoteDate){ //this one
+        $autoUpdate = 1;
+        $commentString .= "Quote Date: {$old_quoteDate}, ";
+    }
     if(strcmp($old_quoteNum, $quoteNum) !== 0){
         $autoUpdate = 1;
-        $commentString .= "{$old_quoteNum} -> {$quoteNum}, ";
-        
+        $commentString .= "Quote Num: {$old_quoteNum}, ";
     }
     if (strcmp($old_productName, $productName) !== 0){
         $autoUpdate = 1;
-        $commentString .= "{$old_productName} -> {$productName}, ";
-        
+        $commentString .= "Product Name: {$old_productName}, ";  
     }
     if (strcmp($old_payment_terms, $payment_terms) !== 0){
         $autoUpdate = 1;
-        $commentString .= "{$old_payment_terms} -> {$payment_terms}, ";
+        $commentString .= "Payment Terms: {$old_payment_terms}, ";
     }
-    if (strcmp($old_productDesc, $old_productDesc) !== 0){
+    if (strcmp($old_productDesc, $productDesc) !== 0){
         $autoUpdate = 1;
+        $commentString .= "Product Desc: {$old_productDesc}, ";
     }
     if (strcmp($old_ltlQuantities, $ltlQuantities) !== 0){
         $autoUpdate = 1;
+        $commentString .= "LTL Quant: {$old_ltlQuantities}, ";
     }
-    if ($old_annualVol != $old_annualVol){
+    if ($old_annualVol != $old_annualVol){ 
         $autoUpdate = 1;
+        $commentString .= "Annual Volume: {$old_annualVol}, ";
     }
     if (strcmp($old_specialTerms, $specialTerms) !==0) {
         $autoUpdate = 1;
+        $commentString .= "Special Terms: {$old_specialTerms}, ";
     }
     if (strcmp($old_OEM, $OEM) !== 0){
         $autoUpdate = 1;
+        $commentString .= "OEM: {$old_OEM}, ";
     }
     if (strcmp($old_application, $application) !== 0){
         $autoUpdate = 1;
+        $commentString .= "Application value: {$old_application}, ";
     }
-    if ($old_truckLoad != $truckLoad){
+    if ($old_truckLoad != $truckLoad){ //this one
         $autoUpdate = 1;
+        $commentString .= "TruckLoad: {$old_truckLoad}, ";
     }
     if ($old_range40up != $range40up){
         $autoUpdate = 1;
-        $commentString .= "Old Quote: {$old_range40up}, {$old_range2240}, {$old_range1122}, {$old_range610}, {$old_range24}, ";
+        if ($old_range40up == null){
+            $commentString .= "New quote created, ";
+        } else {
+            $commentString .= "Old Quote: {$old_range40up}, {$old_range2240}, {$old_range1122}, {$old_range610}, {$old_range24}, ";
+        }
     }
-/*     if ($old_range2240 != $range2240){
-        $autoUpdate = 1;
-    }
-    if ($old_range1122 != $range1122){
-        $autoUpdate = 1;
-    }
-    if ($old_range610 != $range610){
-        $autoUpdate = 1;
-    }
-    if ($old_range24 != $range24){
-        $autoUpdate = 1;
-    } */
+
     $commentString .= "END Modified.";
     
    
@@ -133,10 +133,6 @@ if ($conn-> connect_error) {
 								WHERE interaction_id = ". $interactionNum;
     $interactionResult = $conn->query($interactionQuery);
     $interactionRow = mysqli_fetch_array($interactionResult);
-    
-    /*Get length(comments)*/
-    /*Ensure length(comments) does not reach max length of field*/
-    
     
     /*UPDATING THE FORM IN THE DATABASE*/
     /*Prepare update statement into the distributor_quote_form table*/
@@ -199,11 +195,16 @@ if ($conn-> connect_error) {
     /*UPDATING THE COMMENTS IN THE INTERACTION TABLE*/
     /*If autoUpdate == 1, do changes*/
     if ($autoUpdate == 1){
+
+        //Implement This
+        /*Ensure strlen(comments) does not reach max length of field*/
+        
+        
         $comments = $interactionRow['comments'];
         $comments .= "\n{$commentString}";
         $stmt3 = $conn->prepare("UPDATE interaction SET 
-                                    comments = ? 
-                                    WHERE interaction_id = ?");
+                                        comments = ? 
+                                        WHERE interaction_id = ?");
         $stmt3->bind_param("si", $comments, $interactionNum);
         $stmt3->execute();
         $stmt3->close();
