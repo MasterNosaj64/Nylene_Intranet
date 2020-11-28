@@ -16,8 +16,38 @@ if ($conn-> connect_error) {
     
 } else {
     
+   
     $interactionNum = $_SESSION['interaction_id'];
     
+    /*Assign values to variables and execute*/
+    $distributorID = htmlspecialchars(strip_tags($_POST["distributor_id"]));
+    $quoteDate = htmlspecialchars(strip_tags($_POST["quote_date"]));
+    $quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
+    $productName = htmlspecialchars(strip_tags($_POST["product_name"]));
+    $payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
+    $productDesc = htmlspecialchars(strip_tags($_POST["product_desc"]));
+    $ltlQuantities = htmlspecialchars(strip_tags($_POST["ltl_quantities"]));
+    $annualVol = htmlspecialchars(strip_tags($_POST["annual_vol"]));
+    $specialTerms = htmlspecialchars(strip_tags($_POST["special_terms"]));
+    $OEM = htmlspecialchars(strip_tags($_POST["OEM"]));
+    $application = htmlspecialchars(strip_tags($_POST["application"]));
+    $truckLoad = htmlspecialchars(strip_tags($_POST["truck_load"]));
+    $range40up = htmlspecialchars(strip_tags($_POST["range40up"]));
+    $range2240 = htmlspecialchars(strip_tags($_POST["range2240"]));
+    $range1122 = htmlspecialchars(strip_tags($_POST["range1122"]));
+    $range610 = htmlspecialchars(strip_tags($_POST["range610"]));
+    $range24 = htmlspecialchars(strip_tags($_POST["range24"]));
+    
+    /*AUTO UPDATE INTERACTION COMMENTS*/
+    /*Select current database fields*/
+    /*Get length(comments)*/
+    /*Compare with fields passed from edit forms, set autoUpdate to 1 if changes, 0 if no changes*/
+    /*If any fields changes, Create string by apending changes "Date Modified: Todays Date, Fields: ... -> ..., ... -> ..."*/
+    /*Ensure length(comments) does not reach max length of field*/
+    
+    
+    
+    /*UPDATING THE FORM IN THE DATABASE*/
     /*Prepare update statement into the distributor_quote_form table*/
     $stmt = $conn->prepare("UPDATE distributor_quote_form SET
             					quote_date = ?,
@@ -38,24 +68,6 @@ if ($conn-> connect_error) {
             					range24 = ?
                                 WHERE distributor_quote_id = ?");
     
-    /*Assign values to variables and execute*/
-    $distributorID = htmlspecialchars(strip_tags($_POST["distributor_id"]));
-    $quoteDate = htmlspecialchars(strip_tags($_POST["quote_date"]));
-    $quoteNum = htmlspecialchars(strip_tags($_POST["quote_num"]));
-    $productName = htmlspecialchars(strip_tags($_POST["product_name"]));
-    $payment_terms = htmlspecialchars(strip_tags($_POST["payment_terms"]));
-    $productDesc = htmlspecialchars(strip_tags($_POST["product_desc"]));
-    $ltlQuantities = htmlspecialchars(strip_tags($_POST["ltl_quantities"]));
-    $annualVol = htmlspecialchars(strip_tags($_POST["annual_vol"]));
-    $specialTerms = htmlspecialchars(strip_tags($_POST["special_terms"]));
-    $OEM = htmlspecialchars(strip_tags($_POST["OEM"]));
-    $application = htmlspecialchars(strip_tags($_POST["application"]));
-    $truckLoad = htmlspecialchars(strip_tags($_POST["truck_load"]));
-    $range40up = htmlspecialchars(strip_tags($_POST["range40up"]));
-    $range2240 = htmlspecialchars(strip_tags($_POST["range2240"]));
-    $range1122 = htmlspecialchars(strip_tags($_POST["range1122"]));
-    $range610 = htmlspecialchars(strip_tags($_POST["range610"]));
-    $range24 = htmlspecialchars(strip_tags($_POST["range24"]));
     
     /*Bind statement parameters to statement*/
     $stmt->bind_param("ssssssisssisssssi", $quoteDate, $quoteNum, $productName, $payment_terms, $productDesc,
@@ -98,6 +110,13 @@ if ($conn-> connect_error) {
     } else {
         //do nothing
     }
+    
+    /*If autoUpdate == 1, do changes*/
+    /*stmt3 = $conn->prepare(UPDATE interaction SET comments = ? WHERE interaction_id = ?");*/
+    /*$stmt3->bind_param("si", $autoComments, $interactionNum);*/
+    /*stmt3->execute();*/
+    /*stmt3->close();*/
+    /*else no nothing*/
     
     /*Close connection*/
     $conn->close();
