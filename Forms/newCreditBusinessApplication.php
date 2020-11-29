@@ -6,8 +6,19 @@
  */
 session_start();
 include '../Database/connect.php';
-defined('key') ? null : define('key', '84h84hjbgjrh848693');
+//defined('key') ? null : define('key', '84h84hjbgjrh848693');
 
+$myFile = "C:\Users\isham\key.txt";
+$file = fopen($myFile, "r");
+
+if($file){
+while(!feof($file)){
+    //$key = fgets($file);
+   defined ('key') ? null : define('key', 'fgets($file)');
+}
+
+fclose($file);
+}
 // getDBConnection to get connection
 $conn = getDBConnection();
 
