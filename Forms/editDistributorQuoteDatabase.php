@@ -204,6 +204,7 @@ if ($conn-> connect_error) {
         
         /*Only update the comments in the interaction if the max length is not reached*/
         $old_commentLength = strlen($comments); 
+        
         if($old_commentLength >= 1024){
            //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
         } else {
