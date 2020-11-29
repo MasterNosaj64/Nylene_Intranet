@@ -73,7 +73,7 @@ if ($conn-> connect_error) {
     
     /*Compare with fields passed from edit forms, set autoUpdate to 1 if changes, 0 if no changes*/
     /*If any fields changes, Create string by apending changes "Date Modified: Todays Date, Fields: ... -> ..., ... -> ..."*/
-    if ($old_quoteDate != $quoteDate){ //this one
+    if (strcmp($old_quoteDate, $quoteDate) !== 0){
         $autoUpdate = 1;
         $commentString .= "Quote Date: {$old_quoteDate}, ";
     }
