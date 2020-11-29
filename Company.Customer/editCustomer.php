@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
         die("Connection failed: " . $conn_Customer->connect_error);
     }
 
-    // Get object
+    // check if customer data already exists
     $customerToEdit = new Customer($conn_Customer);
 
     $findCustomerToEdit = $customerToEdit->searchExact($customer_name, $customer_email, $customer_phone, $customer_fax);
@@ -73,21 +73,16 @@ if (isset($_POST['submit'])) {
 
     // if found something
     if ($findCustomerToEdit != NULL) {
+        
+        $conn_Customer = getDBConnection();
+        $customerToEdit = new Customer($conn_Customer);
+        $customerToEdit = $customerToEdit->searchById($customer_id);
+        
         echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
 
-        $conn_Customer = getDBConnection();
-
-        $customerToEdit = new Customer($conn_Customer);
-
-        $customerToEdit = $customerToEdit->searchById($customer_id);
-
-        // close connection and statement
         $conn_Customer->close();
+     
     } else {
-        // else didn't find something
-        $conn_Customer->close();
-        // $findCustomerToEdit->close();
-
         $conn_Customer = getDBConnection();
 
         if ($conn_Customer->connect_error) {
