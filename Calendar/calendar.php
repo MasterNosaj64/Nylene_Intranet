@@ -82,20 +82,33 @@
         $interactionResultStr = '"No"';
         $dateStr = "'" . $date . "'";
         
-        /*Select interactions from interaction table*/
-        $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
-        $result_interactions = $conn->query($interactionInformation);
-        $interactionResult = array();
-        while ($row = mysqli_fetch_assoc($result_interactions)) {
-            $interactionResult[] = $row;
+        /*Select interactions from interaction table based on access level*/
+        if (strcmp($userAccess,'ind_rep') === 0){
+            $interactionInformation = "SELECT * FROM interaction 
+                                            WHERE follow_up_date = " . $dateStr .
+                                                "AND employee_id = ". $_SESSION['userid'];
+            $result_interactions = $conn->query($interactionInformation);
+            $interactionResult = array();
+            while ($row = mysqli_fetch_assoc($result_interactions)) {
+                $interactionResult[] = $row;
+            }
+            
+        } else {
+            $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
+            $result_interactions = $conn->query($interactionInformation);
+            $interactionResult = array();
+            while ($row = mysqli_fetch_assoc($result_interactions)) {
+                $interactionResult[] = $row;
+            }
+         
         }
+        
         if (! empty($interactionResult)) {
             $interactionResultStr = json_encode($interactionResult);
-    
+            
             $interaction_namesArr = array_column($interactionResult, 'interaction_id');
             $interaction_nameStr = implode("<br>", $interaction_namesArr);
         }
-    
         
         /*Is this the list notifications?*/
         if ($today == $date) {
