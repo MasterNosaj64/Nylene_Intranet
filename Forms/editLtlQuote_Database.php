@@ -201,12 +201,13 @@
             
             /*Only update the comments in the interaction if the max length is not reached*/
             $old_commentLength = strlen($comments);
+            
             if($old_commentLength >= 1024){
                 //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
             } else {
                 
                 /*Check new comments for length*/
-                $comments .= "\n{$commentString}";
+                $comments .= "\n\n{$commentString}";
                 $newCommentLength = strlen($comments);
                 
                 if($newCommentLength < 1024){
