@@ -84,10 +84,9 @@ if (isset($_POST['company_id_edit'])) {
         // Check if all entered values already exist for a company
         $companyToEdit = new Company($conn_editCompany);
         $companyToEdit = $companyToEdit->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
-
+        
         // attempt to find company with same values
         if ($companyToEdit == NULL) {
-
             $conn_editCompany = getDBConnection();
 
             if ($conn_editCompany->connect_error) {
@@ -107,7 +106,7 @@ if (isset($_POST['company_id_edit'])) {
             echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php?sort=1\" />;";
             exit();
         } else {
-            echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $_POST['name'] . "\" already exists, OPERATION ABORTED</b></p>";
+            echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $company_name . "\" already exists, OPERATION ABORTED</b></p>";
 
             $companyToEdit = new Company($conn_editCompany);
 

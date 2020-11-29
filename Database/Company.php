@@ -351,15 +351,15 @@ class Company
     function searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)
     {
         $query = "SELECT
-                1
+                COUNT(*)
                 FROM
 			nylene.company WHERE 
             company_name = ? AND
             website = ? AND
             billing_address_street = ? AND
             billing_address_city = ? AND
-            billing_address_postalcode = ? AND
             billing_address_state = ? AND
+            billing_address_postalcode = ? AND
             billing_address_country = ? AND
             shipping_address_street = ? AND
             shipping_address_city = ? AND
@@ -369,8 +369,7 @@ class Company
             description = ? AND
             type = ? AND
             industry = ? AND
-            company_email = ?
-            LIMIT 1";
+            company_email = ?";
         
         
         
@@ -400,11 +399,13 @@ class Company
         
         // execute query
         $stmt->execute();
-
+        $count = 0;
+        
         // bind the results
-        //$stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
-
-        $count = $stmt->fetch();
+        $stmt->bind_result($count);
+        
+        $stmt->fetch();
+        
         $stmt->close();
         
         // return count
