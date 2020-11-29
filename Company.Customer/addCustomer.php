@@ -64,7 +64,7 @@ if (isset($_SESSION['company_id'])) {
         $conn_Customer->close();
         $conn_Relational->close();
 
-        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php?sort=1\" />;";
         exit();
     }
 } else {

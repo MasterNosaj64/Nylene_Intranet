@@ -48,6 +48,7 @@
 <html>
     <head>
       <link rel="stylesheet" type="text/css" href="../CSS/form.css">
+      <title>Edit Sample Form</title>
 	</head>
 	<body height="100%" width="100%">
         	<form name="sample_form" action="editSampleDatabase.php" method="POST" onsubmit="return validateForm()">

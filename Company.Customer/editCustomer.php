@@ -38,7 +38,7 @@ $customerToEdit = new Customer($conn_Customer);
 
 $customerToEdit = $customerToEdit->searchById($customer_id);
 
-if (!$customerToEdit) {
+if (! $customerToEdit) {
     die("Company data corrupt or connection failed, OPPERATION ABORTED");
 } // else didn't find something
 
@@ -58,51 +58,48 @@ if (isset($_POST['submit'])) {
     $customer_fax = $_POST['customer_fax'];
 
     $conn_Customer = getDBConnection();
-    
+
     // Handler for if the database connection fails
     if ($conn_Customer->connect_error) {
         die("Connection failed: " . $conn_Customer->connect_error);
     }
-    
-    
+
     // Get object
+    // $customerToEdit = new Customer($conn_Customer);
+
+    // $findCustomerToEdit = $customerToEdit->searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+
+    // // if found something
+    // if ($findCustomerToEdit->fetch()) {
+    // echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
+
+    // // close connection and statement
+    // $conn_Customer->close();
+    // $findCustomerToEdit->close();
+    // } else {
+    // else didn't find something
+    $conn_Customer->close();
+    // $findCustomerToEdit->close();
+
+    $conn_Customer = getDBConnection();
+
+    if ($conn_Customer->connect_error) {
+        die("Connection failed: " . $conn_Customer->connect_error);
+    }
+
     $customerToEdit = new Customer($conn_Customer);
 
-    $findCustomerToEdit = $customerToEdit->searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
-
-    // if found something
-    if ($findCustomerToEdit->fetch()) {
-        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
-
-        // close connection and statement
-        $conn_Customer->close();
-        $findCustomerToEdit->close();
-    } else {
-        // else didn't find something
-        $conn_Customer->close();
-        $findCustomerToEdit->close();
-
-        $conn_Customer = getDBConnection();
-
-        if ($conn_Customer->connect_error) {
-            die("Connection failed: " . $conn_Customer->connect_error);
-        }
-
-        $customerToEdit = new Customer($conn_Customer);
-
-        
-        if (! $findCustomerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
-            die("Company data corrupt or connection failed, OPPERATION ABORTED");
-        }
-
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
-        exit();
+    if (! $customerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
+        die("Company data corrupt or connection failed, OPPERATION ABORTED");
     }
-    
-    
+
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
+    exit();
 }
 
-$customer_name = explode(" ",$customerToEdit->getName());
+// }
+
+$customer_name = explode(" ", $customerToEdit->getName());
 
 ?>
 
@@ -120,16 +117,18 @@ $customer_name = explode(" ",$customerToEdit->getName());
 		<input type="reset" value="Clear"> <input hidden name="customer_id"
 			value="<?php echo $customerToEdit->getCustomerId();?>" />
 		<table class="form-table" border=1>
-			<thead><tr>
-				<td colspan=4><h2>Customer</h2></td>
-			</tr></thead>
+			<thead>
+				<tr>
+					<td colspan=4><h2>Customer</h2></td>
+				</tr>
+			</thead>
 			<tr>
 				<td>*First Name:</td>
-				<td><input type="text" value="<?php echo $customer_name[0];?>" required
-					name="firstName"></td>
+				<td><input type="text" value="<?php echo $customer_name[0];?>"
+					required name="firstName"></td>
 				<td>*Last Name:</td>
-				<td><input type="text" value="<?php echo $customer_name[1];?>" required
-					name="lastName"></td>
+				<td><input type="text" value="<?php echo $customer_name[1];?>"
+					required name="lastName"></td>
 			</tr>
 			<tr>
 				<td>*Email:</td>
@@ -138,7 +137,8 @@ $customer_name = explode(" ",$customerToEdit->getName());
 					name="customer_email"></td>
 				<td>Phone:</td>
 				<td><input type="tel"
-					value="<?php echo $customerToEdit->getPhone();?>" name="customer_phone"></td>
+					value="<?php echo $customerToEdit->getPhone();?>"
+					name="customer_phone"></td>
 			</tr>
 			<tr>
 				<td>Fax:</td>

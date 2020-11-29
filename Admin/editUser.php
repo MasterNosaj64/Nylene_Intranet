@@ -46,6 +46,7 @@ $employee_email=$rows['employee_email'];
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
+<title>Edit User</title>
 </head>
 
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

@@ -46,6 +46,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../CSS/form.css">
+        <title>Sample Form</title>
 		<script>
 		/*Function to validateForm*/
       		function validateForm ()

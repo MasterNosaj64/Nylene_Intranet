@@ -51,7 +51,7 @@ session_start();
 <html>
 <head> 
   <link rel="stylesheet" type="text/css" href = "../CSS/form.css">
-    <title> View Marketing Materials Request Form</title>
+    <title>View Marketing Materials Request Form</title>
 </head>
 <form  method="post" action="MMform_Database.php"   name="MMForm";>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table"> 
