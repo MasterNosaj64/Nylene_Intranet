@@ -127,11 +127,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 
 <html>
 <head>
-<!--
-  <link rel="stylesheet" href="../CSS/table.css">
-
-
--->
+<link rel="stylesheet" href="../CSS/form.css">
 <title>View Company</title>
 </head>
 <!-- Buttons for adding customer or viewing Comapny History -->
@@ -153,8 +149,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			</form>
 		</td>
 	</tr>
-	<tr>
-		<td>
+</table>
 
 <?php
 
@@ -169,10 +164,6 @@ if (isset($_GET['sort'])) {
 ?>
 
 
-
-
-
-</table>
 <table class="form-table" border=1>
 	<thead>
 		<tr>
@@ -239,69 +230,49 @@ for ($offset = $_SESSION['offset']; $customerBuffer->valid(); $customerBuffer->n
 $conn_Company->close();
 $conn_Customers->close();
 ?>
-
-	<!-- Next 10 Previous 10 Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of customers
+</table>
+<!-- Next 10 Previous 10 Buttons -->
+<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	
+<table>
+	<tr>
+		<td>
+			<form method='post'
+				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
-
-if (isset($_GET['sort'])) {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='viewCompany.php?sort={$_GET['sort']}'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='viewCompany.php?sort={$_GET['sort']}'>";
-    if ($offset == $customerBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $customerBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
-} else {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='viewCompany.php'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='viewCompany.php'>";
-    if ($offset == $customerBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $customerBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
+if ($_SESSION['offset'] == 0) {
+    echo "<fieldset disabled ='disabled'>";
 }
 ?>
-	</html>
+    <input hidden='true' name='previous'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='&#x21DA; Previous' />
+    <?php
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+    ?>
+	</form>
+		</td>
+		<td>
+			<form method='post'
+				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
+	<?php
+if ($offset == $customerBuffer->count()) {
+    echo "<fieldset disabled ='disabled'>";
+}
+?>
+    <input hidden='true' name='next'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='Next &#x21DB;' />
+	<?php
+if ($offset == $customerBuffer->count()) {
+    echo "</fieldset>";
+}
+?>
+    
+	</form>
+		</td>
+	</tr>
+</table>
+</html>

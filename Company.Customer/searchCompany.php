@@ -36,7 +36,7 @@ $conn_Employee = getDBConnection();
 
 // Handler for if the database connection fails
 if ($conn_Company->connect_error || $conn_Employee->connect_error) {
-    die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_employee->connect_error);
+    die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_Employee->connect_error);
 } else {
 
     /*
@@ -94,7 +94,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <html>
 <head>
 <title>Search Company</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body style="overflow: scroll">
 	<!-- NEW Company Search -->
@@ -113,7 +113,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 					<td>Website:</td>
 					<td><input type="text" value="http://" name="search_By_Website" /></td>
 					<td>Assigned To:</td>
-					<td><select name="search_By_Assigned_To">
+					<td><select id="selection" name="search_By_Assigned_To">
 							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
@@ -150,42 +150,6 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 		</form>
 
 	</div>
-
-	<!-- Script for collapsible search menu -->
-	<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
-	<script>
-document.getElementById("searchButton").addEventListener("click", function() {
-
-if(this.value == 0){
-	this.innerHTML = "Hide Search";
-	this.value = 1;
-	event.target.style = "background-color: rgb(211, 211, 211); color: #000000; font-weight: bold;";
-}
-else if(this.value == 1){
-	this.innerHTML = "Expand Search";
-	this.value = 0;
-	event.target.style = "background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;";
-}	
-});
-
-
-
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
 <?php
 // Change this variable to modify the page size
 $maxGridSize = 4;
@@ -233,51 +197,16 @@ if (isset($_GET['sort'])) {
 }
 
 ?>
-
-<!-- Company Search -->
+	<!-- Company Search -->
 	<!-- Below is the table that is presented to the user for the query results on the Company table -->
-	<table class="form-table" border=5>
+	<table class="form-table">
 		<thead>
 			<tr> 
 		<?php printHeadersCompany($sortType)?>	
 		</tr>
 		</thead>
 
-
-		<!-- Script for Sorting columns -->
-		<script>
-	
-	var td = document.getElementsByClassName("ColSort");
-	var i;
-
-	for (i = 0; i < td.length; i++) {
-
-	td[i].addEventListener("click", colSort);
-	td[i].addEventListener("mouseover", function(event){
-	
-		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
-		}, false);
-
-	td[i].addEventListener("mouseout", function(event){
-	
-		event.target.style = "";
-		}, false);
-	
-	}
-
-function colSort(){
-
-		
-		var col = this.getAttribute("data-colnum");
-		window.location.href = "./searchCompany.php?sort=" + col;
-	
-}
-
-	
-	</script>
-
 <?php
-
 for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->next()) { // Unserialize the object stored in the companyBuffer
 
     $currentCompanyNode = unserialize($companyBuffer->current()); // temp var for storing current company data members
@@ -339,67 +268,119 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 }
 $conn_Company->close();
 ?>
-
+</table>
 	<!-- Next 10 Previous 10 Buttons -->
-		<!-- The following code presents the user with buttons to navigate the list of companies
+	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
+	<table>
+		<tr>
+			<td>
+				<form method='post'
+					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
-if (isset($_GET['sort'])) {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='searchCompany.php?sort={$_GET['sort']}'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='searchCompany.php?sort={$_GET['sort']}'>";
-    if ($offset == $companyBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $companyBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
-} else {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='searchCompany.php'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='searchCompany.php'>";
-    if ($offset == $companyBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $companyBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
+if ($_SESSION['offset'] == 0) {
+    echo "<fieldset disabled ='disabled'>";
 }
 ?>
+    <input hidden='true' name='previous'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='&#x21DA; Previous' />
+    <?php
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+    ?>
+	</form>
+			</td>
+			<td>
+				<form method='post'
+					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
+	<?php
+if ($offset == $companyBuffer->count()) {
+    echo "<fieldset disabled ='disabled'>";
+}
+?>
+    <input hidden='true' name='next'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='Next &#x21DB;' />
+	<?php
+if ($offset == $companyBuffer->count()) {
+    echo "</fieldset>";
+}
+?>
+	</form>
+			</td>
+		</tr>
+	</table>
+
+
+	<!-- Script for collapsible search menu -->
+	<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
+	<script>
+document.getElementById("searchButton").addEventListener("click", function() {
+
+if(this.value == 0){
+	this.innerHTML = "Hide Search";
+	this.value = 1;
+	event.target.style = "background-color: rgb(211, 211, 211); color: #000000; font-weight: bold;";
+}
+else if(this.value == 1){
+	this.innerHTML = "Expand Search";
+	this.value = 0;
+	event.target.style = "background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;";
+}	
+});
+
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+
+
+
+	<!-- Script for Sorting columns -->
+	<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+
+	td[i].addEventListener("click", colSort);
+	td[i].addEventListener("mouseover", function(event){
+	
+		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+		}, false);
+
+	td[i].addEventListener("mouseout", function(event){
+	
+		event.target.style = "";
+		}, false);
+	
+	}
+
+function colSort(){
+
+		
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./searchCompany.php?sort=" + col;
+	
+}
+	</script>
+
 </html>

@@ -43,15 +43,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
     if (isset($_SESSION['company_id'])) {
 
-        /*
-         * The following code handles the offset for the list of companies
-         * Below is an explaination of the variables
-         * next10: the next 10 button
-         * previous10: the previous 10 button
-         * offset: the current offset value for the following query
-         *
-         */
-
         $_SESSION['companyHistoryPage'] = $_SESSION['company_id'];
 
         // Company info table
@@ -64,7 +55,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
         // Get company info
         $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
 
-        //$companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCountry()} {$company->getShippingAddressPostalCode()}";
+        // $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCountry()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
 
@@ -87,7 +78,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 <html>
 <head>
 <title>Company History</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <!-- Button to add an interaction -->
 <form method="post" action="AddInteraction.php">
@@ -130,7 +121,7 @@ if (isset($_SESSION['buffer'])) {
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
-    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "" ,"");
+    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "", "");
     $interactionBuffer = create_Buffer($interactionResult, $interactions);
 
     if (isset($_GET['sort'])) {
@@ -240,72 +231,48 @@ $interaction_Conn->close();
 $company_Conn->close();
 ?>
 
-<!-- Next & Previous Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of customers
+</table>
+<!-- Next 10 Previous 10 Buttons -->
+<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	
+<table>
+	<tr>
+		<td>
+			<form method='post'
+				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
-
-if (isset($_GET['sort'])) {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
-    if ($offset == $interactionBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $interactionBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
-} else {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='companyHistory.php'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='companyHistory.php'>";
-    if ($offset == $interactionBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $interactionBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
+if ($_SESSION['offset'] == 0) {
+    echo "<fieldset disabled ='disabled'>";
 }
 ?>
-
-
-
-
+    <input hidden='true' name='previous'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='&#x21DA; Previous' />
+    <?php
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+    ?>
+	</form>
+		</td>
+		<td>
+			<form method='post'
+				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
+	<?php
+if ($offset == $interactionBuffer->count()) {
+    echo "<fieldset disabled ='disabled'>";
+}
+?>
+    <input hidden='true' name='next'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='Next &#x21DB;' />
+	<?php
+if ($offset == $interactionBuffer->count()) {
+    echo "</fieldset>";
+}
+?>
+	</form>
+		</td>
+	</tr>
+</table>
 </html>
