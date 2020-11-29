@@ -7,21 +7,9 @@
  * Purpose:
  * Controls sensitive session variables used to track navigation of the website
  * Assists with clearing the buffer when neccisary
- * Date Modified: 11/02/2020
+ * Date Modified: 11/29/2020
  */
 
-/*
- * Function name: checkRefresh
- * Purpose: checks if user refreshed page
- * return: boolean
- */
-/*
- * function refresh()
- * {
- * $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
- * return $pageWasRefreshed;
- * }
- */
 /*
  * Unsets company_id session var if the var isn't needed for said page
  * This to to avoid breaking the logic on some pages, which if a session var is set prematurly unexpected
