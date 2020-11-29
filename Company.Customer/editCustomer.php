@@ -109,7 +109,7 @@ $customer_name = explode(" ",$customerToEdit->getName());
 <html>
 <head>
 <title>Edit Customer</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 
 <!-- Edit Customer Page -->
@@ -119,10 +119,10 @@ $customer_name = explode(" ",$customerToEdit->getName());
 	<form method="post" action=editCustomer.php name="edit_customer">
 		<input type="reset" value="Clear"> <input hidden name="customer_id"
 			value="<?php echo $customerToEdit->getCustomerId();?>" />
-		<table class="form-table" border=5>
-			<tr>
+		<table class="form-table" border=1>
+			<thead><tr>
 				<td colspan=4><h2>Customer</h2></td>
-			</tr>
+			</tr></thead>
 			<tr>
 				<td>*First Name:</td>
 				<td><input type="text" value="<?php echo $customer_name[0];?>" required

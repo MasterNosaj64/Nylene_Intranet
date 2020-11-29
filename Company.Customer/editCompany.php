@@ -35,11 +35,6 @@ if (isset($_POST['company_id_edit'])) {
         die("Company data corrupt, OPPERATION ABORTED");
     }
 
-    // Pull data from object for editing
-    // $findCompanyToEdit->fetch();
-
-    // Close connections and statements
-    // $findCompanyToEdit->close();
     $conn_editCompany->close();
 } else {
 
@@ -128,17 +123,17 @@ if (isset($_POST['company_id_edit'])) {
 <html>
 <head>
 <title>Edit Company</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body>
 	<form method="post" action=editCompany.php name="edit_company">
-		<input type="reset" value="Clear"> <input type="text" hidden
-			name="company_id" value="<?php echo $companyToEdit->getCompanyId()?>" />
-		<table class="form-table" border=5>
-			<tr>
-				<td colspan=2><h2>Company</h2></td>
-				<td colspan=2><h2>Description</h2></td>
-			</tr>
+		<input type="reset" value="Clear"> <input type="text" hidden="true"
+			name="company_id" value="<?php echo $companyToEdit->getCompanyId();?>" />
+		<table class="form-table" border='1'>
+			<thead><tr>
+				<th colspan=2><h2>Company</h2></th>
+				<th colspan=2><h2>Description</h2></th>
+			</tr></thead>
 			<tr>
 				<td>*Name:</td>
 				<td><input type="text" required name="name"
@@ -162,12 +157,12 @@ if (isset($_POST['company_id_edit'])) {
 				<td><input type="text"
 					value="<?php echo $companyToEdit->getType();?>" name="type"></td>
 			</tr>
-			<tr>
-				<td colspan=2><h2>Billing Address</h2></td>
-				<td colspan=2><h2>Shipping Address</h2>Same as billing address<input
+			<thead><tr>
+				<th colspan=2><h2>Billing Address</h2></th>
+				<th colspan=2><h2>Shipping Address</h2>Same as billing address<input
 					type="checkbox" id="shippingSameAsBilling"
-					name="shippingSameAsBilling"></td>
-			</tr>
+					name="shippingSameAsBilling"></th>
+			</tr></thead>
 			<tr>
 				<td>*Street:</td>
 				<td><input type="text" required

@@ -106,16 +106,16 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
 <title>Add Company</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body>
 	<form method="post" action=addCompany.php name="add_company">
 		<input type="reset" value="Clear">
-		<table class="form-table" border=5>
-			<tr>
+		<table class="form-table" border=1>
+			<thead><tr>
 				<td colspan=2><h2>Company</h2></td>
 				<td colspan=2><h2>Description</h2></td>
-			</tr>
+			</tr></thead>
 			<tr>
 				<td>*Name:</td>
 				<td><input type="text" required name="name"></td>
@@ -134,12 +134,12 @@ if (isset($_POST['submit'])) {
 				<td>Type:</td>
 				<td><input type="text" name="type"></td>
 			</tr>
-			<tr>
+			<thead><tr>
 				<td colspan=2><h2>Billing Address</h2></td>
 				<td colspan=2><h2>Shipping Address</h2>Same as billing address<input
 					type="checkbox" id="shippingSameAsBilling"
 					name="shippingSameAsBilling"></td>
-			</tr>
+			</tr></thead>
 			<tr>
 				<td>*Street:</td>
 				<td><input type="text" required name="billingStreet"></td>
