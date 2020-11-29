@@ -65,39 +65,45 @@ if (isset($_POST['submit'])) {
     }
 
     // Get object
-    // $customerToEdit = new Customer($conn_Customer);
-
-    // $findCustomerToEdit = $customerToEdit->searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
-
-    // // if found something
-    // if ($findCustomerToEdit->fetch()) {
-    // echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
-
-    // // close connection and statement
-    // $conn_Customer->close();
-    // $findCustomerToEdit->close();
-    // } else {
-    // else didn't find something
-    $conn_Customer->close();
-    // $findCustomerToEdit->close();
-
-    $conn_Customer = getDBConnection();
-
-    if ($conn_Customer->connect_error) {
-        die("Connection failed: " . $conn_Customer->connect_error);
-    }
-
     $customerToEdit = new Customer($conn_Customer);
 
-    if (! $customerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
-        die("Company data corrupt or connection failed, OPPERATION ABORTED");
+    $findCustomerToEdit = $customerToEdit->searchExact($customer_name, $customer_email, $customer_phone, $customer_fax);
+
+    $conn_Customer->close();
+
+    // if found something
+    if ($findCustomerToEdit != NULL) {
+        echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
+
+        $conn_Customer = getDBConnection();
+
+        $customerToEdit = new Customer($conn_Customer);
+
+        $customerToEdit = $customerToEdit->searchById($customer_id);
+
+        // close connection and statement
+        $conn_Customer->close();
+    } else {
+        // else didn't find something
+        $conn_Customer->close();
+        // $findCustomerToEdit->close();
+
+        $conn_Customer = getDBConnection();
+
+        if ($conn_Customer->connect_error) {
+            die("Connection failed: " . $conn_Customer->connect_error);
+        }
+
+        $customerToEdit = new Customer($conn_Customer);
+
+        if (! $customerToEdit = $customerToEdit->update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)) {
+            die("Company data corrupt or connection failed, OPPERATION ABORTED");
+        }
+
+        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
+        exit();
     }
-
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
-    exit();
 }
-
-// }
 
 $customer_name = explode(" ", $customerToEdit->getName());
 
@@ -136,13 +142,13 @@ $customer_name = explode(" ", $customerToEdit->getName());
 					value="<?php echo $customerToEdit->getEmail();?>" required
 					name="customer_email"></td>
 				<td>Phone:</td>
-				<td><input type="tel"
+				<td><input type="number"
 					value="<?php echo $customerToEdit->getPhone();?>"
 					name="customer_phone"></td>
 			</tr>
 			<tr>
 				<td>Fax:</td>
-				<td colspan=3><input type="tel"
+				<td colspan=3><input type="number"
 					value="<?php echo $customerToEdit->getFax();?>" name="customer_fax"></td>
 
 			</tr>

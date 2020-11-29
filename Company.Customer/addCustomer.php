@@ -79,16 +79,16 @@ if (isset($_SESSION['company_id'])) {
 <html>
 <head>
 <title>Add Customer</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 
 <body>
 	<form method="post" action=addCustomer.php name="add_customer">
 		<input type="reset" value="Clear">
 		<table class="form-table" border=5>
-			<tr>
+			<thead><tr>
 				<td colspan=4><h2>Customer</h2></td>
-			</tr>
+			</tr></thead>
 			<tr>
 				<td>*First Name:</td>
 				<td><input type="text" required name="firstName"></td>
@@ -99,11 +99,11 @@ if (isset($_SESSION['company_id'])) {
 				<td>*Email:</td>
 				<td><input type="email" required name="email"></td>
 				<td>Phone:</td>
-				<td><input type="tel" name="phone"></td>
+				<td><input type="number" name="phone"></td>
 			</tr>
 			<tr>
 				<td>Fax:</td>
-				<td colspan=3><input type="tel" name="fax"></td>
+				<td colspan=3><input type="number" name="fax"></td>
 			</tr>
 
 		</table>

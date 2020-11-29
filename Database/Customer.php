@@ -3,8 +3,8 @@
 /*
  * FileName: Customer.php
  * Author: Jason Waid
- * Version: 0.8
- * Date Modified: 11/01/2020
+ * Version: 1.00
+ * Date Modified: 11/29/2020
  * Purpose:
  * Object oriented representation of a customer
  * all database manipulation happens here
@@ -119,18 +119,15 @@ class Customer
 
     /*
      * Function Name: searchExact
-     * Purpose: Function finds a customer by using exact parameters and returns found objects
+     * Purpose: Function finds a customer by using exact parameters and returns number of found objects
      *
      */
-    // TODO: add date_modified to code and DB
-    function searchExact($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)
+    function searchExact($customer_name, $customer_email, $customer_phone, $customer_fax)
     {
         $query = "SELECT
-                *
+                COUNT(*)
             FROM
 			  nylene.customer WHERE 
-   
-        customer_id = ? AND
         customer_name = ? AND
         customer_email = ? AND
         customer_phone = ? AND
@@ -140,23 +137,26 @@ class Customer
         $stmt = $this->conn->prepare($query);
 
         //sanitize
-        $customer_id = htmlspecialchars(strip_tags($customer_id));
         $customer_name = htmlspecialchars(strip_tags($customer_name));
         $customer_email = htmlspecialchars(strip_tags($customer_email));
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
         
         //bind parameters
-        $stmt->bind_param("issss",$customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+        $stmt->bind_param("ssss", $customer_name, $customer_email, $customer_phone, $customer_fax);
         
         // execute query
         $stmt->execute();
 
+        $count = 0;
+        
         // bind the results
-        $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
+        $stmt->bind_result($count);
 
+        $stmt->fetch();
+        
         // return objects
-        return $stmt;
+        return $count;
     }
 
     /*
