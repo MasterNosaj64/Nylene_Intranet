@@ -2,7 +2,7 @@
 /*
  * Name: editMMform_Database.php
  * Author: Karandeep Singh, modified by Kaitlyn Breker
- * Date Modifed: November 28th, 2020
+ * Date Modifed: November 29th, 2020
  * Purpose: Edit MM database table. Inserts into interaction 
  *          autoupdated fields, and followup date information.
  */
@@ -10,7 +10,7 @@
  
 //include '../Database/databaseConnection.php';
 include '../Database/connect.php';
-date_default_timezone_set('America/Toronto');
+
 
  if (isset($_POST['brochure']))
 	{

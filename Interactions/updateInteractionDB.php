@@ -5,7 +5,7 @@
      * Date Modified: Nov 27th, 2020
      * Purpose: Update database with new interaction information.
      */
-    date_default_timezone_set('America/Toronto');
+ //   date_default_timezone_set('America/Toronto');
     session_start();
     
     $_SESSION["navToAddInteractionPage"] = true;
