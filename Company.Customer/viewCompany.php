@@ -170,36 +170,6 @@ if (isset($_GET['sort'])) {
 		<?php printHeadersCustomer($sortType)?>	
 		</tr>
 	</thead>
-
-	<!-- Script for Sorting columns -->
-	<script>
-	
-	var td = document.getElementsByClassName("ColSort");
-	var i;
-
-	for (i = 0; i < td.length; i++) {
-		td[i].addEventListener("click", colSort);
-		td[i].addEventListener("mouseover", function(event){
-		
-			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
-			}, false);
-
-		td[i].addEventListener("mouseout", function(event){
-		
-			event.target.style = "";
-			}, false);
-	}
-
-function colSort(){
-	
-		var col = this.getAttribute("data-colnum");
-		window.location.href = "./viewCompany.php?sort=" + col;
-	
-}
-
-	</script>
-
-
 	<?php
 // Customers List
 for ($offset = $_SESSION['offset']; $customerBuffer->valid(); $customerBuffer->next()) {
@@ -275,4 +245,33 @@ if ($offset == $customerBuffer->count()) {
 		</td>
 	</tr>
 </table>
+
+
+<!-- Script for Sorting columns -->
+<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+		td[i].addEventListener("click", colSort);
+		td[i].addEventListener("mouseover", function(event){
+		
+			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+			}, false);
+
+		td[i].addEventListener("mouseout", function(event){
+		
+			event.target.style = "";
+			}, false);
+	}
+
+function colSort(){
+	
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./viewCompany.php?sort=" + col;
+	
+}
+
+</script>
 </html>
