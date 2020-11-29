@@ -3,7 +3,7 @@
  * FileName: editCompany.php
  * Version Number: 0.8
  * Author: Jason Waid
- * Date Modified: 10/12/2020
+ * Date Modified: 11/29/2020
  * Purpose:
  * Edit companies in the database.
  */
@@ -30,16 +30,16 @@ if (isset($_POST['company_id_edit'])) {
     $companyToEdit = new Company($conn_editCompany);
 
     // attempt to get company data for editing
-    if (! $findCompanyToEdit = $companyToEdit->searchId($_SESSION['company_id'])) {
+    if (! $companyToEdit = $companyToEdit->searchId($_SESSION['company_id'])) {
 
         die("Company data corrupt, OPPERATION ABORTED");
     }
 
     // Pull data from object for editing
-    $findCompanyToEdit->fetch();
+    // $findCompanyToEdit->fetch();
 
     // Close connections and statements
-    $findCompanyToEdit->close();
+    // $findCompanyToEdit->close();
     $conn_editCompany->close();
 } else {
 
@@ -90,19 +90,9 @@ if (isset($_POST['company_id_edit'])) {
         $companyToEdit = new Company($conn_editCompany);
 
         // attempt to find company with same values
-        if (! $findCompanyToEdit = $companyToEdit->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)) {
-            die("Company data corrupt or connection failed, OPPERATION ABORTED");
-        }
-
-        // if found something
-        if ($findCompanyToEdit->fetch()) {
+        if (!$companyToEdit = $companyToEdit->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)) {
             echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $_POST['name'] . "\" already exists, OPERATION ABORTED</b></p>";
-
-            // close connection and statement
-            $conn_editCompany->close();
-            $findCompanyToEdit->close();
-        } // else didn't find something
-        else {
+        } else {
 
             $conn_editCompany = getDBConnection();
 
@@ -113,15 +103,14 @@ if (isset($_POST['company_id_edit'])) {
             // create object
             $companyToEdit = new Company($conn_editCompany);
 
-            //attempt edit
-            if (! $companytoEditResult = $companyToEdit->update($company_id, $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, date("Y-m-d", time()))) {
+            // attempt edit
+            if (! $companyToEdit = $companyToEdit->update($company_id, $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, date("Y-m-d", time()))) {
                 die("Company data corrupt or connection failed, OPPERATION ABORTED");
             }
 
-            
             $_SESSION['company_id'] = "";
             // send user to searchCompany page
-            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./searchCompany.php\" />;";
+            echo "<meta http-equiv = \"refresh\" content = \"0 url = ./searchCompany.php?sort=1\" />;";
             exit();
         }
     } else {
@@ -129,6 +118,7 @@ if (isset($_POST['company_id_edit'])) {
         echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/homePage.php\" />;";
         exit();
     }
+    $conn_editCompany->close();
 }
 ?>
 
@@ -221,11 +211,11 @@ if (isset($_POST['company_id_edit'])) {
 			<tr>
 				<td>*Country:</td>
 				<td><input type="text"
-					value="<?php echo $companyToEdit->getBillingAddressCounty();?>"
+					value="<?php echo $companyToEdit->getBillingAddressCountry();?>"
 					required name="billingCountry"></td>
 				<td>Country:</td>
 				<td><input type="text"
-					value="<?php echo $companyToEdit->getShippingAddressCounty();?>"
+					value="<?php echo $companyToEdit->getShippingAddressCountry();?>"
 					name="shippingCountry"></td>
 			</tr>
 		</table>

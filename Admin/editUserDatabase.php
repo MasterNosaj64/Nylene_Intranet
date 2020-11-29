@@ -95,6 +95,7 @@ if($check==1 && isset($_POST['Submit'] )){
 <!DOCTYPE html>
 <html>
 <head>
+<title>Create User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../CSS/table.css">
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -3,6 +3,7 @@
  * FileName: editCustomer.php
  * Version Number: 0.8
  * Author: Jason Waid
+ * Date Modified: 11/29/2020
  * Purpose:
  * Edit customers in the database.
  */

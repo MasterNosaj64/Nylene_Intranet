@@ -26,6 +26,7 @@ $accessLevel=$_SESSION['role'];
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
+<title>Create User</title>
 </head>
 <body onload="myFunction()">
 	<form method="post" action="employee_database.php"

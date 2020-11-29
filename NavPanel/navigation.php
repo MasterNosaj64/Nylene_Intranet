@@ -62,15 +62,15 @@ if (isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || iss
     echo "</div>";
 }
 ?>
-	<div  class="dropdown-user">
+	<div class="dropdown-user">
 
 		<button class="dropbtn">
 			<img src="../Graphics/userIcon.png" width="20" height="auto"
 				align="middle"/> <?php echo $_SESSION['name'];?>
     </button>
 		<div class="dropdown-content">
-			<a href="../Admin/viewProfile.php">View Profile</a> <a
-				href="../logout.php">Log Out</a>
+			<a href="../Admin/viewProfile.php">View Profile</a> 
+			<a href="../logout.php">Log Out</a>
 		</div>
 	</div>
 </div>
