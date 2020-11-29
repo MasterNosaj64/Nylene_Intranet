@@ -346,12 +346,12 @@ class Company
 
     /*
      * Function Name: searchExact
-     * Purpose: Function searches the database for an exact match and returns the object
+     * Purpose: Function searches the database for an exact match and returns the count of exact matches
      */
     function searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)
     {
         $query = "SELECT
-                *
+                1
                 FROM
 			nylene.company WHERE 
             company_name = ? AND
@@ -369,9 +369,11 @@ class Company
             description = ? AND
             type = ? AND
             industry = ? AND
-            company_email = ?";
-
-
+            company_email = ?
+            LIMIT 1";
+        
+        
+        
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -395,16 +397,18 @@ class Company
 
         // bind the parameters to the query
         $stmt->bind_param("ssssssssssssssss", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
-
+        
         // execute query
         $stmt->execute();
 
         // bind the results
-        $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
+        //$stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
+
+        $count = $stmt->fetch();
+        $stmt->close();
         
-        // return objects
-        return $this;
-        // return $stmt;
+        // return count
+        return $count;
     }
 
     // update the product

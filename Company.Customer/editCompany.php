@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: editCompany.php
- * Version Number: 0.8
+ * Version Number: 1.0
  * Author: Jason Waid
  * Date Modified: 11/29/2020
  * Purpose:
@@ -82,16 +82,12 @@ if (isset($_POST['company_id_edit'])) {
         $company_id = $_SESSION['company_id'];
 
         // Check if all entered values already exist for a company
-//         $companyToEdit = new Company($conn_editCompany);
-//         $companyToEdit = $companyToEdit->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
-        
-//         echo var_dump($companyToEdit);
-//         die();
-        
-//         // attempt to find company with same values
-//         if($companyToEdit->num_rows == 0){
+        $companyToEdit = new Company($conn_editCompany);
+        $companyToEdit = $companyToEdit->searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
 
-            
+        // attempt to find company with same values
+        if ($companyToEdit == NULL) {
+
             $conn_editCompany = getDBConnection();
 
             if ($conn_editCompany->connect_error) {
@@ -106,18 +102,26 @@ if (isset($_POST['company_id_edit'])) {
                 die("Company data corrupt or connection failed, OPPERATION ABORTED");
             }
 
-            //$_SESSION['company_id'] = "";
-            // send user to searchCompany page
+
+            // send user to viewCompany page
             echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php?sort=1\" />;";
             exit();
         } else {
             echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $_POST['name'] . "\" already exists, OPERATION ABORTED</b></p>";
+
+            $companyToEdit = new Company($conn_editCompany);
+
+            // attempt to get company data for editing
+            if (! $companyToEdit = $companyToEdit->searchId($_SESSION['company_id'])) {
+
+                die("Company data corrupt, OPPERATION ABORTED");
+            }
         }
-//     } else {
-//         // send back to home page since user should not be here yet
-//         echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/homePage.php\" />;";
-//         exit();
-//     }
+    } else {
+        // send back to home page since user should not be here yet
+        echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/homePage.php\" />;";
+        exit();
+    }
     $conn_editCompany->close();
 }
 ?>
