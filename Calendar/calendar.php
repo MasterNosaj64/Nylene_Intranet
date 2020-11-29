@@ -77,6 +77,13 @@
             $event_nameStr = implode("<br>", $event_namesArr);
         }
     
+        /*Selecting user's supervisor's employee_id from employee table*/
+        $bossQuery = "SELECT reports_to FROM employee
+								WHERE employee_id = ". $_SESSION['userid'];
+        $bossResults = $conn->query($bossQuery);
+        $bossRow = mysqli_fetch_array($bossResults);
+        $userSupervisorID = $bossRow['reports_to'];
+        
         /*Adding Interaction Notification*/
         $interaction_nameStr = '';
         $interactionResultStr = '"No"';
@@ -84,23 +91,30 @@
         
         /*Select interactions from interaction table based on access level*/
         if (strcmp($userAccess,'ind_rep') === 0){
+            /*Select all interactions that are created by user and date assigned */
             $interactionInformation = "SELECT * FROM interaction 
                                             WHERE follow_up_date = " . $dateStr .
                                                 "AND employee_id = ". $_SESSION['userid'];
-            $result_interactions = $conn->query($interactionInformation);
-            $interactionResult = array();
-            while ($row = mysqli_fetch_assoc($result_interactions)) {
-                $interactionResult[] = $row;
-            }
             
+        } else if (strcmp($userAccess,'sales_rep') === 0) {
+
+            /*Select all interactions that are created by user, or their supervisor, or any member of their team 
+             * (including ind_rep) and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        WHERE interaction.follow_up_date = " . $dateStr .
+                                        "AND (employee_id = ".$_SESSION['userid']. 
+                                                " OR employee_id = ".$userSupervisorID.
+                                                " OR employee_id IN (SELECT employee_id FROM employee
+                                                                        WHERE reports_to = ".$userSupervisorID."))"; 
         } else {
             $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
-            $result_interactions = $conn->query($interactionInformation);
-            $interactionResult = array();
-            while ($row = mysqli_fetch_assoc($result_interactions)) {
-                $interactionResult[] = $row;
-            }
-         
+
+        }
+        
+        $result_interactions = $conn->query($interactionInformation);
+        $interactionResult = array();
+        while ($row = mysqli_fetch_assoc($result_interactions)) {
+            $interactionResult[] = $row;
         }
         
         if (! empty($interactionResult)) {
