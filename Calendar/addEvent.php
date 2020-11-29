@@ -8,7 +8,6 @@
     include '../NavPanel/navigation.php';
     include '../Database/connect.php';
     
-    date_default_timezone_set('America/Toronto');
     $conn = getDBConnection();
     
     /*Check the connection*/
