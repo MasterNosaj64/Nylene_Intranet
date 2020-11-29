@@ -12,7 +12,6 @@ include '../Database/connect.php';
 $conn = getDBConnection();
 
 // Setting the timezone of location
-date_default_timezone_set('America/Toronto');
 error_reporting(0);
 $BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
 define('BASE_URL', $BASE_URL);
@@ -135,7 +134,7 @@ for ($day = 1; $day <= $day_count; $day ++, $str ++) {
 <style>
 .list-inline {
 	text-align: center;
-	margin-top: 25px;
+	margin-top: 20px;
 	margin-bottom: 0px;
 }
 
@@ -165,10 +164,6 @@ td {
 .table notification {
 	max-width: 100%;
 	max-heigth: 100%;
-}
-
-.btn btn-link {
-	
 }
 
 button {
@@ -292,7 +287,7 @@ button a {
 	    		$("#result_interactions").text(" ");
 	    	}else{
 				for(var i=0; i<date2.length; i++){
-					$("#result_interactions").append("<p style='margin-left:20px;'>Follow up date : "+date2[i].follow_up_date+"<br>Reason : "+date2[i].reason+"<br>Comment : "+date2[i].comments+"</p><a class='' href='<?php echo BASE_URL; ?>/Interactions/viewInteraction.php?interaction_id="+date2[i].interaction_id+"'><button class='' type='button'>View Interaction</button></a>");
+					$("#result_interactions").append("<p style='margin-left:20px;'>Follow up: "+date2[i].follow_up_date+"<br>Reason : "+date2[i].reason+"</p><a class='' href='<?php echo BASE_URL; ?>/Interactions/viewInteraction.php?interaction_id="+date2[i].interaction_id+"'><button class='' type='button'>View Interaction</button></a>");
 		    	}
 	    	}
 		}
