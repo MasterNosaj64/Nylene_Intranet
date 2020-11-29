@@ -1,124 +1,132 @@
 <?php
-/*
- * FileName: calendar.php
- * Version Number: 1.3
- * Author: Ahmad Syed
- * Last Modified: November 25th 2020
- * Purpose: shows calendar for the user to navigate.
- * All users are able to create events 
- * Users are able to view their follow up dates within the calendar
- */
-include '../Database/connect.php';
-$conn = getDBConnection();
-
-// Setting the timezone of location
-error_reporting(0);
-$BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
-define('BASE_URL', $BASE_URL);
-
-// this gets the previous and next month
-if (isset($_GET['ym'])) {
-    $ym = $_GET['ym'];
-} else {
-    // this gets the current month
-    $ym = date('Y-m');
-}
-
-$timestamp = strtotime($ym . '-01'); // the first day of the month
-if ($timestamp === false) {
-    $ym = date('Y-m');
-    $timestamp = strtotime($ym . '-01');
-}
-
-// Today Tab: (Format:yyyy-mm-dd)
-$today = date('Y-m-j', time());
-
-// Title (Format: MM, YYYY)
-$title = date('F, Y', $timestamp);
-
-// this gets the link of the previous and next month respectivly
-$previous_month = date('Y-m', strtotime('-1 month', $timestamp));
-$next_month = date('Y-m', strtotime('+1 month', $timestamp));
-
-// gets the count of days
-$day_count = date('t', $timestamp);
-
-// sets order in calendar (Monday = 0)
-$str = date('N', $timestamp);
-
-// create blank days for calendar
-$weeks = array();
-$week = '';
-
-$week .= str_repeat('<td></td>', $str - 1);
-// $_SESSION['userid'] =1;
-for ($day = 1; $day <= $day_count; $day ++, $str ++) {
-
-    $date = $ym . '-' . $day;
-
-    // Adding calendar event
-    $event_nameStr = '';
-    $eventResultStr = '"No"';
-    $dateStr = "'" . $date . "'";
-    $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
-    $result = $conn->query($eventInformation);
-    $eventResult = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $eventResult[] = $row;
-    }
-    if (! empty($eventResult)) {
-        $eventResultStr = json_encode($eventResult);
-
-        $event_namesArr = array_column($eventResult, 'event_name');
-        $event_nameStr = implode("<br>", $event_namesArr);
-    }
-
-    // Adding Interaction
-    $interaction_nameStr = '';
-    $interactionResultStr = '"No"';
-    $dateStr = "'" . $date . "'";
-    $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
-    $result_interactions = $conn->query($interactionInformation);
-    $interactionResult = array();
-    while ($row = mysqli_fetch_assoc($result_interactions)) {
-        $interactionResult[] = $row;
-    }
-    if (! empty($interactionResult)) {
-        $interactionResultStr = json_encode($interactionResult);
-
-        $interaction_namesArr = array_column($interactionResult, 'interaction_id');
-        $interaction_nameStr = implode("<br>", $interaction_namesArr);
-    }
-
-    if ($today == $date) {
-
-        $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+    /*
+     * FileName: calendar.php
+     * Version Number: 1.4
+     * Author: Ahmad Syed, modified by Kaitlyn Breker
+     * Last Modified: November 29th 2020
+     * Purpose: shows calendar for the user to navigate.
+     * 
+     * All users are able to create events 
+     * Users are able to view their follow up dates within the calendar
+     */
+    
+    include '../Database/connect.php';
+    $conn = getDBConnection();
+    
+    error_reporting(0);
+    $BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
+    define('BASE_URL', $BASE_URL);
+    
+    /*Set the user access to the employee role*/
+    $userAccess = $_SESSION['role'];
+    
+    // this gets the previous and next month
+    if (isset($_GET['ym'])) {
+        $ym = $_GET['ym'];
     } else {
-        $week .= "<td onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        // this gets the current month
+        $ym = date('Y-m');
     }
-
-    $text_to_add = "";
-
-    if ($interaction_nameStr != "") {
-        $text_to_add = "<br>followup: " . $interaction_nameStr;
+    
+    $timestamp = strtotime($ym . '-01'); // the first day of the month
+    if ($timestamp === false) {
+        $ym = date('Y-m');
+        $timestamp = strtotime($ym . '-01');
     }
-
-    $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . "" . $text_to_add . "</span></td>";
-
-    // End of the week OR End of the month
-    if ($str % 7 == 0 || $day == $day_count) {
-
-        // last day of the month set to Sunday
-        if ($day == $day_count && $str % 7 != 0) {
-
-            // Add empty cell for formatting purposes
-            $week .= str_repeat('<td></td>', 7 - $str % 7);
+    
+    // Today Tab: (Format:yyyy-mm-dd)
+    $today = date('Y-m-j', time());
+    
+    // Title (Format: MM, YYYY)
+    $title = date('F, Y', $timestamp);
+    
+    // this gets the link of the previous and next month respectivly
+    $previous_month = date('Y-m', strtotime('-1 month', $timestamp));
+    $next_month = date('Y-m', strtotime('+1 month', $timestamp));
+    
+    // gets the count of days
+    $day_count = date('t', $timestamp);
+    
+    // sets order in calendar (Monday = 0)
+    $str = date('N', $timestamp);
+    
+    // create blank days for calendar
+    $weeks = array();
+    $week = '';
+    
+    $week .= str_repeat('<td></td>', $str - 1);
+    // $_SESSION['userid'] =1;
+    for ($day = 1; $day <= $day_count; $day ++, $str ++) {
+    
+        $date = $ym . '-' . $day;
+    
+        /*Adding Event Calendar*/
+        $event_nameStr = '';
+        $eventResultStr = '"No"';
+        $dateStr = "'" . $date . "'";
+        $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
+        $result = $conn->query($eventInformation);
+        $eventResult = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $eventResult[] = $row;
         }
-
-        $weeks[] = '<tr>' . $week . '</tr>';
-        $week = '';
+        if (! empty($eventResult)) {
+            $eventResultStr = json_encode($eventResult);
+    
+            $event_namesArr = array_column($eventResult, 'event_name');
+            $event_nameStr = implode("<br>", $event_namesArr);
+        }
+    
+        /*Adding Interaction Notification*/
+        $interaction_nameStr = '';
+        $interactionResultStr = '"No"';
+        $dateStr = "'" . $date . "'";
+        
+        /*Select interactions from interaction table*/
+        $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
+        $result_interactions = $conn->query($interactionInformation);
+        $interactionResult = array();
+        while ($row = mysqli_fetch_assoc($result_interactions)) {
+            $interactionResult[] = $row;
+        }
+        if (! empty($interactionResult)) {
+            $interactionResultStr = json_encode($interactionResult);
+    
+            $interaction_namesArr = array_column($interactionResult, 'interaction_id');
+            $interaction_nameStr = implode("<br>", $interaction_namesArr);
+        }
+    
+        
+        /*Is this the list notifications?*/
+        if ($today == $date) {
+    
+            $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        } else {
+            $week .= "<td onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        }
+    
+        $text_to_add = "";
+    
+        if ($interaction_nameStr != "") {
+            $text_to_add = "<br>followup: " . $interaction_nameStr;
+        }
+    
+        $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . "" . $text_to_add . "</span></td>";
+    
+        // End of the week OR End of the month
+        if ($str % 7 == 0 || $day == $day_count) {
+    
+            // last day of the month set to Sunday
+            if ($day == $day_count && $str % 7 != 0) {
+    
+                // Add empty cell for formatting purposes
+                $week .= str_repeat('<td></td>', 7 - $str % 7);
+            }
+    
+            $weeks[] = '<tr>' . $week . '</tr>';
+            $week = '';
+        }
     }
-}
 ?>
 
 <html lang="en">
