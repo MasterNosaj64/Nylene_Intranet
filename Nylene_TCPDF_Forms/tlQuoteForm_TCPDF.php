@@ -14,8 +14,6 @@ include '../Nylene_TCPDF_Forms/TCPDF_getHTML.php';
 
 $conn = getDBConnection();
 
-// test variables
-
 $form_id = $_GET['id'];
 
 /* Check the connection */
@@ -65,19 +63,14 @@ if ($conn->connect_error) {
     $conn->close();
 }
 
-// get customer_id, employee_id, company_id, form_id, interaction_id
-
 // create new PDF document obj
 $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf_obj->SetCreator(PDF_CREATOR);
-$pdf_obj->SetAuthor("Jason Waid");
-$pdf_obj->SetTitle("Export to PDF TEST");
-$pdf_obj->SetSubject("Testing");
-
-// set default header data
-// $pdf_obj->SetHeaderData($img_PATH, 40, "Form TEST", PDF_HEADER_STRING);
+$pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
+$pdf_obj->SetTitle($companyRow['company_name']." - tl Quote");
+$pdf_obj->SetSubject("Truck Load Quote");
 
 // Header and Footer Fonts
 $pdf_obj->setHeaderFont(Array(
@@ -116,8 +109,6 @@ $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
 // set font
 $pdf_obj->SetFont('helvetica', 'B', 20);
-
-// $pdf_obj->Write(0, 'Test Conv to PDF', '', 0, 'L', true, 0, false, false, 0);
 
 $page1 = '';
 
