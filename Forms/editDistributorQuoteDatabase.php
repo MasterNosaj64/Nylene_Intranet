@@ -9,6 +9,7 @@ session_start();
 include '../Database/connect.php';
 
 $conn = getDBConnection();
+date_default_timezone_set('America/Toronto');
 
 /*Check the connection*/
 if ($conn-> connect_error) {

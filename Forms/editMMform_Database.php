@@ -7,9 +7,11 @@
  *          autoupdated fields, and followup date information.
  */
  session_start();
+ 
 //include '../Database/databaseConnection.php';
 include '../Database/connect.php';
-			
+date_default_timezone_set('America/Toronto');
+
  if (isset($_POST['brochure']))
 	{
 		$brochure = $_POST['brochure'];
