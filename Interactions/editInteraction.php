@@ -7,7 +7,7 @@
      * Purpose: Edit interaction information from database by autofilling fields from db.
      */
     
-    date_default_timezone_set('America/Toronto');
+ //   date_default_timezone_set('America/Toronto');
     session_start();
     
     $_SESSION["navToAddInteractionPage"] = true;

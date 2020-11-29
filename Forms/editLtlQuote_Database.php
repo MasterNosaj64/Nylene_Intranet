@@ -1,7 +1,7 @@
 <?php
     /* Name: editLtlQuote_Database.php
      * Author: Karandeep Singh, modified by Kaitlyn Breker
-     * Last Modified: November 28th, 2020
+     * Last Modified: November 29th, 2020
      * Purpose: File called when user clicks submit on the edit light truckload form. Updates form information into 
      *          the ltl_quote table of the database. Inserts into interaction autoupdated fields, and followup date 
      *          information.
@@ -10,7 +10,6 @@
     session_start();
 	include '../Database/connect.php';
 	
-	date_default_timezone_set('America/Toronto');
 	$conn = getDBConnection();
 
 	

@@ -6,7 +6,7 @@
      * Date Modified: Nov 27, 2020
      * Purpose: Add companies in the database.
      */
-    date_default_timezone_set('America/Toronto');
+
     session_start();
     
     // the following variables are used in navigation.php

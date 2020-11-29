@@ -1,7 +1,7 @@
 <?php
     /* Name: editDistributorQuoteDatabase.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 28th, 2020
+     * Last Modified: November 29th, 2020
      * Purpose: Update file for edit distributor form. Inserts into interaction 
      * autoupdated fields, and followup date information.
      */
@@ -9,7 +9,7 @@ session_start();
 include '../Database/connect.php';
 
 $conn = getDBConnection();
-date_default_timezone_set('America/Toronto');
+
 
 /*Check the connection*/
 if ($conn-> connect_error) {
@@ -136,6 +136,8 @@ if ($conn-> connect_error) {
     $interactionResult = $conn->query($interactionQuery);
     $interactionRow = mysqli_fetch_array($interactionResult);
     
+
+    
     /*UPDATING THE FORM IN THE DATABASE*/
     /*Prepare update statement into the distributor_quote_form table*/
     $stmt = $conn->prepare("UPDATE distributor_quote_form SET
@@ -197,11 +199,20 @@ if ($conn-> connect_error) {
     /*UPDATING THE COMMENTS IN THE INTERACTION TABLE*/
     /*If autoUpdate == 1, do changes*/
     if ($autoUpdate == 1){
-
-        //Implement This
+        
         /*Ensure strlen(comments) does not reach max length of field*/
+/*         $old_commentLength = strlen(comments);
+        if($old_commentLength < 1024){
+            /*Check original comments for length*/
+ /*           echo "Cannot append modified changes to comments, exceeding max length in database";
+        } else {*/
+            /*Check new comments for length*/
+ /*           
+            
+            $commentString;
+         }
         
-        
+         */
         $comments = $interactionRow['comments'];
         $comments .= "\n{$commentString}";
         $stmt3 = $conn->prepare("UPDATE interaction SET 
