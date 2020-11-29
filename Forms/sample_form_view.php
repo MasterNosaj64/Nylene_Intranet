@@ -46,6 +46,7 @@
 <html>
     <head>
       <link rel="stylesheet" type="text/css" href="../CSS/form.css">
+      <title>View Sample Form</title>
 	</head>
 	<body height="100%" width="100%">
     	<form>

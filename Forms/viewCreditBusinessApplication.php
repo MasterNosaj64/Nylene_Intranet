@@ -65,6 +65,7 @@ if ($conn->connect_error) {
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../CSS/form.css">
+<title>View Credit Business Application</title>
 </head>
 <body>
 	<form name="creditBusinessApplication"

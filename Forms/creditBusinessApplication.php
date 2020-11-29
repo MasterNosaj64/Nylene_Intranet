@@ -38,6 +38,7 @@ if ($conn->connect_error) {
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../CSS/form.css">
+<title>Credit Business Application Form</title>
 </head>
 <body>
 	<form name="creditBusinessApplication"

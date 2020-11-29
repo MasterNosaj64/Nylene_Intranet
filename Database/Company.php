@@ -67,7 +67,7 @@ class Company
     {
         $this->conn = $db;
     }
-    
+
     /*
      * Function: read
      * Purpose:
@@ -159,9 +159,8 @@ class Company
         // bind the results
         $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
 
-        
         $stmt->fetch();
-        
+
         // return objects
         return $this;
     }
@@ -347,21 +346,20 @@ class Company
 
     /*
      * Function Name: searchExact
-     * Purpose: Function searches the database for an exact match and returns the object
+     * Purpose: Function searches the database for an exact match and returns the count of exact matches
      */
     function searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)
     {
         $query = "SELECT
-                *
-            FROM
-			  nylene.company WHERE 
-            
-            company_name = ? AND 
-            website = ? AND 
-            billing_address_street = ? AND 
+                COUNT(*)
+                FROM
+			nylene.company WHERE 
+            company_name = ? AND
+            website = ? AND
+            billing_address_street = ? AND
             billing_address_city = ? AND
-            billing_address_postalcode = ? AND
             billing_address_state = ? AND
+            billing_address_postalcode = ? AND
             billing_address_country = ? AND
             shipping_address_street = ? AND
             shipping_address_city = ? AND
@@ -372,7 +370,9 @@ class Company
             type = ? AND
             industry = ? AND
             company_email = ?";
-
+        
+        
+        
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -393,20 +393,23 @@ class Company
         $type = htmlspecialchars(strip_tags($type));
         $industry = htmlspecialchars(strip_tags($industry));
         $company_email = htmlspecialchars(strip_tags($company_email));
-        
+
         // bind the parameters to the query
         $stmt->bind_param("ssssssssssssssss", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
-
+        
         // execute query
-        if (! $stmt->execute()) {
-            return false;
-        }
-
+        $stmt->execute();
+        $count = 0;
+        
         // bind the results
-        $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
-
-        // return objects
-        return $stmt;
+        $stmt->bind_result($count);
+        
+        $stmt->fetch();
+        
+        $stmt->close();
+        
+        // return count
+        return $count;
     }
 
     // update the product
@@ -460,7 +463,6 @@ class Company
         $date_modified = htmlspecialchars(strip_tags($date_modified));
 
         $stmt->bind_param("sssssssssssssssssi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_modified, $company_id);
-        
 
         // execute the query
         if ($stmt->execute()) {
@@ -570,7 +572,6 @@ class Company
         return $this->type;
     }
 
-    
     /*
      * Function Name: getBillingAddress
      * Purpose: Function returns the billing address
@@ -578,9 +579,9 @@ class Company
      */
     function getBillingAddress()
     {
-        return $this->billing_address_street.', '.$this->billing_address_city.', '.$this->billing_address_state.', '.$this->billing_address_country.', '.$this->billing_address_country;
+        return $this->billing_address_street . ', ' . $this->billing_address_city . ', ' . $this->billing_address_state . ', ' . $this->billing_address_country . ', ' . $this->billing_address_country;
     }
-    
+
     /*
      * Function Name: getBillingAddressStreet
      * Purpose: Function returns the billing address street
@@ -680,10 +681,10 @@ class Company
     {
         return $this->shipping_address_country;
     }
-    
-    public function _toString(){
+
+    public function _toString()
+    {
         return "company id is: {$this->company_id}";
     }
-    
 }
 ?>

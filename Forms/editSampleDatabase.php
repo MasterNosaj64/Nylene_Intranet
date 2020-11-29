@@ -537,7 +537,7 @@ $conn = getDBConnection();
 	}
   
 	 /* /*Assign values to variables*/
-	$dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
+/*     $dateSubmitted		= htmlspecialchars(strip_tags($_POST['dateSubmitted']));
 	$marketCode			= htmlspecialchars(strip_tags($_POST['mCode']));
 	$customer_id        = htmlspecialchars(strip_tags($_SESSION['customer_id']));
 	$company_id         = htmlspecialchars(strip_tags($_SESSION['company_id']));
@@ -566,7 +566,7 @@ $conn = getDBConnection();
 	$other_contact1		= htmlspecialchars(strip_tags($_POST['other_contact1']));
 	$other_contact2		= htmlspecialchars(strip_tags($_POST['other_contact2']));
 	$other_contact3		= htmlspecialchars(strip_tags($_POST['other_contact3'])); 
-	$other_contact4		= htmlspecialchars(strip_tags($_POST['other_contact4']));
+	$other_contact4		= htmlspecialchars(strip_tags($_POST['other_contact4'])); */
 
 
 	

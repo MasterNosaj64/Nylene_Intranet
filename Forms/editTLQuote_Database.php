@@ -1,14 +1,14 @@
 <?php
     /* Name: newTLQuote.php
      * Author: Karandeep Singh, modified by Kaitlyn Breker
-     * Last Modified: November 28th, 2020
+     * Last Modified: November 29th, 2020
      * Purpose: File called when user clicks submit on the edit truckload form. Inserts form information into the 
      *          tl_quote table of the database. Inserts into interaction autoupdated fields, and followup date information.
      */
 
     session_start();
-	include '../Database/connect.php';
-
+    include '../Database/connect.php';
+    
 	$conn = getDBConnection();
 	
 	/*Check the connection*/
@@ -198,18 +198,31 @@
 		 /*If autoUpdate == 1, do changes*/
 		 if ($autoUpdate == 1){
 		     
-		     //Implement This
-		     /*Ensure strlen(comments) does not reach max length of field*/
-		     
-		     
 		     $comments = $interactionRow['comments'];
-		     $comments .= "\n{$commentString}";
-		     $stmt3 = $conn->prepare("UPDATE interaction SET
-                                        comments = ?
-                                        WHERE interaction_id = ?");
-		     $stmt3->bind_param("si", $comments, $interactionNum);
-		     $stmt3->execute();
-		     $stmt3->close();
+		     
+		     /*Only update the comments in the interaction if the max length is not reached*/
+		     $old_commentLength = strlen($comments);
+		     
+		     if($old_commentLength >= 1024){
+		         //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
+		     } else {
+		         
+    		     /*Check new comments for length*/
+    		     $comments .= "\n\n{$commentString}";
+    		     $newCommentLength = strlen($comments);
+    		     
+    		     if($newCommentLength < 1024){
+    		         
+    		         /*Update comments in the interaction with the modified fields*/
+        		     $stmt3 = $conn->prepare("UPDATE interaction SET comments = ?
+                                                WHERE interaction_id = ?");
+        		     $stmt3->bind_param("si", $comments, $interactionNum);
+        		     $stmt3->execute();
+        		     $stmt3->close();
+    		     } else {
+    		         //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
+    		     }
+		     }
 		 } else {
 		     //do nothing
 		 }

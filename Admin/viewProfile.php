@@ -43,7 +43,7 @@ $employee_email=$rows['employee_email'];
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">7
-
+<title>View Profile</title>
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 		
 		<script language="javascript">
