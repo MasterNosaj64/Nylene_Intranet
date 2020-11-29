@@ -1,7 +1,7 @@
 <?php
 /*
  * FileName: editCustomer.php
- * Version Number: 0.8
+ * Version Number: 1.00
  * Author: Jason Waid
  * Date Modified: 11/29/2020
  * Purpose:
@@ -19,7 +19,7 @@ include '../Database/Customer.php';
 // Check the following, if these are not set redirect user to viewCompany
 if ($_SESSION['company_id'] = ! "" && ! isset($_POST['customer_id'])) {
 
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/viewCompany.php\" />;";
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/viewCompany.php?sort=1\" />;";
     exit();
 }
 
@@ -30,7 +30,7 @@ if ($conn_Customer->connect_error) {
     die("Connection failed: " . $conn_Customer->connect_error);
 }
 
-$_SESSION['customer_created'] = $_SESSION['company_id'];
+// $_SESSION['customer_created'] = $_SESSION['company_id'];
 
 $customer_id = $_POST['customer_id'];
 
@@ -40,8 +40,18 @@ $customerToEdit = $customerToEdit->searchById($customer_id);
 
 if (! $customerToEdit) {
     die("Company data corrupt or connection failed, OPPERATION ABORTED");
-} // else didn't find something
+}
 
+//get company_id
+$sql_query = "SELECT company_id FROM company_relational_customer where customer_id = ? LIMIT 1";
+$getCompany_Conn = getDBConnection();
+$stmt = $getCompany_Conn->prepare($sql_query);
+$stmt->bind_param("i", $customer_id);
+$stmt->execute();
+$stmt->bind_result($_SESSION['company_id']);
+$stmt->fetch();
+$stmt->close();
+$getCompany_Conn->close();
 /*
  * The following code handles editing a customer in the customer table
  * Below is an explaination of some of the variables
@@ -73,18 +83,16 @@ if (isset($_POST['submit'])) {
 
     // if found something
     if ($findCustomerToEdit != NULL) {
-        
         $conn_Customer = getDBConnection();
         $customerToEdit = new Customer($conn_Customer);
         $customerToEdit = $customerToEdit->searchById($customer_id);
-        
+
         echo "<p style=\"color:red\"><b>ERROR - Data entered for \"" . $customerToEdit->getName() . "\" already exists, OPERATION ABORTED</b></p>";
 
         $conn_Customer->close();
-     
     } else {
         $conn_Customer = getDBConnection();
-
+        echo "company id: " . $_SESSION['company_id'];
         if ($conn_Customer->connect_error) {
             die("Connection failed: " . $conn_Customer->connect_error);
         }
@@ -99,7 +107,6 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
-
 $customer_name = explode(" ", $customerToEdit->getName());
 
 ?>
@@ -115,7 +122,8 @@ $customer_name = explode(" ", $customerToEdit->getName());
 
 <body>
 	<form method="post" action=editCustomer.php name="edit_customer">
-		<input type="reset" value="Clear"> <input hidden name="customer_id"
+		<input type="reset" value="Clear"> <input hidden="true"
+			name="customer_id"
 			value="<?php echo $customerToEdit->getCustomerId();?>" />
 		<table class="form-table" border=1>
 			<thead>
@@ -145,9 +153,7 @@ $customer_name = explode(" ", $customerToEdit->getName());
 				<td>Fax:</td>
 				<td colspan=3><input type="number"
 					value="<?php echo $customerToEdit->getFax();?>" name="customer_fax"></td>
-
 			</tr>
-
 		</table>
 		<input type="submit" name="submit" value="Submit">
 	</form>

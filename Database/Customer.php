@@ -323,14 +323,15 @@ class Customer
         $stmt = $this->conn->prepare($query);
 
         // santize
-        $customer_id = htmlspecialchars(strip_tags($customer_id));
+        
         $customer_name = htmlspecialchars(strip_tags($customer_name));
         $customer_email = htmlspecialchars(strip_tags($customer_email));
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
+        $customer_id = htmlspecialchars(strip_tags($customer_id));
 
         
-        $stmt->bind_param("issss", $customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax);
+        $stmt->bind_param("ssssi", $customer_name, $customer_email, $customer_phone, $customer_fax, $customer_id);
 
         
 
@@ -340,7 +341,7 @@ class Customer
         }
 
         // bind the results
-        $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
+        //$stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
 
         // return objects
         return $stmt;

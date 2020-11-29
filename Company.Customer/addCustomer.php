@@ -80,6 +80,9 @@ if (isset($_SESSION['company_id'])) {
             $conn_Customer->close();
             $conn_Relational->close();
 
+            $_POST['customer_created'] = true;
+            $_POST['company_id_view'] = $_SESSION['company_id'];
+            
             echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php?sort=1\" />;";
             exit();
         }

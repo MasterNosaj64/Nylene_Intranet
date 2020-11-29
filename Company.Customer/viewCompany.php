@@ -1,12 +1,12 @@
 <?php
 /*
  * FileName: viewCompany.php
- * Version Number: 1.9
+ * Version Number: 2.0
  * Author: Jason Waid
  * Purpose:
  * View company data in the database.
  * This includes the customers registered to the company
- * Date Modified: 11/15/2020
+ * Date Modified: 11/29/2020
  */
 Session_start();
 
@@ -52,17 +52,6 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         $_SESSION['company_id'] = $_POST['company_id_view'];
     }
 
-    /*
-     * // The below is used only for when the user is redirected from the addCustomer page
-     * if (isset($_SESSION['customer_created'])) {
-     * $_POST['company_id_view'] = $_SESSION['customer_created'];
-     * unset($_SESSION['customer_created']);
-     * }
-     */
-
-    // TODO: JASON add the below to sessionController.php
-    // The below is used to reassign session vars used for navigation menu
-    // if (isset($_POST['company_id_view']) || isset($_SESSION['company_id'])) {
     if (isset($_SESSION['company_id'])) {
 
         // Get Company data
@@ -150,7 +139,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 	<tr>
 		<td>
 			<form method="post" action="addCustomer.php">
-				<input hidden name="company_id"
+				<input hidden="true" name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
 					type="submit" value="Add Customer" />
 			</form>
@@ -158,7 +147,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 		<td>
 			<form method="post"
 				action="../Interactions/companyHistory.php?sort=1">
-				<input hidden name="company_id"
+				<input hidden="true" name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
 					type="submit" value="View History" />
 			</form>
@@ -181,8 +170,10 @@ if (isset($_GET['sort'])) {
 
 
 
+
+
 </table>
-<table class="form-table" border=5>
+<table class="form-table" border=1>
 	<thead>
 		<tr>
 		<?php printHeadersCustomer($sortType)?>	
