@@ -12,7 +12,19 @@ include '../Database/connect.php';
 // getDBConnection to get connection
 $conn = getDBConnection();
 
-defined('key') ? null : define('key', '84h84hjbgjrh848693');
+//defined('key') ? null : define('key', '84h84hjbgjrh848693');
+
+
+$myFile = "../key.txt";
+$file = fopen($myFile, "r");
+
+if($file){
+    while(!feof($file)){
+        $key = fgets($file);
+    }
+    
+    fclose($file);
+}
 
 /* Check the connection */
 if ($conn->connect_error) {
@@ -31,7 +43,7 @@ if ($conn->connect_error) {
         $checked = 0;
     }
 
-    $key = key; 
+   // $key = key; 
     $account_number_Query = "SELECT AES_DECRYPT(account_number,'$key') as decrypted FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
     $account_number_result = $conn->query($account_number_Query);
     $accountNumberRow = mysqli_fetch_array($account_number_result);

@@ -6,15 +6,14 @@
  */
 session_start();
 include '../Database/connect.php';
-//defined('key') ? null : define('key', '84h84hjbgjrh848693');
 
-$myFile = "C:\Users\isham\key.txt";
+
+$myFile = "../key.txt";
 $file = fopen($myFile, "r");
 
 if($file){
 while(!feof($file)){
-    //$key = fgets($file);
-   defined ('key') ? null : define('key', 'fgets($file)');
+    $key = fgets($file);
 }
 
 fclose($file);
@@ -70,8 +69,7 @@ if ($conn->connect_error) {
 							ref3_company_email,
                             credit_date)
 						 values (?,?,?,?,?,?,?,?,?,?,?,?,?,AES_ENCRYPT(?,?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-    $key = key;
+    
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
     $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
     $contact_name = htmlspecialchars(strip_tags($_POST['contact_name']));

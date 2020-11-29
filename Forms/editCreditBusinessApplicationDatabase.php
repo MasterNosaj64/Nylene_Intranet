@@ -9,7 +9,18 @@ session_start();
 include '../Database/connect.php';
 
 $conn = getDBConnection();
-defined('key') ? null : define('key', '84h84hjbgjrh848693');
+//defined('key') ? null : define('key', '84h84hjbgjrh848693');
+
+$myFile = "../key.txt";
+$file = fopen($myFile, "r");
+
+if($file){
+    while(!feof($file)){
+        $key = fgets($file);
+    }
+    
+    fclose($file);
+}
 /*Check the connection*/
 if ($conn-> connect_error) {
     
@@ -19,7 +30,7 @@ if ($conn-> connect_error) {
 
     /*Assign values to variables for update query*/
     $interactionNum = $_SESSION['interaction_id'];
-    $key = key;
+   // $key = key;
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
     $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
     $contact_name = htmlspecialchars(strip_tags($_POST['contact_name']));
