@@ -13,6 +13,12 @@ include '../Database/connect.php';
 	$num_tries="";
 	/* 
 }*/
+
+	if($row==0){
+		echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
+		exit();
+	}
+
 	if($row>0){
 		if(strcmp($row['STATUS'],"blocked")==0){
 			$msg="User is blocked...";
@@ -51,7 +57,7 @@ include '../Database/connect.php';
 			if(password_verify($password1,$password2)){	
 				$_SESSION['name'] = $row['first_name']." ".$row['last_name'];
 				$_SESSION['role'] = $row['title'];
-				$_SESSION['admin'] = $row['is_administrator'];
+				//$_SESSION['admin'] = $row['is_administrator'];
 
 				$_SESSION['userid'] = $row['employee_id'];
 				$num_tries="0";
