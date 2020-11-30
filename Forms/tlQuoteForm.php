@@ -1,7 +1,7 @@
 <?php 
     /* Name: tlQuoteForm.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 15th, 2020
+     * Last Modified: November 29th, 2020
      * Purpose: Input for distributor quote. User information, company and customer information is
      *          automatically displayed from database. Contains two functions to help automate the
      *          quote calculation and display in the form.
@@ -160,9 +160,9 @@
     			<td><input type="text" readonly value="<?php echo $customerRow['customer_email'];?>"></td>
     		</tr>
     		
-    		<tr>
+    		<thead><tr>
     			<th colspan="2">- Product Information -</th>
-    		</tr>
+    		</tr></thead>
     		<tr>
     			<!--Product Name - Mandatory-->
     			<td><label for="product_name"> Product Name* </label></td>

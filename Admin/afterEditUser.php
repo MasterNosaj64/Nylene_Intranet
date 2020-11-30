@@ -2,6 +2,7 @@
 /*
  * Name: afterEditUser.php
  * Author: Madhav Sachdeva Modified by: Isha Isha
+ * Last Modified: November 29th, 2020
  * Purpose: Saves the edited information in the database
  */
 if (! session_id()) {
