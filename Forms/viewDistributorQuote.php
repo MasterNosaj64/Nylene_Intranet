@@ -62,7 +62,7 @@
         		<tr>
         			 <!--Quote Date -->
         			<td ><label for="quote_date"> Date </label></td>
-        			<td ><input type="text" name="quote_date" readonly value="<?php echo $distRow['quote_date'];?>"></td>
+        			<td ><input type="date" name="quote_date" readonly value="<?php echo $distRow['quote_date'];?>"></td>
         		</tr>
         		<tr>
         			<!--Quote Name/Number -->

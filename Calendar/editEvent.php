@@ -17,6 +17,7 @@ if ($conn-> connect_error) {
     die("Connection failed: " . $conn-> connect_error);
     
 } else {
+    
     /*Get eventID from edit button on calendar.php*/
     $eventID = $_GET['e'];
     
@@ -69,7 +70,7 @@ if ($conn-> connect_error) {
 }
 
 ?>
-
+ 
 <html>
 	<head>
 		<title>Edit Event in Calendar</title>
@@ -119,8 +120,8 @@ if ($conn-> connect_error) {
         			<?php } ?>
         			</tr>
         			<tr>
-        			<!-- Event Visability -->
-        			<td> Event Visability </td>	
+        			<!-- Event Visibility -->
+        			<td> Event Visibility </td>	
         			 <?php if ($_SESSION['role'] == "admin") { ?>
         					<td>
         					<?php if ($option == 1){ ?>

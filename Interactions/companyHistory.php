@@ -1,11 +1,11 @@
 <?php
 /*
  * FileName: companyHistory.php
- * Version Number: 1.6
+ * Version Number: 2.0
  * Author: Jason Waid
  * Purpose:
  * View a list of interactions for the company
- * Date Modified: 11/20/2020
+ * Date Modified: 11/29/2020
  */
 session_start();
 
@@ -43,15 +43,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
     if (isset($_SESSION['company_id'])) {
 
-        /*
-         * The following code handles the offset for the list of companies
-         * Below is an explaination of the variables
-         * next10: the next 10 button
-         * previous10: the previous 10 button
-         * offset: the current offset value for the following query
-         *
-         */
-
         $_SESSION['companyHistoryPage'] = $_SESSION['company_id'];
 
         // Company info table
@@ -64,7 +55,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
         // Get company info
         $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
 
-        //$companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCountry()} {$company->getShippingAddressPostalCode()}";
+        // $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCountry()} {$company->getShippingAddressPostalCode()}";
 
         // The following is the table for displaying the company information
 
@@ -87,7 +78,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 <html>
 <head>
 <title>Company History</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <!-- Button to add an interaction -->
 <form method="post" action="AddInteraction.php">
@@ -130,7 +121,7 @@ if (isset($_SESSION['buffer'])) {
 } else {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
-    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "" ,"");
+    $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "", "");
     $interactionBuffer = create_Buffer($interactionResult, $interactions);
 
     if (isset($_GET['sort'])) {
@@ -154,37 +145,6 @@ if (isset($_GET['sort'])) {
 <?php printHeadersInteraction($sortType)?>	
 </tr>
 	</thead>
-
-	<!-- Script for Sorting columns -->
-	<script>
-	
-	var td = document.getElementsByClassName("ColSort");
-	var i;
-
-	for (i = 0; i < td.length; i++) {
-
-		td[i].addEventListener("click", colSort);
-		td[i].addEventListener("mouseover", function(event){
-		
-			event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
-			}, false);
-
-		td[i].addEventListener("mouseout", function(event){
-		
-			event.target.style = "";
-			}, false);
-	}
-
-function colSort(){
-	
-		var col = this.getAttribute("data-colnum");
-		window.location.href = "./companyHistory.php?sort=" + col;
-	
-}
-
-	</script>
-
-
 <?php
 for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuffer->next()) {
 
@@ -210,7 +170,6 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     // obtain customer data
     $customer = new Customer($customer_Conn);
     $customer->searchById($customerID);
-    // $customerData->fetch();
     $customerName = $customer->getName();
     $customer_Conn->close();
 
@@ -222,7 +181,12 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     echo "<tr><td>{$interactionDateCreated}</td>";
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
-    echo "<td>" . substr($comments, 0, 50) . "</td>";
+    if(strlen($comments) > 50){
+        echo "<td>" . substr($comments, 0, 50) . "...</td>";
+    }
+    else{
+        echo "<td>" . substr($comments, 0, 50) . "</td>";
+    }
     echo "<td>{$status}</td>";
     echo "<td>{$employeeName}</td>";
     echo "<td><form method=\"post\" action=\"viewInteraction.php\">";
@@ -240,72 +204,76 @@ $interaction_Conn->close();
 $company_Conn->close();
 ?>
 
-<!-- Next & Previous Buttons -->
-	<!-- The following code presents the user with buttons to navigate the list of customers
+</table>
+<!-- Next 10 Previous 10 Buttons -->
+<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
-	
+<table>
+	<tr>
+		<td>
+			<form method='post'
+				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
-
-if (isset($_GET['sort'])) {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='companyHistory.php?sort={$_GET['sort']}'>";
-    if ($offset == $interactionBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $interactionBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
-} else {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='companyHistory.php'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='companyHistory.php'>";
-    if ($offset == $interactionBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $interactionBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
+if ($_SESSION['offset'] == 0) {
+    echo "<fieldset disabled ='disabled'>";
 }
 ?>
+    <input hidden='true' name='previous'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='&#x21DA; Previous' />
+    <?php
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+    ?>
+	</form>
+		</td>
+		<td>
+			<form method='post'
+				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
+	<?php
+if ($offset == $interactionBuffer->count()) {
+    echo "<fieldset disabled ='disabled'>";
+}
+?>
+    <input hidden='true' name='next'
+					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+					value='Next &#x21DB;' />
+	<?php
+if ($offset == $interactionBuffer->count()) {
+    echo "</fieldset>";
+}
+?>
+	</form>
+		</td>
+	</tr>
+</table>
 
 
+<!-- Script for Sorting columns -->
+<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
 
+	for (i = 0; i < td.length; i++) {
 
+		td[i].addEventListener("click", colSort);
+		td[i].addEventListener("mouseover", function(event){
+		
+		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+		}, false);
+
+		td[i].addEventListener("mouseout", function(event){
+		
+		event.target.style = "";
+		}, false);
+	}
+
+	function colSort(){
+	
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./companyHistory.php?sort=" + col;	
+	}
+</script>
 </html>

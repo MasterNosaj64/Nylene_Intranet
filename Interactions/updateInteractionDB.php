@@ -122,10 +122,10 @@
                     
                     /*Assign follow up date from form*/
                     $fDate = strtotime($formDate);
-                    $followDate = date("Y/m/d", $fDate);
+                    $followDate = date("Y-m-d", $fDate);
                     $followUpDate = date_create($followDate);
                     date_modify($followUpDate, "+30 days");
-                    $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+                    $followUpDateFormatted = date_format($followUpDate,"Y-m-d");
                     $follow_up_date = $followUpDateFormatted;
                 }
                 
@@ -146,11 +146,11 @@
                 $conn_Customer->close();
     
                 
-                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php\" />";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php?sort=1\" />";
                 exit();
             
             } else {
-                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php\" />";
+                echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Interactions/companyHistory.php?sort=1\" />";
                 exit();
             }
         } else {

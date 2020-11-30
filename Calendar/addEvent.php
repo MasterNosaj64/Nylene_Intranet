@@ -72,7 +72,7 @@
         			<td>
     					<input type="radio"  name="mandatory_attendance" value="Yes">
         				<label for="Yes"> Yes </label>
-        				<input type="radio"  name="mandatory_attendance" value="No">
+        				<input type="radio"  name="mandatory_attendance" value="No" checked>
         				<label for="No"> No </label>
         			</td>	
         			</tr>
@@ -92,7 +92,7 @@
         						<input type="radio"  name="event_visibility" value="for_team">
         						<label for="for_team"> For Team </label>
         						
-        						<input type="radio"  name="event_visibility" value="for_individual">
+        						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         					
         					<?php } else { ?>
@@ -101,7 +101,7 @@
         					    <input type="radio"  name="event_visibility" value="for_team">
         						<label for="for_team"> For Team </label>
         						
-        						<input type="radio"  name="event_visibility" value="for_individual">
+        						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         						
         					

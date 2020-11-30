@@ -36,7 +36,7 @@ $conn_Employee = getDBConnection();
 
 // Handler for if the database connection fails
 if ($conn_Company->connect_error || $conn_Employee->connect_error) {
-    die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_employee->connect_error);
+    die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_Employee->connect_error);
 } else {
 
     /*
@@ -62,6 +62,15 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     $employeeListResult->close();
 
+    $name = "";
+    $website = "http://";
+    $address = "";
+    $city = "";
+    $state = "";
+    $country = "";
+    $assigned_To = "";
+    $created_By = "";
+
     if (isset($_POST['Search'])) {
 
         // unset buffer since new search opperation makes current buffer obsolete
@@ -77,6 +86,10 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         $country = $_POST["search_By_Country"];
         $assigned_To = $_POST["search_By_Assigned_To"];
         $created_By = $_POST["search_By_Created_By"];
+
+        if (strcmp($website, "") == 0) {
+            $website = "http://";
+        }
 
         $companies = new Company($conn_Company);
 
@@ -94,7 +107,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 <html>
 <head>
 <title>Search Company</title>
-<link rel="stylesheet" href="../CSS/table.css">
+<link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body style="overflow: scroll">
 	<!-- NEW Company Search -->
@@ -102,18 +115,20 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 	<button type="button"
 		style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;"
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
-	<div hidden class="content">
+	<div hidden="true" class="content">
 
-		<form method="post" action=searchCompany.php
-			name="search_company_data">
-			<table class="form-table" border=5>
+		<form method="post" action=searchCompany.php?sort=
+			<?php echo $_GET['sort'];?> name="search_company_data">
+			<table class="form-table">
 				<tr>
 					<td>Name:</td>
-					<td><input type="text" name="search_By_Name" /></td>
+					<td><input type="text" value="<?php echo $name;?>"
+						name="search_By_Name" class="search-bar-item" /></td>
 					<td>Website:</td>
-					<td><input type="text" value="http://" name="search_By_Website" /></td>
+					<td><input type="text" value="<?php echo $website;?>"
+						name="search_By_Website" id="search-bar-item" /></td>
 					<td>Assigned To:</td>
-					<td><select name="search_By_Assigned_To">
+					<td><select id="selection" name="search_By_Assigned_To">
 							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
@@ -122,70 +137,48 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     ?>
 				</select></td>
-					<td>Created By:</td>
-					<td><select name="search_By_Created_By">
-							<option></option>
+				
 				<?php
-    for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"{$employeeIds[$i]}\">";
-        echo "{$employeeNames[$i]}</option>";
+				
+//TODO: MADHAV OR JASON Add check for supervisor role
+if ($_SESSION["role"] == "admin") {
+
+        echo '<td>Created By:</td>';
+        echo '<td><select name="search_By_Created_By">';
+        echo '<option></option>';
+
+        for ($i = 0; $i < $numEmployees; $i ++) {
+            echo "<option value=\"{$employeeIds[$i]}\">";
+            echo "{$employeeNames[$i]}</option>";
+        }
+        echo '</select></td>';
     }
     ?>
-				</select></td>
+
 				</tr>
 				<tr>
 					<td>Address:</td>
-					<td><input type="text" name="search_By_Address" /></td>
-					<td>City</td>
-					<td><input type="text" name="search_By_City" /></td>
-					<td>State</td>
-					<td><input type="text" name="search_By_State" /></td>
-					<td>Country</td>
-					<td><input type="text" name="search_By_Country" /></td>
+					<td><input type="text" value="<?php echo $address;?>"
+						name="search_By_Address" class="search-bar-item" /></td>
+					<td>City:</td>
+					<td><input type="text" value="<?php echo $city;?>"
+						name="search_By_City" class="search-bar-item" /></td>
+					<td>State:</td>
+					<td><input type="text" value="<?php echo $state;?>"
+						name="search_By_State" class="search-bar-item" /></td>
+					<td>Country:</td>
+					<td><input type="text" value="<?php echo $country;?>"
+						name="search_By_Country" class="search-bar-item" /></td>
 
 				</tr>
 			</table>
-			<input type="submit" value="Search" name="Search" /> <input
-				type="reset" value="Clear" />
+			<input type="submit" value="Search" name="Search"
+				style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;" />
 		</form>
-
+		<button onclick="clearSearchBar()"
+			style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear
+			Search</button>
 	</div>
-
-	<!-- Script for collapsible search menu -->
-	<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
-	<script>
-document.getElementById("searchButton").addEventListener("click", function() {
-
-if(this.value == 0){
-	this.innerHTML = "Hide Search";
-	this.value = 1;
-	event.target.style = "background-color: rgb(211, 211, 211); color: #000000; font-weight: bold;";
-}
-else if(this.value == 1){
-	this.innerHTML = "Expand Search";
-	this.value = 0;
-	event.target.style = "background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;";
-}	
-});
-
-
-
-var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-</script>
-
 <?php
 // Change this variable to modify the page size
 $maxGridSize = 4;
@@ -233,51 +226,16 @@ if (isset($_GET['sort'])) {
 }
 
 ?>
-
-<!-- Company Search -->
+	<!-- Company Search -->
 	<!-- Below is the table that is presented to the user for the query results on the Company table -->
-	<table class="form-table" border=5>
+	<table class="form-table">
 		<thead>
 			<tr> 
 		<?php printHeadersCompany($sortType)?>	
 		</tr>
 		</thead>
 
-
-		<!-- Script for Sorting columns -->
-		<script>
-	
-	var td = document.getElementsByClassName("ColSort");
-	var i;
-
-	for (i = 0; i < td.length; i++) {
-
-	td[i].addEventListener("click", colSort);
-	td[i].addEventListener("mouseover", function(event){
-	
-		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
-		}, false);
-
-	td[i].addEventListener("mouseout", function(event){
-	
-		event.target.style = "";
-		}, false);
-	
-	}
-
-function colSort(){
-
-		
-		var col = this.getAttribute("data-colnum");
-		window.location.href = "./searchCompany.php?sort=" + col;
-	
-}
-
-	
-	</script>
-
 <?php
-
 for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->next()) { // Unserialize the object stored in the companyBuffer
 
     $currentCompanyNode = unserialize($companyBuffer->current()); // temp var for storing current company data members
@@ -289,6 +247,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
+    //TODO: MADHAV OR JASON Add check for supervisor role
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
@@ -314,7 +273,8 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     echo "
 		<td>{$companyState}</td>";
     echo "
-		<td>{$assignedToEmployee->getName()}</td>"; // Show Created by field if Admin is logged in
+		<td>{$assignedToEmployee->getName()}</td>"; 
+    //TODO: MADHAV OR JASON Add check for supervisor role
     if ($_SESSION["role"] == "admin") {
         echo "
 		<td>{$createdByEmployee->getName()}</td>";
@@ -331,7 +291,12 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 	</tr>
 	";
     $getAssigned_To->close();
-    $getCreated_By->close();
+
+    //TODO: MADHAV OR JASON Add check for supervisor role
+    if ($_SESSION["role"] == "admin") {
+
+        $getCreated_By->close();
+    }
     $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;
@@ -339,67 +304,131 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 }
 $conn_Company->close();
 ?>
-
+</table>
 	<!-- Next 10 Previous 10 Buttons -->
-		<!-- The following code presents the user with buttons to navigate the list of companies
+	<!-- The following code presents the user with buttons to navigate the list of customers
 	       If the list has reached its end, next10 will be disabled, same if the user is already at the begining of the list -->
+	<table>
+		<tr>
+			<td>
+				<form method='post'
+					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
-if (isset($_GET['sort'])) {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='searchCompany.php?sort={$_GET['sort']}'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value={$_SESSION["offset"]} /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='searchCompany.php?sort={$_GET['sort']}'>";
-    if ($offset == $companyBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $companyBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
-} else {
-
-    echo "<table class='form-table'align:center;>";
-    echo "<td><form method='post' action='searchCompany.php'>";
-    if ($_SESSION['offset'] == 0) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-    echo "<input hidden name='previous'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='&#x21DA; Previous' />";
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-
-    echo "</form></td>";
-    echo "<td><form method='post' action='searchCompany.php'>";
-    if ($offset == $companyBuffer->count()) {
-        echo "<fieldset disabled ='disabled'>";
-    }
-
-    echo "<input hidden name='next'";
-    echo "value='{$_SESSION["offset"]}' /> <input type='submit'";
-    echo "value='Next &#x21DB;' />";
-    if ($offset == $companyBuffer->count()) {
-        echo "</fieldset>";
-    }
-    echo "</form></td>";
-    echo "</table>";
+if ($_SESSION['offset'] == 0) {
+    echo "<fieldset disabled ='disabled'>";
 }
 ?>
+    <input hidden='true' name='previous'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='&#x21DA; Previous' />
+    <?php
+    if ($_SESSION['offset'] == 0) {
+        echo "</fieldset>";
+    }
+    ?>
+	</form>
+			</td>
+			<td>
+				<form method='post'
+					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
+	<?php
+if ($offset == $companyBuffer->count()) {
+    echo "<fieldset disabled ='disabled'>";
+}
+?>
+    <input hidden='true' name='next'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='Next &#x21DB;' />
+	<?php
+if ($offset == $companyBuffer->count()) {
+    echo "</fieldset>";
+}
+?>
+	</form>
+			</td>
+		</tr>
+	</table>
+
+
+	<!-- Script for collapsible search menu -->
+	<!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
+	<script>
+document.getElementById("searchButton").addEventListener("click", function() {
+
+if(this.value == 0){
+	this.innerHTML = "Hide Search";
+	this.value = 1;
+	event.target.style = "background-color: rgb(211, 211, 211); color: #000000; font-weight: bold;";
+}
+else if(this.value == 1){
+	this.innerHTML = "Expand Search";
+	this.value = 0;
+	event.target.style = "background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;";
+}	
+});
+
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+	<!-- Script for Sorting columns -->
+	<script>
+	
+	var td = document.getElementsByClassName("ColSort");
+	var i;
+
+	for (i = 0; i < td.length; i++) {
+
+	td[i].addEventListener("click", colSort);
+	td[i].addEventListener("mouseover", function(event){
+	
+		event.target.style = "font-size: 20px; background-color: rgb(211, 211, 211); color: #000000; text-align: left; font-weight: bold; text-align: center;";
+		}, false);
+
+	td[i].addEventListener("mouseout", function(event){
+	
+		event.target.style = "";
+		}, false);
+	
+	}
+
+function colSort(){
+
+		var col = this.getAttribute("data-colnum");
+		window.location.href = "./searchCompany.php?sort=" + col;
+}
+	</script>
+
+	<!-- Script for reseting search menu vals when clicking clear -->
+	<script>
+
+function clearSearchBar(){
+
+	var searchBarBox = document.getElementsByClassName("search-bar-item");
+
+	for (i = 0; i < searchBarBox.length; i++) {
+
+		searchBarBox[i].value = "";
+
+	}
+//box for search by website
+	var searchBarBox = document.getElementById("search-bar-item");
+
+	searchBarBox.value = "http://";	
+}
+	</script>
+</body>
 </html>

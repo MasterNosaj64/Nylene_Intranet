@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 07:21 PM
+-- Generation Time: Nov 30, 2020 at 04:42 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -56,20 +56,20 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `company_name`, `website`, `billing_address_street`, `billing_address_city`, `billing_address_state`, `billing_address_postalcode`, `billing_address_country`, `shipping_address_street`, `shipping_address_city`, `shipping_address_state`, `shipping_address_postalcode`, `shipping_address_country`, `description`, `type`, `industry`, `company_email`, `assigned_to`, `date_created`, `date_modified`, `created_by`) VALUES
-(2, 'Company 1', 'http://ade.com', '286 Gendron', 'Magog', 'QC', 'Company1', 'Company1', 'Company 1', 'Company 1', 'Company 1', 'Company 1', 'Company 1', '', '', '', 'abc@email.com', 1, '2020-11-11', '2020-11-12', 1),
-(3, 'Company 2', 'http://243fr.com', '234 Fake', 'Ottawa', 'ON', '', '', 'Company 2', 'Company 2', 'Company 2', 'Company 2', 'Company 2', '', '', '', 'zds@email.com', 1, '2020-11-11', NULL, 1),
-(4, 'Company3', 'http://zas.com', '12 Bell', 'Sherbrooke', 'TX', '', '', 'Company3', 'Company3', 'Company3', 'Company3', 'Company3', '', '', '', 'dsh@email.com', 1, '2020-11-11', NULL, 1),
-(5, 'Company4', 'http://weg6.com', '2531 view', 'Montreal', 'AB', '', '', 'Company4', 'Company4', 'Company4', 'Company4', 'Company4', '', '', '', '123@email.com', 1, '2020-11-11', NULL, 1),
-(6, 'Company5', 'http://asw.com', '182 que', 'Lenoxville', 'NS', '', '', 'Company5', 'Company5', 'Company5', 'Company5', 'Company5', '', '', '', 'ewrt@email.com', 1, '2020-11-11', NULL, 1),
-(7, 'Company6', 'http://xsw.com', '693 Street', 'Kanata', 'NWT', '', '', 'Company6', 'Company6', 'Company6', 'Company6', 'Company6', '', '', '', 'acrhg@email.com', 1, '2020-11-11', NULL, 1),
-(8, 'Company7', 'http://12jyt.com', '321 Port', 'Nepean', 'V', '', '', 'Company7', 'Company7', 'Company7', 'Company7', 'Company7', '', '', '', '67fh@email.com', 1, '2020-11-11', NULL, 1),
-(9, 'Company8', 'http://cd.com', '12 root', 'Hull', 'SK', '', '', 'Company8', 'Company8', 'Company8', 'Company8', 'Company8', '', '', '', 'd@email.com', 1, '2020-11-11', NULL, 1),
-(10, 'Company9', 'http://csf.com', '29 poor', 'New York', 'MB', '', '', 'Company9', 'Company9', 'Company9', 'Company9', 'Company9', '', '', '', 'fs@email.com', 1, '2020-11-11', NULL, 1),
-(11, 'Company10', 'http://hhjrt.com', '48 cat', 'Stanstead', 'Y', '', '', 'Company10', 'Company10', 'Company10', 'Company10', 'Company10', '', '', '', '1243trwer@email.com', 1, '2020-11-11', NULL, 1),
-(12, 'Company11', 'http://cwf.com', '43 dog', 'Yukon', 'PEI', '', '', 'Company11', 'Company11', 'Company11', 'Company11', 'Company11', '', '', '', 'dsfe4@email.com', 1, '2020-11-11', NULL, 1),
-(13, 'Company12', 'http://Company12.comcji', '2543 yaris', 'Calgary', 'WS', '', '', 'Company12', 'Company12', 'Company12', 'Company12', 'Company12', '', '', '', 'ffbd3@email.com', 1, '2020-11-11', NULL, 1),
-(14, 'a', 'http://a.com', '3 a', 'Edmonton', 'NY', '', '', 'a', 'a', 'a', 'a', 'a', '', '', '', 'acew@email.com', 1, '2020-11-11', NULL, 1),
-(15, 'ascot', 'http://ascot.com', '7 ascot', 'Newport', 'CA', '', '', 'ascot', 'ascot', 'ascot', 'ascot', 'ascot', '', '', '', '3gtd@email.com', 1, '2020-11-11', NULL, 1);
+(2, 'Spencers', 'http://www.Spencers.com', '286 Gendron', 'Magog', 'Quebec', 'S5E2W4', 'Canada', '286 Gendron', 'Magog', 'Quebec', 'S5E2W4', 'Canada', '', '', '', 'info@spencers.com', 1, '2020-11-11', '2020-11-29', 1),
+(3, 'Valley Fields', 'http://www.valleyfields.org', '234 Fake Street', 'Ottawa', 'Ontario', 'K1G3B7', 'Canada', '234 Fake Street', 'Ottawa', 'Ontario', 'K1G3B7', 'Canada', '', '', '', 'info@valleyfields.com', 1, '2020-11-11', '2020-11-29', 1),
+(4, 'Algonquin College', 'https://www.algonquincollege.com', '1385 Woodroffe Ave', 'Ottawa', 'Ontario', 'K2G1V8', 'Canada', '1385 Woodroffe Ave', 'Ottawa', 'Ontario', 'K2G1V8', 'Canada', '', '', '', 'info@algonquin.com', 1, '2020-11-11', '2020-11-29', 1),
+(5, 'Weggers', 'http://weg.com', '2531 Views Drive', 'Montreal', 'Quebec', 'J1A0R4', 'Canada', '2531 Views Drive', 'Montreal', 'Quebec', 'J1A0R4', 'Canada', '', '', '', 'into@weggers.com', 1, '2020-11-11', '2020-11-29', 1),
+(6, 'Treasure Trove', 'http://treasuretrove.com', '182 Larry Avenue', 'Lennoxville', 'Quebec', 'J1Q3R5', 'Canada', '182 Larry Avenue', 'Lennoxville', 'Quebec', 'J1Q3R5', 'Canada', '', '', '', 'info@treasuretrove.com', 1, '2020-11-11', '2020-11-29', 1),
+(7, 'Canopy Molds', 'http://canopymolds.ca', '693 Street Lane', 'Kanata', 'Ontario', 'K1Q5E3', 'Canada', '693 Street Lane', 'Kanata', 'Ontario', 'K1Q5E3', 'Canada', '', '', '', 'info@canopymolds.com', 1, '2020-11-11', '2020-11-29', 1),
+(8, 'Bliss Molds', 'http://www.blissmolds.com', '321 Port Drive', 'Toronto', 'Ontario', 'K6L5W4', 'Canada', '321 Port Drive', 'Toronto', 'Ontario', 'K6L5W4', 'Canada', '', '', '', 'info@blissmolds.com', 1, '2020-11-11', '2020-11-29', 1),
+(9, 'Zack\'s Molds', 'http://zacksmolds.com', '124 Tacker Street', 'Edmonton', 'Alberta', 'K1R6E', 'Canada', '124 Tacker Street', 'Edmonton', 'Alberta', 'K1R6E', 'Canada', '', '', '', 'info@zacksmolds.com', 1, '2020-11-11', '2020-11-29', 1),
+(10, 'Harold &amp; Kumar Co.', 'http://haroldandkumarco.com', '29 Poor Lane', 'New York', 'New York', 'K1A5E3', 'United States', '29 Poor Lane', 'New York', 'New York', 'K1A5E3', 'United States', '', '', '', 'info@haroldandkumarco.com', 1, '2020-11-11', '2020-11-29', 1),
+(11, 'Nelson Inc.', 'http://www.Nelson.com', '48 Cat Street', 'Stanstead', 'Quebec', 'J1X0M9', 'Canada', '48 cat', 'Stanstead', 'Quebec', 'J1X0M9', 'Canada', '', '', '', 'JoanJones@Nelson.com', 1, '2020-11-11', '2020-11-29', 1),
+(12, 'Blue Trail', 'http://www.bluetrail.com', '43 Dog Street', 'Morden', 'Manatoba', 'A2E1U6', 'Canada', '43 Dog Street', 'Morden', 'Manatoba', 'A2E1U6', 'Canada', '', '', '', 'info@bluetrail.com', 1, '2020-11-11', '2020-11-29', 1),
+(13, 'Vegetarians United', 'http://www.vegitariansunited.org', '2543 Yaris Drive', 'Kingston', 'Ontario', 'K1W9R3', 'Canada', '2543 Yaris Drive', 'Kingston', 'Ontario', 'K1W9R3', 'Canada', '', '', '', 'info@vegitariansunited.com', 1, '2020-11-11', '2020-11-29', 1),
+(14, 'Albert Molds', 'http://albertmolds.com', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '', '', '', 'info@albertmolds.com', 1, '2020-11-11', '2020-11-29', 1),
+(15, 'ascot', 'http://www.ascot.com', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '', '', '', 'info@ascot.com', 1, '2020-11-11', '2020-11-29', 1);
 
 --
 -- Indexes for dumped tables
@@ -91,7 +91,7 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

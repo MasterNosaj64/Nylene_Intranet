@@ -1,8 +1,7 @@
 <?php
-
 /*
  * FileName: sessionController.php
- * Version Number: 0.75
+ * Version Number: 1.00
  * Author: Jason Waid
  * Purpose:
  * Controls sensitive session variables used to track navigation of the website

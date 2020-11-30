@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 07:22 PM
+-- Generation Time: Nov 30, 2020 at 04:42 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -41,20 +41,28 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_email`, `date_created`, `customer_phone`, `customer_fax`) VALUES
-(1, 'Jason Waid', 'Company1@Company1.com', '2020-11-11 00:00:00', '2222222222', '2222222222'),
-(2, 'Redaet Daniel', 'Company@Company.com', '2020-11-11 00:00:00', '515-954-3232', '515-954-3232'),
-(3, 'Lorne Waid', 'Company3@Company3.com', '2020-11-11 00:00:00', '5555555555', '5555555555'),
-(4, 'Kaitlyn Breker', 'Company4@Company4.com', '2020-11-11 00:00:00', '888-999-9999', '888-999-9999'),
-(5, 'Ali Syed', 'Company5@Company5.com', '2020-11-11 00:00:00', '5555555555', '5555555555'),
-(6, 'Michael Rayner', 'Company6@Company6.com', '2020-11-11 00:00:00', '7777777777', '7777777777'),
-(7, 'Alex Gendron', 'Company7@Company7.com', '2020-11-11 00:00:00', '1453438764', '1453438764'),
-(8, 'Nick Wright', 'Company8@Company8.com', '2020-11-11 00:00:00', '525-858-8585', '525-858-8585'),
-(9, 'Donald Sutherland', 'Company9@Company9.com', '2020-11-11 00:00:00', '145-784-9696', '145-784-9696'),
-(10, 'James Bond', 'Company10@Company10.com', '2020-11-11 00:00:00', '613-787-8585', '613-787-8585'),
-(11, 'Jeffrey Benoit', 'Company11@Company11.com', '2020-11-11 00:00:00', '613-787-1321', '613-787-1321'),
-(12, 'Robert Takacs', 'Company12@Company12.com', '2020-11-11 00:00:00', '819-342-9795', '819-342-9795'),
-(13, 'Redaet Daniel', 'redu@redfo.com', '2020-11-15 00:00:00', '2222222222', '2222222222'),
-(14, 'Lorne Waid', 'lorne.waid@email.com', '2020-11-15 00:00:00', '3333333333', '3333333333');
+(1, 'Eliot Moose', 'eliotm@spencers.com', '2020-11-11 00:00:00', '8195648484', ''),
+(2, 'Redaet Daniel', 'redd@spencers.com', '2020-11-11 00:00:00', '8194658485', ''),
+(3, 'Lorne Waid', 'lwaid@valleyfields.com', '2020-11-11 00:00:00', '6136465252', ''),
+(4, 'Kaitlyn Breker', 'kbreker@valleyfields.com', '2020-11-11 00:00:00', '8196453165', ''),
+(5, 'Ali Syed', 'alisyed@algonquincollege.com', '2020-11-11 00:00:00', '6139895646', '6475659594'),
+(6, 'Michael Rayner', 'michaelrayner6@algonquincollege.com', '2020-11-11 00:00:00', '6478985646', '6479856465'),
+(7, 'Alex Gendron', 'alexg@weggers.com', '2020-11-11 00:00:00', '4586453521', ''),
+(8, 'Nick Wright', 'nwright@ttrove.com', '2020-11-11 00:00:00', '8468459595', ''),
+(9, 'Donald Sutherland', 'dsutherland@canopymolds.com', '2020-11-11 00:00:00', '6478616495', ''),
+(10, 'James Bond', 'jbond@blissmolds.com', '2020-11-11 00:00:00', '6478951546', '6479564959'),
+(11, 'Jeffrey Benoit', 'jbenoit@zacksmolds.com', '2020-11-11 00:00:00', '8194567858', ''),
+(12, 'Robert Takacs', 'rtackacs@zacksmolds.com', '2020-11-11 00:00:00', '8195468494', ''),
+(13, 'Redaet Daniel', 'redu@haroldandkumarco.com', '2020-11-15 00:00:00', '6479856495', ''),
+(14, 'Lorne Waid', 'lorne.waid@nelson.com', '2020-11-15 00:00:00', '8198469795', '8196459795'),
+(15, 'Greg Savage', 'gsavage@spencers.com', '2020-11-29 00:00:00', '8198439795', ''),
+(16, 'Redaet Daniel', 'mrjehdoubleu@gmail.com', '2020-11-29 00:00:00', '8193429795', '1111111111'),
+(17, 'Jason Waid', 'jwaid@spencers.com', '2020-11-29 00:00:00', '8198469898', ''),
+(18, 'Todd Rivet', 'trivet@spencers.com', '2020-11-29 00:00:00', '7894651345', ''),
+(19, 'Bob Hascal', 'bobhascal@albertmolds.com', '2020-11-29 00:00:00', '8194589598', '8194845656'),
+(20, 'Zack Snyder', 'zacksnyder@ascot.com', '2020-11-29 00:00:00', '5474659834', '5463165945'),
+(21, 'Brandon Bailey', 'bbailey@bluetrail.com', '2020-11-29 00:00:00', '8196133310', ''),
+(22, 'Zoe Hope', 'zhope@vegetariansunited.com', '2020-11-29 00:00:00', '6136489575', '');
 
 --
 -- Indexes for dumped tables
@@ -74,7 +82,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -224,7 +224,7 @@
     				<td colspan=6><textarea maxlength="1024" name="comments" rows="20" cols="100" required><?php echo $interaction->getComments(); ?></textarea></td>
     			</tr>
     		</table>
-    		<input hidden name="interaction_id" value="<?php echo $interaction->getInteractionId();?>" />
+    		<input hidden="true" name="interaction_id" value="<?php echo $interaction->getInteractionId();?>" />
     		<input type="submit" name="submit" value="Submit">
     	</form>
     </body>

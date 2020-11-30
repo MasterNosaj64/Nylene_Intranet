@@ -1,124 +1,203 @@
 <?php
-/*
- * FileName: calendar.php
- * Version Number: 1.3
- * Author: Ahmad Syed
- * Last Modified: November 25th 2020
- * Purpose: shows calendar for the user to navigate.
- * All users are able to create events 
- * Users are able to view their follow up dates within the calendar
- */
-include '../Database/connect.php';
-$conn = getDBConnection();
-
-// Setting the timezone of location
-error_reporting(0);
-$BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
-define('BASE_URL', $BASE_URL);
-
-// this gets the previous and next month
-if (isset($_GET['ym'])) {
-    $ym = $_GET['ym'];
-} else {
-    // this gets the current month
-    $ym = date('Y-m');
-}
-
-$timestamp = strtotime($ym . '-01'); // the first day of the month
-if ($timestamp === false) {
-    $ym = date('Y-m');
-    $timestamp = strtotime($ym . '-01');
-}
-
-// Today Tab: (Format:yyyy-mm-dd)
-$today = date('Y-m-j', time());
-
-// Title (Format: MM, YYYY)
-$title = date('F, Y', $timestamp);
-
-// this gets the link of the previous and next month respectivly
-$previous_month = date('Y-m', strtotime('-1 month', $timestamp));
-$next_month = date('Y-m', strtotime('+1 month', $timestamp));
-
-// gets the count of days
-$day_count = date('t', $timestamp);
-
-// sets order in calendar (Monday = 0)
-$str = date('N', $timestamp);
-
-// create blank days for calendar
-$weeks = array();
-$week = '';
-
-$week .= str_repeat('<td></td>', $str - 1);
-// $_SESSION['userid'] =1;
-for ($day = 1; $day <= $day_count; $day ++, $str ++) {
-
-    $date = $ym . '-' . $day;
-
-    // Adding calendar event
-    $event_nameStr = '';
-    $eventResultStr = '"No"';
-    $dateStr = "'" . $date . "'";
-    $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
-    $result = $conn->query($eventInformation);
-    $eventResult = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $eventResult[] = $row;
-    }
-    if (! empty($eventResult)) {
-        $eventResultStr = json_encode($eventResult);
-
-        $event_namesArr = array_column($eventResult, 'event_name');
-        $event_nameStr = implode("<br>", $event_namesArr);
-    }
-
-    // Adding Interaction
-    $interaction_nameStr = '';
-    $interactionResultStr = '"No"';
-    $dateStr = "'" . $date . "'";
-    $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
-    $result_interactions = $conn->query($interactionInformation);
-    $interactionResult = array();
-    while ($row = mysqli_fetch_assoc($result_interactions)) {
-        $interactionResult[] = $row;
-    }
-    if (! empty($interactionResult)) {
-        $interactionResultStr = json_encode($interactionResult);
-
-        $interaction_namesArr = array_column($interactionResult, 'interaction_id');
-        $interaction_nameStr = implode("<br>", $interaction_namesArr);
-    }
-
-    if ($today == $date) {
-
-        $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+    /*
+     * FileName: calendar.php
+     * Version Number: 1.4
+     * Author: Ahmad Syed, modified by Kaitlyn Breker
+     * Last Modified: November 29th 2020
+     * Purpose: shows calendar for the user to navigate.
+     * 
+     * All users are able to create events 
+     * Users are able to view their follow up dates within the calendar
+     */
+    
+    include '../Database/connect.php';
+    $conn = getDBConnection();
+    
+    error_reporting(0);
+    $BASE_URL = (! empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/Nylene_Intranet/';
+    define('BASE_URL', $BASE_URL);
+    
+    /*Set the user access to the employee role*/
+    $userAccess = $_SESSION['role'];
+    
+    // this gets the previous and next month
+    if (isset($_GET['ym'])) {
+        $ym = $_GET['ym'];
     } else {
-        $week .= "<td onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        // this gets the current month
+        $ym = date('Y-m');
     }
-
-    $text_to_add = "";
-
-    if ($interaction_nameStr != "") {
-        $text_to_add = "<br>followup: " . $interaction_nameStr;
+    
+    $timestamp = strtotime($ym . '-01'); // the first day of the month
+    if ($timestamp === false) {
+        $ym = date('Y-m');
+        $timestamp = strtotime($ym . '-01');
     }
+    
+    // Today Tab: (Format:yyyy-mm-dd)
+    $today = date('Y-m-j', time());
+    
+    // Title (Format: MM, YYYY)
+    $title = date('F, Y', $timestamp);
+    
+    // this gets the link of the previous and next month respectivly
+    $previous_month = date('Y-m', strtotime('-1 month', $timestamp));
+    $next_month = date('Y-m', strtotime('+1 month', $timestamp));
+    
+    // gets the count of days
+    $day_count = date('t', $timestamp);
+    
+    // sets order in calendar (Monday = 0)
+    $str = date('N', $timestamp);
+    
+    // create blank days for calendar
+    $weeks = array();
+    $week = '';
+    
+    $week .= str_repeat('<td></td>', $str - 1);
+    
+    /*Selecting user's supervisor's employee_id from employee table*/
+    $bossQuery = "SELECT reports_to FROM employee
+								WHERE employee_id = ". $_SESSION['userid'];
+    $bossResults = $conn->query($bossQuery);
+    $bossRow = mysqli_fetch_array($bossResults);
+    $userSupervisorID = $bossRow['reports_to'];
+    
+    for ($day = 1; $day <= $day_count; $day ++, $str ++) {
+    
+        $date = $ym . '-' . $day;
+    
+        /*Adding Event Calendar*/
+        $event_nameStr = '';
+        $eventResultStr = '"No"';
+        $dateStr = "'" . $date . "'";
+        
+        /*Select events from calendar table based on access level*/
+        if ((strcmp($userAccess,'ind_rep') === 0) ||
+            (strcmp($userAccess,'sales_rep') === 0) ||
+            (strcmp($userAccess,'supervisor') === 0)) {
+            
+            /*Visibility of calendar events created by user, their supervisor for_team, and for_all by admin and supervisor*/
+            $eventInformation = "SELECT * FROM calendar 
+                                    INNER JOIN employee ON employee.employee_id = calendar.employee_id
+                                        WHERE calendar.event_date = " . $dateStr. 
+                                            "AND (calendar.employee_id = " . $_SESSION['userid'].
+                                            " OR (calendar.employee_id = ".$userSupervisorID." AND calendar.event_visibility = 'for_team')
+                                              OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
 
-    $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . "" . $text_to_add . "</span></td>";
-
-    // End of the week OR End of the month
-    if ($str % 7 == 0 || $day == $day_count) {
-
-        // last day of the month set to Sunday
-        if ($day == $day_count && $str % 7 != 0) {
-
-            // Add empty cell for formatting purposes
-            $week .= str_repeat('<td></td>', 7 - $str % 7);
+        } else if (strcmp($userAccess,'admin') === 0){
+            
+            /*Visibility of calendar events created by user, for_team/for_all by admin and supervisor*/
+            $eventInformation = "SELECT * FROM calendar
+                                    INNER JOIN employee ON employee.employee_id = calendar.employee_id
+                                        WHERE calendar.event_date = " . $dateStr.
+                                            "AND (calendar.employee_id = " . $_SESSION['userid'].
+                                            " OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')) 
+                                              OR (calendar.event_visibility = 'for_team' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
+        } else {
+            /*Select all events from the calendar for this specific date*/
+            //$eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
         }
+        
+        
+        $result = $conn->query($eventInformation);
+        $eventResult = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $eventResult[] = $row;
+        }
+        if (! empty($eventResult)) {
+            $eventResultStr = json_encode($eventResult);
+    
+            $event_namesArr = array_column($eventResult, 'event_name');
+            $event_nameStr = implode("<br>", $event_namesArr);
+        }
+    
+       
+        
+        /*Adding Interaction Notification*/
+        $interaction_nameStr = '';
+        $interactionResultStr = '"No"';
+        $dateStr = "'" . $date . "'";
+        
+        /*Select interactions from interaction table based on access level*/
+        if (strcmp($userAccess,'ind_rep') === 0){
+            /*Select all interactions that are created by user and date assigned */
+            $interactionInformation = "SELECT * FROM interaction 
+                                            WHERE follow_up_date = " . $dateStr .
+                                                "AND employee_id = ". $_SESSION['userid'];
+            
+        } else if (strcmp($userAccess,'sales_rep') === 0) {
 
-        $weeks[] = '<tr>' . $week . '</tr>';
-        $week = '';
+            /*Select all interactions that are created by user, or their supervisor, or any other teamate on their team
+             * (including ind_rep) and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        WHERE follow_up_date = " . $dateStr .
+                                        "AND (employee_id = ".$_SESSION['userid']. 
+                                                " OR employee_id = ".$userSupervisorID.
+                                                " OR employee_id IN (SELECT employee_id FROM employee
+                                                                        WHERE reports_to = ".$userSupervisorID."))"; 
+        } else if (strcmp($userAccess, 'supervisor') === 0) {
+            /*Select all interactions that are created by user, or the employees they are supervising and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        WHERE follow_up_date = " . $dateStr .
+                                        "AND (employee_id = ".$_SESSION['userid'].
+                                        " OR employee_id IN (SELECT employee_id FROM employee
+                                                                        WHERE reports_to = ".$_SESSION['userid']."))"; 
+        } else if (strcmp($userAccess, 'admin') === 0){
+            /*Select all interactions that are created by any admin and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        INNER JOIN employee ON interaction.employee_id = employee.employee_id
+                                            WHERE interaction.follow_up_date = " . $dateStr .
+                                                "AND employee.title = 'admin'"; 
+            
+        } else {
+            /*Select all interactions with the specific date*/
+            //$interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
+        }
+        
+        $result_interactions = $conn->query($interactionInformation);
+        $interactionResult = array();
+        while ($row = mysqli_fetch_assoc($result_interactions)) {
+            $interactionResult[] = $row;
+        }
+        
+        if (! empty($interactionResult)) {
+            $interactionResultStr = json_encode($interactionResult);
+            
+            $interaction_namesArr = array_column($interactionResult, 'interaction_id');
+            $interaction_nameStr = implode("<br>", $interaction_namesArr);
+        }
+        
+        /*Is this the list notifications?*/
+        if ($today == $date) {
+    
+            $week .= "<td class='today' onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        } else {
+            $week .= "<td onclick='openPopup(" . $eventResultStr . ", " . $interactionResultStr . ")'>";
+        }
+    
+        $text_to_add = "";
+    
+        if ($interaction_nameStr != "") {
+            $text_to_add = "<br>followup: " . $interaction_nameStr;
+        }
+    
+        $week .= $day . "<br><span style='display:block;font-size:14px;'>" . $event_nameStr . "" . $text_to_add . "</span></td>";
+    
+        // End of the week OR End of the month
+        if ($str % 7 == 0 || $day == $day_count) {
+    
+            // last day of the month set to Sunday
+            if ($day == $day_count && $str % 7 != 0) {
+    
+                // Add empty cell for formatting purposes
+                $week .= str_repeat('<td></td>', 7 - $str % 7);
+            }
+    
+            $weeks[] = '<tr>' . $week . '</tr>';
+            $week = '';
+        }
     }
-}
 ?>
 
 <html lang="en">
@@ -278,7 +357,7 @@ button a {
 	    	}else{
 				for(var i=0; i<date.length; i++){
 					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
-		    	}
+				}
 	    	}
 
 
