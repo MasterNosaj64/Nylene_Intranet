@@ -30,7 +30,6 @@ if ($conn-> connect_error) {
 
     /*Assign values to variables for update query*/
     $interactionNum = $_SESSION['interaction_id'];
-   // $key = key;
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
     $company_address = htmlspecialchars(strip_tags($_POST['company_address']));
     $contact_name = htmlspecialchars(strip_tags($_POST['contact_name']));
