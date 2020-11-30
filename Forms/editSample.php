@@ -1,5 +1,3 @@
-
-  
 <?php
     /* Name: sample_form_view.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
@@ -92,8 +90,8 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                 <tr>
                     <td id="info"> Company: </td>
     
-                    <td colspan="6"><label for="company_name">
-                   </label>
+                    <td colspan="6">
+                <label for="company_name"> </label> 
     				 <input
 					name="company_name" value="<?php echo $gcr['company_name']; ?>"/>
     					
