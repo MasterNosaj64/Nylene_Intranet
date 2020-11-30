@@ -112,10 +112,10 @@
                     <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1 <?php if($qsr['match_sample_sub'] == 1) {echo "checked";} ?>> Sample Submission  </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="match_data_sheet" value=1<?php if($qsr['match_data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
+                    <td colspan="2"> <input type="checkbox" name="match_data_sheet" value="1" <?php if($qsr['match_data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="match_descr" value=1 <?php if($qsr['match_description'] == 1) {echo "checked";} ?>> Description  </td>
+                    <td colspan="2"> <input type="checkbox" name="match_descr" value="1" <?php if($qsr['match_description'] == 1) {echo "checked";} ?>> Description  </td>
                 </tr>
                 <thead>
                 <tr>
