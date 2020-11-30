@@ -70,8 +70,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $country = "";
     $assigned_To = "";
     $created_By = "";
-    
-    
+
     if (isset($_POST['Search'])) {
 
         // unset buffer since new search opperation makes current buffer obsolete
@@ -118,7 +117,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
 	<div hidden="true" class="content">
 
-		<form method="post" action=searchCompany.php
+		<form method="post" action=searchCompany.php?sort=<?php echo $_GET['sort'];?>
 			name="search_company_data">
 			<table class="form-table">
 				<tr>
@@ -165,9 +164,12 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
 				</tr>
 			</table>
-			<input type="submit" value="Search" name="Search" style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;" />
+			<input type="submit" value="Search" name="Search"
+				style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;" />
 		</form>
-		<button onclick="clearSearchBar()" style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear Search</button>
+		<button onclick="clearSearchBar()"
+			style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear
+			Search</button>
 	</div>
 <?php
 // Change this variable to modify the page size
@@ -390,10 +392,8 @@ for (i = 0; i < coll.length; i++) {
 
 function colSort(){
 
-		
 		var col = this.getAttribute("data-colnum");
 		window.location.href = "./searchCompany.php?sort=" + col;
-	
 }
 	</script>
 
