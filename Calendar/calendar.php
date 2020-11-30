@@ -73,17 +73,29 @@
         $dateStr = "'" . $date . "'";
         
         /*Select events from calendar table based on access level*/
-        if (strcmp($userAccess,'ind_rep') === 0){
+        if ((strcmp($userAccess,'ind_rep') === 0) ||
+            (strcmp($userAccess,'sales_rep') === 0) ||
+            (strcmp($userAccess,'supervisor') === 0)) {
+            
             /*Visibility of calendar events created by user, their supervisor for_team, and for_all by admin and supervisor*/
             $eventInformation = "SELECT * FROM calendar 
                                     INNER JOIN employee ON employee.employee_id = calendar.employee_id
-                                    WHERE calendar.event_date = " . $dateStr. 
-                                        "AND (calendar.employee_id = " . $_SESSION['userid'].
-                                        " OR (calendar.employee_id = ".$userSupervisorID." AND calendar.event_visibility = 'for_team')
-                                            OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
+                                        WHERE calendar.event_date = " . $dateStr. 
+                                            "AND (calendar.employee_id = " . $_SESSION['userid'].
+                                            " OR (calendar.employee_id = ".$userSupervisorID." AND calendar.event_visibility = 'for_team')
+                                              OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
 
+        } else if (strcmp($userAccess,'admin') === 0){
+            
+            /*Visibility of calendar events created by user, for_team/for_all by admin and supervisor*/
+            $eventInformation = "SELECT * FROM calendar
+                                    INNER JOIN employee ON employee.employee_id = calendar.employee_id
+                                        WHERE calendar.event_date = " . $dateStr.
+                                            "AND (calendar.employee_id = " . $_SESSION['userid'].
+                                            " OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')) 
+                                              OR (calendar.event_visibility = 'for_team' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
         } else {
-            $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
+            //$eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
         }
         
         
