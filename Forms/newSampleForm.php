@@ -43,13 +43,13 @@
 	{
 		$match_descr = 0;
 	}
-	if (isset($_POST['curr_filter_sys']))
+	if (isset($_POST['curr_filler_sys']))
 	{
-		$curr_filter_sys = $_POST['curr_filter_sys'];
+		$curr_filler_sys = $_POST['curr_filler_sys'];
 	}
 	else 
 	{
-		$curr_filter_sys = 0;
+		$curr_filler_sys = 0;
 	}
 	if (isset($_POST['prod_rec']))
 	{
@@ -199,7 +199,7 @@
         /*Bind statement parameters to statement and execute*/
 		$stmt->bind_param("sssisiiisssssssssssssssssiisiisisssssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
 		    $match_data_sheet, $match_descr, $material_descr, $customer_proc, $curr_supplier, $finished_good_app,
-		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filter_sys, $colors, $known_additives,
+		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filler_sys, $colors, $known_additives,
 		    $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty,
 		    $sds, $coa, $data_sheet, $other_doc, $sample_qty, $sample_req_date, $sample_price, $sample_frt,
 		    $other_contact1, $other_contact2, $other_contact3, $other_contact4);
