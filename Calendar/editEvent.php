@@ -27,7 +27,7 @@ if ($conn-> connect_error) {
 								WHERE employee_id = " . $_SESSION['userid'];
     $result = $conn->query($userInformation);
     $row = mysqli_fetch_array($result);
-
+    
     /*Search calendar info using calendar id posted from edit button*/
     $calendarQuery = "SELECT * FROM calendar
 								WHERE calendar_id = ". $eventID;
@@ -42,9 +42,9 @@ if ($conn-> connect_error) {
     }
     
     /*Code if the radio button is checked for event visability*/
-
+    
     if($calendarRow['event_visibility'] == 'for_all'){
-       $option = 1;
+        $option = 1;
     } elseif($calendarRow['event_visibility'] == 'for_team'){
         $option = 2;
     }
@@ -62,11 +62,12 @@ if ($conn-> connect_error) {
     $employeeCreatedRow = mysqli_fetch_array($employeeResult);
     
     /*Assign date modified*/
-    $todaysDate = date("Y/m/d");
+    $todaysDate = date("Y-m-d");
     $currentDate = date_create($todaysDate);
     date_modify($currentDate, "-0 days");
     
     $conn->close();
+    
 }
 
 ?>
@@ -122,8 +123,9 @@ if ($conn-> connect_error) {
         			<tr>
         			<!-- Event Visibility -->
         			<td> Event Visibility </td>	
-        			 <?php if ($_SESSION['role'] == "admin") { ?>
-        					<td>
+        			<td>
+        			 <?php if ((strcmp($_SESSION['role'], "admin") == 0) || (strcmp($_SESSION['role'], "supervisor") == 0)){ ?>
+        					
         					<?php if ($option == 1){ ?>
         						<input type="radio" name="event_visibility" value="for_all" checked>
         						<label for="for_all">For All </label>
@@ -145,29 +147,24 @@ if ($conn-> connect_error) {
         						<label for="for_team"> For Team </label>
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>       						
-        					<?php } else { ?>		<?php } ?>	
+        					<?php } else { } ?>	
         					
-        						<?php } else { ?>    						
-        						<td>
-        						
+        			<?php } else { ?>    						
+        					
         					<?php if ($option == 2){ ?>
-        					    <input type="radio"  name="event_visibility" value="for_team" checked>
-        						<label for="for_team"> For Team </label>
-        						
+        					            						
         						<input type="radio"  name="event_visibility" value="for_individual">
         						<label for="for_individual"> For Individual </label>
         						
         					<?php }elseif($option == 3){ ?>
-        						<input type="radio"  name="event_visibility" value="for_team">
-        						<label for="for_team"> For Team </label>
-        						
+        						        						
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         					
-        					<?php } else { ?>		<?php } ?>	
-        					
-        					<?php } ?>		
-        					</td>	
+        					<?php } else {  } ?>	
+        				
+        			<?php } ?>		
+        			</td>			
     			</tr>
     			
     		<thead><tr>

@@ -1,37 +1,37 @@
 <?php
 /* Name: addEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: November 5th, 2020
+ * Last Modified: November 30th, 2020
  * Purpose: Input for adding an event to the database.
  */
-    session_start();
-    include '../NavPanel/navigation.php';
-    include '../Database/connect.php';
+session_start();
+include '../NavPanel/navigation.php';
+include '../Database/connect.php';
+
+$conn = getDBConnection();
+
+/*Check the connection*/
+if ($conn-> connect_error) {
     
-    $conn = getDBConnection();
+    die("Connection failed: " . $conn-> connect_error);
     
-    /*Check the connection*/
-    if ($conn-> connect_error) {
-        
-        die("Connection failed: " . $conn-> connect_error);
-        
-    } else {
-      
-        /*Select users name from database as readonly field in form. This information is 
-         * just for appearances on this page*/
-        $userInformation = "SELECT first_name, last_name FROM employee
+} else {
+    
+    /*Select users name from database as readonly field in form. This information is
+     * just for appearances on this page*/
+    $userInformation = "SELECT first_name, last_name FROM employee
 								WHERE employee_id = " . $_SESSION['userid'];
-        $result = $conn->query($userInformation);
-        $row = mysqli_fetch_array($result);
-        
-        /*Assign date created*/
-        $todaysDate = date("Y/m/d");
-        $currentDate = date_create($todaysDate);
-        date_modify($currentDate, "-0 days");
-        
-        $conn->close();
-    }
+    $result = $conn->query($userInformation);
+    $row = mysqli_fetch_array($result);
     
+    /*Assign date created*/
+    $todaysDate = date("Y-m-d");
+    $currentDate = date_create($todaysDate);
+    date_modify($currentDate, "-0 days");
+    
+    $conn->close();
+}
+
 ?>
 
 <html>
@@ -84,7 +84,7 @@
         			<!-- If the user is admin, they will have access to the option: "for all" and those stated below.
         			     Other users ie: employee/independent have access to their team, and individual only -->
         			     
-        					 <?php if ($_SESSION['role'] == "admin") { ?>
+        					 <?php if ((strcmp($_SESSION['role'], "admin") == 0) || (strcmp($_SESSION['role'], "supervisor") == 0)){ ?>
         					<td>
         						<input type="radio" name="event_visibility" value="for_all">
         						<label for="for_all">For All </label>
@@ -94,16 +94,14 @@
         						
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
+        					</td>
         					
         					<?php } else { ?>
         						
-        						<td>
-        					    <input type="radio"  name="event_visibility" value="for_team">
-        						<label for="for_team"> For Team </label>
-        						
+        					<td>
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
-        						
+        					</td>	
         					
         					<?php } ?>
         							
