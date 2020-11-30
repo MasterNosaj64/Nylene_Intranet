@@ -5,7 +5,7 @@
  * Date Modified: 11/28/2020
  * Author: Jason Waid
  * Purpose:
- * Creates PDF file for ltlquote
+ * Creates PDF file for sample quote
  */
 
 // Include the Extended TCPDF library
