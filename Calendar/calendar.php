@@ -95,6 +95,7 @@
                                             " OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')) 
                                               OR (calendar.event_visibility = 'for_team' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
         } else {
+            /*Select all events from the calendar for this specific date*/
             //$eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
         }
         
@@ -356,7 +357,7 @@ button a {
 	    	}else{
 				for(var i=0; i<date.length; i++){
 					$("#result").append("<p style='margin-left:20px;'>Event Name : "+date[i].event_name+"<br>Event Time : "+date[i].start_time+"<br>Description : "+date[i].description+"<br>Mandatory Attendance : "+date[i].mandatory_attendance+"</p><a class='' href='<?php echo BASE_URL; ?>/Calendar/editEvent.php?e="+date[i].calendar_id+"'><button class='' type='button'>Edit</button></a>");
-		    	}
+				}
 	    	}
 
 
