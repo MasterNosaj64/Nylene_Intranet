@@ -2,6 +2,7 @@
 /*
  * Name: viewCreditBusinessApplication.php
  * Author: Isha Isha
+ * Last Modified: 29 November 2020
  * Purpose: View credit business application form. Displays all the information filled in the form.
  */
 session_start();
@@ -120,12 +121,12 @@ if ($conn->connect_error) {
 				<td id="order_pending">Order Pending?
         			<?php if ($checked){ ?>
         			<input type="radio" name="order_pending" value="1"
-					checked> <label for="1"> Yes </label> <input type="radio"
-					name="order_pending" value="0"> <label for="0"> No </label>
+					checked> <label for="Yes"> Yes </label> <input type="radio"
+					name="order_pending" value="0"> <label for="No"> No </label>
         			<?php } else { ?>
-        			<input type="radio" name="order_pending" value="Yes">
+        			<input type="radio" name="order_pending" value="1">
 					<label for="Yes"> Yes </label> <input type="radio"
-					name="order_pending" value="No" checked> <label for="No"> No
+					name="order_pending" value="0" checked> <label for="No"> No
 				</label>
         			<?php } ?> </td>
         			
