@@ -62,12 +62,11 @@ if ($conn-> connect_error) {
     $employeeCreatedRow = mysqli_fetch_array($employeeResult);
     
     /*Assign date modified*/
-    $todaysDate = date("Y-m-d");
+    $todaysDate = date("Y/m/d");
     $currentDate = date_create($todaysDate);
     date_modify($currentDate, "-0 days");
     
     $conn->close();
-
 }
 
 ?>
@@ -123,7 +122,7 @@ if ($conn-> connect_error) {
         			<tr>
         			<!-- Event Visibility -->
         			<td> Event Visibility </td>	
-        			 <?php if ((strcmp($_SESSION['role'], "admin") == 0) || (strcmp($_SESSION['role'], "supervisor") == 0)){ ?>
+        			 <?php if ($_SESSION['role'] == "admin") { ?>
         					<td>
         					<?php if ($option == 1){ ?>
         						<input type="radio" name="event_visibility" value="for_all" checked>
