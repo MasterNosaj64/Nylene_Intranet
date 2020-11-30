@@ -178,10 +178,10 @@
 		     
 		     /*Assign follow up modified - must convert to date, modify, than convert back to string*/
 		     $fDate = strtotime($quoteDate);
-		     $followDate = date("Y/m/d", $fDate);
+		     $followDate = date("Y-m-d", $fDate);
 		     $followUpDate = date_create($followDate);
 		     date_modify($followUpDate, "+30 days");
-		     $followUpDateFormatted = date_format($followUpDate,"Y/m/d");
+		     $followUpDateFormatted = date_format($followUpDate,"Y-m-d");
 		     
 		     /*Bind statement parameters to statement*/
 		     $stmt2->bind_param("si", $followUpDateFormatted, $interactionNum);
