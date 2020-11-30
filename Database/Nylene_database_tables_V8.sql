@@ -10,7 +10,6 @@ CREATE TABLE employee(
     date_modified VARCHAR(50) DEFAULT NULL,
     modified_by INT,
     username VARCHAR(50) DEFAULT NULL,
-    is_administrator INT DEFAULT FALSE,
     STATUS VARCHAR(50) DEFAULT NULL,
     employee_email VARCHAR(50) DEFAULT NULL,
 	password VARCHAR(255) DEFAULT NULL,
