@@ -42,8 +42,6 @@ class Employee
 
     public $username;
 
-    public $is_administrator;
-
     public $STATUS;
 
     public $employee_email;
@@ -201,18 +199,6 @@ class Employee
     }
 
     /*
-     * Function Name: getIs_Administrator
-     * Version: 1.0
-     * Date Modified: 11/22/2020
-     * Author: Jason Waid
-     * Purpose: Function returns the is_administrator
-     */
-    function getIs_Administrator()
-    {
-        return $this->is_administrator;
-    }
-
-    /*
      * Function Name: getSTATUS
      * Version: 1.0
      * Date Modified: 11/22/2020
@@ -264,7 +250,7 @@ class Employee
 
         $stmt->execute();
         // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->STATUS, $this->employee_email, $this->password);
 
         return $stmt;
     }
@@ -294,7 +280,7 @@ class Employee
         $stmt->execute();
 
         // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username,$this->STATUS, $this->employee_email, $this->password);
 
         $stmt->fetch();
 
@@ -310,7 +296,7 @@ class Employee
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
-    function search($employee_id, $first_name, $last_name, $title, $department, $work_phone, $reports_to, $modified_by, $username, $is_administrator, $STATUS, $employee_email)
+    function search($employee_id, $first_name, $last_name, $title, $department, $work_phone, $reports_to, $modified_by, $username, $STATUS, $employee_email)
     {
 
         // number of string parameters
@@ -362,10 +348,18 @@ class Employee
         }
 
         if ($title != "") {
-            if ($employee_id == "" && $first_name == "" && $last_name == "") {
+			
+			///JASON WHY????????
+           /* if ($employee_id == "" && $first_name == "" && $last_name == "") {
                 $query .= "  WHERE billing_address_city LIKE ?";
             } else {
                 $query .= " AND billing_address_city LIKE ?";
+            }*/
+			
+			if ($employee_id == "" && $first_name == "" && $last_name == "") {
+                $query .= "  WHERE title LIKE ?";
+            } else {
+                $query .= " AND title LIKE ?";
             }
             $stringCount ++;
             $paramTypes .= "s";
@@ -436,20 +430,10 @@ class Employee
             array_push($params, $username);
         }
 
-        if ($is_administrator != "") {
-            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "") {
-                $query .= "  WHERE is_administrator LIKE ?";
-            } else {
-                $query .= " AND is_administrator LIKE ?";
-            }
-            $intCount ++;
-            $paramTypes .= "i";
-            $is_administrator = htmlspecialchars(strip_tags($is_administrator));
-            array_push($params, $is_administrator);
-        }
+        
 
         if ($STATUS != "") {
-            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "") {
+            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" ) {
                 $query .= "  WHERE STATUS LIKE ?";
             } else {
                 $query .= " AND STATUS LIKE ?";
@@ -461,7 +445,7 @@ class Employee
         }
 
         if ($employee_email != "") {
-            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $is_administrator == "" && $STATUS == "") {
+            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" && $STATUS == "") {
                 $query .= "  WHERE employee_email LIKE ?";
             } else {
                 $query .= " AND employee_email LIKE ?";
@@ -525,10 +509,7 @@ class Employee
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10]);
                 break;
-            case 12:
-
-                $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10], $params[11]);
-                break;
+            
 
             /* default: */
             // no params
@@ -537,7 +518,7 @@ class Employee
         // execute query
         $stmt->execute();
         // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->is_administrator, $this->STATUS, $this->employee_email, $this->password);
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username,$this->STATUS, $this->employee_email, $this->password);
 
         // return objects
         return $stmt;
