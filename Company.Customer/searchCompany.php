@@ -62,6 +62,16 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     $employeeListResult->close();
 
+    $name = "";
+    $website = "http://";
+    $address = "";
+    $city = "";
+    $state = "";
+    $country = "";
+    $assigned_To = "";
+    $created_By = "";
+    
+    
     if (isset($_POST['Search'])) {
 
         // unset buffer since new search opperation makes current buffer obsolete
@@ -77,6 +87,10 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         $country = $_POST["search_By_Country"];
         $assigned_To = $_POST["search_By_Assigned_To"];
         $created_By = $_POST["search_By_Created_By"];
+
+        if (strcmp($website, "") == 0) {
+            $website = "http://";
+        }
 
         $companies = new Company($conn_Company);
 
@@ -102,16 +116,18 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 	<button type="button"
 		style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;"
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
-	<div hidden class="content">
+	<div hidden="true" class="content">
 
 		<form method="post" action=searchCompany.php
 			name="search_company_data">
-			<table class="form-table" border=5>
+			<table class="form-table">
 				<tr>
 					<td>Name:</td>
-					<td><input type="text" name="search_By_Name" /></td>
+					<td><input type="text" value="<?php echo $name;?>"
+						name="search_By_Name" class="search-bar-item" /></td>
 					<td>Website:</td>
-					<td><input type="text" value="http://" name="search_By_Website" /></td>
+					<td><input type="text" value="<?php echo $website;?>"
+						name="search_By_Website" id="search-bar-item" /></td>
 					<td>Assigned To:</td>
 					<td><select id="selection" name="search_By_Assigned_To">
 							<option></option>
@@ -135,20 +151,23 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 				</tr>
 				<tr>
 					<td>Address:</td>
-					<td><input type="text" name="search_By_Address" /></td>
-					<td>City</td>
-					<td><input type="text" name="search_By_City" /></td>
-					<td>State</td>
-					<td><input type="text" name="search_By_State" /></td>
-					<td>Country</td>
-					<td><input type="text" name="search_By_Country" /></td>
+					<td><input type="text" value="<?php echo $address;?>"
+						name="search_By_Address" class="search-bar-item" /></td>
+					<td>City:</td>
+					<td><input type="text" value="<?php echo $city;?>"
+						name="search_By_City" class="search-bar-item" /></td>
+					<td>State:</td>
+					<td><input type="text" value="<?php echo $state;?>"
+						name="search_By_State" class="search-bar-item" /></td>
+					<td>Country:</td>
+					<td><input type="text" value="<?php echo $country;?>"
+						name="search_By_Country" class="search-bar-item" /></td>
 
 				</tr>
 			</table>
-			<input type="submit" value="Search" name="Search" /> <input
-				type="reset" value="Clear" />
+			<input type="submit" value="Search" name="Search" style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;" />
 		</form>
-
+		<button onclick="clearSearchBar()" style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear Search</button>
 	</div>
 <?php
 // Change this variable to modify the page size
@@ -348,11 +367,6 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
-
-
-
-
-
 	<!-- Script for Sorting columns -->
 	<script>
 	
@@ -383,4 +397,23 @@ function colSort(){
 }
 	</script>
 
+	<!-- Script for reseting search menu vals when clicking clear -->
+	<script>
+
+function clearSearchBar(){
+
+	var searchBarBox = document.getElementsByClassName("search-bar-item");
+
+	for (i = 0; i < searchBarBox.length; i++) {
+
+		searchBarBox[i].value = "";
+
+	}
+//box for search by website
+	var searchBarBox = document.getElementById("search-bar-item");
+
+	searchBarBox.value = "http://";	
+}
+	</script>
+</body>
 </html>
