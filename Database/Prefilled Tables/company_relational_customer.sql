@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 07:34 PM
+-- Generation Time: Nov 30, 2020 at 04:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -50,7 +50,15 @@ INSERT INTO `company_relational_customer` (`company_id`, `customer_id`) VALUES
 (9, 11),
 (9, 12),
 (10, 13),
-(11, 14);
+(11, 14),
+(2, 15),
+(2, 16),
+(2, 17),
+(2, 18),
+(14, 19),
+(15, 20),
+(12, 21),
+(13, 22);
 
 --
 -- Indexes for dumped tables
