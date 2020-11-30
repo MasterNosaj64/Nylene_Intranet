@@ -1,9 +1,12 @@
+
+  
 <?php
     /* Name: sample_form_view.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
      * Last Modified: November 12th, 2020
      * Purpose: Displays the information from the Sample form
      */
+
 
     session_start();
     include '../NavPanel/navigation.php';
@@ -92,7 +95,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="6"><label for="company_name">
                    </label>
     				 <input
-					name="company_name" placeholder="<?php echo $gcr['company_name']; ?>"/>
+					name="company_name" value="<?php echo $gcr['company_name']; ?>"/>
     					
     				</td>
                 </tr>
@@ -101,31 +104,31 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="3"><label for="company_address">
                    </label>
     				 <input
-					name="company_address" placeholder=" <?php echo $gcr['billing_address_street'] . ", " . $gcr['billing_address_city'] . ", " .  $gcr['billing_address_state'] . ", " . $gcr['billing_address_postalcode'] ?>"> </td>
+					name="company_address" value=" <?php echo $gcr['billing_address_street'] . ", " . $gcr['billing_address_city'] . ", " .  $gcr['billing_address_state'] . ", " . $gcr['billing_address_postalcode'] ?>"> </td>
                     <td id="info"> Primary Contact: </td>
                     <td colspan="1"> <label for="customer_name">
                    </label>
     				 <input
-					name="customer_name" placeholder="<?php echo $gcr['customer_name'] ?> "> </div> </td>
+					name="customer_name" value="<?php echo $gcr['customer_name'] ?> "> </div> </td>
                 </tr>
                 <tr>
                     <td id="info"> Phone Number:
                     <td colspan="3"> <label for="customer_phone">
                    </label>
     				 <input
-					name="customer_phone" placeholder="<?php echo $gcr['customer_phone'] ?>"> </td>
+					name="customer_phone" value="<?php echo $gcr['customer_phone'] ?>"> </td>
                     <td id="info"> Email Address: </td>
                     <td colspan="1"><label for="customer_email">
                    </label>
     				 <input
-					name="customer_email" placeholder=" <?php echo $gcr['customer_email'] ?>"> </td>
+					name="customer_email" value=" <?php echo $gcr['customer_email'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Fax Number: </td>
                     <td colspan="3"><label for="customer_fax">
                    </label>
     				 <input
-					name="customer_fax" placeholder=" <?php echo $gcr['customer_fax'] ?>"> </td>
+					name="customer_fax" value=" <?php echo $gcr['customer_fax'] ?>"> </td>
                     <td id="info"> Credit Application Submitted: </td>
                     <td colspan="1"> <label for="credit_app_submitted">
                    </label>
@@ -143,7 +146,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                 <tr>
                     <td colspan="4" rowspan="3" style="height:80px;"> 
     				 <input
-					name="business_case" placeholder="<?php echo $qsr['business_case'] ?> "></td>
+					name="business_case" value="<?php echo $qsr['business_case'] ?> "></td>
                     <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1 <?php if($qsr['match_sample_sub'] == 1) {echo "checked";} ?>> Sample Submission  </td>
                 </tr>
                 <tr>
@@ -159,7 +162,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                 <tr>
                     <td colspan="6"> 
     				 <input
-					name="company_name" placeholder="<?php echo $qsr['material_description']; if ($qsr['material_description'] == "") {echo "<br/>";}?>"> </td>
+					name="company_name" value="<?php echo $qsr['material_description']; if ($qsr['material_description'] == "") {echo "<br/>";}?>"> </td>
                 </tr>
                 <thead>
                 <tr>
@@ -170,99 +173,99 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="2"><label for="customer_proc">
                    </label>
     				 <input
-					name="customer_proc" placeholder=" <?php echo $qsr['customer_proc'] ?>"> </td>
+					name="customer_proc" value=" <?php echo $qsr['customer_proc'] ?>"> </td>
                     <td id="info"> Current Supplier </td>
                     <td colspan="2"> <label for="customer_supplier">
                    </label>
     				 <input
-					name="customer_supplier" placeholder="<?php echo $qsr['customer_supplier'] ?>"> </td>
+					name="customer_supplier" value="<?php echo $qsr['customer_supplier'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Finished Good Application </td>
                     <td colspan="2"> <label for="finished_good_app">
                    </label>
     				 <input
-					name="finished_good_app" placeholder="<?php echo $qsr['finished_good_app'] ?>"> </td>
+					name="finished_good_app" value="<?php echo $qsr['finished_good_app'] ?>"> </td>
                     <td id="info"> Est. Annual Volume </td>
                     <td colspan="2"> <label for="annual_vol">
                    </label>
     				 <input
-					name="annual_vol" placeholder="<?php echo $qsr['annual_vol'] ?>"> </td>
+					name="annual_vol" value="<?php echo $qsr['annual_vol'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Current Base Resin System </td>
                     <td colspan="2"><label for="current_resin_system">
                    </label>
     				 <input
-					name="current_resin_system" placeholder=" <?php echo $qsr['current_resin_system'] ?>"> </td>
+					name="current_resin_system" value=" <?php echo $qsr['current_resin_system'] ?>"> </td>
                     <td id="info"> Target Price </td>
                     <td colspan="2"> <label for="target_price">
                    </label>
     				 <input
-					name="target_price" placeholder="<?php echo $qsr['target_price'] ?> "></td>
+					name="target_price" value="<?php echo $qsr['target_price'] ?> "></td>
                 </tr>
                 <tr>
                     <td id="info"> Melt Requirements </td>
                     <td colspan="5"><label for="melt_reqs">
                    </label>
     				 <input
-					name="melt_reqs" placeholder=" <?php echo $qsr['melt_reqs'] ?>"> </td>
+					name="melt_reqs" value=" <?php echo $qsr['melt_reqs'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Current Filler System </td>
                     <td colspan="5"><label for="current_filler_sys">
                    </label>
     				 <input
-					name="current_filler_sys" placeholder=" <?php echo $qsr['current_filler_sys'] ?>"> </td>
+					name="current_filler_sys" value=" <?php echo $qsr['current_filler_sys'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Color(s) </td>
                     <td colspan="5"><label for="colors">
                    </label>
     				 <input
-					name="colors" placeholder=" <?php echo $qsr['colors'] ?>"> </td>
+					name="colors" value=" <?php echo $qsr['colors'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Known Additive Packages </td>
                     <td colspan="5"><label for="known_additives">
                    </label>
     				 <input
-					name="known_additives" placeholder=" <?php echo $qsr['known_additives'] ?>"> </td>
+					name="known_additives" value=" <?php echo $qsr['known_additives'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> UV Requirements </td>
                     <td colspan="5"> <label for="uv_reqs">
                    </label>
     				 <input
-					name="uv_reqs" placeholder="<?php echo $qsr['uv_reqs'] ?>"> </td>
+					name="uv_reqs" value="<?php echo $qsr['uv_reqs'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> UL Requirements </td>
                     <td colspan="5"><label for="ul_reqs">
                    </label>
     				 <input
-					name="ul_reqs" placeholder=" <?php echo $qsr['ul_reqs'] ?>"> </td>
+					name="ul_reqs" value=" <?php echo $qsr['ul_reqs'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Automotive Specifications </td>
                     <td colspan="5"><label for="auto_reqs">
                    </label>
     				 <input
-					name="auto_reqs" placeholder=" <?php echo $qsr['auto_reqs'] ?>"> </td>
+					name="auto_reqs" value=" <?php echo $qsr['auto_reqs'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> FDA Requirements </td>
                     <td colspan="5"> <label for="fda_reqs">
                    </label>
     				 <input
-					name="fda_reqs" placeholder="<?php echo $qsr['fda_reqs'] ?>"> </td>
+					name="fda_reqs" value="<?php echo $qsr['fda_reqs'] ?>"> </td>
                 </tr>
                 <tr>
                     <td id="info"> Color Specifications </td>
                     <td colspan="5"><label for="color_specs">
                    </label>
     				 <input
-					name="color_specs" placeholder=" <?php echo $qsr['color_specs'] ?>"> </td>
+					name="color_specs" value=" <?php echo $qsr['color_specs'] ?>"> </td>
                 </tr>
                 <thead>
                 <tr>
@@ -275,7 +278,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="2"><label for="other_doc">
                    </label>
     				 <input
-					name="other_doc" placeholder=" <?php echo $qsr['other_doc'] ?>">  </td>
+					name="other_doc" value=" <?php echo $qsr['other_doc'] ?>">  </td>
                 </tr>
                 <tr>
                     <td> <input type="checkbox" name="sds" value=1 <?php if($qsr['sds'] == 1) {echo "checked";} ?>> SDS  </td>
@@ -284,11 +287,11 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td> QTY:<label for="sample_qty">
                    </label>
     				 <input
-					name="sample_qty" placeholder=" <?php echo $qsr['sample_qty'] ?>"> </td>
+					name="sample_qty" value=" <?php echo $qsr['sample_qty'] ?>"> </td>
                     <td> Date REQ:<label for="sample_req_date">
                    </label>
     				 <input
-					name="sample_req_date" placeholder=" <?php echo $qsr['sample_req_date'] ?>"> </td>
+					name="sample_req_date" value=" <?php echo $qsr['sample_req_date'] ?>"> </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <input type="checkbox" name="data_sheet" value=1 <?php if($qsr['data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
@@ -296,11 +299,11 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td> Price:<label for="sample_price">
                    </label>
     				 <input
-					name="sample_price" placeholder=" <?php echo $qsr['sample_price'] ?>"> </td>
+					name="sample_price" value=" <?php echo $qsr['sample_price'] ?>"> </td>
                     <td> Frt PDD/Add:<label for="sample_frt">
                    </label>
     				 <input
-					name="sample_frt" placeholder=" <?php echo $qsr['sample_frt'] ?>"> </td>
+					name="sample_frt" value=" <?php echo $qsr['sample_frt'] ?>"> </td>
                 </tr>
                 <tr>
                     <td colspan="6" id="info" align="center"> ---Note: SDS Sent With All Samples---</td>
@@ -313,21 +316,21 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="3" style="width:50%">Other Contact 1: <label for="other_contact_1">
                    </label>
     				 <input
-					name="other_contact_1" placeholder="<?php echo $qsr['other_contact_1'];  ?>"> </td>
+					name="other_contact_1" value="<?php echo $qsr['other_contact_1']  ?>"> </td>
     				<td colspan="3" style="width:50%"> Other Contact 2: <label for="other_contact_2">
                    </label>
     				 <input
-					name="other_contact_2" placeholder="<?php echo $qsr['other_contact_2'] ?>"> </td>
+					name="other_contact_2" value="<?php echo $qsr['other_contact_2'] ?>"> </td>
     			</tr>
     			<tr>
                     <td colspan="3" style="width:50%">Other Contact 3:  <label for="other_contact_3">
                    </label>
     				 <input
-					name="other_contact_3" placeholder="<?php echo $qsr['other_contact_3']; ?> "></td>
+					name="other_contact_3" value="<?php echo $qsr['other_contact_3'] ?> "></td>
     				<td colspan="3" style="width:50%">Other Contact 4: <label for="other_contact_4">
                    </label>
     				 <input
-					name="other_contact_4" placeholder=" <?php echo $qsr['other_contact_4'] ?> "></td>
+					name="other_contact_4" value=" <?php echo $qsr['other_contact_4'] ?> "></td>
     			</tr>
 				<tr>
                     <td colspan="3"> <input type="submit" style="width:100%"> </td>
@@ -338,3 +341,4 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
          
 	</body>
 </html>
+
