@@ -98,7 +98,7 @@
             
         } else if (strcmp($userAccess,'sales_rep') === 0) {
 
-            /*Select all interactions that are created by user, or their supervisor, or any member of their team 
+            /*Select all interactions that are created by user, or their supervisor, or any other teamate on their team
              * (including ind_rep) and date assigned */
             $interactionInformation = "SELECT * FROM interaction
                                         WHERE interaction.follow_up_date = " . $dateStr .
@@ -106,9 +106,23 @@
                                                 " OR employee_id = ".$userSupervisorID.
                                                 " OR employee_id IN (SELECT employee_id FROM employee
                                                                         WHERE reports_to = ".$userSupervisorID."))"; 
+        } else if (strcmp($userAccess, 'supervisor') === 0) {
+            /*Select all interactions that are created by user, or the employees they are supervising and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        WHERE interaction.follow_up_date = " . $dateStr .
+                                        "AND (employee_id = ".$_SESSION['userid'].
+                                        " OR employee_id IN (SELECT employee_id FROM employee
+                                                                        WHERE reports_to = ".$_SESSION['userid']."))"; 
+        } else if (strcmp($userAccess, 'admin') === 0){
+            /*Select all interactions that are created by any admin and date assigned */
+            $interactionInformation = "SELECT * FROM interaction
+                                        INNER JOIN employee ON interaction.employee_id = employee.employee_id
+                                            WHERE interaction.follow_up_date = " . $dateStr .
+                                                "AND employee.title = 'admin'"; 
+            
         } else {
-            $interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
-
+            /*Select all interactions with the specific date*/
+            //$interactionInformation = "SELECT * FROM interaction WHERE follow_up_date = " . $dateStr;
         }
         
         $result_interactions = $conn->query($interactionInformation);
