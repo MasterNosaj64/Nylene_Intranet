@@ -170,7 +170,6 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     // obtain customer data
     $customer = new Customer($customer_Conn);
     $customer->searchById($customerID);
-    // $customerData->fetch();
     $customerName = $customer->getName();
     $customer_Conn->close();
 
@@ -182,7 +181,12 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     echo "<tr><td>{$interactionDateCreated}</td>";
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
-    echo "<td>" . substr($comments, 0, 50) . "</td>";
+    if(strlen($comments) > 50){
+        echo "<td>" . substr($comments, 0, 50) . "...</td>";
+    }
+    else{
+        echo "<td>" . substr($comments, 0, 50) . "</td>";
+    }
     echo "<td>{$status}</td>";
     echo "<td>{$employeeName}</td>";
     echo "<td><form method=\"post\" action=\"viewInteraction.php\">";

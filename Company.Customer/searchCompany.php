@@ -117,8 +117,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
 	<div hidden="true" class="content">
 
-		<form method="post" action=searchCompany.php?sort=<?php echo $_GET['sort'];?>
-			name="search_company_data">
+		<form method="post" action=searchCompany.php?sort=
+			<?php echo $_GET['sort'];?> name="search_company_data">
 			<table class="form-table">
 				<tr>
 					<td>Name:</td>
@@ -137,16 +137,24 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     }
     ?>
 				</select></td>
-					<td>Created By:</td>
-					<td><select name="search_By_Created_By">
-							<option></option>
+				
 				<?php
-    for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"{$employeeIds[$i]}\">";
-        echo "{$employeeNames[$i]}</option>";
+				
+//TODO: MADHAV OR JASON Add check for supervisor role
+if ($_SESSION["role"] == "admin") {
+
+        echo '<td>Created By:</td>';
+        echo '<td><select name="search_By_Created_By">';
+        echo '<option></option>';
+
+        for ($i = 0; $i < $numEmployees; $i ++) {
+            echo "<option value=\"{$employeeIds[$i]}\">";
+            echo "{$employeeNames[$i]}</option>";
+        }
+        echo '</select></td>';
     }
     ?>
-				</select></td>
+
 				</tr>
 				<tr>
 					<td>Address:</td>
@@ -239,6 +247,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
+    //TODO: MADHAV OR JASON Add check for supervisor role
     if ($_SESSION["role"] == "admin") {
 
         $createdByEmployee = new Employee(getDBConnection());
@@ -264,7 +273,8 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     echo "
 		<td>{$companyState}</td>";
     echo "
-		<td>{$assignedToEmployee->getName()}</td>"; // Show Created by field if Admin is logged in
+		<td>{$assignedToEmployee->getName()}</td>"; 
+    //TODO: MADHAV OR JASON Add check for supervisor role
     if ($_SESSION["role"] == "admin") {
         echo "
 		<td>{$createdByEmployee->getName()}</td>";
@@ -281,7 +291,12 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 	</tr>
 	";
     $getAssigned_To->close();
-    $getCreated_By->close();
+
+    //TODO: MADHAV OR JASON Add check for supervisor role
+    if ($_SESSION["role"] == "admin") {
+
+        $getCreated_By->close();
+    }
     $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;
