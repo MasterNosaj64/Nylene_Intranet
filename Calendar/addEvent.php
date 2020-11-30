@@ -84,7 +84,7 @@
         			<!-- If the user is admin, they will have access to the option: "for all" and those stated below.
         			     Other users ie: employee/independent have access to their team, and individual only -->
         			     
-        					 <?php if ($_SESSION['role'] == "admin") { ?>
+        					 <?php if ((strcmp($_SESSION['role'], "admin") == 0) || (strcmp($_SESSION['role'], "supervisor") == 0)){ ?>
         					<td>
         						<input type="radio" name="event_visibility" value="for_all">
         						<label for="for_all">For All </label>

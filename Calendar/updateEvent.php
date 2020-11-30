@@ -1,7 +1,7 @@
 <?php
 /* Name: updateEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: November 5th, 2020
+ * Last Modified: November 30th, 2020
  * Purpose: File called when user clicks submit on the edit event form form. Inserts form information into
  *          the calendar table of the database.
  */
@@ -40,11 +40,11 @@ if ($conn-> connect_error) {
     $dateModified = htmlspecialchars(strip_tags($_POST["date_modified"]));
     $modifiedBy =  $userID;
     $mandatoryAttendance = htmlspecialchars(strip_tags($_POST["mandatory_attendance"]));
-    $eventVisibility =     htmlspecialchars(strip_tags($_POST["event_visibility"]));
+    $eventVisibility = htmlspecialchars(strip_tags($_POST["event_visibility"]));
     $calendarID = htmlspecialchars(strip_tags($_POST["calendar_id"]));
     
     /*Bind statement parameters to statement*/
-    $stmt->bind_param("sssssisi", $eventDate, $startTime, $eventName, $description, 
+    $stmt->bind_param("sssssissi", $eventDate, $startTime, $eventName, $description, 
         $dateModified, $modifiedBy, $mandatoryAttendance,$eventVisibility, $calendarID);
     
     
