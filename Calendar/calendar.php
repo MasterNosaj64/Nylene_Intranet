@@ -55,7 +55,14 @@
     $week = '';
     
     $week .= str_repeat('<td></td>', $str - 1);
-    // $_SESSION['userid'] =1;
+    
+    /*Selecting user's supervisor's employee_id from employee table*/
+    $bossQuery = "SELECT reports_to FROM employee
+								WHERE employee_id = ". $_SESSION['userid'];
+    $bossResults = $conn->query($bossQuery);
+    $bossRow = mysqli_fetch_array($bossResults);
+    $userSupervisorID = $bossRow['reports_to'];
+    
     for ($day = 1; $day <= $day_count; $day ++, $str ++) {
     
         $date = $ym . '-' . $day;
@@ -64,7 +71,22 @@
         $event_nameStr = '';
         $eventResultStr = '"No"';
         $dateStr = "'" . $date . "'";
-        $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
+        
+        /*Select events from calendar table based on access level*/
+        if (strcmp($userAccess,'ind_rep') === 0){
+            /*Visibility of calendar events created by user, their supervisor for_team, and for_all by admin and supervisor*/
+            $eventInformation = "SELECT * FROM calendar 
+                                    INNER JOIN employee ON employee.employee_id = calendar.employee_id
+                                    WHERE calendar.event_date = " . $dateStr. 
+                                        "AND (calendar.employee_id = " . $_SESSION['userid'].
+                                        " OR (calendar.employee_id = ".$userSupervisorID." AND calendar.event_visibility = 'for_team')
+                                            OR (calendar.event_visibility = 'for_all' AND (employee.title = 'admin' OR employee.title = 'supervisor')))";
+
+        } else {
+            $eventInformation = "SELECT * FROM calendar WHERE event_date = " . $dateStr;
+        }
+        
+        
         $result = $conn->query($eventInformation);
         $eventResult = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -77,12 +99,7 @@
             $event_nameStr = implode("<br>", $event_namesArr);
         }
     
-        /*Selecting user's supervisor's employee_id from employee table*/
-        $bossQuery = "SELECT reports_to FROM employee
-								WHERE employee_id = ". $_SESSION['userid'];
-        $bossResults = $conn->query($bossQuery);
-        $bossRow = mysqli_fetch_array($bossResults);
-        $userSupervisorID = $bossRow['reports_to'];
+       
         
         /*Adding Interaction Notification*/
         $interaction_nameStr = '';
@@ -101,7 +118,7 @@
             /*Select all interactions that are created by user, or their supervisor, or any other teamate on their team
              * (including ind_rep) and date assigned */
             $interactionInformation = "SELECT * FROM interaction
-                                        WHERE interaction.follow_up_date = " . $dateStr .
+                                        WHERE follow_up_date = " . $dateStr .
                                         "AND (employee_id = ".$_SESSION['userid']. 
                                                 " OR employee_id = ".$userSupervisorID.
                                                 " OR employee_id IN (SELECT employee_id FROM employee
@@ -109,7 +126,7 @@
         } else if (strcmp($userAccess, 'supervisor') === 0) {
             /*Select all interactions that are created by user, or the employees they are supervising and date assigned */
             $interactionInformation = "SELECT * FROM interaction
-                                        WHERE interaction.follow_up_date = " . $dateStr .
+                                        WHERE follow_up_date = " . $dateStr .
                                         "AND (employee_id = ".$_SESSION['userid'].
                                         " OR employee_id IN (SELECT employee_id FROM employee
                                                                         WHERE reports_to = ".$_SESSION['userid']."))"; 
