@@ -234,7 +234,7 @@ if ($conn-> connect_error) {
     /*Close connection*/
     $conn->close();
     
-    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php\" />;";
+    echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Interactions/companyHistory.php?sort=1\" />;";
     exit();
 }
 

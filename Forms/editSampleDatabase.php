@@ -669,7 +669,7 @@ $conn = getDBConnection();
 
 		$conn->close();
 	  
-		echo "<meta http-equiv = \"refresh\" content = \"100; url = ../Interactions/companyHistory.php\" />;";
+		echo "<meta http-equiv = \"refresh\" content = \"100; url = ../Interactions/companyHistory.php?sort=1\" />;";
 		exit();
 
 	}
