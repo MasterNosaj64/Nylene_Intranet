@@ -1,7 +1,7 @@
 <?php
 /* Name: editEvent.php
  * Author: Kaitlyn Breker
- * Last Modified: November 6th, 2020
+ * Last Modified: November 30th, 2020
  * Purpose: Form to edit the event and insert into the database.
  */
 
@@ -126,21 +126,24 @@ if ($conn-> connect_error) {
         			<td>
         			 <?php if ((strcmp($_SESSION['role'], "admin") == 0) || (strcmp($_SESSION['role'], "supervisor") == 0)){ ?>
         					
-        					<?php if ($option == 1){ ?>
+        					<?php if ($option == 1){ 
+        					   /*If the user is admin/supervisor and the event is for all*/ ?>
         						<input type="radio" name="event_visibility" value="for_all" checked>
         						<label for="for_all">For All </label>
         						<input type="radio"  name="event_visibility" value="for_team">
         						<label for="for_team"> For Team </label>
         						<input type="radio"  name="event_visibility" value="for_individual">
         						<label for="for_individual"> For Individual </label>
-        					<?php } elseif ($option == 2) { ?>
+        					<?php } elseif ($option == 2) { 
+        					    /*If the user is admin/supervisor and the event is for team*/?>
         						<input type="radio" name="event_visibility" value="for_all">
         						<label for="for_all">For All </label>
         						<input type="radio"  name="event_visibility" value="for_team" checked>
         						<label for="for_team"> For Team </label>
         						<input type="radio"  name="event_visibility" value="for_individual">
         						<label for="for_individual"> For Individual </label>
-        					<?php } elseif($option == 3){ ?>
+        					<?php } elseif($option == 3){ 
+        					    /*If the user is admin/supervisor and the event is for individual*/?>
         						<input type="radio" name="event_visibility" value="for_all">
         						<label for="for_all">For All </label>
         						<input type="radio"  name="event_visibility" value="for_team">
@@ -151,13 +154,28 @@ if ($conn-> connect_error) {
         					
         			<?php } else { ?>    						
         					
-        					<?php if ($option == 2){ ?>
-        					            						
-        						<input type="radio"  name="event_visibility" value="for_individual">
+        					<?php if ($option == 1){ 
+        					    /*If the user is salesrep/indrep and the event is for all event_visibility cannot be edited*/ ?>
+        						<input type="radio" name="event_visibility" value="for_all" checked disabled>
+        						<label for="for_all">For All </label>
+        						<input type="radio"  name="event_visibility" value="for_team" disabled>
+        						<label for="for_team"> For Team </label>
+        						<input type="radio"  name="event_visibility" value="for_individual" disabled>
         						<label for="for_individual"> For Individual </label>
-        						
-        					<?php }elseif($option == 3){ ?>
-        						        						
+        						<input hidden type="text" name="event_visibility" value="for_all">
+        					<?php } elseif ($option == 2){ 
+        					
+        				       /*If the user is salesrep/indrep and the event is for team event_visibility cannot be edited*/ ?>
+            					<input type="radio" name="event_visibility" value="for_all" disabled>
+            					<label for="for_all">For All </label>
+            					<input type="radio"  name="event_visibility" value="for_team" disabled checked>
+            					<label for="for_team"> For Team </label>
+            					<input type="radio"  name="event_visibility" value="for_individual" disabled>
+            					<label for="for_individual"> For Individual </label>
+            					<input hidden type="text" name="event_visibility" value="for_team">
+        					<?php 
+        					}elseif($option == 3){ 
+        					    /*If the user is salesrep/indrep and the event is for individual, event_visibility  only for_individual */  ?>
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         					
