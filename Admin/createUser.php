@@ -9,8 +9,8 @@ include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 
-
-$conn = getDBConnection();
+//TODO: MADHAV call getDBConnection to get connection
+//$conn = getDBConnection();
 
 
 
@@ -26,7 +26,6 @@ $accessLevel=$_SESSION['role'];
 <html>
 <head>
 <link rel="stylesheet" href="../CSS/table.css">
-<title>Create User</title>
 </head>
 <body onload="myFunction()">
 	<form method="post" action="employee_database.php"
@@ -97,7 +96,7 @@ x[1].value = today;
 				
 				if ($accessLevel==admin){
 					echo '<option style="width: 260px" value=""></option>';
-					echo '<option style="width: 260px" value="admin">Supervisor</option>';
+					echo '<option style="width: 260px" value="admin">Administrator</option>';
 					echo '<option style="width: 260px" value="supervisor">Supervisor</option>';
 					echo '<option style="width: 260px" value="sales_rep">Sales Representative</option>';
 					echo '<option style="width: 260px" value="ind_rep">Independent Representative</option>';
