@@ -2,8 +2,8 @@
 /*
  * FileName: searchCompany.php
  * Version Number: 2.0
- * Date Modified: 11/15/2020
- * Author: Jason Waid
+ * Date Modified: 11/30/2020
+ * Author: Jason Waid (later modified by Madhav Sachdeva)
  * Purpose:
  * Search for companies in the database.
  */
@@ -51,11 +51,13 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
     $employeeNames = array();
     $employeeIds = array();
+	$employeeTitle = array();
     $numEmployees = 0;
 
     // Store all employee names and id's in array
     // THis is later used to the creation of the drop down menus
     while ($employeeListResult->fetch()) {
+		array_push($employeeTitle, $employeeList->getTitle());
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
         $numEmployees ++;
@@ -132,8 +134,22 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"{$employeeIds[$i]}\">";
-        echo "{$employeeNames[$i]}</option>";
+		if($_SESSION['role']=='admin'){
+			echo "<option value=\"{$employeeIds[$i]}\">";
+			echo "{$employeeNames[$i]}</option>";
+		}
+		else if($_SESSION['role']=='supervisor'){
+			if(($employeeTitle[$i]=='ind_rep')||($employeeTitle[$i]=='sales_rep')){
+				echo "<option value=\"{$employeeIds[$i]}\">";
+				echo "{$employeeNames[$i]}</option>";
+			}	
+		}
+		else{
+			if($employeeId[$i]==$_SESSION['userid']){
+				echo "<option value=\"{$employeeIds[$i]}\">";
+				echo "{$employeeNames[$i]}</option>";
+			}	
+		}		
     }
     ?>
 				</select></td>
@@ -141,7 +157,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 				<?php
 				
 //TODO: MADHAV OR JASON Add check for supervisor role
-if ($_SESSION["role"] == "admin") {
+//if ($_SESSION["role"] == "admin") {
 
         echo '<td>Created By:</td>';
         echo '<td><select name="search_By_Created_By">';
@@ -151,8 +167,32 @@ if ($_SESSION["role"] == "admin") {
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
         }
-        echo '</select></td>';
+		
+		
+/*  for ($i = 0; $i < $numEmployees; $i ++) {
+		if($_SESSION['role']=='admin'){
+			echo "<option value=\"{$employeeIds[$i]}\">";
+			echo "{$employeeNames[$i]}</option>";
+		}
+		else if($_SESSION['role']=='supervisor'){
+			if(($employeeTitle[$i]=='ind_rep')||($employeeTitle[$i]=='sales_rep')){
+				echo "<option value=\"{$employeeIds[$i]}\">";
+				echo "{$employeeNames[$i]}</option>";
+			}	
+		}
+		else{
+			if($employeeId[$i]==$_SESSION['userid']){
+				echo "<option value=\"{$employeeIds[$i]}\">";
+				echo "{$employeeNames[$i]}</option>";
+			}	
+		}	
+		
     }
+*/	
+		
+		
+        echo '</select></td>';
+  //  }
     ?>
 
 				</tr>
@@ -247,39 +287,47 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
-    //TODO: MADHAV OR JASON Add check for supervisor role
-    if ($_SESSION["role"] == "admin") {
-
-        $createdByEmployee = new Employee(getDBConnection());
-        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "", "");
+    //TODO: MADHAV  Add check for supervisor role
+    
+		$createdByEmployee = new Employee(getDBConnection());
+        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
         $getCreated_By->fetch();
-    } // Get assigned to
-    $assignedToEmployee = new Employee(getDBConnection());
-    $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "", "");
-    $getAssigned_To->fetch();
-    echo "
-	<tr>
-		";
-    echo "
-		<td>{$companyName}</td>";
-    echo "
-		<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
-    echo "
-		<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
-    echo "
-		<td>{$companyStreet}</td>";
-    echo "
-		<td>{$companyCity}</td>";
-    echo "
-		<td>{$companyState}</td>";
-    echo "
-		<td>{$assignedToEmployee->getName()}</td>"; 
-    //TODO: MADHAV OR JASON Add check for supervisor role
-    if ($_SESSION["role"] == "admin") {
-        echo "
-		<td>{$createdByEmployee->getName()}</td>";
-    }
-    echo "<td><form action='./editCompany.php' method='post'>
+	
+	
+	
+	if ($_SESSION["role"] == "admin") {
+
+      
+		// Get assigned to
+		$assignedToEmployee = new Employee(getDBConnection());
+		$getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
+		$getAssigned_To->fetch();
+		
+		
+		
+		echo "
+			<tr>
+			";
+		echo "
+			<td>{$companyName}</td>";
+		echo "
+			<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+		echo "
+			<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+		echo "
+			<td>{$companyStreet}</td>";
+		echo "
+			<td>{$companyCity}</td>";
+		echo "
+			<td>{$companyState}</td>";
+		echo "
+			<td>{$assignedToEmployee->getName()}</td>"; 
+			//TODO: MADHAV Add check for supervisor role
+			//if ($_SESSION["role"] == "admin") {
+		echo "
+			<td>{$createdByEmployee->getName()}</td>";
+			//}
+		echo "<td><form action='./editCompany.php' method='post'>
 				<input hidden name='company_id_edit' value='{$companyId}'/> <input
 					type='submit' value='edit'/>
 			</form>
@@ -287,20 +335,157 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 				<input hidden name='company_id_view' value='{$companyId}'/> <input
 					type='submit' value='view'/>
 			</form></td>";
-    echo "
-	</tr>
-	";
-    $getAssigned_To->close();
+		echo "
+		</tr>
+		";
+		$getAssigned_To->close();
 
-    //TODO: MADHAV OR JASON Add check for supervisor role
-    if ($_SESSION["role"] == "admin") {
+		//TODO: MADHAV Add check for supervisor role
+		// if ($_SESSION["role"] == "admin") {
 
         $getCreated_By->close();
-    }
-    $offset ++;
-    if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
-        break;
-    }
+		// }
+		$offset ++;
+		if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+			break;
+		}
+
+	}
+	else if ($_SESSION["role"] == "supervisor") {
+		/*
+        $createdByEmployee = new Employee(getDBConnection());
+        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
+        $getCreated_By->fetch();
+		*/   // Get assigned to
+		$assignedToEmployee = new Employee(getDBConnection());
+		$getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
+		$getAssigned_To->fetch();
+	
+		
+		if((strcmp(($assignedToEmployee->getTitle()),"sales_rep")==0)||(strcmp(($assignedToEmployee->getTitle()),"ind_rep")==0)){
+			echo "
+				<tr>
+				";
+			echo "
+				<td>{$companyName}</td>";
+			echo "
+				<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+			echo "
+				<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+			echo "
+				<td>{$companyStreet}</td>";
+			echo "
+				<td>{$companyCity}</td>";
+			echo "
+				<td>{$companyState}</td>";
+			echo "
+				<td>{$assignedToEmployee->getName()}</td>"; 
+				//TODO: MADHAV Add check for supervisor role
+				//if ($_SESSION["role"] == "admin") {
+			echo "
+				<td>{$createdByEmployee->getName()}</td>";
+					//}
+			echo "<td><form action='./editCompany.php' method='post'>
+				<input hidden name='company_id_edit' value='{$companyId}'/>
+				<input type='submit' value='edit'/>
+				</form>
+				<form action='./viewCompany.php?sort=1' method='post'>
+				<input hidden name='company_id_view' value='{$companyId}'/> 
+				<input type='submit' value='view'/>
+				</form></td>";
+			echo "
+				</tr>
+				";
+			$getAssigned_To->close();
+
+			//TODO: MADHAV Add check for supervisor role
+			// if ($_SESSION["role"] == "admin") {
+
+			$getCreated_By->close();
+			// }
+			$offset ++;
+			if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+				break;
+			}
+	
+			
+		
+		}
+		else{}
+		
+	
+	}
+	//if (($_SESSION['role'] == "sales_rep")||($_SESSION['role']=="ind_rep")) {
+	else{
+    /*    $createdByEmployee = new Employee(getDBConnection());
+        $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
+        $getCreated_By->fetch();
+    */ // Get assigned to
+		$assignedToEmployee = new Employee(getDBConnection());
+		$getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
+		$getAssigned_To->fetch();
+		
+		
+		
+		
+		
+		
+		if(strcmp(($assignedToEmployee->getID()),$_SESSION['userid'])==0){
+		//if($assignedToEmployee->getId()==$_SESSION['userid']){
+
+		
+				
+			echo "
+				<tr>
+				";
+			echo "
+				<td>{$companyName}</td>";
+			echo "
+				<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+			echo "
+				<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+			echo "
+				<td>{$companyStreet}</td>";
+			echo "
+				<td>{$companyCity}</td>";
+			echo "
+				<td>{$companyState}</td>";
+			echo "
+				<td>{$assignedToEmployee->getName()}</td>"; 
+				//TODO: MADHAV Add check for supervisor role
+				//if ($_SESSION["role"] == "admin") {
+			echo "
+				<td>{$createdByEmployee->getName()}</td>";
+				//}
+			echo "<td><form action='./editCompany.php' method='post'>
+				<input hidden name='company_id_edit' value='{$companyId}'/> 
+				<input type='submit' value='edit'/>
+				</form>
+				<form action='./viewCompany.php?sort=1' method='post'>
+				<input hidden name='company_id_view' value='{$companyId}'/> 
+				<input type='submit' value='view'/>
+				</form></td>";
+			echo "
+				</tr>
+				";
+				$getAssigned_To->close();
+
+				//TODO: MADHAV Add check for supervisor role
+				// if ($_SESSION["role"] == "admin") {
+
+			$getCreated_By->close();
+				// }
+			$offset ++;
+			if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+				break;
+			}
+	
+		
+		}
+		
+	
+	}
+	
 }
 $conn_Company->close();
 ?>
