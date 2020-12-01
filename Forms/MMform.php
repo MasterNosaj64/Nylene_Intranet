@@ -85,10 +85,10 @@ return true; }
     			<td ><input type="date" id="Date" name="Date" maxlength="250" style="width: 260px"></td> </tr>
     </table>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">
-<tr>
+        <thead><tr>
 	
     <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Project Background</b></td>
-			</tr></table>
+            </tr></thead></table>
     <table border="1" cellpadding="5" cellspacing="0" class="form-table">
        
 <tr> <td colspan = "2">

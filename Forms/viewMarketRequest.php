@@ -58,41 +58,41 @@ session_start();
                 
 	<tr>
 
-        <td id="Requester_name">Requester Name</td>
+        <td id="Requester_name"><b>Requester Name</b></td>
 			<td colspan="2"><input type="text" name="Requester_name" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['requester_name'];?>"></td>
 
-	<td id="Market_Segment">Market Segment</td>
+        <td id="Market_Segment"><b>Market Segment</b></td>
 			<td colspan="2"><input type="text" name="Market_Segment" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['market_segment'];?>"></td>
 </tr> 
                 <tr>
-	<td id="Sales_Territory">Sales Territory</td>
+                    <td id="Sales_Territory"><b>Sales Territory</b></td>
 			<td colspan="2"><input type="text" name="Sales_Territory" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['sales_territory'];?>"></td>
                     
-        	<td id="Email">Email</td>
+                    <td id="Email"><b>Email</b></td>
 			<td colspan="2"><input type="text" name="Email" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['email'];?>"></td>
         </tr>
 
                 <tr>
 	
-        	<td id="Phone">Phone</td>
+                    <td id="Phone"><b>Phone</b></td>
 			<td colspan="2"><input type="text" name="Phone" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['phone'];?>"></td>
 
-        	<td id="Date">Date</td>
+                    <td id="Date"><b>Date</b></td>
 			<td colspan="2"><input type="text" name="Date" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['request_date'];?>"></td> </tr>
     </table>
     <table border="1" cellpadding="5" cellspacing="1" class="form-table">
-<tr>
+  <thead><tr>
 	
-    <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Project Background</b></td>
-        </tr></table>
+    <td id="column_heading" colspan="2" border="0" style="text-align: center;"><b>Project Background</b></td>
+      </tr></thead></table>
      <table border="1" cellpadding="5" cellspacing="0" class="form-table">
-<tr> <td colspan ="2" id="Name_of_Project">Name of Project
+         <tr> <td colspan ="2" id="Name_of_Project"><b>Name of Project</b>
 			<input type="text" name="Name_of_Project" maxlength="250" style="width: 260px" readonly
 				value="<?php echo $row['name_project_or_piece'];?>"></td>
  </tr>
@@ -188,13 +188,13 @@ session_start();
    
          <tr> <td id="project_content"><b>Is this Project:</b></td>
         			<td><table class="form-table"><tr><?php if ($checked){ ?>
-        		<input type="radio" name="project_content" value="Yes"
+        		<input type="radio" name="project_content" value="1"
                                                          checked> <label for="new"> New </label> </tr> <tr><input type="radio"
-                                                                                                                  name="project_content" value="No"> <label for="update"> Update </label></tr>
+                                                                                                                  name="project_content" value="0"> <label for="update"> Update </label></tr>
         			<?php } else { ?>
-        			<tr><input type="radio" name="project_content" value="Yes">
+        			<tr><input type="radio" name="project_content" value="1">
                         <label for="new"> New </label></tr><tr><input type="radio"
-                                                                      name="project_content" value="No" checked> <label for="update"> Update
+                                                                      name="project_content" value="0" checked> <label for="update"> Update
         
               
                     </label>
@@ -204,12 +204,12 @@ session_start();
          </tr></table>
     
   <table border="1" cellpadding="5" cellspacing="1" class="form-table">
-<tr>
+<thead><tr>
 	
-    <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
-      </tr></table>
+    <td id="column_heading"  border="0" style="text-align: center;"><b>Target Audiences</b></td>
+    </tr></thead></table>
     
-         <table border="1" cellpadding="5" cellspacing="0" class="form-table">
+    <table border="1" cellpadding="5" cellspacing="0" class="form-table">
         <tr> <td border="1">
     <label for="target"><b>Choose all that apply</b>
         </label>
