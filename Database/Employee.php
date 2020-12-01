@@ -4,7 +4,7 @@
  * FileName: Employee.php
  * Author: Jason Waid
  * Version: 0.8
- * Date Modified: 11/09/2020
+ * Date Modified: 11/30/2020
  * Purpose:
  * Object oriented representation of a Employee
  * all database manipulation happens here
@@ -280,7 +280,7 @@ class Employee
         $stmt->execute();
 
         // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username,$this->STATUS, $this->employee_email, $this->password);
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->STATUS, $this->employee_email, $this->password);
 
         $stmt->fetch();
 
@@ -288,6 +288,7 @@ class Employee
         return $this;
     }
 
+    // not used
     function create()
     {}
 
@@ -348,15 +349,8 @@ class Employee
         }
 
         if ($title != "") {
-			
-			///JASON WHY????????
-           /* if ($employee_id == "" && $first_name == "" && $last_name == "") {
-                $query .= "  WHERE billing_address_city LIKE ?";
-            } else {
-                $query .= " AND billing_address_city LIKE ?";
-            }*/
-			
-			if ($employee_id == "" && $first_name == "" && $last_name == "") {
+
+            if ($employee_id == "" && $first_name == "" && $last_name == "") {
                 $query .= "  WHERE title LIKE ?";
             } else {
                 $query .= " AND title LIKE ?";
@@ -430,10 +424,8 @@ class Employee
             array_push($params, $username);
         }
 
-        
-
         if ($STATUS != "") {
-            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "" ) {
+            if ($employee_id == "" && $first_name == "" && $last_name == "" && $title == "" && $department == "" && $work_phone == "" && $reports_to == "" && $modified_by == "" && $username == "") {
                 $query .= "  WHERE STATUS LIKE ?";
             } else {
                 $query .= " AND STATUS LIKE ?";
@@ -509,7 +501,6 @@ class Employee
 
                 $stmt->bind_param($paramTypes, $params[0], $params[1], $params[2], $params[3], $params[4], $params[5], $params[6], $params[7], $params[8], $params[9], $params[10]);
                 break;
-            
 
             /* default: */
             // no params
@@ -518,7 +509,7 @@ class Employee
         // execute query
         $stmt->execute();
         // bind the results
-        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username,$this->STATUS, $this->employee_email, $this->password);
+        $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->STATUS, $this->employee_email, $this->password);
 
         // return objects
         return $stmt;
