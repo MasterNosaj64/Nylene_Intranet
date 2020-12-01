@@ -79,7 +79,8 @@ if ($conn->connect_error) {
 			<tr>
 				<td id="phone">Phone
 				
-				<td colspan="2"><input type="text" name="phone" required></td>
+				<td colspan="2"><input type="text" name="phone" readonly 
+				value="<?php echo $customerRow['customer_phone'];?>"></td>
 				<td id="nylene_representative">Nylene Representative</td>
 				<td colspan="2"><input type="text" name="nylene_representative"
 					readonly value="<?php echo $row['name'];?>"></td>
@@ -87,7 +88,8 @@ if ($conn->connect_error) {
 
 			<tr>
 				<td id="fax">Fax</td>
-				<td colspan="2"><input type="text" name="fax" required></td>
+				<td colspan="2"><input type="text" name="fax" readonly
+				value="<?php echo $customerRow['customer_fax'];?>"></td>
 				<td>Order Pending?
 					<input type="radio" name="order_pending" value="1">
 					<label for="1"> Yes </label>
@@ -100,7 +102,8 @@ if ($conn->connect_error) {
 			</tr>
 			<tr>
 				<td id="business_email">E-mail</td>
-				<td colspan="2"><input type="text" name="business_email" required></td>
+				<td colspan="2"><input type="text" name="business_email" readonly
+				value="<?php echo $companyRow['company_email'];?>"></td>
     			<td><label for="credit_date"> Credit Businees Application Date </label></td>
     			<td><input type="date" id="credit_date" name="credit_date" required></td>
 			</tr>
