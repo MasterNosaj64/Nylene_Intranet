@@ -46,7 +46,7 @@ if ($conn->connect_error) {
     $userRow = mysqli_fetch_array($userResult);
 
     /* Selection statement for credit business form */
-    $creditBusinessQuery = "SELECT * FROM credit_application_business_form WHERE credit_application_business_id = " . $_POST['id'];
+    $creditBusinessQuery = "SELECT * FROM credit_application_business_form WHERE credit_application_business_id = " . $form_id;
     $creditBusinessResults = $conn->query($creditBusinessQuery);
     $creditBusinessRow = mysqli_fetch_array($creditBusinessResults);
 
@@ -71,6 +71,12 @@ if ($conn->connect_error) {
     $companyResult = $conn->query($companyInformation);
     $companyRow = mysqli_fetch_array($companyResult);
 
+    
+    $account_number_Query = "SELECT AES_DECRYPT(account_number,'$key') as decrypted FROM credit_application_business_form WHERE credit_application_business_id = " . $form_id;
+    $account_number_result = $conn->query($account_number_Query);
+    $accountNumberRow = mysqli_fetch_array($account_number_result);
+    
+    
     $conn->close();
 }
 
@@ -142,61 +148,248 @@ $pdf_obj->Write(0, 'Credit Application For Business Account', '', 0, 'L', true, 
 // add a page
 // $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// Business Contanct Info
+
+if ($creditBusinessRow['order_pending'] == '1') {
+    $orderPending = "Yes";
+} else {
+    $orderPending = "No";
+}
+
+
+// Business Contact Info
 $content .= '
 
 <table border="1">
 	<thead>
 	<tr>
-		<th colspan="2" align="center">BUSINESS CONTACT INFORMATION</th>
+		<th colspan="4" align="center">BUSINESS CONTACT INFORMATION</th>
 	</tr>
 	</thead>            
 	<tr>
     	<td> Company Name</td>              
-		<td> '.$customerRow["company_name"].'</td> 
+		<td> '.$customerRow['company_name'].'</td>
+        <td> Company Address(City, State, ZIP Code)</td>
+        <td> '.$creditBusinessRow['company_address'].'</td> 
 	</tr>
     <tr>
-        <td> Company Address(City, State, ZIP Code)</td>
-        <td> '.$creditBusinessRow["company_address"].'</td>
+        <td> Contact Name</td>
+        <td> '.$creditBusinessRow['contact_name'].'</td>
+        <td> How long at current address?</td>
+        <td> '.$creditBusinessRow['time_current_address'].'</td>
+    </tr>
+     <tr>
+        <td> Title</td>
+        <td> '. $creditBusinessRow['title'].'</td>
+        <td> Date business commenced</td>
+        <td> '.$creditBusinessRow['date_business_commenced'].'</td>
+
+    </tr>
+   <tr>
+        <td> Phone</td>
+        <td> '.$creditBusinessRow['phone'].'</td>
+        <td> Nylene Representative</td>
+        <td> '.$creditBusinessRow['nylene_representative'].'</td>
     </tr>
     <tr>
-        <td> How long at current address?</td>
-        <td> '.$creditBusinessRow["time_current_address"].'</td>
+        <td> Fax</td>
+        <td> '.$creditBusinessRow['fax'].'</td>
+        <td> Order Pending: '.$orderPending.'</td>
+        <td> Order Amount: $'.$creditBusinessRow['order_amount'].'/lbs.</td>
     </tr>
-    
-     <tr>
-        <td> Contact Name</td>
-        <td> '.$creditBusinessRow["contact_name"].'</td>
+    <tr>
+        <td> E-mail</td>
+        <td> '.$creditBusinessRow['business_email'].'</td>
+        <td> Credit Businees Application Date</td>
+        <td> '.$creditBusinessRow['credit_date'].'</td>
     </tr>
-   
-
         </table>';
 
-// Business Case for Sample
+
+// BANK INFORMATION
 $content .= '
             <table border="1">
-               
-
+                <thead>
+				<tr>
+					<th colspan="4" align="center">BANK INFORMATION</th>
+				</tr>
+			    </thead>
+                 <tr>
+                    <td> Bank Name</td>
+                    <td> '.$creditBusinessRow['bank_name'].'</td>
+                    <td> Account Number</td>
+                    <td> '.$accountNumberRow['decrypted'].'</td>
+                </tr>
+                <tr>
+                    <td> Bank: City, State ZIP Code</td>
+                    <td> '.$creditBusinessRow['bank_address'].'</td>
+                    <td> E-mail</td>
+                    <td> '.$creditBusinessRow['bank_email'].'</td>
+                </tr>
+                <tr>
+                    <td> Bank Contact Name</td>
+                    <td> '.$creditBusinessRow['bank_contact_name'].'</td>
+                    <td> Fax</td>
+                    <td> '.$creditBusinessRow['bank_fax'].'</td>
+                </tr> 
+                <tr>
+                    <td> Phone</td>
+                    <td> '.$creditBusinessRow['bank_phone'].'</td>
+                    <td></td>
+                    <td></td>
+                </tr>                
             </table>';
 
-// Assign Values of Sample Submission, Data Sheet and Description
-
-// Match To
+//BUSINESS/TRADE REFERENCES
 $content .= '
             <table border="1">
-                
+                <thead>
+				<tr>
+					<th colspan="4" align="center">BUSINESS/TRADE REFERENCES</th>
+				</tr>
+			    </thead>
+                    <tr>
+                        <td colspan="4"><p> Reference #1</p></td>
+                    </tr>
+                 <tr>
+                    <td> Company Name</td>
+                    <td> '.$creditBusinessRow['ref1_company_name'].'</td>
+                    <td> Phone</td>
+                    <td> '.$creditBusinessRow['ref1_company_phone'].'</td>
+                </tr>
+                <tr>
+                    <td> Contact Name</td>
+                    <td> '.$creditBusinessRow['ref1_company_contact_name'].'</td>
+                    <td> Fax</td>
+                    <td> '.$creditBusinessRow['ref1_company_fax'].'</td>
+                </tr>
+                <tr>
+                    <td> Full Address</td>
+                    <td> '.$creditBusinessRow['ref1_company_address'].'</td>
+                    <td> E-mail</td>
+                    <td> '.$creditBusinessRow['ref1_company_email'].'</td>
+                </tr>
+ 
+                <tr>
+                        <td colspan="4"><p> Reference #2</p></td>
+                    </tr>
+                 <tr>
+                    <td> Company Name</td>
+                    <td> '.$creditBusinessRow['ref2_company_name'].'</td>
+                    <td> Phone</td>
+                    <td> '.$creditBusinessRow['ref2_company_phone'].'</td>
+                </tr>
+                <tr>
+                    <td> Contact Name</td>
+                    <td> '.$creditBusinessRow['ref2_company_contact_name'].'</td>
+                    <td> Fax</td>
+                    <td> '.$creditBusinessRow['ref2_company_fax'].'</td>
+                </tr>
+                <tr>
+                    <td> Full Address</td>
+                    <td> '.$creditBusinessRow['ref2_company_address'].'</td>
+                    <td> E-mail</td>
+                    <td> '.$creditBusinessRow['ref2_company_email'].'</td>
+                </tr>
+
+                <tr>
+                        <td colspan="4"><p> Reference #3</p></td>
+                    </tr>
+                 <tr>
+                    <td> Company Name</td>
+                    <td> '.$creditBusinessRow['ref3_company_name'].'</td>
+                    <td> Phone</td>
+                    <td> '.$creditBusinessRow['ref3_company_phone'].'</td>
+                </tr>
+                <tr>
+                    <td> Contact Name</td>
+                    <td> '.$creditBusinessRow['ref3_company_contact_name'].'</td>
+                    <td> Fax</td>
+                    <td> '.$creditBusinessRow['ref3_company_fax'].'</td>
+                </tr>
+                <tr>
+                    <td> Full Address</td>
+                    <td> '.$creditBusinessRow['ref3_company_address'].'</td>
+                    <td> E-mail</td>
+                    <td> '.$creditBusinessRow['ref3_company_email'].'</td>
+                </tr>   
+
+                <tr>
+                        <td colspan="4"><p> Reference #4</p></td>
+                    </tr>
+                 <tr>
+                    <td> Company Name</td>
+                    <td> '.$creditBusinessRow['ref4_company_name'].'</td>
+                    <td> Phone</td>
+                    <td> '.$creditBusinessRow['ref4_company_phone'].'</td>
+                </tr>
+                <tr>
+                    <td> Contact Name</td>
+                    <td> '.$creditBusinessRow['ref4_company_contact_name'].'</td>
+                    <td> Fax</td>
+                    <td> '.$creditBusinessRow['ref4_company_fax'].'</td>
+                </tr>
+                <tr>
+                    <td> Full Address</td>
+                    <td> '.$creditBusinessRow['ref4_company_address'].'</td>
+                    <td> E-mail</td>
+                    <td> '.$creditBusinessRow['ref4_company_email'].'</td>
+                </tr>                 
+           
             </table>';
 
-// Material Description, Special Handling or Label Request
+// Agreement
 $content .= '
             <table border="1">
-                
+                <thead>
+				<tr>
+					<th colspan="4" align="center">AGREEMENT</th>
+				</tr>
+			</thead>
+                <tr>
+				<td colspan="4"><p>Upon approval, standard terms are net 30 days.
+						Alternate terms must be separately requested and agreed in
+						writing. Claims arising from invoices must be made in writing
+						within seven working days. By submitting this application, you
+						authorize Nylene to make inquiries into the banking and
+						business/trade references that you have supplied.</p></td>
+			</tr>
             </table>';
 
-// Additional information
+// SIGNATURES
 $content .= '
             <table border="1">
-                
+                <thead>
+				<tr>
+					<th colspan="4" align="center">SIGNATURES</th>
+				</tr>
+			</thead>
+			<tr>
+				<td> Signature</td>
+				
+				<td>                    </td>
+				<td> Signature</td>
+				<td>                    </td>
+			</tr>
+			<tr>
+				<td> Name and Title
+				
+				<td>                    </td>
+				<td> Name and Title</td>
+				<td>                    </td>
+			</tr>
+
+			<tr>
+				<td> Date</td>
+				
+				<td>                    </td>
+				<td> Date</td>
+				<td>                    </td>
+			</tr>
+			<tr>
+				<td colspan="4"><p>Upon completion please scan and return by email
+						to tgreenstein@nylene.com or fax to: Toby Greenstein at
+						973-694-3549</p></td>
+			</tr>
             </table>';
 
 // set font
@@ -206,28 +399,15 @@ $pdf_obj->SetFont('helvetica', '', 12);
 $pdf_obj->writeHTML($content, true, false, true, false, '');
 
 // add a page
-$pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
+// $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// Assign values for check boxes
+// // Assign values for check boxes
 
-// Type of responce needed
-$page2 .= '
-    
-            <table border="1">
-                olspan="2" align="center"> ---Note: SDS Sent With All Samples---</td>
-                </tr>
-            </table>';
+// // set font
+// $pdf_obj->SetFont('helvetica', '', 12);
 
-$page2 .= '
-            <table border="1">
-              
-            </table>';
-
-// set font
-$pdf_obj->SetFont('helvetica', '', 12);
-
-// output the HTML content
-$pdf_obj->writeHTML($page2, true, false, true, false, '');
+// // output the HTML content
+// $pdf_obj->writeHTML($page2, true, false, true, false, '');
 
 // reset pointer to the last page
 $pdf_obj->lastPage();
