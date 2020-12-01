@@ -105,6 +105,15 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
     }
 }
+
+
+if (isset($_GET['sort'])) {
+    $sortType = $_GET['sort'];
+} else {
+    $sortType = 0;
+}
+
+
 ?>
 <html>
 <head>
@@ -119,8 +128,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
 	<div hidden="true" class="content">
 
-		<form method="post" action=searchCompany.php?sort=
-			<?php echo $_GET['sort'];?> name="search_company_data">
+		<form method="post" action=searchCompany.php?sort=<?php echo $sortType;?> name="search_company_data">
 			<table class="form-table">
 				<tr>
 					<td>Name:</td>
@@ -145,7 +153,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 			}	
 		}
 		else{
-			if($employeeId[$i]==$_SESSION['userid']){
+			if($employeeIds[$i]==$_SESSION['userid']){
 				echo "<option value=\"{$employeeIds[$i]}\">";
 				echo "{$employeeNames[$i]}</option>";
 			}	
@@ -258,12 +266,6 @@ if (isset($_SESSION['buffer'])) {
 }
 
 echo "{$companyBuffer->count()} record(s) found";
-
-if (isset($_GET['sort'])) {
-    $sortType = $_GET['sort'];
-} else {
-    $sortType = 0;
-}
 
 ?>
 	<!-- Company Search -->
