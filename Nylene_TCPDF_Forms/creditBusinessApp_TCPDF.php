@@ -86,8 +86,8 @@ $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false
 // set document information
 $pdf_obj->SetCreator(PDF_CREATOR);
 $pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
-$pdf_obj->SetTitle($companyRow['company_name'] . " - Credit Business Application");
-$pdf_obj->SetSubject("Credit Business Application");
+$pdf_obj->SetTitle($companyRow['company_name'] . " - Credit Application For Business Account");
+$pdf_obj->SetSubject("Credit Application For Business Account");
 
 // Header and Footer Fonts
 $pdf_obj->setHeaderFont(Array(
@@ -125,7 +125,7 @@ $pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
 // set font
-$pdf_obj->SetFont('helvetica', 'B', 20);
+$pdf_obj->SetFont('helvetica', 'B', 18);
 
 $pdf_obj->Write(0, 'Credit Application For Business Account', '', 0, 'L', true, 0, false, false, 0);
 
@@ -162,44 +162,44 @@ $content .= '
 <table border="1">
 	<thead>
 	<tr>
-		<th colspan="4" align="center">BUSINESS CONTACT INFORMATION</th>
+		<th colspan="4" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>BUSINESS CONTACT INFORMATION</strong></th>
 	</tr>
 	</thead>            
 	<tr>
-    	<td> Company Name</td>              
+    	<td> Company Name:</td>              
 		<td> '.$customerRow['company_name'].'</td>
-        <td> Company Address(City, State, ZIP Code)</td>
+        <td> Company Address:</td>
         <td> '.$creditBusinessRow['company_address'].'</td> 
 	</tr>
     <tr>
-        <td> Contact Name</td>
+        <td> Contact Name:</td>
         <td> '.$creditBusinessRow['contact_name'].'</td>
         <td> How long at current address?</td>
         <td> '.$creditBusinessRow['time_current_address'].'</td>
     </tr>
      <tr>
-        <td> Title</td>
+        <td> Title:</td>
         <td> '. $creditBusinessRow['title'].'</td>
-        <td> Date business commenced</td>
+        <td> Date business commenced:</td>
         <td> '.$creditBusinessRow['date_business_commenced'].'</td>
 
     </tr>
    <tr>
-        <td> Phone</td>
+        <td> Phone:</td>
         <td> '.$creditBusinessRow['phone'].'</td>
-        <td> Nylene Representative</td>
+        <td> Nylene Representative:</td>
         <td> '.$creditBusinessRow['nylene_representative'].'</td>
     </tr>
     <tr>
-        <td> Fax</td>
+        <td> Fax:</td>
         <td> '.$creditBusinessRow['fax'].'</td>
         <td> Order Pending: '.$orderPending.'</td>
         <td> Order Amount: $'.$creditBusinessRow['order_amount'].'/lbs.</td>
     </tr>
     <tr>
-        <td> E-mail</td>
+        <td> E-mail:</td>
         <td> '.$creditBusinessRow['business_email'].'</td>
-        <td> Credit Businees Application Date</td>
+        <td> Application Date:</td>
         <td> '.$creditBusinessRow['credit_date'].'</td>
     </tr>
         </table>';
@@ -210,29 +210,29 @@ $content .= '
             <table border="1">
                 <thead>
 				<tr>
-					<th colspan="4" align="center">BANK INFORMATION</th>
+					<th colspan="4" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>BANK INFORMATION</strong></th>
 				</tr>
 			    </thead>
                  <tr>
-                    <td> Bank Name</td>
+                    <td> Bank Name:</td>
                     <td> '.$creditBusinessRow['bank_name'].'</td>
-                    <td> Account Number</td>
+                    <td> Account Number:</td>
                     <td> '.$accountNumberRow['decrypted'].'</td>
                 </tr>
                 <tr>
-                    <td> Bank: City, State ZIP Code</td>
+                    <td> Bank Address:</td>
                     <td> '.$creditBusinessRow['bank_address'].'</td>
-                    <td> E-mail</td>
+                    <td> E-mail:</td>
                     <td> '.$creditBusinessRow['bank_email'].'</td>
                 </tr>
                 <tr>
-                    <td> Bank Contact Name</td>
+                    <td> Bank Contact Name:</td>
                     <td> '.$creditBusinessRow['bank_contact_name'].'</td>
-                    <td> Fax</td>
+                    <td> Fax:</td>
                     <td> '.$creditBusinessRow['bank_fax'].'</td>
                 </tr> 
                 <tr>
-                    <td> Phone</td>
+                    <td> Phone:</td>
                     <td> '.$creditBusinessRow['bank_phone'].'</td>
                     <td></td>
                     <td></td>
@@ -244,28 +244,28 @@ $content .= '
             <table border="1">
                 <thead>
 				<tr>
-					<th colspan="4" align="center">BUSINESS/TRADE REFERENCES</th>
+					<th colspan="4" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>BUSINESS/TRADE REFERENCES</strong></th>
 				</tr>
 			    </thead>
                     <tr>
                         <td colspan="4"><p> Reference #1</p></td>
                     </tr>
                  <tr>
-                    <td> Company Name</td>
+                    <td> Company Name:</td>
                     <td> '.$creditBusinessRow['ref1_company_name'].'</td>
-                    <td> Phone</td>
+                    <td> Phone:</td>
                     <td> '.$creditBusinessRow['ref1_company_phone'].'</td>
                 </tr>
                 <tr>
-                    <td> Contact Name</td>
+                    <td> Contact Name:</td>
                     <td> '.$creditBusinessRow['ref1_company_contact_name'].'</td>
-                    <td> Fax</td>
+                    <td> Fax:</td>
                     <td> '.$creditBusinessRow['ref1_company_fax'].'</td>
                 </tr>
                 <tr>
-                    <td> Full Address</td>
+                    <td> Address:</td>
                     <td> '.$creditBusinessRow['ref1_company_address'].'</td>
-                    <td> E-mail</td>
+                    <td> E-mail:</td>
                     <td> '.$creditBusinessRow['ref1_company_email'].'</td>
                 </tr>
  
@@ -273,21 +273,21 @@ $content .= '
                         <td colspan="4"><p> Reference #2</p></td>
                     </tr>
                  <tr>
-                    <td> Company Name</td>
+                    <td> Company Name:</td>
                     <td> '.$creditBusinessRow['ref2_company_name'].'</td>
-                    <td> Phone</td>
+                    <td> Phone:</td>
                     <td> '.$creditBusinessRow['ref2_company_phone'].'</td>
                 </tr>
                 <tr>
-                    <td> Contact Name</td>
+                    <td> Contact Name:</td>
                     <td> '.$creditBusinessRow['ref2_company_contact_name'].'</td>
-                    <td> Fax</td>
+                    <td> Fax:</td>
                     <td> '.$creditBusinessRow['ref2_company_fax'].'</td>
                 </tr>
                 <tr>
-                    <td> Full Address</td>
+                    <td> Address:</td>
                     <td> '.$creditBusinessRow['ref2_company_address'].'</td>
-                    <td> E-mail</td>
+                    <td> E-mail:</td>
                     <td> '.$creditBusinessRow['ref2_company_email'].'</td>
                 </tr>
 
@@ -295,46 +295,23 @@ $content .= '
                         <td colspan="4"><p> Reference #3</p></td>
                     </tr>
                  <tr>
-                    <td> Company Name</td>
+                    <td> Company Name:</td>
                     <td> '.$creditBusinessRow['ref3_company_name'].'</td>
-                    <td> Phone</td>
+                    <td> Phone:</td>
                     <td> '.$creditBusinessRow['ref3_company_phone'].'</td>
                 </tr>
                 <tr>
-                    <td> Contact Name</td>
+                    <td> Contact Name:</td>
                     <td> '.$creditBusinessRow['ref3_company_contact_name'].'</td>
-                    <td> Fax</td>
+                    <td> Fax:</td>
                     <td> '.$creditBusinessRow['ref3_company_fax'].'</td>
                 </tr>
                 <tr>
-                    <td> Full Address</td>
+                    <td> Address:</td>
                     <td> '.$creditBusinessRow['ref3_company_address'].'</td>
-                    <td> E-mail</td>
+                    <td> E-mail:</td>
                     <td> '.$creditBusinessRow['ref3_company_email'].'</td>
-                </tr>   
-
-                <tr>
-                        <td colspan="4"><p> Reference #4</p></td>
-                    </tr>
-                 <tr>
-                    <td> Company Name</td>
-                    <td> '.$creditBusinessRow['ref4_company_name'].'</td>
-                    <td> Phone</td>
-                    <td> '.$creditBusinessRow['ref4_company_phone'].'</td>
-                </tr>
-                <tr>
-                    <td> Contact Name</td>
-                    <td> '.$creditBusinessRow['ref4_company_contact_name'].'</td>
-                    <td> Fax</td>
-                    <td> '.$creditBusinessRow['ref4_company_fax'].'</td>
-                </tr>
-                <tr>
-                    <td> Full Address</td>
-                    <td> '.$creditBusinessRow['ref4_company_address'].'</td>
-                    <td> E-mail</td>
-                    <td> '.$creditBusinessRow['ref4_company_email'].'</td>
-                </tr>                 
-           
+                </tr>              
             </table>';
 
 // Agreement
@@ -342,7 +319,7 @@ $content .= '
             <table border="1">
                 <thead>
 				<tr>
-					<th colspan="4" align="center">AGREEMENT</th>
+					<th colspan="4" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>AGREEMENT</strong></th>
 				</tr>
 			</thead>
                 <tr>
@@ -360,24 +337,21 @@ $content .= '
             <table border="1">
                 <thead>
 				<tr>
-					<th colspan="4" align="center">SIGNATURES</th>
+					<th colspan="4" style="text-align: center; background-color: rgb(168, 216, 255)"><strong>SIGNATURES</strong></th>
 				</tr>
 			</thead>
 			<tr>
 				<td> Signature</td>
-				
 				<td>                    </td>
 				<td> Signature</td>
 				<td>                    </td>
 			</tr>
 			<tr>
-				<td> Name and Title
-				
+				<td> Name and Title</td>
 				<td>                    </td>
 				<td> Name and Title</td>
 				<td>                    </td>
 			</tr>
-
 			<tr>
 				<td> Date</td>
 				
@@ -393,7 +367,7 @@ $content .= '
             </table>';
 
 // set font
-$pdf_obj->SetFont('helvetica', '', 12);
+$pdf_obj->SetFont('helvetica', '', 10);
 
 // output the HTML content
 $pdf_obj->writeHTML($content, true, false, true, false, '');
