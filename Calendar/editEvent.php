@@ -176,6 +176,10 @@ if ($conn-> connect_error) {
         					<?php 
         					}elseif($option == 3){ 
         					    /*If the user is salesrep/indrep and the event is for individual, event_visibility  only for_individual */  ?>
+        						<input type="radio" name="event_visibility" value="for_all" disabled>
+            					<label for="for_all">For All </label>
+            					<input type="radio"  name="event_visibility" value="for_team" disabled>
+            					<label for="for_team"> For Team </label>
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         					
