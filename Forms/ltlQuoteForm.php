@@ -1,7 +1,7 @@
 <?php 
     /* Name: ltlQuoteForm.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 15th, 2020
+     * Last Modified: December 1st, 2020
      * Purpose: Input for distributor quote. User information, company and customer information is
      *          automatically displayed from database. Contains two functions to help automate the
      *          quote calculation and display in the form.
@@ -49,19 +49,21 @@
 		 * the fields blank */
 			function updateQuoteConversion(){
 
+			 var val1522 = parseInt(document.getElementById('truck_load').value) + 0.16; 
+			 var val1121 = parseInt(document.getElementById('truck_load').value) + 0.31;
+			 var val510 = parseInt(document.getElementById('truck_load').value) + 0.62;
+			 var val25 = parseInt(document.getElementById('truck_load').value) + 1.31;
+			 var val12  = parseInt(document.getElementById('truck_load').value) + 2.22;
+			 var val5 = parseInt(document.getElementById('truck_load').value) + 3.66;
+
+			 
 				if (document.getElementById('generateQuote').checked) { 
-				    document.getElementById('range1522').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.16 + '/lb'; 
-				    document.getElementById('range1121').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.31 + '/lb'; 
-				    document.getElementById('range510').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.62 + '/lb';
-				    document.getElementById('range25').value=
-					    parseInt(document.getElementById('truck_load').value) + 1.31 + '/lb';
-				    document.getElementById('range12').value=
-				    	parseInt(document.getElementById('truck_load').value) + 2.22 + '/lb'; 
-				    document.getElementById('range5').value=
-				    	parseInt(document.getElementById('truck_load').value) + 3.66 + '/lb';
+				    document.getElementById('range1522').value = val1522.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range1121').value = val1121.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range510').value = val510.toFixed(2).toString() + "/lb";
+				    document.getElementById('range25').value = val25.toFixed(2).toString() + "/lb";
+				    document.getElementById('range12').value = val12.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range5').value = val5.toFixed(2).toString() + "/lb";
 				  } else { 
 					  document.getElementById('range1522').value=""; 
 					  document.getElementById('range1121').value=""; 

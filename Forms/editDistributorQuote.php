@@ -2,7 +2,7 @@
     
     /* Name: editDistributorQuote.php
      * Author: Kaitlyn Breker
-     * Last Modified: November 24th, 2020
+     * Last Modified: December 1st, 2020
      * Purpose: Edit a specific distributor form
      */
     
@@ -65,18 +65,19 @@
         		 * base value (truck_load) if the generateQuote checkbox is checked, otherwise it will keep 
         		 * the fields blank */
         			function updateQuoteConversion(){
-            			 
+
+        			 var val40up = parseInt(document.getElementById('truck_load').value); 
+        			 var val2240 = parseInt(document.getElementById('truck_load').value) + 0.02;
+        			 var val1122 = parseInt(document.getElementById('truck_load').value) + 0.04;
+        			 var val610 = parseInt(document.getElementById('truck_load').value) + 0.06;
+        			 var val24 = parseInt(document.getElementById('truck_load').value) + 0.10;
+        			 
         				if (document.getElementById('generateQuote').checked) { 
-        				    document.getElementById('range40up').value=
-        				    	document.getElementById('truck_load').value + '.00/lb'; 
-        				    document.getElementById('range2240').value=
-        				    	parseInt(document.getElementById('truck_load').value) + 0.02 + '/lb';
-        				    document.getElementById('range1122').value=
-        				    	parseInt(document.getElementById('truck_load').value) + 0.04 + '/lb';
-        				    document.getElementById('range610').value=
-        				    	parseInt(document.getElementById('truck_load').value) + 0.06 + '/lb';
-        				    document.getElementById('range24').value=
-        				    	parseInt(document.getElementById('truck_load').value) + 0.11 + '/lb'; 
+        					document.getElementById('range40up').value = val40up.toFixed(2).toString() + "/lb"; 
+        				    document.getElementById('range2240').value = val2240.toFixed(2).toString() + "/lb"; 
+        				    document.getElementById('range1122').value = val1122.toFixed(2).toString() + "/lb";
+        				    document.getElementById('range610').value = val610.toFixed(2).toString() + "/lb";
+        				    document.getElementById('range24').value = val24.toFixed(2).toString() + "/lb";
         				  } else { 
         					  document.getElementById('range40up').value=""; 
         					  document.getElementById('range2240').value=""; 
