@@ -109,7 +109,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 if (isset($_GET['sort'])) {
     $sortType = $_GET['sort'];
 } else {
-    $sortType = 0;
+    $sortType = 1;
 }
 
 ?>
@@ -126,8 +126,8 @@ if (isset($_GET['sort'])) {
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
 	<div hidden="true" class="content">
 
-		<form method="post" action=searchCompany.php?sort=
-			<?php echo $sortType;?> name="search_company_data" autocomplete="off">
+		<form method="post" action="searchCompany.php?sort=
+		<?php echo $_GET['sort'];?>" name="search_company_data" autocomplete="off">
 			<table class="form-table">
 				<tr>
 					<td>Name:</td>
