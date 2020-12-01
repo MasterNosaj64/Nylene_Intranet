@@ -31,7 +31,7 @@ CREATE TABLE interaction(
 ) DEFAULT CHARSET = utf8; 
 
 CREATE TABLE marketing_request_form(
-    requester_name VARCHAR(50) NULL DEFAULT NULL;
+    requester_name VARCHAR(50) NULL DEFAULT NULL,
     marketing_request_id INT NOT NULL AUTO_INCREMENT,
     sales_territory VARCHAR(50) DEFAULT NULL,
     phone VARCHAR(50) DEFAULT NULL,
@@ -40,32 +40,32 @@ CREATE TABLE marketing_request_form(
     request_date DATE DEFAULT NULL,
     name_project_or_piece VARCHAR(250) DEFAULT NULL,
     type_of_project VARCHAR(250) DEFAULT NULL,
-    brochure INT(50) NULL DEFAULT NULL;
-    ppt INT(50) NULL DEFAULT NULL;
-    fact_sheet INT(50) NULL DEFAULT NULL;
-    video INT(50) NULL DEFAULT NULL;
-    direct_mail INT(50) NULL DEFAULT NULL;
-    web INT(50) NULL DEFAULT NULL;
-    page INT(50) NULL DEFAULT NULL;
-    section INT(50) NULL DEFAULT NULL;
-    blog INT(50) NULL DEFAULT NULL;
-    landing_page INT(50) NULL DEFAULT NULL;
-    updt INT(50) NULL DEFAULT NULL;
-    graphic INT(50) NULL DEFAULT NULL;
-    tradeshow INT(50) NULL DEFAULT NULL;
-    promotional_item INT(50) NULL DEFAULT NULL;
-    print_aid INT(50) NULL DEFAULT NULL;
-    press_release INT(50) NULL DEFAULT NULL;
-    other_type_of_project TEXT NULL DEFAULT NULL ;
+    brochure INT(50) NULL DEFAULT NULL,
+    ppt INT(50) NULL DEFAULT NULL,
+    fact_sheet INT(50) NULL DEFAULT NULL,
+    video INT(50) NULL DEFAULT NULL,
+    direct_mail INT(50) NULL DEFAULT NULL,
+    web INT(50) NULL DEFAULT NULL,
+    page INT(50) NULL DEFAULT NULL,
+    section INT(50) NULL DEFAULT NULL,
+    blog INT(50) NULL DEFAULT NULL,
+    landing_page INT(50) NULL DEFAULT NULL,
+    updt INT(50) NULL DEFAULT NULL,
+    graphic INT(50) NULL DEFAULT NULL,
+    tradeshow INT(50) NULL DEFAULT NULL,
+    promotional_item INT(50) NULL DEFAULT NULL,
+    print_aid INT(50) NULL DEFAULT NULL,
+    press_release INT(50) NULL DEFAULT NULL,
+    other_type_of_project TEXT NULL DEFAULT NULL,
     is_project_new INT DEFAULT NULL,
     if_piece_new VARCHAR(250) DEFAULT NULL,
     target_audiance VARCHAR(250) DEFAULT NULL,
-    prospective_customers INT(50) NULL DEFAULT NULL;
-    engineers INT(50) NULL DEFAULT NULL;
-    procurement_managers INT(50) NULL DEFAULT NULL;
-    current_customers INT(50) NULL DEFAULT NULL;
-    plant_managers INT(50) NULL DEFAULT NULL;
-    other_audience TEXT NULL DEFAULT NULL;
+    prospective_customers INT(50) NULL DEFAULT NULL,
+    engineers INT(50) NULL DEFAULT NULL,
+    procurement_managers INT(50) NULL DEFAULT NULL,
+    current_customers INT(50) NULL DEFAULT NULL,
+    plant_managers INT(50) NULL DEFAULT NULL,
+    other_audience TEXT NULL DEFAULT NULL,
     audiance_personal_info VARCHAR(250) DEFAULT NULL,
     purpose VARCHAR(250) DEFAULT NULL,
     key_message VARCHAR(250) DEFAULT NULL,
@@ -342,7 +342,7 @@ ALTER TABLE `sample_form`
   MODIFY `sample_form_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
-INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `is_administrator`, `STATUS`, `employee_email`, `password`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, 'admin', '1', NULL, NULL, 'admin');
+INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `STATUS`, `employee_email`, `password`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL, NULL, NULL, '1', NULL, NULL, 'admin');
 
 
 
