@@ -72,14 +72,14 @@
                         Market Code:</label><br /> <select
 					name="m_code" ><?php
 
-echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] .'</option>'; 
-    echo '<option style="width: 260px" value="A-Auto">' . "A  - Auto"	.'</option>';
-    echo '<option style="width: 260px" value="EE-Electrical">' . "EE-Electrical" . '</option>';
-    echo '<option style="width: 260px" value="WC-Wire&Cable">' . "WC-Wire&Cable"  . '</option>';
-    echo '<option style="width: 260px" value="C-Consumer">' . "C-Consumer" . '</option>';
-    echo '<option style="width: 260px" value="P-Packaging">' ."P-Packaging" . '</option>';
-    echo '<option style="width: 260px" value="I-Industrial">' . "I-Industrial" . '</option>';
-    echo '<option style="width: 260px" value="O-Other">' . "O-Other" . '</option>';
+echo '<option  style="width: 260px" value="'.$qsr['m_code'].'">'.$qsr['m_code'].'</option>'; 
+    echo '<option style="width: 260px" value="A-Auto">A  - Auto</option>';
+    echo '<option style="width: 260px" value="EE-Electrical">EE-Electrical</option>';
+    echo '<option style="width: 260px" value="WC-Wire&Cable">WC-Wire&Cable</option>';
+    echo '<option style="width: 260px" value="C-Consumer">C-Consumer</option>';
+    echo '<option style="width: 260px" value="P-Packaging">P-Packaging</option>';
+    echo '<option style="width: 260px" value="I-Industrial">I-Industrial</option>';
+    echo '<option style="width: 260px" value="O-Other">O-Other</option>';
 
 
 ?></select></td>
@@ -130,7 +130,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td id="info"> Credit Application Submitted: </td>
                     <td colspan="1"> <label for="credit_app_submitted">
                    </label>
-    				 <input type="checkbox" name="credit_app_submitted" value="1" <?php if($qsr['credit_app_submitted'] == 1) {echo "checked";} ?>> </td>
+    				 <input type="checkbox" for="credit_app_submitted" name="credit_app_submitted" value="1"> <?php if($qsr['credit_app_submitted'] == "1") {echo "checked";} ?> </td>
                 </tr>
                 <thead>
                 <tr>
@@ -145,13 +145,13 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <td colspan="4" rowspan="3" style="height:80px;"> 
     				 <input
 					name="business_case" value="<?php echo $qsr['business_case'] ?> "></td>
-                    <td colspan="2"> <input type="checkbox" name="match_sample_sub" value=1 <?php if($qsr['match_sample_sub'] == 1) {echo "checked";} ?>> Sample Submission  </td>
+                    <td colspan="2"> <input type="checkbox" for="match_sample_sub" name="match_sample_sub" value="1" <?php if($qsr['match_sample_sub'] == "1") {echo "checked";} ?>> Sample Submission  </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="match_data_sheet" value=1 <?php if($qsr['match_data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
+                    <td colspan="2"> <input type="checkbox" for="match_data_sheet" name="match_data_sheet" value="1" <?php if($qsr['match_data_sheet'] == "1") {echo "checked";} ?>> Data Sheet  </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="match_descr" value=1 <?php if($qsr['match_description'] == 1) {echo "checked";} ?>> Description  </td>
+                    <td colspan="2"> <input type="checkbox" for="match_description" name="match_description" value="1" <?php if($qsr['match_description'] == "1") {echo "checked";} ?>> Description  </td>
                 </tr>
                 <thead>
                 <tr>
@@ -160,7 +160,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                 <tr>
                     <td colspan="6"> 
     				 <input
-					name="company_name" value="<?php echo $qsr['material_description']; if ($qsr['material_description'] == "") {echo "<br/>";}?>"> </td>
+					name="company_name" value="<?php echo $qsr['material_description'];?>"> </td>
                 </tr>
                 <thead>
                 <tr>
@@ -270,8 +270,8 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
                     <th colspan="6" align="center"> - Type Of Response Needed By - <?php echo $qsr['response_date'] ?> </th>
                 </tr></thead>
                 <tr>
-                    <td> <input type="checkbox" name="prod_rec" value=1 <?php if($qsr['prod_rec'] == 1) {echo "checked";} ?>> Product Recommendation  </td>
-                    <td> <input type="checkbox" name="stock_prod_qty", value=1 <?php if($qsr['stock_prod_qty'] == 1) {echo "checked";} ?>>Stock Product QTY  </td>
+                    <td> <input type="checkbox" for="prod_rec" name="prod_rec" value="1" <?php if($qsr['prod_rec'] == "1") {echo "checked";} ?>> Product Recommendation  </td>
+                    <td> <input type="checkbox" for="stock_prod_qty" name="stock_prod_qty" value="1" <?php if($qsr['stock_prod_qty'] == "1") {echo "checked";} ?>>Stock Product QTY  </td>
                     <td colspan="2" id="info" > Other Documentation (Specify) </td>
                     <td colspan="2"><label for="other_doc">
                    </label>
@@ -279,8 +279,8 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
 					name="other_doc" value=" <?php echo $qsr['other_doc'] ?>">  </td>
                 </tr>
                 <tr>
-                    <td> <input type="checkbox" name="sds" value=1 <?php if($qsr['sds'] == 1) {echo "checked";} ?>> SDS  </td>
-                    <td> <input type="checkbox" name="coa" value=1 <?php if($qsr['coa'] == 1) {echo "checked";} ?>> COA  </td>
+                    <td> <input type="checkbox" for="sds" name="sds" value="1" <?php if($qsr['sds'] == "1") {echo "checked";} ?>> SDS  </td>
+                    <td> <input type="checkbox" for="coa "name="coa" value="1" <?php if($qsr['coa'] == "1") {echo "checked";} ?>> COA  </td>
                     <td colspan="2" id="info"> Sample Quantity </td>
                     <td> QTY:<label for="sample_qty">
                    </label>
@@ -292,7 +292,7 @@ echo '<option disabled selected hidden style="width: 260px" >' . $qsr['m_code'] 
 					name="sample_req_date" value=" <?php echo $qsr['sample_req_date'] ?>"> </td>
                 </tr>
                 <tr>
-                    <td colspan="2"> <input type="checkbox" name="data_sheet" value=1 <?php if($qsr['data_sheet'] == 1) {echo "checked";} ?>> Data Sheet  </td>
+                    <td colspan="2"> <input type="checkbox" for="data_sheet" name="data_sheet" value="1" <?php if($qsr['data_sheet'] == "1") {echo "checked";} ?>> Data Sheet  </td>
                     <td colspan="2" id="info"> Charge/No Charge </td>
                     <td> Price:<label for="sample_price">
                    </label>

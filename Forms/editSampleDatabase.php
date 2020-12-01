@@ -29,11 +29,11 @@ $gcr = mysqli_fetch_array($getCustomerResult);
 // $_SESSION['field']=$qsr[sample_form_id];
 /* Check required variables for value, if none input 0 */
 $m_code = $qsr['m_code'];
-$credit_app_submitted = $qsr['credit_app_submitted'];
+$credit_app_submitted = $_POST['credit_app_submitted'];
 $business_case = $qsr['business_case'];
-$match_sample_sub = $qsr['match_sample_sub'];
-$match_data_sheet = $qsr['match_data_sheet'];
-$match_description = $qsr['match_description'];
+$match_sample_sub = $_POST['match_sample_sub'];
+$match_data_sheet = $_POST['match_data_sheet'];
+$match_description = $_POST['match_description'];
 $material_description = $qsr['material_description'];
 $customer_proc = $qsr['customer_proc'];
 $customer_supplier = $qsr['customer_supplier'];
@@ -51,14 +51,14 @@ $auto_reqs = $qsr['auto_reqs'];
 $fda_reqs = $qsr['fda_reqs'];
 $color_specs = $qsr['color_specs'];
 $response_date = $qsr['response_date'];
-$prod_rec = $qsr['prod_rec'];
-$stock_prod_qty = $qsr['stock_prod_qty'];
+$prod_rec = $_POST['prod_rec'];
+$stock_prod_qty = $_POST['stock_prod_qty'];
 $other_doc = $qsr['other_doc'];
-$sds = $qsr['sds'];
-$coa = $qsr['coa'];
+$sds = $_POST['sds'];
+$coa = $_POST['coa'];
 $sample_qty = $qsr['sample_qty'];
 $sample_req_date = $qsr['sample_req_date'];
-$data_sheet = $qsr['data_sheet'];
+$data_sheet = $_POST['data_sheet'];
 $sample_price = $qsr['sample_price'];
 $sample_frt = $qsr['sample_frt'];
 $other_contact_1 = $qsr['other_contact_1'];
@@ -70,8 +70,6 @@ if (isset($_POST['m_code'])) {
     $m_code = $_POST['m_code'];
     // $m_code = htmlspecialchars(strip_tags($_POST['m_code']));
 }
-
-echo $m_code;
 
 if (isset($_POST['company_name'])) {
     $company_name = htmlspecialchars(strip_tags($_POST['company_name']));
@@ -127,66 +125,57 @@ if (isset($_POST['customer_fax'])) {
     $customer_fax = $gcr['customer_fax'];
 }
 
-if (isset($_POST['credit_app_submitted'])) {
-    $credit_app_submitted = htmlspecialchars(strip_tags($_POST['credit_app_submitted']));
-}
+/*if (isset($_POST['credit_app_submitted'])) {
+ // $credit_app_submitted =$_POST['credit_app_submitted'];
 
-echo "CAS" . $credit_app_submitted . " ";
+   $credit_app_submitted = htmlspecialchars(strip_tags($_POST['credit_app_submitted']));
+}*/
+
 
 if (isset($_POST['business_case'])) {
     $business_case = htmlspecialchars(strip_tags($_POST['business_case']));
 }
 
-echo "BC" . $business_case . " ";
 
 if (isset($_POST['match_sample_sub'])) {
     $match_sample_sub = htmlspecialchars(strip_tags($_POST['match_sample_sub']));
 }
-echo "MSS" . $match_sample_sub . " ";
 
 if (isset($_POST['match_data_sheet'])) {
     $match_data_sheet = htmlspecialchars(strip_tags($_POST['match_data_sheet']));
 }
 
-echo "MDS" . $match_data_sheet . " ";
 
 if (isset($_POST['match_description'])) {
     $match_description = htmlspecialchars(strip_tags($_POST['match_description']));
 }
 
-echo "MD" . $match_description . " ";
 
 if (isset($_POST['material_description'])) {
     $material_description = htmlspecialchars(strip_tags($_POST['material_description']));
 }
 
-echo "MAD" . $material_description . " ";
 
 if (isset($_POST['customer_proc'])) {
     $customer_proc = htmlspecialchars(strip_tags($_POST['customer_proc']));
 }
-echo "CP" . $customer_proc . " ";
 
 if (isset($_POST['customer_supplier'])) {
     $customer_supplier = htmlspecialchars(strip_tags($_POST['customer_supplier']));
 }
-echo "CS" . $customer_supplier . " ";
 
 if (isset($_POST['finished_good_app'])) {
     $finished_good_app = htmlspecialchars(strip_tags($_POST['finished_good_app']));
 }
 
-echo "FGA" . $finished_good_app . " ";
 
 if (isset($_POST['annual_vol'])) {
     $annual_vol = htmlspecialchars(strip_tags($_POST['annual_vol']));
 }
-echo "AV" . $annual_vol . " ";
 
 if (isset($_POST['current_resin_system'])) {
     $current_resin_system = htmlspecialchars(strip_tags($_POST['current_resin_system']));
 }
-echo "CRS" . $current_resin_system . " ";
 
 if (isset($_POST['target_price'])) {
     $target_price = htmlspecialchars(strip_tags($_POST['target_price']));
@@ -382,7 +371,44 @@ if (mysqli_connect_error()) {
                     other_contact_4=? WHERE sample_form_id = " . $field);
 
     /* Bind statement parameters to statement and execute */
-    $stmt->bind_param("sisiiisssssssssssssssssiisiississssss", $marketCode, $credit_app_submitted, $business_case, $match_sample_sub, $match_data_sheet, $match_description, $material_description, $customer_proc, $customer_supplier, $finished_good_app, $annual_vol, $current_resin_system, $target_price, $melt_reqs, $curr_filler_sys, $colors, $known_additives, $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty, $sds, $coa, $data_sheet, $other_doc, $sample_qty, $sample_req_date, $sample_price, $sample_frt, $other_contact1, $other_contact2, $other_contact3, $other_contact4);
+    $stmt->bind_param("sisiiisssssssssssssssssiisiississssss",
+	$m_code, 
+	$credit_app_submitted,
+	$business_case, 
+	$match_sample_sub, 
+	$match_data_sheet, 
+	$match_description, 
+	$material_description, 
+	$customer_proc, 
+	$customer_supplier,
+	$finished_good_app,
+	$annual_vol,
+	$current_resin_system,
+	$target_price,
+	$melt_reqs,
+	$current_filler_sys,
+	$colors,
+	$known_additives,
+	$uv_reqs,
+	$ul_reqs,
+	$auto_reqs, 
+	$fda_reqs, 
+	$color_specs,
+	$response_date, 
+	$prod_rec,
+	$stock_prod_qty, 
+	$sds, 
+	$coa,
+	$data_sheet,
+	$other_doc,
+	$sample_qty,
+	$sample_req_date,
+	$sample_price,
+	$sample_frt, 
+	$other_contact_1, 
+	$other_contact_2,
+	$other_contact_3, 
+	$other_contact_4);
 
     $stmt->execute();
 
