@@ -1,7 +1,7 @@
 <?php 
     /* Name: editTLQuote.php
-     * Author: Karandeep Singh
-     * Last Modified: November 26th, 2020
+     * Author: Karandeep Singh, Modified by Kaitlyn Breker
+     * Last Modified: December 1st, 2020
      * Purpose: Edits the information from the Truckload form. 
      */
     
@@ -66,19 +66,20 @@
 		 * the fields blank */
 			function updateQuoteConversion(){
 
+			 var val40p = parseInt(document.getElementById('truck_load').value); 
+			 var val2240 = parseInt(document.getElementById('truck_load').value) + 0.02;
+			 var val1022 = parseInt(document.getElementById('truck_load').value) + 0.04;
+			 var val610 = parseInt(document.getElementById('truck_load').value) + 0.06;
+			 var val46  = parseInt(document.getElementById('truck_load').value) + 0.08;
+			 var val24 = parseInt(document.getElementById('truck_load').value) + 0.16;
+			 
 				if (document.getElementById('generateQuote').checked) { 
-				    document.getElementById('range40plus').value=
-				    	document.getElementById('truck_load').value + '.00/lb'; 
-				    document.getElementById('range2240').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.02 + '/lb';
-				    document.getElementById('range1022').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.04 + '/lb';
-				    document.getElementById('range610').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.06 + '/lb';
-				    document.getElementById('range46').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.08 + '/lb';
-				    document.getElementById('range24').value=
-				    	parseInt(document.getElementById('truck_load').value) + 0.16 + '/lb'; 
+					document.getElementById('range40plus').value = val40p.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range2240').value = val2240.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range1022').value = val1022.toFixed(2).toString() + "/lb";
+				    document.getElementById('range610').value = val610.toFixed(2).toString() + "/lb";
+				    document.getElementById('range46').value = val46.toFixed(2).toString() + "/lb"; 
+				    document.getElementById('range24').value = val24.toFixed(2).toString() + "/lb";
 				  } else { 
 					  document.getElementById('range40plus').value=""; 
 					  document.getElementById('range2240').value=""; 
