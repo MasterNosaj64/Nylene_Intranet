@@ -204,7 +204,7 @@
     </head>
     <body>
     	<!-- <h1>Interaction</h1> -->
-    	<form method="post" action=AddInteraction.php name="add_interaction">
+    	<form method="post" action=AddInteraction.php name="add_interaction" autocomplete="off">
     		<input type="reset" value="Clear">
     		<table class="form-table" border=5>
     			<tr>

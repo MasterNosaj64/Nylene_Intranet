@@ -86,7 +86,7 @@
 	</head>
 	
 	<body>
-	<form name="TlQuoteForm" action="newTlQuote.php" method="post">
+	<form name="TlQuoteForm" action="newTlQuote.php" method="post" autocomplete="off">
 		<table class= "form-table" border="1" cellspacing="0" cellpadding="1" align="center" >
     		<thead><tr>
     			<th colspan="4">TL Quote Form</th>

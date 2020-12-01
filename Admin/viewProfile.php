@@ -10,7 +10,7 @@ include '../NavPanel/navigation.php';
 include '../Database/databaseConnection.php';
 include '../Database/connect.php';
 
-
+$conn = getDBConnection();
 $field=$_SESSION['userid'];
 $sql = "SELECT * FROM employee WHERE employee_id=$field"; 
 $query = mysqli_query($conn, $sql);

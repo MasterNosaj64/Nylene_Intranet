@@ -42,7 +42,7 @@ if ($conn->connect_error) {
 </head>
 <body>
 	<form name="creditBusinessApplication"
-		action="newCreditBusinessApplication.php" method="POST">
+		action="newCreditBusinessApplication.php" method="POST" autocomplete="off">
 		<table class="form-table" border=1 cellspacing="0" cellpadding="1">
 			<thead>
 				<tr>

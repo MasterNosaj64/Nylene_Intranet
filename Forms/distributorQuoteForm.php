@@ -83,7 +83,7 @@
 	</head>
 	
 	<body>
-	<form name="distributorQuoteForm" action="newDistributorQuote.php" method="post" >
+	<form name="distributorQuoteForm" action="newDistributorQuote.php" method="post" autocomplete="off">
 		<table class = "form-table" border="1" cellspacing="0" cellpadding="1" align="center">
     		<thead><tr>
     			<th colspan="4">Distributor Quote Form</th>

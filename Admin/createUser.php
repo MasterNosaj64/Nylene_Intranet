@@ -22,7 +22,7 @@ $accessLevel = $_SESSION['role'];
 </head>
 <body onload="myFunction()">
 	<form method="post" action="employee_database.php"
-		onsubmit="return ValidateForm(this)";>
+		onsubmit="return ValidateForm(this)"; autocomplete="off">
 		<script type="text/javascript">
 function ValidateForm(frm) {
 if (frm.first_name.value == "") { alert('First name is required.'); frm.first_name.focus(); return false; }

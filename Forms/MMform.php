@@ -43,7 +43,7 @@ include '../Database/connect.php';
     <title>Marketing Materials Request Form</title>
 </head>
     
-<form  method="post" action="MMform_Database.php";>
+<form  method="post" action="MMform_Database.php" autocomplete="off">
     
 <script type="text/javascript">
     //checks if the fields are not blank

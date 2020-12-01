@@ -134,7 +134,7 @@ if (isset($_POST['company_id_edit'])) {
 <link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body>
-	<form method="post" action=editCompany.php name="edit_company">
+	<form method="post" action=editCompany.php name="edit_company" autocomplete="off">
 		<input type="reset" value="Clear"> <input type="text" hidden="true"
 			name="company_id"
 			value="<?php echo $companyToEdit->getCompanyId();?>" />

@@ -89,7 +89,7 @@ else{
 </style>
 <body>
 
-	<form method="post" action="afterEditUser.php" id="form1">
+	<form method="post" action="afterEditUser.php" id="form1" autocomplete="off">
 
 
 

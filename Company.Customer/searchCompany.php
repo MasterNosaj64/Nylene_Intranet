@@ -127,7 +127,7 @@ if (isset($_GET['sort'])) {
 	<div hidden="true" class="content">
 
 		<form method="post" action=searchCompany.php?sort=
-			<?php echo $sortType;?> name="search_company_data">
+			<?php echo $sortType;?> name="search_company_data" autocomplete="off">
 			<table class="form-table">
 				<tr>
 					<td>Name:</td>

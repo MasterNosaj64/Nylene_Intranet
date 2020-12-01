@@ -121,7 +121,7 @@ $customer_name = explode(" ", $customerToEdit->getName());
 <!-- The following is the edit customer interface -->
 
 <body>
-	<form method="post" action=editCustomer.php name="edit_customer">
+	<form method="post" action=editCustomer.php name="edit_customer" autocomplete="off">
 		<input type="reset" value="Clear"> <input hidden="true"
 			name="customer_id"
 			value="<?php echo $customerToEdit->getCustomerId();?>" />

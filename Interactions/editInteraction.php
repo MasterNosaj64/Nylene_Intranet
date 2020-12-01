@@ -115,7 +115,7 @@
     	</script>
     </head>
     <body>
-    	<form method="post" action=updateInteractionDB.php name="edit_interaction">
+    	<form method="post" action=updateInteractionDB.php name="edit_interaction" autocomplete="off">
     		<input type="reset" value="Clear">
     		<table class="form-table" border=5>
     			<tr>

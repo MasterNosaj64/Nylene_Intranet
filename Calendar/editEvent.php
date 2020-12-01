@@ -79,7 +79,7 @@ if ($conn-> connect_error) {
 	</head>
 	
 	<body>
-    	<form name="editEvent" action="updateEvent.php" method="post" >
+    	<form name="editEvent" action="updateEvent.php" method="post" autocomplete="off">
     		<table class = "form-table" border="1" cellspacing="0" cellpadding="1" align="center">
         		<thead><tr>
         			<th colspan="4">- Event Information -</th>

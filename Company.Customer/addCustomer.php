@@ -111,7 +111,7 @@ if (isset($_SESSION['company_id'])) {
 </head>
 
 <body>
-	<form method="post" action=addCustomer.php name="add_customer">
+	<form method="post" action=addCustomer.php name="add_customer" autocomplete="off">
 		<input type="reset" value="Clear">
 		<table class="form-table" border=1>
 			<thead>

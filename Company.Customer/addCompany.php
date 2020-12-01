@@ -118,7 +118,7 @@ else{
 <link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body>
-	<form method="post" action=addCompany.php name="add_company">
+	<form method="post" action=addCompany.php name="add_company" autocomplete="off">
 		<input type="reset" value="Clear">
 		<table class="form-table" border=1>
 			<thead>

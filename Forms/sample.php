@@ -74,7 +74,7 @@
 
 	<body height="100%" width="100%">
         <div>
-    	<form name="sample_form" action="newSampleForm.php" method="POST" onsubmit="return validateForm()">
+    	<form name="sample_form" action="newSampleForm.php" method="POST" onsubmit="return validateForm()" autocomplete="off">
             <table class= "form-table" border=1 cellspacing="0" cellpadding="3" align="center">
                  <thead>
                  <tr>
