@@ -185,7 +185,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Sample Request Form\"/>
 				</form>
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/sampleForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     } // Light Truck Load Quote Form
     else if ($viewInteractionForm['form_type'] == 2) {
         echo "<td>
@@ -199,7 +204,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" value=\"Edit Light Truckload Form\"/>
 				</form>
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/ltlQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     } // Truck Load Quote Form
     else if ($viewInteractionForm['form_type'] == 3) {
         echo "<td>
@@ -213,7 +223,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Truckload Quote Form\"/>
 				</form>
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/tlQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     } // Distributor Quote Form
     else if ($viewInteractionForm['form_type'] == 4) {
         echo "<td>
@@ -227,7 +242,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Distributor Quote Form\"/>
 				</form>
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/distributorQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     } // Marketing Request Form
     else if ($viewInteractionForm['form_type'] == 5) {
         echo "<td>
@@ -241,7 +261,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Market Request Form\"/>
 				</form> 
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/marketingRequestForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     } // Business Credit Application Form
     else if ($viewInteractionForm['form_type'] == 6) {
         echo "<td>
@@ -255,7 +280,12 @@ if ($viewInteractionForm != null) {
 					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
 					<input type=\"submit\" style=\"width:100%\" value=\"Edit Business Credit App. Form\"/>
 				</form> 
-			</td>";
+			</td>
+            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/creditBusinessApp_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
+					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
+					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
+			</form>
+            </td>";
     }
 } else { // No Form
     echo "<td colspan=\"5\"> -- </td>";

@@ -129,26 +129,6 @@ $pdf_obj->SetFont('helvetica', 'B', 18);
 
 $pdf_obj->Write(0, 'Credit Application For Business Account', '', 0, 'L', true, 0, false, false, 0);
 
-// $page1 = '';
-
-// $page1 .= create_EmployeeHTML($userRow['employee_id']);
-
-// $page1 .= create_CustomerHTML($customerRow['customer_id']);
-
-// $page1 .= create_CompanyHTML($companyRow['company_id']);
-
-// $page1 .= create_QuoteIntroHTML($customerRow['customer_id']);
-
-// set font
-// $pdf_obj->SetFont('helvetica', '', 12);
-
-// output the HTML content
-// $pdf_obj->writeHTML($page1, true, false, true, false, '');
-
-// add a page
-// $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
-
-
 if ($creditBusinessRow['order_pending'] == '1') {
     $orderPending = "Yes";
 } else {
@@ -342,22 +322,22 @@ $content .= '
 			</thead>
 			<tr>
 				<td> Signature</td>
-				<td>                    </td>
+				<td></td>
 				<td> Signature</td>
-				<td>                    </td>
+				<td></td>
 			</tr>
 			<tr>
 				<td> Name and Title</td>
-				<td>                    </td>
+				<td></td>
 				<td> Name and Title</td>
-				<td>                    </td>
+				<td></td>
 			</tr>
 			<tr>
 				<td> Date</td>
 				
-				<td>                    </td>
+				<td></td>
 				<td> Date</td>
-				<td>                    </td>
+				<td></td>
 			</tr>
 			<tr>
 				<td colspan="4"><p>Upon completion please scan and return by email
@@ -371,17 +351,6 @@ $pdf_obj->SetFont('helvetica', '', 10);
 
 // output the HTML content
 $pdf_obj->writeHTML($content, true, false, true, false, '');
-
-// add a page
-// $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
-
-// // Assign values for check boxes
-
-// // set font
-// $pdf_obj->SetFont('helvetica', '', 12);
-
-// // output the HTML content
-// $pdf_obj->writeHTML($page2, true, false, true, false, '');
 
 // reset pointer to the last page
 $pdf_obj->lastPage();
