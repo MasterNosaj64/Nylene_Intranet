@@ -99,6 +99,12 @@ if ($conn-> connect_error) {
         					<?php } else { ?>
         						
         					<td>
+        						<input type="radio" name="event_visibility" value="for_all" disabled>
+        						<label for="for_all">For All </label>
+        						
+        						<input type="radio"  name="event_visibility" value="for_team" disabled>
+        						<label for="for_team"> For Team </label>
+        						
         						<input type="radio"  name="event_visibility" value="for_individual" checked>
         						<label for="for_individual"> For Individual </label>
         					</td>	
