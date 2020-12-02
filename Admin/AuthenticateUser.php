@@ -76,6 +76,7 @@ if ($row > 0) {
             $qy->execute();
             $qy->close();
 
+            //echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
             echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
             exit();
         } else {
