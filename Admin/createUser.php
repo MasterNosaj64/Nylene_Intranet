@@ -126,7 +126,7 @@ if ($accessLevel == admin) {
 $query = mysqli_query($conn, $sql);
 echo '<option style="width: 260px" value=""</option>';
 while ($row = mysqli_fetch_array($query)) {
-    echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . '</option>';
+    echo '<option style="width: 260px" value=' . $row['employee_id'] . '>' . $row['first_name'] . " " . $row['last_name'] . " (". $row['title'] .") ".'</option>';
 }
 ?>
 		</select></td>
