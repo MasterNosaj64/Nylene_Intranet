@@ -68,21 +68,17 @@
     
                     <td id="info"> Date Created: </td>
                     <td> <input name="dateSubmitted" type="text" readonly value="<?php echo $qsr['date_submitted']; ?>"> </td>
-                    <td><label for="m_code">
-                        Market Code:</label><br /> <select
-					name="m_code" ><?php
-
-echo '<option  style="width: 260px" value="'.$qsr['m_code'].'">'.$qsr['m_code'].'</option>'; 
-    echo '<option style="width: 260px" value="A-Auto">A  - Auto</option>';
-    echo '<option style="width: 260px" value="EE-Electrical">EE-Electrical</option>';
-    echo '<option style="width: 260px" value="WC-Wire&Cable">WC-Wire&Cable</option>';
-    echo '<option style="width: 260px" value="C-Consumer">C-Consumer</option>';
-    echo '<option style="width: 260px" value="P-Packaging">P-Packaging</option>';
-    echo '<option style="width: 260px" value="I-Industrial">I-Industrial</option>';
-    echo '<option style="width: 260px" value="O-Other">O-Other</option>';
-
-
-?></select></td>
+                    <td><label for="m_code"> Market Code:</label><br /> 
+                    <select name="m_code" ><?php
+                            echo '<option  style="width: 260px" value="'.$qsr['m_code'].'">'.$qsr['m_code'].'</option>'; 
+                            echo '<option style="width: 260px" value="A-Auto">A  - Auto</option>';
+                            echo '<option style="width: 260px" value="EE-Electrical">EE-Electrical</option>';
+                            echo '<option style="width: 260px" value="WC-Wire&Cable">WC-Wire&Cable</option>';
+                            echo '<option style="width: 260px" value="C-Consumer">C-Consumer</option>';
+                            echo '<option style="width: 260px" value="P-Packaging">P-Packaging</option>';
+                            echo '<option style="width: 260px" value="I-Industrial">I-Industrial</option>';
+                            echo '<option style="width: 260px" value="O-Other">O-Other</option>';
+                    ?></select></td>
 							
     
                  
@@ -130,7 +126,7 @@ echo '<option  style="width: 260px" value="'.$qsr['m_code'].'">'.$qsr['m_code'].
                     <td id="info"> Credit Application Submitted: </td>
                     <td colspan="1"> <label for="credit_app_submitted">
                    </label>
-    				 <input type="checkbox" for="credit_app_submitted" name="credit_app_submitted" value="1"> <?php if($qsr['credit_app_submitted'] == "1") {echo "checked";} ?> </td>
+    				 <input type="checkbox" for="credit_app_submitted" name="credit_app_submitted" value="1" <?php if($qsr['credit_app_submitted'] == "1") {echo "checked";} ?>/>  </td>
                 </tr>
                 <thead>
                 <tr>
@@ -288,8 +284,7 @@ echo '<option  style="width: 260px" value="'.$qsr['m_code'].'">'.$qsr['m_code'].
 					name="sample_qty" value=" <?php echo $qsr['sample_qty'] ?>"> </td>
                     <td> Date REQ:<label for="sample_req_date">
                    </label>
-    				 <input
-					name="sample_req_date" value=" <?php echo $qsr['sample_req_date'] ?>"> </td>
+    				 <input type="date" name="sample_req_date" value=" <?php echo $qsr['sample_req_date'] ?>"> </td>
                 </tr>
                 <tr>
                     <td colspan="2"> <input type="checkbox" for="data_sheet" name="data_sheet" value="1" <?php if($qsr['data_sheet'] == "1") {echo "checked";} ?>> Data Sheet  </td>

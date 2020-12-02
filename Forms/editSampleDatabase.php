@@ -9,8 +9,9 @@
 if (! session_id()) {
     session_start();
 }
-include '../Database/databaseConnection.php';
+//include '../Database/databaseConnection.php';
 include '../Database/connect.php';
+$conn = getDBConnection();
 
 $field = $_SESSION['field'];
 
@@ -19,17 +20,17 @@ $query_samples_results = $conn->query($query_samples);
 $qsr = mysqli_fetch_array($query_samples_results);
 
 // echo $qsr['m_code'];
-$getCustomer = "SELECT * FROM company
+/* $getCustomer = "SELECT * FROM company
 						INNER JOIN company_relational_customer ON company_relational_customer.company_id = company.company_id
 						INNER JOIN customer ON customer.customer_id = company_relational_customer.customer_id WHERE customer.customer_id = " . $qsr['customer_code'];
 
 $getCustomerResult = $conn->query($getCustomer);
-$gcr = mysqli_fetch_array($getCustomerResult);
+$gcr = mysqli_fetch_array($getCustomerResult); */
 
 // $_SESSION['field']=$qsr[sample_form_id];
 /* Check required variables for value, if none input 0 */
 $m_code = $qsr['m_code'];
-$credit_app_submitted = $_POST['credit_app_submitted'];
+$credit_app_submitted = $qsr['credit_app_submitted'];
 $business_case = $qsr['business_case'];
 $match_sample_sub = $_POST['match_sample_sub'];
 $match_data_sheet = $_POST['match_data_sheet'];
@@ -66,7 +67,7 @@ $other_contact_2 = $qsr['other_contact_2'];
 $other_contact_3 = $qsr['other_contact_3'];
 $other_contact_4 = $qsr['other_contact_4'];
 
-if (isset($_POST['m_code'])) {
+/* if (isset($_POST['m_code'])) {
     $m_code = $_POST['m_code'];
     // $m_code = htmlspecialchars(strip_tags($_POST['m_code']));
 }
@@ -123,13 +124,13 @@ if (isset($_POST['customer_fax'])) {
     $customer_fax = htmlspecialchars(strip_tags($_POST['customer_fax']));
 } else {
     $customer_fax = $gcr['customer_fax'];
-}
+} */
 
-/*if (isset($_POST['credit_app_submitted'])) {
+if (isset($_POST['credit_app_submitted'])) {
  // $credit_app_submitted =$_POST['credit_app_submitted'];
 
    $credit_app_submitted = htmlspecialchars(strip_tags($_POST['credit_app_submitted']));
-}*/
+}
 
 
 if (isset($_POST['business_case'])) {

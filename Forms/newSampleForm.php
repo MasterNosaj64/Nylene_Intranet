@@ -1,12 +1,14 @@
 <?php
     /* Name: newSampleForm.php
      * Author: Emmett Janssens, Modified by Kaitlyn Breker
-     * Last Modified: November 27th, 2020
+     * Last Modified: Descember 1st, 2020
      * Purpose: File called when user clicks submit on the input sample form. Inserts form information into
      *          the sample_form table of the database.
      */
-	
+    include "../Database/connect.php";
     session_start();
+    $conn = getDBConnection();
+    
 
     /*Check required variables for value, if none input 0*/
 	if (isset($_POST['credit_app_submitted']))
@@ -141,10 +143,7 @@
 	$other_contact3		= htmlspecialchars(strip_tags($_POST['other_contact3'])); 
 	$other_contact4		= htmlspecialchars(strip_tags($_POST['other_contact4']));
 
-	include "../Database/connect.php";
 
-	$conn = getDBConnection();
-	
 	
 	/*Check the connection*/
 	if (mysqli_connect_error())
