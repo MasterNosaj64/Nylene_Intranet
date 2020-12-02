@@ -76,8 +76,7 @@ class Company
      */
     public function read()
     {
-        $query = "SELECT * FROM company";
-
+	    $query = "SELECT * FROM company";
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute();

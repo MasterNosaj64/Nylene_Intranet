@@ -52,6 +52,7 @@ if ($row > 0) {
         if (password_verify($password1, $password2)) {
             $_SESSION['name'] = $row['first_name'] . " " . $row['last_name'];
             $_SESSION['role'] = $row['title'];
+			$_SESSION['reports_to']=$row['reports_to'];
             // $_SESSION['admin'] = $row['is_administrator'];
 
             $_SESSION['userid'] = $row['employee_id'];
@@ -67,6 +68,7 @@ if ($row > 0) {
             $_SESSION['name'] = $row['first_name'] . " " . $row['last_name'];
             $_SESSION['role'] = $row['title'];
             $_SESSION['userid'] = $row['employee_id'];
+			$_SESSION['reports_to']=$row['reports_to'];
 
             $num_tries = "0";
             $qy = $conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");

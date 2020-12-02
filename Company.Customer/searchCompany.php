@@ -52,6 +52,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $employeeNames = array();
     $employeeIds = array();
     $employeeTitle = array();
+	$employeeTeam = array();
     $numEmployees = 0;
 
     // Store all employee names and id's in array
@@ -60,6 +61,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         array_push($employeeTitle, $employeeList->getTitle());
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
+		array_push($employeeTeam, $employeeList->getReports_To());
         $numEmployees ++;
     }
     $employeeListResult->close();
@@ -145,16 +147,21 @@ if (isset($_GET['sort'])) {
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
         } else if ($_SESSION['role'] == 'supervisor') {
-            if (($employeeTitle[$i] == 'ind_rep') || ($employeeTitle[$i] == 'sales_rep')) {
+            if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid'])) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        } else {
+        } else if($_SESSION['role'] == 'ind_rep'){
             if ($employeeIds[$i] == $_SESSION['userid']) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        }
+        }else{
+			if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['reports_to']))) {
+                echo "<option value=\"{$employeeIds[$i]}\">";
+                echo "{$employeeNames[$i]}</option>";
+            }
+		}	
     }
     ?>
 				</select></td>
@@ -330,7 +337,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
         $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
         $getAssigned_To->fetch();
 
-        if ((strcmp(($assignedToEmployee->getTitle()), "sales_rep") == 0) || (strcmp(($assignedToEmployee->getTitle()), "ind_rep") == 0)) {
+        if (($assignedToEmployee->getId()==$_SESSION['userid'])||((strcmp(($assignedToEmployee->getTitle()), "sales_rep") == 0)&&($assignedToEmployee->getReports_To()==$_SESSION['userid'])) || ((strcmp(($assignedToEmployee->getTitle()), "ind_rep") == 0)&&($assignedToEmployee->getReports_To()==$_SESSION['userid']))) {
             echo "
 				<tr>
 				";
@@ -377,7 +384,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
             }
         } else {}
     } // if (($_SESSION['role'] == "sales_rep")||($_SESSION['role']=="ind_rep")) {
-    else {
+    else if(($_SESSION["role"] == "ind_rep") {
         /*
          * $createdByEmployee = new Employee(getDBConnection());
          * $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
@@ -437,6 +444,69 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
             }
         }
     }
+	else{
+		/*
+         * $createdByEmployee = new Employee(getDBConnection());
+         * $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
+         * $getCreated_By->fetch();
+         */
+        // Get assigned to
+        $assignedToEmployee = new Employee(getDBConnection());
+        $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
+        $getAssigned_To->fetch();
+
+        if (($assignedToEmployee->getId()==$_SESSION['userid'])||((strcmp(($assignedToEmployee->getTitle()), "sales_rep") == 0)&&($assignedToEmployee->getReports_To()==$_SESSION['reports_to'])))  {
+            // if($assignedToEmployee->getId()==$_SESSION['userid']){
+
+            echo "
+				<tr>
+				";
+            echo "
+				<td>{$companyName}</td>";
+            echo "
+				<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
+            echo "
+				<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
+            echo "
+				<td>{$companyStreet}</td>";
+            echo "
+				<td>{$companyCity}</td>";
+            echo "
+				<td>{$companyState}</td>";
+            echo "
+				<td>{$assignedToEmployee->getName()}</td>";
+            // TODO: MADHAV Add check for supervisor role
+            // if ($_SESSION["role"] == "admin") {
+            echo "
+				<td>{$createdByEmployee->getName()}</td>";
+            // }
+            echo "<td><form action='./editCompany.php' method='post'>
+				<input hidden name='company_id_edit' value='{$companyId}'/> 
+				<input type='submit' value='edit'/>
+				</form>
+				<form action='./viewCompany.php?sort=1' method='post'>
+				<input hidden name='company_id_view' value='{$companyId}'/> 
+				<input type='submit' value='view'/>
+				</form></td>";
+            echo "
+				</tr>
+				";
+            $getAssigned_To->close();
+
+            // TODO: MADHAV Add check for supervisor role
+            // if ($_SESSION["role"] == "admin") {
+
+            $getCreated_By->close();
+            // }
+            $offset ++;
+            if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+                break;
+            }
+        }
+		
+	
+	
+	}
 }
 $conn_Company->close();
 ?>
