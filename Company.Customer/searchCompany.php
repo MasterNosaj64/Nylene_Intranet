@@ -147,7 +147,7 @@ if (isset($_GET['sort'])) {
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
         } else if ($_SESSION['role'] == 'supervisor') {
-            if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid'])) {
+            if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid']))||(($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
@@ -384,7 +384,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
             }
         } else {}
     } // if (($_SESSION['role'] == "sales_rep")||($_SESSION['role']=="ind_rep")) {
-    else if(($_SESSION["role"] == "ind_rep") {
+    else if(($_SESSION["role"] == "ind_rep")) {
         /*
          * $createdByEmployee = new Employee(getDBConnection());
          * $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
