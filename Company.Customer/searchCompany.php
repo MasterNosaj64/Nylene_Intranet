@@ -52,7 +52,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $employeeNames = array();
     $employeeIds = array();
     $employeeTitle = array();
-	$employeeTeam = array();
+    $employeeTeam = array();
     $numEmployees = 0;
 
     // Store all employee names and id's in array
@@ -61,7 +61,7 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         array_push($employeeTitle, $employeeList->getTitle());
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
-		array_push($employeeTeam, $employeeList->getReports_To());
+        array_push($employeeTeam, $employeeList->getReports_To());
         $numEmployees ++;
     }
     $employeeListResult->close();
@@ -89,7 +89,12 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         $state = $_POST["search_By_State"];
         $country = $_POST["search_By_Country"];
         $assigned_To = $_POST["search_By_Assigned_To"];
-        $created_By = $_POST["search_By_Created_By"];
+        
+        if (isset($_POST["search_By_Created_By"])) {
+            
+            $created_By = $_POST["search_By_Created_By"];
+            
+        }
 
         if (strcmp($website, "") == 0) {
             $website = "http://";
@@ -97,14 +102,13 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
         $companies = new Company($conn_Company);
         $companyResult = $companies->searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By);
-	
-	} else {
+    } else {
 
         if (! isset($_GET['sort']) || (isset($_GET['sort']) && ! isset($_SESSION['buffer']))) {
-			//$employees = new Employee($conn_Company);
-			$companies = new Company($conn_Company);
+            // $employees = new Employee($conn_Company);
+            $companies = new Company($conn_Company);
             $companyResult = $companies->read();
-			//$employeeResult = $employees->read();
+            // $employeeResult = $employees->read();
         }
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
     }
@@ -123,15 +127,17 @@ if (isset($_GET['sort'])) {
 <link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body style="overflow: scroll">
-	<!-- NEW Company Search -->
-	<!-- Below is the NEW search company functionality -->
+	<!-- Company Search -->
+	<!-- Below is the search company functionality -->
 	<button type="button"
 		style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;"
 		id="searchButton" value="0" class="collapsible">Expand Search</button>
 	<div hidden="true" class="content">
 
-		<form method="post" action="searchCompany.php?sort=
-		<?php echo $_GET['sort'];?>" name="search_company_data" autocomplete="off">
+		<form method="post"
+			action="searchCompany.php?sort=
+		<?php echo $_GET['sort'];?>"
+			name="search_company_data" autocomplete="off">
 			<table class="form-table">
 				<tr>
 					<td>Name:</td>
@@ -145,29 +151,26 @@ if (isset($_GET['sort'])) {
 							<option></option>
 				<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
-    
-		
-		
-		
-		if ($_SESSION['role'] == 'admin') {
+
+        if ($_SESSION['role'] == 'admin') {
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
         } else if ($_SESSION['role'] == 'supervisor') {
-            if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid']))||(($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid']))) {
+            if (($employeeIds[$i] == $_SESSION['userid']) || (($employeeTitle[$i] == 'ind_rep') && ($employeeTeam[$i] == $_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep') && ($employeeTeam[$i] == $_SESSION['userid']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        } else if($_SESSION['role'] == 'ind_rep'){
+        } else if ($_SESSION['role'] == 'ind_rep') {
             if ($employeeIds[$i] == $_SESSION['userid']) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        }else{
-			if (($employeeIds[$i] == $_SESSION['userid'])||((($employeeTitle[$i] == 'sales_rep')||($employeeTitle[$i] == 'ind_rep'))&& ($employeeTeam[$i]==$_SESSION['reports_to']))) {
+        } else {
+            if (($employeeIds[$i] == $_SESSION['userid']) || ((($employeeTitle[$i] == 'sales_rep') || ($employeeTitle[$i] == 'ind_rep')) && ($employeeTeam[$i] == $_SESSION['reports_to']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-		}	
+        }
     }
     ?>
 				</select></td>
@@ -217,12 +220,13 @@ if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {
 // Change this variable to modify the page size
 $maxGridSize = 4;
 
-// check if a buffer has already been created
 if (isset($_SESSION['buffer'])) {
 
-    // check if user wants next or previous page
+    
     $companyBuffer = $_SESSION['buffer'];
 
+    //checks page request (next or previous)
+    //offset used to contrill the current index in the linked list structure
     if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $companyBuffer->count()) {
@@ -244,7 +248,7 @@ if (isset($_SESSION['buffer'])) {
 } else {
 
     // attempt of creating a buffer for a list of companies
-    $companyBuffer = create_Buffer($companyResult, $companies );
+    $companyBuffer = create_Company_Buffer($companyResult, $companies);
 
     if (isset($_GET['sort'])) {
         $companyBuffer = getSortingCompany($companyBuffer);
@@ -275,42 +279,40 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
-    // TODO: MADHAV Add check for supervisor role
 
     $createdByEmployee = new Employee(getDBConnection());
     $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
     $getCreated_By->fetch();
 
-  //  if ($_SESSION["role"] == "admin") {
+    // Get assigned to
+    $assignedToEmployee = new Employee(getDBConnection());
+    $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
+    $getAssigned_To->fetch();
 
-        // Get assigned to
-        $assignedToEmployee = new Employee(getDBConnection());
-        $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
-        $getAssigned_To->fetch();
-
-        echo "
+    echo "
 			<tr>
 			";
-        echo "
+    echo "
 			<td>{$companyName}</td>";
-        echo "
+    echo "
 			<td><a href=\"{$companyWebsite}\">{$companyWebsite}</a></td>";
-        echo "
+    echo "
 			<td><a href=\"mailto: {$companyEmail}\">{$companyEmail}</a></td>";
-        echo "
+    echo "
 			<td>{$companyStreet}</td>";
-        echo "
+    echo "
 			<td>{$companyCity}</td>";
-        echo "
+    echo "
 			<td>{$companyState}</td>";
-        echo "
+    echo "
 			<td>{$assignedToEmployee->getName()}</td>";
-        // TODO: MADHAV Add check for supervisor role
-        if (($_SESSION["role"] == "admin")||($_SESSION["role"] == "supervisor")) {
+    
+    //Creates createdByColumn if supervisor or admin is logged in
+    if (($_SESSION["role"] == "admin") || ($_SESSION["role"] == "supervisor")) {
         echo "
 			<td>{$createdByEmployee->getName()}</td>";
-        }
-        echo "<td><form action='./editCompany.php' method='post'>
+    }
+    echo "<td><form action='./editCompany.php' method='post'>
 				<input hidden name='company_id_edit' value='{$companyId}'/> <input
 					type='submit' value='edit'/>
 			</form>
@@ -318,21 +320,16 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 				<input hidden name='company_id_view' value='{$companyId}'/> <input
 					type='submit' value='view'/>
 			</form></td>";
-        echo "
+    echo "
 		</tr>
 		";
-        $getAssigned_To->close();
+    $getAssigned_To->close();
+    $getCreated_By->close();
 
-        // TODO: MADHAV Add check for supervisor role
-        // if ($_SESSION["role"] == "admin") {
-
-        $getCreated_By->close();
-        // }
-        $offset ++;
-        if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
-            break;
-        }
-   
+    $offset ++;
+    if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
+        break;
+    }
 }
 $conn_Company->close();
 ?>
