@@ -56,13 +56,17 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     $numEmployees = 0;
 
     // Store all employee names and id's in array
-    // THis is later used to the creation of the drop down menus
+    // This is later used to the creation of the drop down menus
     while ($employeeListResult->fetch()) {
+
+        
         array_push($employeeTitle, $employeeList->getTitle());
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
         array_push($employeeTeam, $employeeList->getReports_To());
+
         $numEmployees ++;
+
     }
     $employeeListResult->close();
 
@@ -89,11 +93,10 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
         $state = $_POST["search_By_State"];
         $country = $_POST["search_By_Country"];
         $assigned_To = $_POST["search_By_Assigned_To"];
-        
+
         if (isset($_POST["search_By_Created_By"])) {
-            
+
             $created_By = $_POST["search_By_Created_By"];
-            
         }
 
         if (strcmp($website, "") == 0) {
@@ -105,10 +108,9 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     } else {
 
         if (! isset($_GET['sort']) || (isset($_GET['sort']) && ! isset($_SESSION['buffer']))) {
-            // $employees = new Employee($conn_Company);
+
             $companies = new Company($conn_Company);
             $companyResult = $companies->read();
-            // $employeeResult = $employees->read();
         }
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
     }
@@ -150,6 +152,8 @@ if (isset($_GET['sort'])) {
 					<td><select id="selection" name="search_By_Assigned_To">
 							<option></option>
 				<?php
+				
+				//Drop down menu for assign to list
     for ($i = 0; $i < $numEmployees; $i ++) {
 
         if ($_SESSION['role'] == 'admin') {
@@ -177,6 +181,8 @@ if (isset($_GET['sort'])) {
 				
 <?php
 
+
+//drop down menu for created by
 if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {
 
     echo '<td>Created By:</td>';
@@ -184,8 +190,26 @@ if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {
     echo '<option></option>';
 
     for ($i = 0; $i < $numEmployees; $i ++) {
-        echo "<option value=\"{$employeeIds[$i]}\">";
-        echo "{$employeeNames[$i]}</option>";
+        
+        if ($_SESSION['role'] == 'admin') {
+            echo "<option value=\"{$employeeIds[$i]}\">";
+            echo "{$employeeNames[$i]}</option>";
+        } else if ($_SESSION['role'] == 'supervisor') {
+            if (($employeeIds[$i] == $_SESSION['userid']) || (($employeeTitle[$i] == 'ind_rep') && ($employeeTeam[$i] == $_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep') && ($employeeTeam[$i] == $_SESSION['userid']))) {
+                echo "<option value=\"{$employeeIds[$i]}\">";
+                echo "{$employeeNames[$i]}</option>";
+            }
+        } else if ($_SESSION['role'] == 'ind_rep') {
+            if ($employeeIds[$i] == $_SESSION['userid']) {
+                echo "<option value=\"{$employeeIds[$i]}\">";
+                echo "{$employeeNames[$i]}</option>";
+            }
+        } else {
+            if (($employeeIds[$i] == $_SESSION['userid']) || ((($employeeTitle[$i] == 'sales_rep') || ($employeeTitle[$i] == 'ind_rep')) && ($employeeTeam[$i] == $_SESSION['reports_to']))) {
+                echo "<option value=\"{$employeeIds[$i]}\">";
+                echo "{$employeeNames[$i]}</option>";
+            }
+        }
     }
 
     echo '</select></td>';
@@ -222,11 +246,10 @@ $maxGridSize = 4;
 
 if (isset($_SESSION['buffer'])) {
 
-    
     $companyBuffer = $_SESSION['buffer'];
 
-    //checks page request (next or previous)
-    //offset used to contrill the current index in the linked list structure
+    // checks page request (next or previous)
+    // offset used to contrill the current index in the linked list structure
     if (isset($_POST['next'])) {
         $_SESSION['offset'] += $maxGridSize;
         if ($_SESSION['offset'] > $companyBuffer->count()) {
@@ -279,15 +302,13 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
-
+    //Get created by
     $createdByEmployee = new Employee(getDBConnection());
-    $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
-    $getCreated_By->fetch();
+    $createdByEmployee = $createdByEmployee->searchById($currentCompanyNode->getCreatedBy());
 
     // Get assigned to
     $assignedToEmployee = new Employee(getDBConnection());
-    $getAssigned_To = $assignedToEmployee->search($currentCompanyNode->getAssignedTo(), "", "", "", "", "", "", "", "", "", "");
-    $getAssigned_To->fetch();
+    $assignedToEmployee = $assignedToEmployee->searchById($currentCompanyNode->getAssignedTo());
 
     echo "
 			<tr>
@@ -306,8 +327,8 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 			<td>{$companyState}</td>";
     echo "
 			<td>{$assignedToEmployee->getName()}</td>";
-    
-    //Creates createdByColumn if supervisor or admin is logged in
+
+    // Creates createdByColumn if supervisor or admin is logged in
     if (($_SESSION["role"] == "admin") || ($_SESSION["role"] == "supervisor")) {
         echo "
 			<td>{$createdByEmployee->getName()}</td>";
@@ -323,8 +344,6 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     echo "
 		</tr>
 		";
-    $getAssigned_To->close();
-    $getCreated_By->close();
 
     $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {

@@ -82,7 +82,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 </head>
 <!-- Button to add an interaction -->
 <form method="post" action="AddInteraction.php">
-	<input hidden name="company_id"
+	<input hidden="true" name="company_id"
 		value="<?php echo $_SESSION['company_id'];?>" /> <input type="submit"
 		id="create_interaction" name="create_interaction"
 		value="Create Interaction" />

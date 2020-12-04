@@ -2,8 +2,8 @@
 
 /*
  * FileName: listBuffer.php
- * Version Number: 2.1
- * Date Modified: 11/20/2020
+ * Version Number: 2.5
+ * Date Modified: 12/04/2020
  * Author: Jason Waid
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate/sort the list
@@ -221,7 +221,6 @@ function create_Interaction_Buffer($queryResult, $object)
       
         }
  
-    
     // rewinds buffer to begining of list
     $buffer->rewind();
     
