@@ -18,7 +18,7 @@
  * Object expected are: Company, Customer, Employee & Interaction
  * returns the list
  */
-function create_Buffer($queryResult, $object)
+function create_Buffer($queryResult, $object )
 {
     // pass the query result into the function and it will create a node for every row
     $buffer = new SplDoublyLinkedList();
@@ -26,15 +26,49 @@ function create_Buffer($queryResult, $object)
     // set iteration
     $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_FIFO);
 
-    // set iteration behavior
+	// set iteration behavior
     $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_KEEP);
 
+
+	$conn_Employee = getDBConnection();
+	$employeeObj = new Employee($conn_Employee);
+	
     // adds all objects to the list
     while ($queryResult->fetch()) {
 
+		if ($_SESSION['role'] == 'admin') {
         // Serialize the current object to prepare it for storage
         // Then store it into the linked list
         $buffer->push(serialize($object->get()));
+		}
+		else if($_SESSION['role'] == 'supervisor'){
+			$assignedTo=$object->getAssignedTo();
+			$employee = $employeeObj->searchByID($assignedTo );
+			
+			
+			if($assignedTo==$_SESSION['userid']){
+				$buffer->push(serialize($object->get()));
+			}
+			else if($employee->getReports_To()==$_SESSION['userid']){
+				$buffer->push(serialize($object->get()));
+			}
+		}	
+		else if($_SESSION['role'] == 'sales_rep'){
+			$employee= $employeeObj->searchByID($_SESSION['userid']);// search the employee that is logged in at the moment
+			$managerID = $employee->getReports_To(); //get the id the current employee reports to
+
+			$assignedTo = $object->getAssignedTo();
+			$employee = $employeeObj->searchByID($assignedTo);
+			if(($employee->getReports_To())==$managerID){ 
+				$buffer->push(serialize($object->get()));				
+			}
+		}	
+		else if($_SESSION['role'] == 'ind_rep'){
+			$assignedTo = $object->getAssignedTo();
+			if($assignedTo == $_SESSION['userid']){
+				$buffer->push(serialize($object->get()));
+			}
+		}	
     }
 
     // rewinds buffer to begining of list
@@ -1231,7 +1265,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1250,7 +1284,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"|| $_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1269,7 +1303,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1288,7 +1322,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1307,7 +1341,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1326,7 +1360,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1345,7 +1379,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1364,7 +1398,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1383,7 +1417,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1402,7 +1436,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1421,7 +1455,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1440,7 +1474,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1459,7 +1493,7 @@ function printHeadersCompany(int $sortType)
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='7'>&#8681   Assigned To   &#8681</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1478,7 +1512,7 @@ function printHeadersCompany(int $sortType)
             echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-7'>&#8679   Assigned To   &#8679</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
@@ -1497,7 +1531,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='8'>";
                 echo "&#8681   Created By   &#8681";
                 echo "</td>";
@@ -1517,7 +1551,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td bgcolor='#D3D3D3' style='color:black' class='ColSort' data-colnum='-8'>";
                 echo "&#8679   Created By   &#8679";
                 echo "</td>";
@@ -1537,7 +1571,7 @@ function printHeadersCompany(int $sortType)
             echo "<td class='ColSort' data-colnum='7'>Assigned To</td>";
             
             // &#8679 = ASC || &#8681 = DESC
-            if ($_SESSION["role"] == "admin") {
+            if ($_SESSION["role"] == "admin"||$_SESSION["role"] == "supervisor") {
                 echo "<td class='ColSort' data-colnum='8'>";
                 echo "Created By";
                 echo "</td>";
