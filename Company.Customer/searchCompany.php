@@ -37,7 +37,8 @@ $conn_Employee = getDBConnection();
 // Handler for if the database connection fails
 if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_Employee->connect_error);
-} else {
+} 
+else {
 
     /*
      * The following code handles the search functionality
@@ -51,8 +52,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 
     $employeeNames = array();
     $employeeIds = array();
-    $employeeTitle = array();
-	$employeeTeam = array();
+    $employeeTitle = array();//array of role of employees
+	$employeeTeam = array();//array of employee Reports_to column
     $numEmployees = 0;
 
     // Store all employee names and id's in array
@@ -101,10 +102,8 @@ if ($conn_Company->connect_error || $conn_Employee->connect_error) {
 	} else {
 
         if (! isset($_GET['sort']) || (isset($_GET['sort']) && ! isset($_SESSION['buffer']))) {
-			//$employees = new Employee($conn_Company);
 			$companies = new Company($conn_Company);
             $companyResult = $companies->read();
-			//$employeeResult = $employees->read();
         }
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
     }
@@ -147,22 +146,22 @@ if (isset($_GET['sort'])) {
     for ($i = 0; $i < $numEmployees; $i ++) {
     
 		
+		//for search column for assigned_to search bar
 		
-		
-		if ($_SESSION['role'] == 'admin') {
+		if ($_SESSION['role'] == 'admin') {//if signed in as admin 
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
-        } else if ($_SESSION['role'] == 'supervisor') {
+        } else if ($_SESSION['role'] == 'supervisor') {//if signed in as supervisor
             if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid']))||(($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        } else if($_SESSION['role'] == 'ind_rep'){
+        } else if($_SESSION['role'] == 'ind_rep'){//if signed in as independent
             if ($employeeIds[$i] == $_SESSION['userid']) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        }else{
+        }else{//if signed in as sales
 			if (($employeeIds[$i] == $_SESSION['userid'])||((($employeeTitle[$i] == 'sales_rep')||($employeeTitle[$i] == 'ind_rep'))&& ($employeeTeam[$i]==$_SESSION['reports_to']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
@@ -174,7 +173,7 @@ if (isset($_GET['sort'])) {
 				
 <?php
 
-if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {
+if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {//only show created by list if signed in as admin and supervisor
 
     echo '<td>Created By:</td>';
     echo '<td><select name="search_By_Created_By">';
@@ -281,7 +280,6 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $getCreated_By = $createdByEmployee->search($currentCompanyNode->getCreatedBy(), "", "", "", "", "", "", "", "", "", "");
     $getCreated_By->fetch();
 
-  //  if ($_SESSION["role"] == "admin") {
 
         // Get assigned to
         $assignedToEmployee = new Employee(getDBConnection());
@@ -324,7 +322,6 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
         $getAssigned_To->close();
 
         // TODO: MADHAV Add check for supervisor role
-        // if ($_SESSION["role"] == "admin") {
 
         $getCreated_By->close();
         // }

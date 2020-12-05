@@ -3,8 +3,8 @@
 /*
  * FileName: listBuffer.php
  * Version Number: 2.1
- * Date Modified: 11/20/2020
- * Author: Jason Waid
+ * Date Modified: 12/04/2020
+ * Author: Jason Waid(later madified by Madhav Sachdeva)
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate/sort the list
  * refered to as the list buffer
@@ -36,36 +36,36 @@ function create_Buffer($queryResult, $object )
     // adds all objects to the list
     while ($queryResult->fetch()) {
 
-		if ($_SESSION['role'] == 'admin') {
+		if ($_SESSION['role'] == 'admin') {//if signed in as admin
         // Serialize the current object to prepare it for storage
         // Then store it into the linked list
-        $buffer->push(serialize($object->get()));
+			$buffer->push(serialize($object->get()));
 		}
-		else if($_SESSION['role'] == 'supervisor'){
+		else if($_SESSION['role'] == 'supervisor'){//if signed in as supervisor
 			$assignedTo=$object->getAssignedTo();
 			$employee = $employeeObj->searchByID($assignedTo );
 			
 			
-			if($assignedTo==$_SESSION['userid']){
+			if($assignedTo==$_SESSION['userid']){//show its own company
 				$buffer->push(serialize($object->get()));
 			}
-			else if($employee->getReports_To()==$_SESSION['userid']){
+			else if($employee->getReports_To()==$_SESSION['userid']){// show the companies assigned to the employee who reports to the user
 				$buffer->push(serialize($object->get()));
 			}
 		}	
-		else if($_SESSION['role'] == 'sales_rep'){
+		else if($_SESSION['role'] == 'sales_rep'){//if signed in as sales rep
 			$employee= $employeeObj->searchByID($_SESSION['userid']);// search the employee that is logged in at the moment
 			$managerID = $employee->getReports_To(); //get the id the current employee reports to
 
-			$assignedTo = $object->getAssignedTo();
-			$employee = $employeeObj->searchByID($assignedTo);
-			if(($employee->getReports_To())==$managerID){ 
+			$assignedTo = $object->getAssignedTo();//get assigned employee id  of a company
+			$employee = $employeeObj->searchByID($assignedTo); //get the employee data from assigned to as employee data
+			if(($employee->getReports_To())==$managerID){ //see if the employee reports to same supervisor the user reports_to
 				$buffer->push(serialize($object->get()));				
 			}
 		}	
-		else if($_SESSION['role'] == 'ind_rep'){
+		else if($_SESSION['role'] == 'ind_rep'){//if signed in as independent
 			$assignedTo = $object->getAssignedTo();
-			if($assignedTo == $_SESSION['userid']){
+			if($assignedTo == $_SESSION['userid']){//only show the company that is assigned to the user
 				$buffer->push(serialize($object->get()));
 			}
 		}	
