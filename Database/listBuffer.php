@@ -2,9 +2,9 @@
 
 /*
  * FileName: listBuffer.php
- * Version Number: 2.1
+ * Version Number: 2.5
  * Date Modified: 12/04/2020
- * Author: Jason Waid(later madified by Madhav Sachdeva)
+ * Author: Jason Waid
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate/sort the list
  * refered to as the list buffer
@@ -15,10 +15,10 @@
  * Function: create_Buffer
  * Purpose:
  * Creates a buffer of objects
- * Object expected are: Company, Customer, Employee & Interaction
+ * Object expected are: Company
  * returns the list
  */
-function create_Buffer($queryResult, $object )
+function create_Company_Buffer($queryResult, $object)
 {
     // pass the query result into the function and it will create a node for every row
     $buffer = new SplDoublyLinkedList();
@@ -192,6 +192,53 @@ function create_Customer_Buffer($customerIDs)
 
     return $buffer;
 }
+
+
+/*
+ * Function: create_Interaction_Buffer
+ * Purpose:
+ * Creates a buffer of objects
+ * Object expected are: Interaction
+ * returns the list
+ */
+function create_Interaction_Buffer($queryResult, $object)
+{
+    // pass the query result into the function and it will create a node for every row
+    $buffer = new SplDoublyLinkedList();
+    
+    // set iteration
+    $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_FIFO);
+    
+    // set iteration behavior
+    $buffer->setIteratorMode(SplDoublyLinkedList::IT_MODE_KEEP);
+    
+    // adds all objects to the list
+    while ($queryResult->fetch()) {
+        
+            // Serialize the current object to prepare it for storage
+            // Then store it into the linked list
+            $buffer->push(serialize($object->get()));
+      
+        }
+ 
+    // rewinds buffer to begining of list
+    $buffer->rewind();
+    
+    // prepare buffer for storage
+    // $buffer->serialize();
+    
+    // store buffer into session
+    $_SESSION['buffer'] = $buffer;
+    
+    // Set the initial offset
+    $_SESSION['offset'] = 0;
+    
+    // prepare buffer for printing after sotred into session
+    // $buffer->unserialize($buffer);
+    
+    return $buffer;
+}
+
 
 /*
  * function: sortASC_DateCreated

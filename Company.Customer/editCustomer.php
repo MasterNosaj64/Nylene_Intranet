@@ -92,7 +92,6 @@ if (isset($_POST['submit'])) {
         $conn_Customer->close();
     } else {
         $conn_Customer = getDBConnection();
-        echo "company id: " . $_SESSION['company_id'];
         if ($conn_Customer->connect_error) {
             die("Connection failed: " . $conn_Customer->connect_error);
         }
@@ -103,7 +102,7 @@ if (isset($_POST['submit'])) {
             die("Company data corrupt or connection failed, OPPERATION ABORTED");
         }
 
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />;";
+        echo "<meta http-equiv = \"refresh\" content = \"0; url = ./viewCompany.php?sort=1\" />";
         exit();
     }
 }

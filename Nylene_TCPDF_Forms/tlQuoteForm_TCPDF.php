@@ -69,7 +69,7 @@ $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false
 // set document information
 $pdf_obj->SetCreator(PDF_CREATOR);
 $pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
-$pdf_obj->SetTitle($companyRow['company_name']." - tl Quote");
+$pdf_obj->SetTitle($companyRow['company_name']." - Truckload Quote");
 $pdf_obj->SetSubject("Truck Load Quote");
 
 // Header and Footer Fonts
@@ -247,6 +247,6 @@ $pdf_obj->lastPage();
 
 ob_end_clean();
 
-$pdf_obj->Output("test.pdf", "I");
+$pdf_obj->Output($companyRow['company_name']."-Truckload Quote", "I");
 
 ?>

@@ -23,7 +23,11 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "supervisor") {
     if (strcmp(basename($_SERVER['PHP_SELF']), "createUser.php")) {
         echo "<a href='../Admin/createUser.php'>Create User</a>";
     }
-    echo "<a href='../Admin/editUserDatabase.php'>Edit User</a>";
+    
+    if ( strcmp(basename($_SERVER['PHP_SELF']), "editUserDatabase.php")) {
+        echo "<a href='../Admin/editUserDatabase.php'>Edit User</a>";
+    }
+    
     echo "</div>";
     echo "</div>";
 }
@@ -69,7 +73,14 @@ if (isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || iss
 				align="center"/> <?php echo $_SESSION['name'];?>
     </button>
 		<div class="dropdown-content">
-			<a href="../Admin/viewProfile.php">View Profile</a> 
+		<?php 
+		
+		if ( strcmp(basename($_SERVER['PHP_SELF']), "viewProfile.php")) {
+            echo '<a href="../Admin/viewProfile.php">View Profile</a>';
+		}
+		
+		?>
+			
 			<a href="../logout.php">Log Out</a>
 		</div>
 	</div>

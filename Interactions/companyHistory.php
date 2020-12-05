@@ -82,7 +82,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 </head>
 <!-- Button to add an interaction -->
 <form method="post" action="AddInteraction.php">
-	<input hidden name="company_id"
+	<input hidden="true" name="company_id"
 		value="<?php echo $_SESSION['company_id'];?>" /> <input type="submit"
 		id="create_interaction" name="create_interaction"
 		value="Create Interaction" />
@@ -122,7 +122,7 @@ if (isset($_SESSION['buffer'])) {
     // attempt of creating a buffer for a list of companies
     $interactions = new Interaction($interaction_Conn);
     $interactionResult = $interactions->search("", $_SESSION['company_id'], "", "", "", "", "", "", "", "");
-    $interactionBuffer = create_Buffer($interactionResult, $interactions);
+    $interactionBuffer = create_Interaction_Buffer($interactionResult, $interactions);
 
     if (isset($_GET['sort'])) {
         $interactionBuffer = getSortingInteraction($interactionBuffer);
@@ -139,7 +139,7 @@ if (isset($_GET['sort'])) {
 
 ?>
 
-<table class="form-table" border=5>
+<table class="form-table" border="1">
 	<thead>
 		<tr>
 <?php printHeadersInteraction($sortType)?>	
