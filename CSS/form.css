@@ -74,7 +74,7 @@ width: 100%;
   font-size: 20px;
   background-color: white;
    padding: 5px 12px 5px 12px; /*12*/
-  cursor: pointer
+  cursor: pointer;
 }
 
 input[type=text]{
@@ -87,7 +87,7 @@ height:100%;
   font-size: 20px;
   background-color: white;
   padding: 5px 12px 5px 12px; /*12*/
-  text: pointer
+  text: pointer;
 }
 
 input[type=name]{
@@ -159,7 +159,7 @@ margin: 5 0 0 0;
   font-size: 20px;
   background-color: white;
   padding: 5px 12px 5px 12px; /*12*/
-  text: pointer
+  text: pointer;
 }
 
 input[type=text]{
@@ -172,7 +172,7 @@ height:100%;
   font-size: 20px;
   background-color: white;
   padding: 5px 12px 5px 12px; /*12*/
-  text: pointer
+  text: pointer;
 }
 
 input[type=checkbox]{
@@ -184,7 +184,7 @@ input[type=checkbox]{
   border-radius: 4px;
   background-color: black;
   padding: 5px 12px 5px 12px; 
-  text: pointer
+  text: pointer;
 }
 
 #mCode{
@@ -210,7 +210,7 @@ input[type=checkbox]{
     font-size: 20px;
     background-color: white;
     padding: 5px 12px 5px 12px;
-      cursor: pointer
+      cursor: pointer;
 }
 
 #ltl_quantities{
@@ -223,9 +223,20 @@ input[type=checkbox]{
     font-size: 20px;
     background-color: white;
    padding: 5px 12px 5px 12px;
-    cursor: pointer
+    cursor: pointer;
 }
 
+#create_interaction{
+	width: 100%;
+	margin: 15 5 1 5;
+	text-align: center box-sizing border-box;
+	border: 2px solid #000;
+	border-radius: 4px;
+	font-size: 20px;
+	background-color: rgb(167, 197, 244);
+	padding: 5px 12px 5px 12px;
+	cursor: pointer;
+}
 
 textarea {
  width: 100%;

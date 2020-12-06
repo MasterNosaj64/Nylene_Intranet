@@ -292,7 +292,7 @@
     						rows="20" cols="100"></textarea></td>
     			</tr>
     		</table>
-    		<input hidden name="company_id" value="<?php echo $company->getCompanyId();?>" />
+    		<input hidden="true" name="company_id" value="<?php echo $company->getCompanyId();?>" />
     		<input type="submit" name="submit" value="Submit">
     	</form>
     </body>

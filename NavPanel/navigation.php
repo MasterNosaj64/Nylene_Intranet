@@ -75,7 +75,7 @@ if (isset($_SESSION['interaction_id']) || isset($_POST['interaction_id']) || iss
     echo "</div>";
 }
 ?>
-	<div style="float:right" class="dropdown-user">
+	<div class="dropdown-user">
 
 		<button class="dropbtn" >
 			<img src="../Graphics/userIcon.png" width="20" height="auto"

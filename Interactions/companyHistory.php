@@ -59,7 +59,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 
         // The following is the table for displaying the company information
 
-        echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
         echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
         echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
@@ -85,7 +84,8 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 	<input hidden="true" name="company_id"
 		value="<?php echo $_SESSION['company_id'];?>" /> <input type="submit"
 		id="create_interaction" name="create_interaction"
-		value="Create Interaction" />
+		value="Create Interaction"
+		style="width: 100%; margin: 15 5 1 5; text-align: center box-sizing border-box; border: 2px solid #000; border-radius: 4px; font-size: 20px; background-color: rgb(167, 197, 244); padding: 5px 12px 5px 12px; cursor: pointer;" />
 </form>
 
 <?php
@@ -181,10 +181,9 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     echo "<tr><td>{$interactionDateCreated}</td>";
     echo "<td>{$customerName}</td>";
     echo "<td>{$reason}</td>";
-    if(strlen($comments) > 50){
+    if (strlen($comments) > 50) {
         echo "<td>" . substr($comments, 0, 50) . "...</td>";
-    }
-    else{
+    } else {
         echo "<td>" . substr($comments, 0, 50) . "</td>";
     }
     echo "<td>{$status}</td>";

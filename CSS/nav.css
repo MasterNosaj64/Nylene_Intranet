@@ -23,7 +23,7 @@ body {
 }
 
 .dropdown-user {
-  float: right;
+  float: left;
   overflow: hidden;
 }
 

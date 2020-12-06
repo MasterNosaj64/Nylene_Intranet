@@ -235,7 +235,14 @@ if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {//only s
 				</tr>
 			</table>
 			<input type="submit" value="Search" name="Search"
-				style="background-color: rgb(65, 95, 142); color: #ffffff; font-weight: bold;" />
+				style="width: 100%;
+	margin: 15 5 1 5;
+	text-align: center box-sizing border-box;
+	border: 2px solid #000;
+	border-radius: 4px;
+	font-size: 20px;
+	background-color: rgb(167, 197, 244);
+	padding: 5px 12px 5px 12px; font-weight: bold;" />
 		</form>
 		<button onclick="clearSearchBar()"
 			style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear
@@ -340,7 +347,12 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
 			</form>
 			<form action='./viewCompany.php?sort=1' method='post'>
 				<input hidden name='company_id_view' value='{$companyId}'/> <input
-					type='submit' value='view'/>
+					type='submit' value='view' style ='width: 100%;
+	text-align: center box-sizing border-box;
+	border: 2px solid #000;
+	border-radius: 4px;
+	font-size: 20px;
+	background-color: rgb(167, 197, 244);'/>
 			</form></td>";
     echo "
 		</tr>

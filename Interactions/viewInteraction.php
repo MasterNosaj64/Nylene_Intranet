@@ -72,7 +72,7 @@ if (isset($_POST['interaction_id'])) {
 } else {
     // If the above results in error redirect the user to homepage
 
-    echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />;";
+    echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />";
     exit();
 }
 ?>
@@ -90,7 +90,7 @@ echo "<form name=\"edit_interaction\" action=\"editInteraction.php\" method=\"po
     </form>";
 ?> 
 	<!-- <h1>Interaction</h1> -->
-	<table class="form-table" border=5>
+	<table class="form-table" border="1">
 		<tr>
 			<td>Company:</td>
 			<td><?php echo $company->getName();?></td>

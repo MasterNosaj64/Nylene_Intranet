@@ -70,7 +70,6 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 
         // The following is the table for displaying the company information
 
-        echo "<link rel=\"stylesheet\" href=\"../CSS/table.css\">";
         echo "<table class =\"form-table\"  border=5>";
         echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
         echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
@@ -137,7 +136,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			<form method="post" action="addCustomer.php">
 				<input hidden="true" name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
-					type="submit" value="Add Customer" />
+					type="submit" id="add_customer" value="Add Customer" 
+					style="margin: 15 5 1 5; text-align: center box-sizing border-box; border: 2px solid #000; border-radius: 4px; font-size: 20px; background-color: rgb(167, 197, 244); padding: 5px 12px 5px 12px;" />
 			</form>
 		</td>
 		<td>
@@ -145,7 +145,8 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 				action="../Interactions/companyHistory.php?sort=1">
 				<input hidden="true" name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
-					type="submit" value="View History" />
+					type="submit" value="View History"
+					style="margin: 15 5 1 5; text-align: center box-sizing border-box; border: 2px solid #000; border-radius: 4px; font-size: 20px; background-color: rgb(167, 197, 244); padding: 5px 12px 5px 12px;" />
 			</form>
 		</td>
 	</tr>
