@@ -4,7 +4,7 @@ session_start();
 unset($_SESSION['company_id']);
 unset($_SESSION['interaction_id']);
 include '../NavPanel/navigation.php';
-echo "<a href='../Database/jasonTestFile.php'>Jason's PDF Testing</a>";
+//echo "<a href='../Database/jasonTestFile.php'>Jason's PDF Testing</a>";
 include '../Calendar/calendar.php';
 ?>
 

@@ -149,7 +149,7 @@ if (isset($_GET['sort'])) {
 					<td><input type="text" value="<?php echo $website;?>"
 						name="search_By_Website" id="search-bar-item" /></td>
 					<td>Assigned To:</td>
-					<td><select id="selection" name="search_By_Assigned_To">
+					<td><select id="payment_terms" name="search_By_Assigned_To">
 							<option></option>
 				<?php
 				
@@ -187,7 +187,7 @@ if (isset($_GET['sort'])) {
 if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {//only show created by list if signed in as admin and supervisor
 
     echo '<td>Created By:</td>';
-    echo '<td><select name="search_By_Created_By">';
+    echo '<td><select name="search_By_Created_By" id="payment_terms">';
     echo '<option></option>';
 
     for ($i = 0; $i < $numEmployees; $i ++) {
