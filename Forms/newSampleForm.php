@@ -197,7 +197,7 @@
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
         /*Bind statement parameters to statement and execute*/
-		$stmt->bind_param("sssisiiisssssssssssssssssiisiisisssssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
+		$stmt->bind_param("sssisiiisssssssssssssssssiisiisssssssss", $dateSubmitted, $marketCode, $customer_id, $credit_app_submitted, $business_case, $match_sample_sub,
 		    $match_data_sheet, $match_descr, $material_descr, $customer_proc, $curr_supplier, $finished_good_app,
 		    $annual_vol, $curr_resin_system, $target_price, $melt_reqs, $curr_filler_sys, $colors, $known_additives,
 		    $uv_reqs, $ul_reqs, $auto_reqs, $fda_reqs, $color_specs, $response_date, $prod_rec, $stock_prod_qty,
