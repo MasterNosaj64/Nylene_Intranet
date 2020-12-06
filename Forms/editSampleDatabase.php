@@ -51,7 +51,7 @@
     //$sds = $_POST['sds'];
     //$coa = $_POST['coa'];
     $sample_qty = $qsr['sample_qty'];
-    //$sample_req_date = $_POST['sample_req_date'];;
+    $sample_req_date = $qsr['sample_req_date'];;
     //$data_sheet = $_POST['data_sheet'];
     $sample_price = $qsr['sample_price'];
     $sample_frt = $qsr['sample_frt'];
@@ -203,6 +203,9 @@
     
     if (isset($_POST['other_contact_4'])) {
         $other_contact_4 = htmlspecialchars(strip_tags($_POST['other_contact_4']));
+    }
+    if (isset($_POST['sample_req_date'])) {
+        $sample_req_date = date(htmlspecialchars(strip_tags($_POST['sample_req_date'])));
     }
     
     
