@@ -211,7 +211,7 @@ $conn_Customers->close();
 				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
 if ($_SESSION['offset'] == 0) {
-    echo "<fieldset disabled ='disabled'>";
+    echo "<fieldset style='border-style:none' disabled ='disabled'>";
 }
 ?>
     <input hidden='true' name='previous'
@@ -229,7 +229,7 @@ if ($_SESSION['offset'] == 0) {
 				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
 	<?php
 if ($offset == $customerBuffer->count()) {
-    echo "<fieldset disabled ='disabled'>";
+    echo "<fieldset style='border-style:none' disabled ='disabled'>";
 }
 ?>
     <input hidden='true' name='next'
