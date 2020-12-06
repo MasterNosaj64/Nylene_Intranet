@@ -1,4 +1,13 @@
 <?php
+/*
+ * FileName: navigation.php
+ * Version Number: 2.00
+ * Author: Ahmad Syed (Modified By: Jason Waid)
+ * Purpose:
+ * Provides the user with a navigation bar accross the entire website
+ * Date Modified: 12/05/2020
+ */
+
 include '../admin/sessionController.php';
 ?>
 
