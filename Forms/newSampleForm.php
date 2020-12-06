@@ -95,7 +95,8 @@
 	{
 		$data_sheet = 0;
 	}
-  
+	
+	
 	/*Check submittedBy field, if blank, display error*/
     if (empty($_POST['submittedBy']))
     {
