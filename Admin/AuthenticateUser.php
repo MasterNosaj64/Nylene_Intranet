@@ -1,4 +1,12 @@
 <?php
+/*
+ * FileName: AuthenticateUser.php
+ * Version Number: 2.0
+ * Date Modified: 12/07/2020
+ * Author: Madhav Sachdeva
+ * Purpose:
+ * Validates the login attempt and updates the number of attempt in the database if failed
+ */
 if (! session_id()) {
     session_start();
 }
@@ -16,7 +24,10 @@ $num_tries = "";
  */
 
 if ($row == 0) {
-    echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
+    ?>
+<meta http-equiv="refresh" content="0; url = ../login.php" />
+<?php
+
     exit();
 }
 
@@ -24,7 +35,9 @@ if ($row > 0) {
     if (strcmp($row['STATUS'], "blocked") == 0) {
         $msg = "User is blocked...";
         $_SESSION['field'] = $msg;
-        echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
+        ?>
+<meta http-equiv="refresh" content="0; url = ../login.php" />
+<?php
         exit();
     } else {
         $username = $row['username'];
@@ -52,23 +65,24 @@ if ($row > 0) {
         if (password_verify($password1, $password2)) {
             $_SESSION['name'] = $row['first_name'] . " " . $row['last_name'];
             $_SESSION['role'] = $row['title'];
-			$_SESSION['reports_to']=$row['reports_to'];
-            // $_SESSION['admin'] = $row['is_administrator'];
-
+            $_SESSION['reports_to'] = $row['reports_to'];
             $_SESSION['userid'] = $row['employee_id'];
             $num_tries = "0";
             $qy = $conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");
             $qy->bind_param("ss", $num_tries, $username);
             $qy->execute();
             $qy->close();
-            echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+            ?>
+
+<meta http-equiv="refresh" content="0; url = ../Home/Homepage.php" />
+<?php
             exit();
         } // Added this if so we can still use our admin accounts that were originally created
         else if (! strcmp($password1, $password2)) {
             $_SESSION['name'] = $row['first_name'] . " " . $row['last_name'];
             $_SESSION['role'] = $row['title'];
             $_SESSION['userid'] = $row['employee_id'];
-			$_SESSION['reports_to']=$row['reports_to'];
+            $_SESSION['reports_to'] = $row['reports_to'];
 
             $num_tries = "0";
             $qy = $conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");
@@ -76,8 +90,9 @@ if ($row > 0) {
             $qy->execute();
             $qy->close();
 
-            //echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
-            echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+            ?>
+<meta http-equiv="refresh" content="0; url = ../Home/Homepage.php" />
+<?php
             exit();
         } else {
             $qy = $conn->prepare("UPDATE employee SET STATUS=? WHERE username=?");
@@ -85,7 +100,9 @@ if ($row > 0) {
             $qy->execute();
             $qy->close();
             $_SESSION['field'] = $msg;
-            echo "<meta http-equiv = \"refresh\" content =\"0; url = ../login.php\" />;";
+            ?>
+<meta http-equiv="refresh" content="0; url = ../login.php" />
+<?php
             exit();
         }
     }

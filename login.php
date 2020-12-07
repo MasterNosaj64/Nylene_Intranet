@@ -3,7 +3,7 @@
  * FileName: login.php
  * Version Number: 2.0
  * Date Modified: 12/07/2020
- * Author: Madhav Sachdeva
+ * Author: Madhav Sachdeva (Modified By Jason Waid)
  * Purpose:
  * The login interface for the Nylene Intranet
  */
