@@ -107,7 +107,7 @@ if (isset($_SESSION['company_id'])) {
 <html>
 <head>
 <title>Add Customer</title>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 
 <body>

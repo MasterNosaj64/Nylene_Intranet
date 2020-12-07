@@ -2,7 +2,7 @@
 /*
  * FileName: searchCompany.php
  * Version Number: 2.5
- * Date Modified: 12/04/2020
+ * Date Modified: 12/07/2020
  * Author: Jason Waid (later modified by Madhav Sachdeva)
  * Purpose:
  * Search for companies in the database.
@@ -123,7 +123,7 @@ if (isset($_GET['sort'])) {
 <html>
 <head>
 <title>Search Company</title>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 <body style="overflow: scroll">
 	<!-- Company Search -->
@@ -153,25 +153,28 @@ if (isset($_GET['sort'])) {
     // Drop down menu for assign to list
     for ($i = 0; $i < $numEmployees; $i ++) {
 
-        // for search column for assigned_to search bar
-
-        if ($_SESSION['role'] == 'admin') { // if signed in as admin
-            echo "<option value=\"{$employeeIds[$i]}\">";
-            echo "{$employeeNames[$i]}</option>";
-        } else if ($_SESSION['role'] == 'supervisor') { // if signed in as supervisor
+        if ($_SESSION['role'] == 'admin') {
+            ?>
+            <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+        <?php
+        } else if ($_SESSION['role'] == 'supervisor') {
             if (($employeeIds[$i] == $_SESSION['userid']) || (($employeeTitle[$i] == 'ind_rep') && ($employeeTeam[$i] == $_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep') && ($employeeTeam[$i] == $_SESSION['userid']))) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+               <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+            <?php
             }
-        } else if ($_SESSION['role'] == 'ind_rep') { // if signed in as independent
+        } else if ($_SESSION['role'] == 'ind_rep') {
             if ($employeeIds[$i] == $_SESSION['userid']) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+                  <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+          <?php
             }
-        } else { // if signed in as sales
+        } else {
             if (($employeeIds[$i] == $_SESSION['userid']) || ((($employeeTitle[$i] == 'sales_rep') || ($employeeTitle[$i] == 'ind_rep')) && ($employeeTeam[$i] == $_SESSION['reports_to']))) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+                
+                 <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+                 <?php
             }
         }
     }
@@ -182,37 +185,43 @@ if (isset($_GET['sort'])) {
 
 if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") { // only show created by list if signed in as admin and supervisor
 
-    echo '<td>Created By:</td>';
-    echo '<td><select name="search_By_Created_By" id="payment_terms">';
-    echo '<option></option>';
-
+    ?>
+    <td>Created By:</td>
+					<td><select name="search_By_Created_By" id="payment_terms">
+							<option></option>
+<?php
     for ($i = 0; $i < $numEmployees; $i ++) {
 
         if ($_SESSION['role'] == 'admin') {
-            echo "<option value=\"{$employeeIds[$i]}\">";
-            echo "{$employeeNames[$i]}</option>";
+            ?>
+            <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+        <?php
         } else if ($_SESSION['role'] == 'supervisor') {
             if (($employeeIds[$i] == $_SESSION['userid']) || (($employeeTitle[$i] == 'ind_rep') && ($employeeTeam[$i] == $_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep') && ($employeeTeam[$i] == $_SESSION['userid']))) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+               <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+            <?php
             }
         } else if ($_SESSION['role'] == 'ind_rep') {
             if ($employeeIds[$i] == $_SESSION['userid']) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+                  <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+          <?php
             }
         } else {
             if (($employeeIds[$i] == $_SESSION['userid']) || ((($employeeTitle[$i] == 'sales_rep') || ($employeeTitle[$i] == 'ind_rep')) && ($employeeTeam[$i] == $_SESSION['reports_to']))) {
-                echo "<option value=\"{$employeeIds[$i]}\">";
-                echo "{$employeeNames[$i]}</option>";
+                ?>
+                
+                 <option value="<?php echo $employeeIds[$i];?>"><?php echo $employeeNames[$i];?></option>
+                 <?php
             }
         }
     }
-
-    echo '</select></td>';
+    ?>
+</select></td>
+<?php
 }
 ?>
-
 				</tr>
 				<tr>
 					<td>Address:</td>

@@ -115,7 +115,7 @@ else{
 <html>
 <head>
 <title>Add Company</title>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 <body>
 	<form method="post" action=addCompany.php name="add_company" autocomplete="off">

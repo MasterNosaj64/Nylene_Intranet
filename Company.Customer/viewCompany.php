@@ -62,9 +62,6 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
         // Get customer_id's for company
         $customersqlquery = "SELECT * FROM nylene.company_relational_customer WHERE company_id = " . $_SESSION['company_id'];
         $customerIDs = $conn_CustomerIDs->query($customersqlquery);
-
-        // Get company info
-        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
     } else {
         ?>
 <!-- If the above results in error redirect the user to homepage -->
@@ -119,7 +116,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 
 <html>
 <head>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 <title>View Company</title>
 </head>
 <!--  The following is the table for displaying the company information -->

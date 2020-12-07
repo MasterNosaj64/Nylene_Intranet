@@ -5,7 +5,7 @@
  * Author: Jason Waid
  * Purpose:
  * View a list of interactions for the company
- * Date Modified: 11/29/2020
+ * Date Modified: 12/7/2020
  */
 session_start();
 
@@ -46,7 +46,6 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
         $_SESSION['companyHistoryPage'] = $_SESSION['company_id'];
 
         // Company info table
-
         $company = new Company($company_Conn);
 
         $company->searchId($_SESSION["company_id"]);
@@ -67,7 +66,7 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 <html>
 <head>
 <title>Company History</title>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 
 <!-- The following is the table for displaying the company information -->

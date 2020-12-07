@@ -113,7 +113,7 @@ $customer_name = explode(" ", $customerToEdit->getName());
 <html>
 <head>
 <title>Edit Customer</title>
-<link rel="stylesheet" href="../CSS/form.css">
+<link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 
 <!-- Edit Customer Page -->
