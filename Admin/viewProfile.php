@@ -132,5 +132,3 @@ $employee_email=$rows['employee_email'];
 </form>	
 </body>
 </html>
-
-

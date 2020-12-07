@@ -162,7 +162,7 @@ if ($conn-> connect_error) {
         						<label for="for_team"> For Team </label>
         						<input type="radio"  name="event_visibility" value="for_individual" disabled>
         						<label for="for_individual"> For Individual </label>
-        						<input hidden type="text" name="event_visibility" value="for_all">
+        						<input hidden="true" type="text" name="event_visibility" value="for_all">
         					<?php } elseif ($option == 2){ 
         					
         				       /*If the user is salesrep/indrep and the event is for team event_visibility cannot be edited*/ ?>
@@ -172,7 +172,7 @@ if ($conn-> connect_error) {
             					<label for="for_team"> For Team </label>
             					<input type="radio"  name="event_visibility" value="for_individual" disabled>
             					<label for="for_individual"> For Individual </label>
-            					<input hidden type="text" name="event_visibility" value="for_team">
+            					<input hidden="true" type="text" name="event_visibility" value="for_team">
         					<?php 
         					}elseif($option == 3){ 
         					    /*If the user is salesrep/indrep and the event is for individual, event_visibility  only for_individual */  ?>
@@ -215,7 +215,7 @@ if ($conn-> connect_error) {
     		
 			<tr>
     			<td colspan="1"> <input type="submit" value="submit" style="width:100%"> </td>
-    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"><input hidden type="number" id="calendar_id" name="calendar_id" value="<?php echo $calendarRow['calendar_id'];?>"/></td>
+    			<td colspan="1"> <input type="reset" value= "reset" style="width:100%"><input hidden="true" type="number" id="calendar_id" name="calendar_id" value="<?php echo $calendarRow['calendar_id'];?>"/></td>
     			
     		</tr>
     		</table>

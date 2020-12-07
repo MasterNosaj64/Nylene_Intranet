@@ -15,7 +15,7 @@ unset($_SESSION['interaction_id']);
 include '../NavPanel/navigation.php';
 include '../Database/connect.php';
 } 
-$conn==getDBConnection();
+$conn=getDBConnection();
 $accessLevel=$_SESSION['role'];
 
 $check=0;
@@ -281,5 +281,3 @@ function updateClick(e) {//to get the employee id that is in column 0 when you c
 }
 </script>
 </html>
-
-
