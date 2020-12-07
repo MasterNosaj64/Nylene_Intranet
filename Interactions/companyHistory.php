@@ -212,38 +212,24 @@ $company_Conn->close();
 		<td>
 			<form method='post'
 				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($_SESSION['offset'] == 0) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='previous'
-					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-					value='&#x21DA; Previous' />
-    <?php
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-    ?>
-	</form>
+				<fieldset style='border-style: none'
+					<?php if ($_SESSION['offset'] == 0) { echo "disabled ='disabled'";}?>>
+					<input hidden='true' name='previous'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='&#x21DA; Previous' />
+				</fieldset>
+			</form>
 		</td>
 		<td>
 			<form method='post'
 				action='companyHistory.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($offset == $interactionBuffer->count()) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='next'
-					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-					value='Next &#x21DB;' />
-	<?php
-if ($offset == $interactionBuffer->count()) {
-    echo "</fieldset>";
-}
-?>
-	</form>
+				<fieldset style='border-style: none'
+					<?php if ($offset == $interactionBuffer->count()) { echo "disabled ='disabled'";}?>>
+					<input hidden='true' name='next'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='Next &#x21DB;' />
+				</fieldset>
+			</form>
 		</td>
 	</tr>
 </table>

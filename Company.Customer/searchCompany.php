@@ -37,8 +37,7 @@ $conn_Employee = getDBConnection();
 // Handler for if the database connection fails
 if ($conn_Company->connect_error || $conn_Employee->connect_error) {
     die("A connection failed: Company: " . $conn_Company->connect_error . "|| Employee: " . $conn_Employee->connect_error);
-} 
-else {
+} else {
 
     /*
      * The following code handles the search functionality
@@ -52,22 +51,20 @@ else {
 
     $employeeNames = array();
     $employeeIds = array();
-    $employeeTitle = array();//array of role of employees
-	$employeeTeam = array();//array of employee Reports_to column
+    $employeeTitle = array(); // array of role of employees
+    $employeeTeam = array(); // array of employee Reports_to column
     $numEmployees = 0;
 
     // Store all employee names and id's in array
     // This is later used to the creation of the drop down menus
     while ($employeeListResult->fetch()) {
 
-        
         array_push($employeeTitle, $employeeList->getTitle());
         array_push($employeeIds, $employeeList->getId());
         array_push($employeeNames, $employeeList->getName());
         array_push($employeeTeam, $employeeList->getReports_To());
 
         $numEmployees ++;
-
     }
     $employeeListResult->close();
 
@@ -109,7 +106,7 @@ else {
     } else {
 
         if (! isset($_GET['sort']) || (isset($_GET['sort']) && ! isset($_SESSION['buffer']))) {
-			$companies = new Company($conn_Company);
+            $companies = new Company($conn_Company);
             $companyResult = $companies->read();
         }
         // The default option, grabs all companies when initialy loading the page or when not search criteria is entered when clicking search
@@ -152,28 +149,27 @@ if (isset($_GET['sort'])) {
 					<td><select id="payment_terms" name="search_By_Assigned_To">
 							<option></option>
 				<?php
-				
-				//Drop down menu for assign to list
+
+    // Drop down menu for assign to list
     for ($i = 0; $i < $numEmployees; $i ++) {
-    
-		
-		//for search column for assigned_to search bar
-		
-		if ($_SESSION['role'] == 'admin') {//if signed in as admin 
+
+        // for search column for assigned_to search bar
+
+        if ($_SESSION['role'] == 'admin') { // if signed in as admin
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
-        } else if ($_SESSION['role'] == 'supervisor') {//if signed in as supervisor
-            if (($employeeIds[$i] == $_SESSION['userid'])||(($employeeTitle[$i] == 'ind_rep')&&($employeeTeam[$i]==$_SESSION['userid']))||(($employeeTitle[$i] == 'sales_rep')&& ($employeeTeam[$i]==$_SESSION['userid']))) {
+        } else if ($_SESSION['role'] == 'supervisor') { // if signed in as supervisor
+            if (($employeeIds[$i] == $_SESSION['userid']) || (($employeeTitle[$i] == 'ind_rep') && ($employeeTeam[$i] == $_SESSION['userid'])) || (($employeeTitle[$i] == 'sales_rep') && ($employeeTeam[$i] == $_SESSION['userid']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        } else if($_SESSION['role'] == 'ind_rep'){//if signed in as independent
+        } else if ($_SESSION['role'] == 'ind_rep') { // if signed in as independent
             if ($employeeIds[$i] == $_SESSION['userid']) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
-        }else{//if signed in as sales
-			if (($employeeIds[$i] == $_SESSION['userid'])||((($employeeTitle[$i] == 'sales_rep')||($employeeTitle[$i] == 'ind_rep'))&& ($employeeTeam[$i]==$_SESSION['reports_to']))) {
+        } else { // if signed in as sales
+            if (($employeeIds[$i] == $_SESSION['userid']) || ((($employeeTitle[$i] == 'sales_rep') || ($employeeTitle[$i] == 'ind_rep')) && ($employeeTeam[$i] == $_SESSION['reports_to']))) {
                 echo "<option value=\"{$employeeIds[$i]}\">";
                 echo "{$employeeNames[$i]}</option>";
             }
@@ -184,14 +180,14 @@ if (isset($_GET['sort'])) {
 				
 <?php
 
-if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {//only show created by list if signed in as admin and supervisor
+if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") { // only show created by list if signed in as admin and supervisor
 
     echo '<td>Created By:</td>';
     echo '<td><select name="search_By_Created_By" id="payment_terms">';
     echo '<option></option>';
 
     for ($i = 0; $i < $numEmployees; $i ++) {
-        
+
         if ($_SESSION['role'] == 'admin') {
             echo "<option value=\"{$employeeIds[$i]}\">";
             echo "{$employeeNames[$i]}</option>";
@@ -235,14 +231,7 @@ if ($_SESSION["role"] == "admin" || $_SESSION["role"] == "supervisor") {//only s
 				</tr>
 			</table>
 			<input type="submit" value="Search" name="Search"
-				style="width: 100%;
-	margin: 15 5 1 5;
-	text-align: center box-sizing border-box;
-	border: 2px solid #000;
-	border-radius: 4px;
-	font-size: 20px;
-	background-color: rgb(167, 197, 244);
-	padding: 5px 12px 5px 12px; font-weight: bold;" />
+				style="width: 100%; margin: 15 5 1 5; text-align: center box-sizing border-box; border: 2px solid #000; border-radius: 4px; font-size: 20px; background-color: rgb(167, 197, 244); padding: 5px 12px 5px 12px; font-weight: bold;" />
 		</form>
 		<button onclick="clearSearchBar()"
 			style="background-color: rgb(255, 0, 0); color: #ffffff; font-weight: bold;">Clear
@@ -310,7 +299,7 @@ for ($offset = $_SESSION['offset']; $companyBuffer->valid(); $companyBuffer->nex
     $companyCity = $currentCompanyNode->getBillingAddressCity();
     $companyState = $currentCompanyNode->getBillingAddressState(); // Get created by if admin is logged in
 
-    //Get created by
+    // Get created by
     $createdByEmployee = new Employee(getDBConnection());
     $createdByEmployee = $createdByEmployee->searchById($currentCompanyNode->getCreatedBy());
 
@@ -374,38 +363,28 @@ $conn_Company->close();
 			<td>
 				<form method='post'
 					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($_SESSION['offset'] == 0) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='previous'
-						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-						value='&#x21DA; Previous' />
-    <?php
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-    ?>
-	</form>
+
+					<fieldset style='border-style: none'
+						<?php if ($_SESSION['offset'] == 0) { echo "disabled ='disabled'";}?>>
+						<input hidden='true' name='previous'
+							value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+							value='&#x21DA; Previous' />
+
+					</fieldset>
+
+				</form>
 			</td>
 			<td>
 				<form method='post'
 					action='searchCompany.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($offset == $companyBuffer->count()) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='next'
-						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-						value='Next &#x21DB;' />
-	<?php
-if ($offset == $companyBuffer->count()) {
-    echo "</fieldset>";
-}
-?>
-	</form>
+
+					<fieldset style='border-style: none'
+						<?php if ($offset == $companyBuffer->count()) { echo "disabled ='disabled'";}?>>
+						<input hidden='true' name='next'
+							value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+							value='Next &#x21DB;' />
+					</fieldset>
+				</form>
 			</td>
 		</tr>
 	</table>

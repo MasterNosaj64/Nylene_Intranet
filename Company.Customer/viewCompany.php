@@ -136,7 +136,7 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 			<form method="post" action="addCustomer.php">
 				<input hidden="true" name="company_id"
 					value="<?php echo $_SESSION['company_id'];?>" /> <input
-					type="submit" id="add_customer" value="Add Customer" 
+					type="submit" id="add_customer" value="Add Customer"
 					style="margin: 15 5 1 5; text-align: center box-sizing border-box; border: 2px solid #000; border-radius: 4px; font-size: 20px; background-color: rgb(167, 197, 244); padding: 5px 12px 5px 12px;" />
 			</form>
 		</td>
@@ -210,39 +210,27 @@ $conn_Customers->close();
 		<td>
 			<form method='post'
 				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($_SESSION['offset'] == 0) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='previous'
-					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-					value='&#x21DA; Previous' />
-    <?php
-    if ($_SESSION['offset'] == 0) {
-        echo "</fieldset>";
-    }
-    ?>
-	</form>
+				<fieldset style='border-style: none'
+					<?php if ($_SESSION['offset'] == 0) { echo "disabled ='disabled'";}?>>
+					<input hidden='true' name='previous'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='&#x21DA; Previous' />
+
+				</fieldset>
+			</form>
 		</td>
 		<td>
 			<form method='post'
 				action='viewCompany.php?sort=<?php echo $_GET['sort'];?>'>
-	<?php
-if ($offset == $customerBuffer->count()) {
-    echo "<fieldset style='border-style:none' disabled ='disabled'>";
-}
-?>
-    <input hidden='true' name='next'
-					value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
-					value='Next &#x21DB;' />
-	<?php
-if ($offset == $customerBuffer->count()) {
-    echo "</fieldset>";
-}
-?>
-    
-	</form>
+				<fieldset style='border-style: none'
+					<?php if ($offset == $customerBuffer->count()) { echo "disabled ='disabled'";}?>>
+					<input hidden='true' name='next'
+						value='<?php echo $_SESSION["offset"];?>' /> <input type='submit'
+						value='Next &#x21DB;' />
+				</fieldset>
+
+
+			</form>
 		</td>
 	</tr>
 </table>
