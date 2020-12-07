@@ -65,18 +65,11 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 
         // Get company info
         $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
-
-        // $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCounty()} {$company->getShippingAddressPostalCode()}";
-
-        // The following is the table for displaying the company information
-
-        echo "<table class =\"form-table\"  border=5>";
-        echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
-        echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
-        echo "</table>";
     } else {
-        // If the above results in error redirect the user to homepage
-        echo "<meta http-equiv = \"refresh\" content = \"0; url = ../Home/Homepage.php\" />;";
+        ?>
+<!-- If the above results in error redirect the user to homepage -->
+<meta http-equiv="refresh" content="0; url = ../Home/Homepage.php" />
+<?php
         exit();
     }
 
@@ -129,6 +122,23 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 <link rel="stylesheet" href="../CSS/form.css">
 <title>View Company</title>
 </head>
+<!--  The following is the table for displaying the company information -->
+<table class="form-table" border="1">
+	<tr>
+		<td>Company:</td>
+		<td><?php echo $company->getName();?></td>
+		<td>Address:</td>
+		<td><?php echo $companyAddress;?></td>
+	</tr>
+	<tr>
+		<td>Website:</td>
+		<td><a href="<?php echo $company->getWebsite(); ?>"><?php echo $company->getWebsite(); ?></a></td>
+		<td>Email:</td>
+		<td><a href="mailto:<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></td>
+	</tr>
+</table>
+
+
 <!-- Buttons for adding customer or viewing Comapny History -->
 <table>
 	<tr>
@@ -153,9 +163,10 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 </table>
 
 <?php
-
+// A record counter, for the number of items in the customerBuffer
 echo "{$customerBuffer->count()} record(s) found";
 
+// The sort type from the html string, otherwise default to 0
 if (isset($_GET['sort'])) {
     $sortType = $_GET['sort'];
 } else {
@@ -163,7 +174,6 @@ if (isset($_GET['sort'])) {
 }
 
 ?>
-
 
 <table class="form-table" border=1>
 	<thead>
@@ -185,14 +195,22 @@ for ($offset = $_SESSION['offset']; $customerBuffer->valid(); $customerBuffer->n
     $customerPhone = $currentCustomerNode->getPhone();
     $customerFax = $currentCustomerNode->getFax();
     $customerDateCreated = $currentCustomerNode->getDateCreated();
-
-    echo "<tr><td>{$customerName}</td><td><a href=\"mailto: {$customerEmail}\">{$customerEmail}</td><td>{$customerPhone}</td><td>{$customerFax}</td><td>" . date("d-m-Y", strtotime($customerDateCreated)) . "</td><td>
-<form method=\"post\" action=\"editCustomer.php\">
-<input hidden type=\"text\" name=\"customer_id\" value=\"{$customerID}\">
-<input type=\"submit\" value=\"edit\"/>
-</form>
-</td></tr>";
-
+    ?>
+    <tr>
+		<td><?php echo $customerName;?></td>
+		<td><a href="mailto:<?php echo $customerEmail;?>"><?php echo $customerEmail;?></a></td>
+		<td><?php echo $customerPhone;?></td>
+		<td><?php echo $customerFax;?></td>
+		<td><?php echo date("d-m-Y", strtotime($customerDateCreated));?></td>
+		<td>
+			<form method="post" action="editCustomer.php">
+				<input hidden="true" type="text" name="customer_id"
+					value="<?php echo $customerID;?>"> <input type="submit"
+					value="edit" />
+			</form>
+		</td>
+	</tr>
+<?php
     $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;

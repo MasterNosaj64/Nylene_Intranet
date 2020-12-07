@@ -177,32 +177,34 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
     $employee->searchById($employeeID);
     $employeeName = $employee->getName();
     $employee_Conn->close();
-
-    echo "<tr><td>{$interactionDateCreated}</td>";
-    echo "<td>{$customerName}</td>";
-    echo "<td>{$reason}</td>";
-    if (strlen($comments) > 50) {
-        echo "<td>" . substr($comments, 0, 50) . "...</td>";
-    } else {
-        echo "<td>" . substr($comments, 0, 50) . "</td>";
-    }
-    echo "<td>{$status}</td>";
-    echo "<td>{$employeeName}</td>";
-    echo "<td><form method=\"post\" action=\"viewInteraction.php\">";
-    echo "<input hidden type=\"text\" name=\"interaction_id\" value=\"{$interactionID}\">";
-    echo "<input type=\"submit\" value=\"view\"/>";
-    echo "</form></td></tr>";
-
-    $offset ++;
+    ?>
+ <tr>
+		<td><?php echo $interactionDateCreated;?></td>
+		<td><?php echo $customerName;?></td>
+		<td><?php echo $reason;?></td> 
+		<?php if (strlen($comments) > 50) { ?>
+		<td><?php echo substr($comments, 0, 50);?> ...</td>
+		<?php } else {?>
+		<td><?php echo substr($comments, 0, 50);?></td>
+		<?php }?>
+		<td><?php echo $status; ?></td>
+		<td><?php echo $employeeName; ?></td>
+		<td><form method="post" action="viewInteraction.php">
+				<input hidden="true" type="text" name="interaction_id"
+					value="<?php echo $interactionID;?>"> <input type="submit"
+					value="view" />
+			</form></td>
+	</tr>
+	
+<?php
+$offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;
     }
 }
-
 $interaction_Conn->close();
 $company_Conn->close();
 ?>
-
 </table>
 <!-- Next 10 Previous 10 Buttons -->
 <!-- The following code presents the user with buttons to navigate the list of customers
