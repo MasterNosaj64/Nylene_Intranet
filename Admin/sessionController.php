@@ -6,7 +6,7 @@
  * Purpose:
  * Controls sensitive session variables used to track navigation of the website
  * Assists with clearing the buffer when neccisary
- * Date Modified: 11/29/2020
+ * Date Modified: 12/7/2020
  */
 
 /*
