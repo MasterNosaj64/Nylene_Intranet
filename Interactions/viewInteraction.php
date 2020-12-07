@@ -1,8 +1,8 @@
 <?php
 /*
  * FileName: viewInteraction.php
- * Version Number: 1.4
- * Date Modified: 11/25/2020
+ * Version Number: 2.0
+ * Date Modified: 12/7/2020
  * Author: Jason Waid, Modified by Kaitlyn Breker and Ahmad Syed
  * Purpose:
  * View interaction data in the database.
@@ -71,8 +71,10 @@ if (isset($_POST['interaction_id'])) {
     }
 } else {
     // If the above results in error redirect the user to homepage
-
-    echo "<meta http-equiv = \"refresh\" content = \"0 url = ../Home/Homepage.php\" />";
+    ?>
+<meta http-equiv="refresh" content="0 url = ../Home/Homepage.php" />
+";
+    <?php
     exit();
 }
 ?>
@@ -83,12 +85,15 @@ if (isset($_POST['interaction_id'])) {
 <link rel="stylesheet" href="../CSS/table.css">
 </head>
 <body>
-<?php
-echo "<form name=\"edit_interaction\" action=\"editInteraction.php\" method=\"post\">
-        <input hidden type=\"text\" name=\"interaction_id\" value=\"" . $interaction->getInteractionId() . "\">
-        <input type=\"Submit\" id=\"edit_interaction\" style=\"width:100%\" value=\"Edit Interaction\">
-    </form>";
-?> 
+
+	<form name="edit_interaction" action="editInteraction.php"
+		method="post">
+		<input hidden="true" type="text" name="interaction_id"
+			value="<?php echo $interaction->getInteractionId();?>"> <input
+			type="Submit" id="edit_interaction" style="width: 100%"
+			value="Edit Interaction">
+	</form>
+
 	<!-- <h1>Interaction</h1> -->
 	<table class="form-table" border="1">
 		<tr>
@@ -174,121 +179,160 @@ if ($viewInteractionForm != null) {
 
     // Sample Form
     if ($viewInteractionForm['form_type'] == 1) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/sample_form_view.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Sample Request Form\"/>
+        ?>
+        <td>
+				<form method="post" action="../Forms/sample_form_view.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%" value="View Sample Request Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editSample.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"Edit Sample Request Form\"/>
+				<form method="post" action="../Forms/editSample.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%" value="Edit Sample Request Form" />
 				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/sampleForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+			<td><form method="post" target="_blank"
+					action="../Nylene_TCPDF_Forms/sampleForm_TCPDF.php?id=<?php echo $viewInteractionForm['form_id'];?>">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="image" src="../Graphics/export-pdf-icon.png"
+						alt="Click To Export" />
+				</form></td>
+    <?php
     } // Light Truck Load Quote Form
     else if ($viewInteractionForm['form_type'] == 2) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/viewLtlQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Light Truckload Form\"/>
+        ?>
+        <td>
+				<form method="post" action="../Forms/viewLtlQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="View Light Truckload Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editLtlQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" value=\"Edit Light Truckload Form\"/>
+				<form method="post" action="../Forms/editLtlQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" value="Edit Light Truckload Form" />
 				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/ltlQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+			<td><form method="post" target="_blank"
+					action="../Nylene_TCPDF_Forms/ltlQuoteForm_TCPDF.php?id=<?php echo $viewInteractionForm['form_id'];?>">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="image" src="../Graphics/export-pdf-icon.png"
+						alt="Click To Export" />
+				</form></td>
+    <?php
     } // Truck Load Quote Form
     else if ($viewInteractionForm['form_type'] == 3) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/viewTlQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Truckload Quote Form\"/>
+        ?>
+        <td>
+				<form method="post" action="../Forms/viewTlQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="View Truckload Quote Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editTlQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"Edit Truckload Quote Form\"/>
+				<form method="post" action="../Forms/editTlQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="Edit Truckload Quote Form" />
 				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/tlQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+			<td><form method="post" target="_blank"
+					action="../Nylene_TCPDF_Forms/tlQuoteForm_TCPDF.php?id=<?php echo $viewInteractionForm['form_id'];?>">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="image" src="../Graphics/export-pdf-icon.png"
+						alt="Click To Export" />
+				</form></td>
+    <?php
     } // Distributor Quote Form
     else if ($viewInteractionForm['form_type'] == 4) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/viewDistributorQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Distributor Quote Form\"/>
+        ?>
+        <td>
+				<form method="post" action="../Forms/viewDistributorQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="View Distributor Quote Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editDistributorQuote.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"Edit Distributor Quote Form\"/>
+				<form method="post" action="../Forms/editDistributorQuote.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="Edit Distributor Quote Form" />
 				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/distributorQuoteForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+			<td><form method="post" target="_blank"
+					action="../Nylene_TCPDF_Forms/distributorQuoteForm_TCPDF.php?id=<?php echo $viewInteractionForm['form_id'];?>">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="image" src="../Graphics/export-pdf-icon.png"
+						alt="Click To Export" />
+				</form></td>
+    <?php
     } // Marketing Request Form
     else if ($viewInteractionForm['form_type'] == 5) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/viewMarketRequest.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Market Request Form\"/>
+        ?>
+        <td>
+				<form method="post" action="../Forms/viewMarketRequest.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%" value="View Market Request Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editMarketRequest.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"Edit Market Request Form\"/>
-				</form> 
+				<form method="post" action="../Forms/editMarketRequest.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%" value="Edit Market Request Form" />
+				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/marketingRequestForm_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+  <?php
     } // Business Credit Application Form
     else if ($viewInteractionForm['form_type'] == 6) {
-        echo "<td>
-				<form method=\"post\" action=\"../Forms/viewCreditBusinessApplication.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"View Business Credit App. Form\"/>
+        ?>
+       <td>
+				<form method="post"
+					action="../Forms/viewCreditBusinessApplication.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="View Business Credit App. Form" />
 				</form>
 			</td>
 			<td>
-				<form method=\"post\" action=\"../Forms/editCreditBusinessApplication.php\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input type=\"submit\" style=\"width:100%\" value=\"Edit Business Credit App. Form\"/>
-				</form> 
+				<form method="post"
+					action="../Forms/editCreditBusinessApplication.php">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="submit" style="width: 100%"
+						value="Edit Business Credit App. Form" />
+				</form>
 			</td>
-            <td><form method=\"post\" target=\"_blank\"  action=\"../Nylene_TCPDF_Forms/creditBusinessApp_TCPDF.php?id=".$viewInteractionForm['form_id']."\"\">
-					<input hidden type=\"text\" name=\"id\" value=\"" . $viewInteractionForm['form_id'] . "\">
-					<input  type=\"image\" src=\"../Graphics/export-pdf-icon.png\" alt=\"Click To Export\"/>
-			</form>
-            </td>";
+			<td><form method="post" target="_blank"
+					action="../Nylene_TCPDF_Forms/creditBusinessApp_TCPDF.php?id=<?php echo $viewInteractionForm['form_id'];?>">
+					<input hidden="true" type="text" name="id"
+						value="<?php echo $viewInteractionForm['form_id']; ?>"> <input
+						type="image" src="../Graphics/export-pdf-icon.png"
+						alt="Click To Export" />
+				</form></td>
+   <?php
     }
-} else { // No Form
-    echo "<td colspan=\"5\"> -- </td>";
+} else { // No Form ?>
+<td colspan="5">--</td>
+<?php
 }
 ?>
     </tr>

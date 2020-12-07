@@ -22,7 +22,7 @@ include '../Database/connect.php';
 // Company object
 include '../Database/Company.php';
 
-// Handler for if the database connection fails
+
 
 /*
  * The following code handles adding a company to the company table
@@ -34,7 +34,7 @@ include '../Database/Company.php';
 if (isset($_POST['submit'])) {
 
     $conn_verification = getDBConnection();
-
+    // Handler for if the database connection fails
     if ($conn_verification->connect_error)
         die("Connection failed: " . $conn_verification->connect_error);
 
@@ -83,11 +83,12 @@ if (isset($_POST['submit'])) {
         // store company_id in session for further use then redirect user to next page
         $_SESSION["company_id"] = $conn_newCompany->insert_id;
         $conn_newCompany->close();
-        echo "<meta http-equiv = \"refresh\" content = \"0 url = ./viewCompany.php?sort=1\" />;";
+        ?>
+<meta http-equiv="refresh" content= "0; url=./viewCompany.php?sort=1 " />
+<?php
         exit();
     }
-}
-else{
+} else {
     $company_name = "";
     $website = "http://";
     $billing_address_street = "";
@@ -118,7 +119,8 @@ else{
 <link rel="stylesheet" href="../CSS/company.customer.interaction.css">
 </head>
 <body>
-	<form method="post" action=addCompany.php name="add_company" autocomplete="off">
+	<form method="post" action=addCompany.php name="add_company"
+		autocomplete="off">
 		<input type="reset" value="Clear">
 		<table class="form-table" border=1>
 			<thead>
@@ -129,19 +131,23 @@ else{
 			</thead>
 			<tr>
 				<td>*Name:</td>
-				<td><input type="text" value="<?php echo $company_name;?>" required name="name"></td>
+				<td><input type="text" value="<?php echo $company_name;?>" required
+					name="name"></td>
 				<td>Note:</td>
 				<td><textarea name="description" rows=3><?php echo $description;?></textarea></td>
 			</tr>
 			<tr>
 				<td>*Website:</td>
-				<td><input type="url" required value="<?php echo $website;?>" name="website"></td>
+				<td><input type="url" required value="<?php echo $website;?>"
+					name="website"></td>
 				<td>Industry:</td>
-				<td><input type="text" value="<?php echo $industry;?>" name="industry"></td>
+				<td><input type="text" value="<?php echo $industry;?>"
+					name="industry"></td>
 			</tr>
 			<tr>
 				<td>Company Email:</td>
-				<td><input type="email" value="<?php echo $company_email;?>" name="email"></td>
+				<td><input type="email" value="<?php echo $company_email;?>"
+					name="email"></td>
 				<td>Type:</td>
 				<td><input type="text" value="<?php echo $type;?>" name="type"></td>
 			</tr>
@@ -155,33 +161,48 @@ else{
 			</thead>
 			<tr>
 				<td>*Street:</td>
-				<td><input type="text" required value="<?php echo $billing_address_street;?>" name="billingStreet"></td>
+				<td><input type="text" required
+					value="<?php echo $billing_address_street;?>" name="billingStreet"></td>
 				<td>Street:</td>
-				<td><input type="text" value="<?php echo $shipping_address_street;?>" name="shippingStreet"></td>
+				<td><input type="text"
+					value="<?php echo $shipping_address_street;?>"
+					name="shippingStreet"></td>
 			</tr>
 			<tr>
 				<td>*City:</td>
-				<td><input type="text" required value="<?php echo $billing_address_city;?>" name="billingCity"></td>
+				<td><input type="text" required
+					value="<?php echo $billing_address_city;?>" name="billingCity"></td>
 				<td>City:</td>
-				<td><input type="text" value="<?php echo $shipping_address_city;?>" name="shippingCity"></td>
+				<td><input type="text" value="<?php echo $shipping_address_city;?>"
+					name="shippingCity"></td>
 			</tr>
 			<tr>
 				<td>*State:</td>
-				<td><input type="text" required value="<?php echo $billing_address_state;?>" name="billingState"></td>
+				<td><input type="text" required
+					value="<?php echo $billing_address_state;?>" name="billingState"></td>
 				<td>State:</td>
-				<td><input type="text" value="<?php echo $shipping_address_state;?>" name="shippingState"></td>
+				<td><input type="text" value="<?php echo $shipping_address_state;?>"
+					name="shippingState"></td>
 			</tr>
 			<tr>
 				<td>*Postal Code:</td>
-				<td><input type="text" required value="<?php echo $billing_address_postalcode;?>" name="billingPostalCode"></td>
+				<td><input type="text" required
+					value="<?php echo $billing_address_postalcode;?>"
+					name="billingPostalCode"></td>
 				<td>Postal Code:</td>
-				<td><input type="text" value="<?php echo $shipping_address_postalcode;?>" name="shippingPostalCode"></td>
+				<td><input type="text"
+					value="<?php echo $shipping_address_postalcode;?>"
+					name="shippingPostalCode"></td>
 			</tr>
 			<tr>
 				<td>*Country:</td>
-				<td><input type="text" required value="<?php echo $billing_address_country;?>" name="billingCountry"></td>
+				<td><input type="text" required
+					value="<?php echo $billing_address_country;?>"
+					name="billingCountry"></td>
 				<td>Country:</td>
-				<td><input type="text"  value="<?php echo $shipping_address_country;?>" name="shippingCountry"></td>
+				<td><input type="text"
+					value="<?php echo $shipping_address_country;?>"
+					name="shippingCountry"></td>
 			</tr>
 		</table>
 		<input type="submit" name="submit" value="Submit">
