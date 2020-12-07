@@ -2,13 +2,11 @@
 /*
  * FileName: Interaction.php
  * Author: Jason Waid, Modified by Kaitlyn Breker
- * Version: 0.8
- * Date Modified: 11/22/2020
+ * Version: 1.00
+ * Date Modified: 12/07/2020
  * Purpose:
  *  Object oriented representation of a interaction
  *  all database manipulation happens here
- *
- *
  */
 class Interaction
 {
@@ -44,11 +42,15 @@ class Interaction
     {
         $this->conn = $db;
     }
+    
     /*
-     * Function: read
+     * FileName: read
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose:
-     *  grabs all interactions from the connected db
-     *  returns the objects
+     * grabs all interactions from the connected db
+     * returns the objects
      */
     public function read()
     {
@@ -63,13 +65,14 @@ class Interaction
         return $stmt;
     }
 
-    
-    
     /*
-     * Function: create
+     * FileName: create
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose:
      * creates a interaction with the supplied parameters
-     * returns bool on failure or success
+     * returns bool on failure or last insert id
      */
     function create($company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date)
     {
@@ -97,11 +100,21 @@ class Interaction
         if (! $stmt->execute()) {
             return false;
         }
-        return $stmt->insert_id;
+        
+        $insert_id = $stmt->insert_id;
+        $stmt->close();
+        
+        return $insert_id;
     }
     
-    /* Function: modify
-     * Purpose: modify a interaction with the parameters
+    /*
+     * FileName: modify
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
+     * Purpose:
+     * modify a interaction with the parameters
+     * Return: bool on success or failure
      */
     function modify($interaction_id, $comments, $status, $follow_up_type, $follow_up_date){
 
@@ -128,98 +141,133 @@ class Interaction
     }
 
     /*
-     * Function Name: getCreatedBy
-     * Purpose: Function returns the employee who created the interaction
-     *
+     * FileName: getCreatedBy
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
+     * Purpose:
+     * Function returns the created_by
      */
     function getCreatedBy(){
         return $this->created_by;
     }
     
     /*
-     * Function Name: getComments
-     * Purpose: Function returns the comments
-     *
+     * FileName: getComments
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
+     * Purpose:
+     * Function returns the ccomments
      */
     function getComments(){
         return $this->comments;
     }
+    
+    
     /*
-     * Function Name: getCompanyId
+     * FileName: getCompanyId
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the company_id
-     *
      */
     function getCompanyId(){
         return $this->company_id;
     }
     
     /*
-     * Function Name: getCompanyId
-     * Purpose: Function returns the company_id
-     *
+     * FileName: getDateCreated
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
+     * Purpose: Function returns the date_created
      */
     function getDateCreated(){
         return $this->date_created;
     }
+    
     /*
-     * Function Name: getCustomerId
+     * FileName: getCustomerId
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the customer_id
-     *
      */
     function getCustomerId(){
         return $this->customer_id;
     }
+    
     /*
-     * Function Name: getInteractionId
+     * FileName: getInteractionId
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the interaction_id
-     *
      */
     function getInteractionId(){
         return $this->interaction_id;
     }
+    
     /*
-     * Function Name: getReason
+     * FileName: getReason
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the reason
-     *
      */
     function getReason(){
         return $this->reason;
     }
     /*
-     * Function Name: getStatus
+     * FileName: getStatus
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the status
-     *
      */
     function getStatus(){
         return $this->status;
     }
+    
     /*
-     * Function Name: getFollowUpType
+     * FileName: getFollowUpType
+     * Author: Kaitlyn Breker
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the follow_up_type
-     *
      */
     function getFollowUpType(){
         return $this->follow_up_type;
     }
+    
     /*
-     * Function Name: getFollowUpDate
+     * FileName: getFollowUpDate
+     * Author: Kaitlyn Breker
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the follow_up_date
-     *
      */
     function getFollowUpDate(){
         return $this->follow_up_date;
     }
+    
     /*
-     * Function Name: get
+     * FileName: get
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function returns the object
-     *
      */
     function get(){
         return $this;
     }
     
     /*
-     * Function Name: searchId
+     * FileName: searchId
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: A simpler version of search that only searches using the interaction_id
      */
     function searchId($interaction_id)
@@ -245,15 +293,17 @@ class Interaction
         
         
         $stmt->fetch();
-        
+        $stmt->close();
         // return objects
         return $this;
     }
     
     /*
-     * Function Name: search
+     * FileName: search
+     * Author: Jason Waid
+     * Version: 1.00
+     * Date Modified: 12/07/2020
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
-     *
      */
     function search($interaction_id, $company_id, $customer_id, $employee_id, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date)
     {
