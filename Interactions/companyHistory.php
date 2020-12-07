@@ -50,22 +50,12 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
         $company = new Company($company_Conn);
 
         $company->searchId($_SESSION["company_id"]);
-        // $companyInfoResult->fetch();
-
-        // Get company info
-        $companyAddress = "{$company->getBillingAddressStreet()}, {$company->getBillingAddressCity()}, {$company->getBillingAddressState()}, {$company->getBillingAddressCountry()}, {$company->getBillingAddressPostalCode()}";
-
-        // $companyShippingAddress = "{$company->getShippingAddressStreet()} {$company->getShippingAddressCity()} {$company->getShippingAddressState()} {$company->getShippingAddressCountry()} {$company->getShippingAddressPostalCode()}";
-
-        // The following is the table for displaying the company information
-
-        echo "<table class =\"form-table\"  border=5>";
-        echo "<tr><td>Company:</td><td>{$company->getName()}</td><td>Address:</td><td>{$companyAddress}</td></tr>";
-        echo "<tr><td>Website:</td><td><a href=\"{$company->getWebsite()}\">{$company->getWebsite()}</a></td><td>Email:</td><td><a href=\"mailto: {$company->getEmail()}\">{$company->getEmail()}</a></td></tr>";
-        echo "</table>";
     } else {
-        // If the above results in error redirect the user to homepage
-        echo "<meta http-equiv = \"refresh\" content = \"5; url = ../Home/Homepage.php\" />;";
+
+        ?>
+<!-- If the above results in error redirect the user to homepage  -->
+<meta http-equiv="refresh" content="0; url = ../Home/Homepage.php" />
+<?php
         exit();
     }
 }
@@ -79,6 +69,11 @@ if ($interaction_Conn->connect_error || $company_Conn->connect_error) {
 <title>Company History</title>
 <link rel="stylesheet" href="../CSS/form.css">
 </head>
+
+<!-- The following is the table for displaying the company information -->
+<?php
+echo $company->printCompanyInfoTable();
+?>
 <!-- Button to add an interaction -->
 <form method="post" action="AddInteraction.php">
 	<input hidden="true" name="company_id"
@@ -197,7 +192,7 @@ for ($offset = $_SESSION['offset']; $interactionBuffer->valid(); $interactionBuf
 	</tr>
 	
 <?php
-$offset ++;
+    $offset ++;
     if ($offset == ($_SESSION['offset'] + $maxGridSize)) {
         break;
     }

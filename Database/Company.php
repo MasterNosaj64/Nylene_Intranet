@@ -3,8 +3,8 @@
 /*
  * FileName: Company.php
  * Author: Jason Waid
- * Version: 0.6
- * Date Modified: 10/12/2020
+ * Version: 1.0
+ * Date Modified: 12/07/2020
  * Purpose:
  * Object oriented representation of a company
  * all database manipulation happens here
@@ -69,14 +69,16 @@ class Company
     }
 
     /*
-     * Function: read
-     * Purpose:
-     * grabs all companies from the connected db
-     * returns the objects
+     * Function Name: read
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Purpose: grabs all companies from the connected db
+     * Return: returns the objects
      */
     public function read()
     {
-	    $query = "SELECT * FROM company";
+        $query = "SELECT * FROM company";
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute();
@@ -87,10 +89,12 @@ class Company
     }
 
     /*
-     * Function: create
-     * Purpose:
-     * creates a company with the supplied parameters
-     * returns bool on failure or success
+     * Function Name: create
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Purpose: creates a company with the supplied parameters
+     * Return: returns bool on failure or success
      */
     function create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by)
     {
@@ -135,6 +139,9 @@ class Company
 
     /*
      * Function Name: searchId
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: A simpler version of search that only searches using the company_id
      */
     function searchId($company_id)
@@ -159,13 +166,16 @@ class Company
         $stmt->bind_result($this->company_id, $this->company_name, $this->website, $this->billing_address_street, $this->billing_address_city, $this->billing_address_state, $this->billing_address_postalcode, $this->billing_address_country, $this->shipping_address_street, $this->shipping_address_city, $this->shipping_address_state, $this->shipping_address_postalcode, $this->shipping_address_country, $this->description, $this->type, $this->industry, $this->company_email, $this->assigned_to, $this->date_created, $this->date_modified, $this->created_by);
 
         $stmt->fetch();
-
+        $stmt->close();
         // return objects
         return $this;
     }
 
     /*
      * Function Name: searchInclude
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      */
     function searchInclude($name, $website, $address, $city, $state, $country, $assigned_To, $created_By)
@@ -345,6 +355,9 @@ class Company
 
     /*
      * Function Name: searchExact
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function searches the database for an exact match and returns the count of exact matches
      */
     function searchExact($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email)
@@ -369,9 +382,7 @@ class Company
             type = ? AND
             industry = ? AND
             company_email = ?";
-        
-        
-        
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
@@ -395,23 +406,30 @@ class Company
 
         // bind the parameters to the query
         $stmt->bind_param("ssssssssssssssss", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email);
-        
+
         // execute query
         $stmt->execute();
         $count = 0;
-        
+
         // bind the results
         $stmt->bind_result($count);
-        
+
         $stmt->fetch();
-        
+
         $stmt->close();
-        
+
         // return count
         return $count;
     }
 
-    // update the product
+    /*
+     * Function Name: update
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Purpose: Function updates the database for the given company with the given info
+     * Return: bool on success or failure
+     */
     function update($company_id, $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $date_modified)
     {
 
@@ -473,8 +491,10 @@ class Company
 
     /*
      * Function Name: getname
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the company_name property of the object
-     *
      */
     function getName()
     {
@@ -483,8 +503,10 @@ class Company
 
     /*
      * Function Name: getAssignedTo
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the assigned_to property of the object
-     *
      */
     function getAssignedTo()
     {
@@ -493,8 +515,10 @@ class Company
 
     /*
      * Function Name: getCreatedBy
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the created_by property of the object
-     *
      */
     function getCreatedBy()
     {
@@ -503,8 +527,10 @@ class Company
 
     /*
      * Function Name: getCompanyId
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the company_id property of the object
-     *
      */
     function getCompanyId()
     {
@@ -513,18 +539,23 @@ class Company
 
     /*
      * Function Name: get
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the object
-     *
      */
     function get()
     {
         return $this;
     }
 
+    
     /*
      * Function Name: getDescription
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the description
-     *
      */
     function getDescription()
     {
@@ -533,8 +564,10 @@ class Company
 
     /*
      * Function Name: getWebsite
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the website
-     *
      */
     function getWebsite()
     {
@@ -543,8 +576,10 @@ class Company
 
     /*
      * Function Name: getIndustry
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the industry
-     *
      */
     function getIndustry()
     {
@@ -553,8 +588,10 @@ class Company
 
     /*
      * Function Name: getEmail
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the company email
-     *
      */
     function getEmail()
     {
@@ -563,8 +600,10 @@ class Company
 
     /*
      * Function Name: getType
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the type
-     *
      */
     function getType()
     {
@@ -573,8 +612,10 @@ class Company
 
     /*
      * Function Name: getBillingAddress
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address
-     *
      */
     function getBillingAddress()
     {
@@ -583,8 +624,10 @@ class Company
 
     /*
      * Function Name: getBillingAddressStreet
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address street
-     *
      */
     function getBillingAddressStreet()
     {
@@ -593,8 +636,10 @@ class Company
 
     /*
      * Function Name: getBillingAddressCity
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address city
-     *
      */
     function getBillingAddressCity()
     {
@@ -603,8 +648,10 @@ class Company
 
     /*
      * Function Name: getBillingAddressState
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address state
-     *
      */
     function getBillingAddressState()
     {
@@ -613,8 +660,10 @@ class Company
 
     /*
      * Function Name: getBillingAddressPostalCode
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address postal code
-     *
      */
     function getBillingAddressPostalCode()
     {
@@ -623,8 +672,10 @@ class Company
 
     /*
      * Function Name: getBillingAddressCounty
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the billing address country
-     *
      */
     function getBillingAddressCountry()
     {
@@ -633,8 +684,10 @@ class Company
 
     /*
      * Function Name: getShippingAddressStreet
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the shipping address street
-     *
      */
     function getShippingAddressStreet()
     {
@@ -643,8 +696,10 @@ class Company
 
     /*
      * Function Name: getShippingAddressCity
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the shipping address city
-     *
      */
     function getShippingAddressCity()
     {
@@ -653,8 +708,10 @@ class Company
 
     /*
      * Function Name: getShippingAddressState
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the shipping address state
-     *
      */
     function getShippingAddressState()
     {
@@ -663,8 +720,10 @@ class Company
 
     /*
      * Function Name: getShippingAddressPostalCode
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the Shipping address postal code
-     *
      */
     function getShippingAddressPostalCode()
     {
@@ -673,17 +732,41 @@ class Company
 
     /*
      * Function Name: getShippingAddressCounty
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the Shipping address country
-     *
      */
     function getShippingAddressCountry()
     {
         return $this->shipping_address_country;
     }
 
-    public function _toString()
+    /*
+     * Function Name: printCompanyInfoTable
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Purpose: Function contains an HTML table with comapny name, address, website and email.
+     */
+    function printCompanyInfoTable()
     {
-        return "company id is: {$this->company_id}";
+        ?>
+<table class="form-table" border=1>
+	<tr>
+		<td>Company:</td>
+		<td><?php echo $this->getName()?></td>
+		<td>Address:</td>
+		<td><?php echo $this->getBillingAddress();?></td>
+	</tr>
+	<tr>
+		<td>Website:</td>
+		<td><a href="<?php echo $this->getWebsite();?>"><?php echo $this->getWebsite();?></a></td>
+		<td>Email:</td>
+		<td><a href="mailto:<?php echo $this->getEmail(); ?>"><?php echo $this->getEmail(); ?></a></td>
+	</tr>
+</table>
+<?php
     }
 }
 ?>

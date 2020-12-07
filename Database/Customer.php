@@ -4,7 +4,7 @@
  * FileName: Customer.php
  * Author: Jason Waid
  * Version: 1.00
- * Date Modified: 11/29/2020
+ * Date Modified: 12/07/2020
  * Purpose:
  * Object oriented representation of a customer
  * all database manipulation happens here
@@ -39,10 +39,12 @@ class Customer
     }
 
     /*
-     * Function: read
-     * Purpose:
-     * grabs all customers from the connected db
-     * returns the objects
+     * Function Name: read
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Function: grabs all customers from the connected db
+     * Return: returns the objects
      */
     public function read()
     {
@@ -58,10 +60,12 @@ class Customer
     }
 
     /*
-     * Function: create
-     * Purpose:
-     * creates a customer with the supplied parameters
-     * returns bool on failure or success
+     * Function Name: create
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Function: creates a customer with the supplied parameters
+     * Return: bool on failure or success
      */
     function create($customer_name, $customer_email, $date_created, $customer_phone, $customer_fax)
     {
@@ -88,8 +92,10 @@ class Customer
 
     /*
      * Function Name: searchById
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function finds a customer by customer_id and returns found objects
-     *
      */
     function searchById($customer_id)
     {
@@ -102,7 +108,7 @@ class Customer
         $stmt = $this->conn->prepare($query);
 
         $customer_id = htmlspecialchars(strip_tags($customer_id));
-        
+
         $stmt->bind_param("i", $customer_id);
 
         // execute query
@@ -112,13 +118,16 @@ class Customer
         $stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
 
         $stmt->fetch();
-        
+        $stmt->close();
         // return objects
         return $this;
     }
 
     /*
      * Function Name: searchExact
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function finds a customer by using exact parameters and returns number of found objects
      *
      */
@@ -136,31 +145,34 @@ class Customer
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
-        //sanitize
+        // sanitize
         $customer_name = htmlspecialchars(strip_tags($customer_name));
         $customer_email = htmlspecialchars(strip_tags($customer_email));
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
-        
-        //bind parameters
+
+        // bind parameters
         $stmt->bind_param("ssss", $customer_name, $customer_email, $customer_phone, $customer_fax);
-        
+
         // execute query
         $stmt->execute();
 
         $count = 0;
-        
+
         // bind the results
         $stmt->bind_result($count);
 
         $stmt->fetch();
-        
+
         // return objects
         return $count;
     }
 
     /*
      * Function Name: search
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function dynamically creates a select query depending on the parameters used and returns found objects
      *
      */
@@ -305,10 +317,11 @@ class Customer
 
     /*
      * Function Name: update
-     * Purpose: Function updates the object
-     *
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
+     * Purpose: Function updates the object *
      */
-    //TODO: fix, execute() doesnt fail but it doesnt work. Doing it directly on the db works tho
     function update($customer_id, $customer_name, $customer_email, $customer_phone, $customer_fax)
     {
         $query = "UPDATE nylene.customer
@@ -323,64 +336,69 @@ class Customer
         $stmt = $this->conn->prepare($query);
 
         // santize
-        
+
         $customer_name = htmlspecialchars(strip_tags($customer_name));
         $customer_email = htmlspecialchars(strip_tags($customer_email));
         $customer_phone = htmlspecialchars(strip_tags($customer_phone));
         $customer_fax = htmlspecialchars(strip_tags($customer_fax));
         $customer_id = htmlspecialchars(strip_tags($customer_id));
 
-        
         $stmt->bind_param("ssssi", $customer_name, $customer_email, $customer_phone, $customer_fax, $customer_id);
-
-        
 
         // execute query
         if (! $stmt->execute()) {
             return false;
         }
 
-        // bind the results
-        //$stmt->bind_result($this->customer_id, $this->customer_name, $this->customer_email, $this->date_created, $this->customer_phone, $this->customer_fax);
-
         // return objects
         return $stmt;
     }
 
+    
     /*
      * Function Name: getname
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the company_name of the object
-     *
      */
     function getName()
     {
         return $this->customer_name;
     }
 
+    
     /*
      * Function Name: getPhone
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the work_phone of the object
-     *
      */
     function getPhone()
     {
         return $this->customer_phone;
     }
 
+    
     /*
      * Function Name: getEmail
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the work_email of the object
-     *
      */
     function getEmail()
     {
         return $this->customer_email;
     }
-    
+
     /*
      * Function Name: getFax
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the fax number of the object
-     *
      */
     function getFax()
     {
@@ -389,28 +407,35 @@ class Customer
 
     /*
      * Function Name: getCustomerId
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the customer_id of the object
-     *
      */
     function getCustomerId()
     {
         return $this->customer_id;
     }
+
     
     /*
      * Function Name: getDateCreated
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns date created of the object
-     *
      */
-    function getDateCreated(){
+    function getDateCreated()
+    {
         return $this->date_created;
     }
-    
 
     /*
      * Function Name: get
+     * Version: 1.0
+     * Date Modified: 12/07/2020
+     * Author: Jason Waid
      * Purpose: Function returns the customer object
-     *
      */
     function get()
     {

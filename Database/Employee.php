@@ -3,8 +3,8 @@
 /*
  * FileName: Employee.php
  * Author: Jason Waid
- * Version: 0.8
- * Date Modified: 11/30/2020
+ * Version: 1.0
+ * Date Modified: 12/07/2020
  * Purpose:
  * Object oriented representation of a Employee
  * all database manipulation happens here
@@ -257,8 +257,8 @@ class Employee
 
     /*
      * Function Name: searchById
-     * Version: 0.7
-     * Date Modified: 11/09/2020
+     * Version: 1.0
+     * Date Modified: 12/07/2020
      * Author: Jason Waid
      * Purpose: Function searches for an employee obj by id
      */
@@ -283,14 +283,11 @@ class Employee
         $stmt->bind_result($this->employee_id, $this->first_name, $this->last_name, $this->title, $this->department, $this->work_phone, $this->reports_to, $this->date_entered, $this->date_modified, $this->modified_by, $this->username, $this->STATUS, $this->employee_email, $this->password);
 
         $stmt->fetch();
-
+        $stmt->close();
         // return objects
         return $this;
     }
 
-    // not used
-    function create()
-    {}
 
     /*
      * Function Name: search
@@ -515,8 +512,5 @@ class Employee
         return $stmt;
     }
 
-    // update the product
-    function update()
-    {}
 }
 ?>

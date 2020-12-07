@@ -6,7 +6,7 @@
  * Purpose:
  * View company data in the database.
  * This includes the customers registered to the company
- * Date Modified: 11/29/2020
+ * Date Modified: 12/07/2020
  */
 Session_start();
 
@@ -123,22 +123,9 @@ if ($conn_Company->connect_error || $conn_CustomerIDs->connect_error || $conn_Cu
 <title>View Company</title>
 </head>
 <!--  The following is the table for displaying the company information -->
-<table class="form-table" border="1">
-	<tr>
-		<td>Company:</td>
-		<td><?php echo $company->getName();?></td>
-		<td>Address:</td>
-		<td><?php echo $companyAddress;?></td>
-	</tr>
-	<tr>
-		<td>Website:</td>
-		<td><a href="<?php echo $company->getWebsite(); ?>"><?php echo $company->getWebsite(); ?></a></td>
-		<td>Email:</td>
-		<td><a href="mailto:<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></td>
-	</tr>
-</table>
-
-
+<?php
+echo $company->printCompanyInfoTable();
+?>
 <!-- Buttons for adding customer or viewing Comapny History -->
 <table>
 	<tr>
