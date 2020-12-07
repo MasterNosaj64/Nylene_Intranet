@@ -3,7 +3,7 @@
      * FileName: calendar.php
      * Version Number: 1.4
      * Author: Ahmad Syed, modified by Kaitlyn Breker
-     * Last Modified: November 29th 2020
+     * Last Modified: Decemeber 6th 2020
      * Purpose: shows calendar for the user to navigate.
      * 
      * All users are able to create events 
@@ -128,8 +128,8 @@
             
         } else if (strcmp($userAccess,'sales_rep') === 0) {
 
-            /*Select all interactions that are created by user, or their supervisor, or any other teamate on their team
-             * (including ind_rep) and date assigned */
+            /*Select all interactions that are created by user, or their supervisor (if one of their companies, 
+             * or any other teamate on their team (including ind_rep) and date assigned */
             $interactionInformation = "SELECT * FROM interaction
                                         INNER JOIN employee ON interaction.employee_id = employee.employee_id
                                             INNER JOIN company ON company.company_id = interaction.company_id
