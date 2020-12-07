@@ -131,11 +131,19 @@
             /*Select all interactions that are created by user, or their supervisor, or any other teamate on their team
              * (including ind_rep) and date assigned */
             $interactionInformation = "SELECT * FROM interaction
+                                        INNER JOIN employee ON interaction.employee_id = employee.employee_id
+                                            INNER JOIN company ON company.company_id = interaction.company_id
+                                                WHERE interaction.follow_up_date = " . $dateStr .
+                                                    "AND (interaction.employee_id = ".$_SESSION['userid']. 
+                                                    " OR (interaction.employee_id = ".$userSupervisorID. " && company.assigned_to = " .$_SESSION['userid']. ")
+                                                      OR interaction.employee_id IN (SELECT employee_id FROM employee
+                                                                                        WHERE reports_to = ".$userSupervisorID."))"; 
+/*             $interactionInformation = "SELECT * FROM interaction
                                         WHERE follow_up_date = " . $dateStr .
-                                        "AND (employee_id = ".$_SESSION['userid']. 
-                                                " OR employee_id = ".$userSupervisorID.
-                                                " OR employee_id IN (SELECT employee_id FROM employee
-                                                                        WHERE reports_to = ".$userSupervisorID."))"; 
+                                        "AND (employee_id = ".$_SESSION['userid'].
+                                        " OR employee_id = ".$userSupervisorID.
+                                        " OR employee_id IN (SELECT employee_id FROM employee
+                                                                        WHERE reports_to = ".$userSupervisorID."))";  */
         } else if (strcmp($userAccess, 'supervisor') === 0) {
             /*Select all interactions that are created by user, or the employees they are supervising and date assigned */
             $interactionInformation = "SELECT * FROM interaction
