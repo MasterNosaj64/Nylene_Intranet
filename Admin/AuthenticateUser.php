@@ -10,12 +10,11 @@
 if (! session_id()) {
     session_start();
 }
-include '../Database/databaseConnection.php';
 include '../Database/connect.php';
-$dbConnection = setConnectionInfo();
+$conn = getDBConnection();
 $userQuery = "SELECT * FROM nylene.employee WHERE username = '" . $_POST['username'] . "'";
-$result = $dbConnection->query($userQuery);
-$row = $result->fetch(PDO::FETCH_ASSOC);
+$result = $conn->query($userQuery);
+$row = mysqli_fetch_array($result);
 $msg = "";
 $username = "";
 $num_tries = "";
