@@ -1,6 +1,6 @@
 <?php
 /*
- * FileName: creditBusiness_TCPDF.php
+ * FileName: creditBusinessApp_TCPDF.php
  * Version Number: 1.0
  * Date Modified: 11/29/2020
  * Author: Jason Waid
