@@ -209,6 +209,8 @@ if ($conn->connect_error) {
 } else {
     
     $interaction_id = $_SESSION['interaction_id'];
+    
+    		/*Prepare insert statement into the marketing"_request_form*/
     $stmt = $conn->prepare("INSERT INTO marketing_request_form(requester_name,
                                                             market_segment, 
                                                             sales_territory, 
@@ -255,7 +257,7 @@ if ($conn->connect_error) {
                                                             cost_center_number )
                                                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
     
-    
+    /*Assign values to variables and execute*/
     $Requester_Name = htmlspecialchars(strip_tags($_POST['Requester_Name']));
     $Market_Segment = htmlspecialchars(strip_tags($_POST['Market_Segment']));
     $Sales_Territory = htmlspecialchars(strip_tags($_POST['Sales_Territory']));
@@ -280,29 +282,23 @@ if ($conn->connect_error) {
     $budget = htmlspecialchars(strip_tags($_POST['budget']));
     $cost = htmlspecialchars(strip_tags($_POST['cost']));
     
-  //  if($stmt!== FALSE){
-            
+ 
+    /*Bind statement parameters to statement*/        
      $stmt->bind_param("ssssssssssssssssssssssssssssssssssssssssssss", $Requester_Name, $Market_Segment, $Sales_Territory, $Email, $Phone, $Date, $Name_of_Project, $type_of_project,$other_type_of_project, $brochure, $ppt, $fact_sheet, $video, $direct_mail, $web, $page, $section, $blog, $landing_page, $updt, $graphic, $tradeshow, $promotional_item, $print_aid, $press_release, $project_content, $update_info, $prospective_customers, $engineers, $procurement_managers, $current_customers, $plant_managers,$other_audience, $Info, $purpose,  $key_messages, $support, $is_photography_needed,  $needed_photography, $estimate, $delivery, $date_needed, $budget, $cost);
     
      $stmt -> execute();
     
-    /*
-     $getFormId = "SELECT marketing_request_id FROM marketing_request_form ORDER BY marketing_request_id DESC";
-        $formId = $conn->query($getFormId);
-        $id_form = mysqli_fetch_array($formId);
-    }else{
-        die('prepare() failed: ' . htmlspecialchars($conn->error));
-    }
-    */
+   /*Prepare insert statement into the interaction_relational_form table*/
      $stmt2 = $conn->prepare("INSERT INTO interaction_relational_form (
                                      interaction_id,
                                      form_id, form_type)
                                       VALUES (?,?,?)");
-    
+   /*Assign values to variables*/ 
     $interactionNum = $interaction_id;
         $formId = $conn-> insert_id;
         $formType = 5;
         
+        /*Bind statement parameters to statement*/
         $stmt2 -> bind_param("iii", $interactionNum, $formId, $formType);
         
         $stmt2 -> execute();
