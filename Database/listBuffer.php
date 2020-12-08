@@ -1,10 +1,9 @@
 <?php
-
 /*
  * FileName: listBuffer.php
  * Version Number: 2.5
- * Date Modified: 12/04/2020
- * Author: Jason Waid
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid (later modified by Madhav Sachdeva * Kaitlyn Breker)
  * Purpose:
  * Provide pages a list of objects and alow the user to navigate/sort the list
  * refered to as the list buffer
@@ -13,6 +12,9 @@
 
 /*
  * Function: create_Buffer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid (later modified by Madhav Sachdeva)
  * Purpose:
  * Creates a buffer of objects
  * Object expected are: Company
@@ -73,31 +75,27 @@ function create_Company_Buffer($queryResult, $object)
 
     // rewinds buffer to begining of list
     $buffer->rewind();
-
-    // prepare buffer for storage
-    // $buffer->serialize();
-
     // store buffer into session
     $_SESSION['buffer'] = $buffer;
 
     // Set the initial offset
     $_SESSION['offset'] = 0;
 
-    // prepare buffer for printing after sotred into session
-    // $buffer->unserialize($buffer);
-
     return $buffer;
 }
 
 /*
  * Function: nextBufferPage
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose:
  * navigates a list of companies and moved the iterator to the next 10 or closest existing index
  * returns the list
  */
 function nextBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
-    // $buffer = unserialize($sessionBuffer);
+
     $buffer = $sessionBuffer;
     $counter = 0;
 
@@ -114,6 +112,9 @@ function nextBufferPage(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * Function: previousBufferPage
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose:
  * navigates a list of companies and moved the iterator to the previous 10 or closest existing index
  * returns the list
@@ -121,7 +122,6 @@ function nextBufferPage(SplDoublyLinkedList $sessionBuffer)
 function previousBufferPage(SplDoublyLinkedList $sessionBuffer)
 {
 
-    // $buffer = unserialize($sessionBuffer);
     $buffer = $sessionBuffer;
     $counter = 0;
 
@@ -139,6 +139,9 @@ function previousBufferPage(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * Function: create_Customer_Buffer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose:
  * Creates a buffer of Customer objects
  * Object expected are: Customer
@@ -178,17 +181,11 @@ function create_Customer_Buffer($customerIDs)
     // rewinds buffer to begining of list
     $buffer->rewind();
 
-    // prepare buffer for storage
-    // $buffer->serialize();
-
     // store buffer into session
     $_SESSION['buffer'] = $buffer;
 
     // Set the initial offset
     $_SESSION['offset'] = 0;
-
-    // prepare buffer for printing after sotred into session
-    // $buffer->unserialize($buffer);
 
     return $buffer;
 }
@@ -196,6 +193,9 @@ function create_Customer_Buffer($customerIDs)
 
 /*
  * Function: create_Interaction_Buffer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose:
  * Creates a buffer of objects
  * Object expected are: Interaction
@@ -224,17 +224,11 @@ function create_Interaction_Buffer($queryResult, $object)
     // rewinds buffer to begining of list
     $buffer->rewind();
     
-    // prepare buffer for storage
-    // $buffer->serialize();
-    
     // store buffer into session
     $_SESSION['buffer'] = $buffer;
     
     // Set the initial offset
     $_SESSION['offset'] = 0;
-    
-    // prepare buffer for printing after sotred into session
-    // $buffer->unserialize($buffer);
     
     return $buffer;
 }
@@ -242,6 +236,9 @@ function create_Interaction_Buffer($queryResult, $object)
 
 /*
  * function: sortASC_DateCreated
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by DateCreated in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -276,6 +273,9 @@ function sortASC_DateCreated(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_DateCreated
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by DateCreated in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -310,6 +310,9 @@ function sortDESC_DateCreated(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Customer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Customer in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -357,6 +360,9 @@ function sortASC_Interactions_Customer($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Customer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Customer in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -404,6 +410,9 @@ function sortDESC_Interactions_Customer($sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Reason
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Reason in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -438,6 +447,9 @@ function sortASC_Interactions_Reason($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Reason
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Reason in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -472,6 +484,9 @@ function sortDESC_Interactions_Reason($sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Notes
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Notes in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -506,6 +521,9 @@ function sortASC_Interactions_Notes($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Notes
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given interaction buffer by Notes in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -540,6 +558,9 @@ function sortDESC_Interactions_Notes($sessionBuffer)
 
 /*
  * function: sortASC_Interactions_Status
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Kaitlyn Breker
  * Purpose: Sorts a given interaction buffer by Status in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -574,6 +595,9 @@ function sortASC_Interactions_Status($sessionBuffer)
 
 /*
  * function: sortDESC_Interactions_Status
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Kaitlyn Breker
  * Purpose: Sorts a given interaction buffer by Status in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -608,6 +632,9 @@ function sortDESC_Interactions_Status($sessionBuffer)
 
 /*
  * function: sortASC_CreatedBy
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by CreatedBy in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -655,6 +682,9 @@ function sortASC_CreatedBy($sessionBuffer)
 
 /*
  * function: sortDESC_CreatedBy
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by CreatedBy in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -702,6 +732,9 @@ function sortDESC_CreatedBy($sessionBuffer)
 
 /*
  * function: sortASC_Name
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by Name in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -733,6 +766,9 @@ function sortASC_Name(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Name
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by Name in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -764,6 +800,9 @@ function sortDESC_Name(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_CustomerPhone
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given customer buffer by phone in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -795,6 +834,9 @@ function sortASC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_CustomerPhone
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given customer buffer by phone in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -826,6 +868,9 @@ function sortDESC_CustomerPhone(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_CustomerFax
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given customer buffer by fax in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -857,6 +902,9 @@ function sortASC_CustomerFax(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_CustomerFax
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given customer buffer by fax in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -888,6 +936,9 @@ function sortDESC_CustomerFax(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Email
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by email in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -919,6 +970,9 @@ function sortASC_Email(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Email
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given buffer by email in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -950,6 +1004,9 @@ function sortDESC_Email(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Street
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by street in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -981,6 +1038,9 @@ function sortASC_Street(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Street
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by street in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1012,6 +1072,9 @@ function sortDESC_Street(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_City
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by city in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1043,6 +1106,9 @@ function sortASC_City(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_City
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by city in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1074,6 +1140,9 @@ function sortDESC_City(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_State
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by state in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1105,6 +1174,9 @@ function sortASC_State(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_State
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by state in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1136,6 +1208,9 @@ function sortDESC_State(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortASC_Website
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by website in Ascending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1167,6 +1242,9 @@ function sortASC_Website(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: sortDESC_Website
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Sorts a given company buffer by website in Descending Order
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1198,6 +1276,9 @@ function sortDESC_Website(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: getSortingCompany
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Get's the sorting preference for the company buffer
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1292,6 +1373,9 @@ function getSortingCompany(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: printHeadersCompany
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid (later modified by Madhav Sachdeva)
  * Purpose: Prints the table headers for the company table
  * Param: $sortType
  * Param Type: Int
@@ -1632,6 +1716,9 @@ function printHeadersCompany(int $sortType)
 
 /*
  * function: getSortingCustomer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Gets the sorting preference for the customer buffer
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1709,6 +1796,9 @@ function getSortingCustomer(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: printHeadersCustomer
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid
  * Purpose: Prints the table headers for the customer buffer
  * Param: $sortType
  * Param Type: Int
@@ -1835,6 +1925,9 @@ function printHeadersCustomer(int $sortType)
 
 /*
  * function: getSortingInteraction
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid (later modified by Kaitlyn Breker)
  * Purpose: Gets the sorting preference for the Interaction buffer
  * Param: sessionBuffer
  * Param Type: SplDoublyLinkedList
@@ -1922,6 +2015,9 @@ function getSortingInteraction(SplDoublyLinkedList $sessionBuffer)
 
 /*
  * function: printHeadersInteraction
+ * Version: 1.0
+ * Date Modified: 12/07/2020
+ * Author: Jason Waid (later modified by Kaitlyn Breker)
  * Purpose: Prints the table headers for the interaction table
  * Param: $sortType
  * Param Type: Int
