@@ -186,13 +186,13 @@ session_start();
                         <!--Radio button for Project Content -->
          <tr> <td id="project_content"><b>Is this Project:</b></td>
         			<td><table class="form-table"><tr><?php if ($checked){ ?>
-        		<input type="radio" name="project_content" value="1" checked>
+        		<input type="radio" name="project_content" value="Yes" checked>
                         <label for="new"> New </label> </tr> <tr>
-                        <input type="radio" name="project_content" value="0"> <label for="update"> Update </label></tr>
+                        <input type="radio" name="project_content" value="No"> <label for="update"> Update </label></tr>
         			<?php } else { ?>
-        			<tr><input type="radio" name="project_content" value="1">
+        			<tr><input type="radio" name="project_content" value="Yes">
                         <label for="new"> New </label></tr><tr>
-                        <input type="radio" name="project_content" value="0" checked> <label for="update"> Update
+                        <input type="radio" name="project_content" value="No" checked> <label for="update"> Update
                         </label>
         			<?php } ?>
                           <td colspan="2"><input type="text" name="update_info" maxlength="250" style="width: 260px" value="<?php echo $row['if_piece_new'];?>"></td></tr></table></td>
