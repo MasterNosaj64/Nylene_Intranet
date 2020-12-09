@@ -9,7 +9,6 @@ session_start();
 include '../Database/connect.php';
 
 $conn = getDBConnection();
-//defined('key') ? null : define('key', '84h84hjbgjrh848693');
 
 $myFile = "../key.txt";
 $file = fopen($myFile, "r");
@@ -353,7 +352,7 @@ if ($conn-> connect_error) {
         $old_commentLength = strlen($comments);
         
         if($old_commentLength >= 1024){
-            //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
+           
         } else {
             
             /*Check new comments for length*/
@@ -369,7 +368,7 @@ if ($conn-> connect_error) {
                 $stmt3->execute();
                 $stmt3->close();
             } else {
-                //echo "Cannot append modified changes to comments, exceeding max length for comments in database";
+ 
             }
         }
     } else {
