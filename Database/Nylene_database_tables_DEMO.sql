@@ -342,6 +342,14 @@ ALTER TABLE `sample_form`
   MODIFY `sample_form_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
+-- Login credentials
+-- admin admin
+-- supervisor1 supervisor1
+-- supervisor2 supervisor2
+-- salesrep1 salesrep1
+-- salesrep2 salesrep2
+-- indesalesrep indesalesrep
+
 -- Employee Data
 INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `STATUS`, `employee_email`, `password`) VALUES
 (9, 'admin', 'admin', 'admin', 'admin', NULL, 9, NULL, '2020/12/08', 9, 'admin', '0', 'admin@nylene.com', '$2y$10$sMIU1N9.NvqwlHFZIy4u4On9UVQMTahliRlbdI0BF0OPFACRFHn7e'),
@@ -367,6 +375,32 @@ INSERT INTO `company` (`company_id`, `company_name`, `website`, `billing_address
 (13, 'Vegetarians United', 'http://www.vegitariansunited.org', '2543 Yaris Drive', 'Kingston', 'Ontario', 'K1W9R3', 'Canada', '2543 Yaris Drive', 'Kingston', 'Ontario', 'K1W9R3', 'Canada', '', '', '', 'info@vegitariansunited.com', 12, '2020-11-11', '2020-11-29', 12),
 (14, 'Albert Molds', 'http://albertmolds.com', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '', '', '', 'info@albertmolds.com', 13, '2020-11-11', '2020-11-29', 13),
 (15, 'ascot', 'http://www.ascot.com', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '', '', '', 'info@ascot.com', 14, '2020-11-11', '2020-11-29', 14);
+
+--Customer Data
+INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_email`, `date_created`, `customer_phone`, `customer_fax`) VALUES
+(1, 'Eliot Moose', 'eliotm@spencers.com', '2020-11-11 00:00:00', '8195648484', '4685497947'),
+(2, 'Redaet Daniel', 'redd@spencers.com', '2020-11-11 00:00:00', '8194658485', ''),
+(3, 'Lorne Waid', 'lwaid@valleyfields.com', '2020-11-11 00:00:00', '6136465252', ''),
+(4, 'Kaitlyn Breker', 'kbreker@valleyfields.com', '2020-11-11 00:00:00', '8196453165', ''),
+(5, 'Ali Syed', 'alisyed@algonquincollege.com', '2020-11-11 00:00:00', '6139895646', '6475659594'),
+(6, 'Michael Rayner', 'michaelrayner6@algonquincollege.com', '2020-11-11 00:00:00', '6478985646', '6479856465'),
+(7, 'Alex Gendron', 'alexg@weggers.com', '2020-11-11 00:00:00', '4586453521', ''),
+(8, 'Nick Wright', 'nwright@ttrove.com', '2020-11-11 00:00:00', '8468459595', ''),
+(9, 'Donald Sutherland', 'dsutherland@canopymolds.com', '2020-11-11 00:00:00', '6478616495', ''),
+(10, 'James Bond', 'jbond@blissmolds.com', '2020-11-11 00:00:00', '6478951546', '6479564959'),
+(11, 'Jeffrey Benoit', 'jbenoit@zacksmolds.com', '2020-11-11 00:00:00', '8194567858', ''),
+(12, 'Robert Takacs', 'rtackacs@zacksmolds.com', '2020-11-11 00:00:00', '8195468494', ''),
+(13, 'Redaet Daniel', 'redu@haroldandkumarco.com', '2020-11-15 00:00:00', '6479856495', ''),
+(14, 'Lorne Waid', 'lorne.waid@nelson.com', '2020-11-15 00:00:00', '8198469795', '8196459795'),
+(15, 'Greg Savage', 'gsavage@spencers.com', '2020-11-29 00:00:00', '8198439795', ''),
+(16, 'James Daniel', 'mrjehdoubleu@gmail.com', '2020-11-29 00:00:00', '8193429795', '1111111111'),
+(17, 'Jason Waid', 'jwaid@spencers.com', '2020-11-29 00:00:00', '8198469898', ''),
+(18, 'Todd Rivet', 'trivet@spencers.com', '2020-11-29 00:00:00', '7894651345', ''),
+(19, 'Bob Hascal', 'bobhascal@albertmolds.com', '2020-11-29 00:00:00', '8194589598', '8194845656'),
+(20, 'Zack Snyder', 'zacksnyder@ascot.com', '2020-11-29 00:00:00', '5474659834', '5463165945'),
+(21, 'Brandon Bailey', 'bbailey@bluetrail.com', '2020-11-29 00:00:00', '8196133310', ''),
+(22, 'Zoe Hope', 'zhope@vegetariansunited.com', '2020-11-29 00:00:00', '6136489575', '');
+
 
 --Customer Relational Company Data
 INSERT INTO `company_relational_customer` (`company_id`, `customer_id`) VALUES
@@ -395,28 +429,38 @@ INSERT INTO `company_relational_customer` (`company_id`, `customer_id`) VALUES
 (5, 20),
 (9, 22);
 
---Customer Data
-INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_email`, `date_created`, `customer_phone`, `customer_fax`) VALUES
-(1, 'Eliot Moose', 'eliotm@spencers.com', '2020-11-11 00:00:00', '8195648484', '4685497947'),
-(2, 'Redaet Daniel', 'redd@spencers.com', '2020-11-11 00:00:00', '8194658485', ''),
-(3, 'Lorne Waid', 'lwaid@valleyfields.com', '2020-11-11 00:00:00', '6136465252', ''),
-(4, 'Kaitlyn Breker', 'kbreker@valleyfields.com', '2020-11-11 00:00:00', '8196453165', ''),
-(5, 'Ali Syed', 'alisyed@algonquincollege.com', '2020-11-11 00:00:00', '6139895646', '6475659594'),
-(6, 'Michael Rayner', 'michaelrayner6@algonquincollege.com', '2020-11-11 00:00:00', '6478985646', '6479856465'),
-(7, 'Alex Gendron', 'alexg@weggers.com', '2020-11-11 00:00:00', '4586453521', ''),
-(8, 'Nick Wright', 'nwright@ttrove.com', '2020-11-11 00:00:00', '8468459595', ''),
-(9, 'Donald Sutherland', 'dsutherland@canopymolds.com', '2020-11-11 00:00:00', '6478616495', ''),
-(10, 'James Bond', 'jbond@blissmolds.com', '2020-11-11 00:00:00', '6478951546', '6479564959'),
-(11, 'Jeffrey Benoit', 'jbenoit@zacksmolds.com', '2020-11-11 00:00:00', '8194567858', ''),
-(12, 'Robert Takacs', 'rtackacs@zacksmolds.com', '2020-11-11 00:00:00', '8195468494', ''),
-(13, 'Redaet Daniel', 'redu@haroldandkumarco.com', '2020-11-15 00:00:00', '6479856495', ''),
-(14, 'Lorne Waid', 'lorne.waid@nelson.com', '2020-11-15 00:00:00', '8198469795', '8196459795'),
-(15, 'Greg Savage', 'gsavage@spencers.com', '2020-11-29 00:00:00', '8198439795', ''),
-(16, 'James Daniel', 'mrjehdoubleu@gmail.com', '2020-11-29 00:00:00', '8193429795', '1111111111'),
-(17, 'Jason Waid', 'jwaid@spencers.com', '2020-11-29 00:00:00', '8198469898', ''),
-(18, 'Todd Rivet', 'trivet@spencers.com', '2020-11-29 00:00:00', '7894651345', ''),
-(19, 'Bob Hascal', 'bobhascal@albertmolds.com', '2020-11-29 00:00:00', '8194589598', '8194845656'),
-(20, 'Zack Snyder', 'zacksnyder@ascot.com', '2020-11-29 00:00:00', '5474659834', '5463165945'),
-(21, 'Brandon Bailey', 'bbailey@bluetrail.com', '2020-11-29 00:00:00', '8196133310', ''),
-(22, 'Zoe Hope', 'zhope@vegetariansunited.com', '2020-11-29 00:00:00', '6136489575', '');
+--Interactions
+INSERT INTO `interaction` (`interaction_id`, `company_id`, `customer_id`, `employee_id`, `reason`, `comments`, `date_created`, `status`, `follow_up_type`, `follow_up_date`) VALUES
+(9, 2, 16, 12, 'Distributor Quote', 'This is a test Distributor Quote Form', '2020-12-08', 'open', 'interaction', '2021-01-07'),
+(11, 2, 2, 12, 'Light Truckload Quote', 'This is a test Light Truckload Quote form', '2020-12-08', 'open', 'interaction', '2021-01-07'),
+(12, 2, 8, 12, 'Truckload Quote', 'This is an example truckload quote', '2020-12-08', 'open', 'interaction', '2021-01-07'),
+(13, 2, 16, 12, 'Sample', 'This is a test Sample Request Interaction', '2020-12-08', 'open', 'interaction', '2021-01-07'),
+(14, 2, 16, 12, 'Credit Business Application', 'This is a test Credit Business Application Interaction', '2020-12-08', 'open', 'interaction', '2021-01-07');
 
+--Credit Form
+INSERT INTO `credit_application_business_form` (`credit_application_business_id`, `company_name`, `company_address`, `contact_name`, `time_current_address`, `title`, `date_business_commenced`, `phone`, `nylene_representative`, `fax`, `order_pending`, `order_amount`, `business_email`, `bank_name`, `account_number`, `bank_address`, `bank_email`, `bank_contact_name`, `bank_fax`, `bank_phone`, `ref1_company_name`, `ref1_company_phone`, `ref1_company_contact_name`, `ref1_company_fax`, `ref1_company_address`, `ref1_company_email`, `ref2_company_name`, `ref2_company_phone`, `ref2_company_contact_name`, `ref2_company_fax`, `ref2_company_address`, `ref2_company_email`, `ref3_company_name`, `ref3_company_phone`, `ref3_company_contact_name`, `ref3_company_fax`, `ref3_company_address`, `ref3_company_email`, `got_signature`, `credit_date`) VALUES
+(1, 'Spencers', 'Magog,Quebec, S5E2W4', 'Jason Waid', '3 Years', 'Manager', '2015-02-03', '8198469898', 'admin admin', '', 1, '500', 'info@spencers.com', 'Cibc', 0x2d1c33dc3480b068c8bc4021242c1b43, '123 Fake Street, Magog Quebec, J1X0M9', 'info@cibc.ca', 'Murphey Downey', '8194684949', '8194685949', 'Spencers', '6479493549', 'Jessica Blue', '6477871648', '485 Bless Ave, Ottawa Ontario, K1G3D8', 'jblue@spencers.ca', 'Logans', '6138494924', 'Alex Wane', '6138493164', '148 avenue Drive, Toronto Ontario, J1S7B6', 'awane@logans.com', 'Dream Molds', '6478491264', 'Petter Griffin', '6479916484', '168 eastwood drive, Kingston Ontario, K1S8H5', 'pgriffin@dreammolds.com', NULL, '2020-12-03');
+
+--Distributor Quote
+INSERT INTO `distributor_quote_form` (`distributor_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range40up`, `range2240`, `range1122`, `range610`, `range24`) VALUES
+(1, '2020-12-03', 'DQ4848484', 'Product#34', '60 days', 'Lower Molding', 'FOB Shipping Point, customer pick-up', '100', ' N/A', 'OEM', 'Factory', 2000, '2000.00/lb', '2000.02/lb', '2000.04/lb', '2000.06/lb', '2000.10/lb');
+
+--Light Truckload Quote
+INSERT INTO `ltl_quote` (`ltl_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range1522`, `range1121`, `range510`, `range25`, `range12`, `range5`) VALUES
+(1, '2020-12-03', 'LTL8485881', 'Product#45', '30 days', 'Lower Chassis', 'FOB Shipping Point, customer pick-up', '100', ' N/A', 'OEM', 'Factory', 522, '522.16/lb', '522.31/lb', '522.62/lb', '523.31/lb', '524.22/lb', '525.66/lb');
+
+--Sample Form
+INSERT INTO `sample_form` (`sample_form_id`, `date_submitted`, `m_code`, `customer_code`, `credit_app_submitted`, `business_case`, `match_sample_sub`, `match_data_sheet`, `match_description`, `material_description`, `customer_proc`, `customer_supplier`, `finished_good_app`, `annual_vol`, `current_resin_system`, `target_price`, `melt_reqs`, `current_filler_sys`, `colors`, `known_additives`, `ul_reqs`, `uv_reqs`, `auto_reqs`, `fda_reqs`, `color_specs`, `response_date`, `prod_rec`, `stock_prod_qty`, `other_doc`, `sds`, `coa`, `sample_qty`, `sample_req_date`, `data_sheet`, `sample_price`, `sample_frt`, `other_contact_1`, `other_contact_2`, `other_contact_3`, `other_contact_4`) VALUES
+(33, '2020-12-02', 'A-Auto', '16', 1, 'Placeholder business case', 1, 1, 1, 'Material Description, Special Handling or Label Request PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'Black, Brown', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', '2020-12-03', 1, 1, '', 1, 1, '20', '2020-12-11', 1, '500', '20', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER');
+
+--Truck Load Quote
+INSERT INTO `tl_quote` (`tl_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range40plus`, `range2240`, `range1022`, `range610`, `range46`, `range24`) VALUES
+(1, '2020-12-03', 'TL48124818', 'Product#45', '1%/10, Net 30 days', 'Lawnmower lower chassis', 'Ex-Works', '500', ' N/A', 'OEM', 'Factory', 2000, '2000.00/lb', '2000.02/lb', '2000.04/lb', '2000.06/lb', '2000.08/lb', '2000.16/lb');
+
+--Interaction_Relational_Form
+INSERT INTO `interaction_relational_form` (`interaction_id`, `form_id`, `form_type`) VALUES
+(9, 1, 4),
+(12, 1, 3),
+(11, 1, 2),
+(13, 33, 1),
+(14, 1, 6);
