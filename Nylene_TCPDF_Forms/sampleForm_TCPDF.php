@@ -432,6 +432,6 @@ $pdf_obj->lastPage();
 
 ob_end_clean();
 
-$pdf_obj->Output($companyRow['company_name']."-Sample Request", "I");
+$pdf_obj->Output($companyRow['company_name']."-Sample Request.pdf", "I");
 
 ?>

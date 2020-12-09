@@ -357,6 +357,6 @@ $pdf_obj->lastPage();
 
 ob_end_clean();
 
-$pdf_obj->Output($companyRow['company_name'] . "-Credit Application For Business Account", "I");
+$pdf_obj->Output($companyRow['company_name'] . "-Credit Application For Business Account.pdf", "I");
 
 ?>

@@ -247,6 +247,6 @@ $pdf_obj->lastPage();
 
 ob_end_clean();
 
-$pdf_obj->Output($companyRow['company_name']."-Truckload Quote", "I");
+$pdf_obj->Output($companyRow['company_name']."-Truckload Quote.pdf", "I");
 
 ?>
