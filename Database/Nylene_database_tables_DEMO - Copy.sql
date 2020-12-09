@@ -145,47 +145,47 @@ CREATE TABLE ltl_quote(
     PRIMARY KEY(ltl_quote_id)
 ) DEFAULT CHARSET = utf8; 
 
-  CREATE TABLE sample_form (
-  sample_form_id int(11) NOT NULL,
-  date_submitted date DEFAULT NULL,
-  m_code varchar(50) DEFAULT NULL,
-  customer_code varchar(50) DEFAULT NULL,
-  credit_app_submitted int(50) DEFAULT NULL,
-  business_case varchar(1000) DEFAULT NULL,
-  match_sample_sub int(50) DEFAULT NULL,
-  match_data_sheet int(50) DEFAULT NULL,
-  match_description int(50) DEFAULT NULL,
-  material_description varchar(1000) NOT NULL,
-  customer_proc varchar(50) DEFAULT NULL,
-  customer_supplier varchar(50) DEFAULT NULL,
-  finished_good_app varchar(50) DEFAULT NULL,
-  annual_vol varchar(50) DEFAULT NULL,
-  current_resin_system varchar(50) DEFAULT NULL,
-  target_price varchar(50) DEFAULT NULL,
-  melt_reqs varchar(50) DEFAULT NULL,
-  current_filler_sys varchar(50) DEFAULT NULL,
-  colors varchar(50) DEFAULT NULL,
-  known_additives varchar(50) DEFAULT NULL,
-  ul_reqs varchar(50) DEFAULT NULL,
-  uv_reqs varchar(50) DEFAULT NULL,
-  auto_reqs varchar(50) DEFAULT NULL,
-  fda_reqs varchar(50) DEFAULT NULL,
-  color_specs varchar(50) DEFAULT NULL,
-  response_date date DEFAULT NULL,
-  prod_rec int(50) DEFAULT NULL,
-  stock_prod_qty int(50) DEFAULT NULL,
-  other_doc varchar(50) DEFAULT NULL,
-  sds int(50) DEFAULT NULL,
-  coa int(50) DEFAULT NULL,
-  sample_qty varchar(50) DEFAULT NULL,
-  sample_req_date date DEFAULT NULL,
-  data_sheet int(50) DEFAULT NULL,
-  sample_price varchar(50) DEFAULT NULL,
-  sample_frt varchar(50) DEFAULT NULL,
-  other_contact_1 varchar(50) DEFAULT NULL,
-  other_contact_2 varchar(50) DEFAULT NULL,
-  other_contact_3 varchar(50) DEFAULT NULL,
-  other_contact_4 varchar(50) DEFAULT NULL,
+  CREATE TABLE `sample_form` (
+  `sample_form_id` int(11) NOT NULL,
+  `date_submitted` date DEFAULT NULL,
+  `m_code` varchar(50) DEFAULT NULL,
+  `customer_code` varchar(50) DEFAULT NULL,
+  `credit_app_submitted` int(50) DEFAULT NULL,
+  `business_case` varchar(1000) DEFAULT NULL,
+  `match_sample_sub` int(50) DEFAULT NULL,
+  `match_data_sheet` int(50) DEFAULT NULL,
+  `match_description` int(50) DEFAULT NULL,
+  `material_description` varchar(1000) NOT NULL,
+  `customer_proc` varchar(50) DEFAULT NULL,
+  `customer_supplier` varchar(50) DEFAULT NULL,
+  `finished_good_app` varchar(50) DEFAULT NULL,
+  `annual_vol` varchar(50) DEFAULT NULL,
+  `current_resin_system` varchar(50) DEFAULT NULL,
+  `target_price` varchar(50) DEFAULT NULL,
+  `melt_reqs` varchar(50) DEFAULT NULL,
+  `current_filler_sys` varchar(50) DEFAULT NULL,
+  `colors` varchar(50) DEFAULT NULL,
+  `known_additives` varchar(50) DEFAULT NULL,
+  `ul_reqs` varchar(50) DEFAULT NULL,
+  `uv_reqs` varchar(50) DEFAULT NULL,
+  `auto_reqs` varchar(50) DEFAULT NULL,
+  `fda_reqs` varchar(50) DEFAULT NULL,
+  `color_specs` varchar(50) DEFAULT NULL,
+  `response_date` date DEFAULT NULL,
+  `prod_rec` int(50) DEFAULT NULL,
+  `stock_prod_qty` int(50) DEFAULT NULL,
+  `other_doc` varchar(50) DEFAULT NULL,
+  `sds` int(50) DEFAULT NULL,
+  `coa` int(50) DEFAULT NULL,
+  `sample_qty` varchar(50) DEFAULT NULL,
+  `sample_req_date` date DEFAULT NULL,
+  `data_sheet` int(50) DEFAULT NULL,
+  `sample_price` varchar(50) DEFAULT NULL,
+  `sample_frt` varchar(50) DEFAULT NULL,
+  `other_contact_1` varchar(50) DEFAULT NULL,
+  `other_contact_2` varchar(50) DEFAULT NULL,
+  `other_contact_3` varchar(50) DEFAULT NULL,
+  `other_contact_4` varchar(50) DEFAULT NULL,
    PRIMARY KEY(sample_form_id)
 ) DEFAULT CHARSET = utf8; 
 
@@ -233,49 +233,49 @@ credit_date DATE DEFAULT NULL,
 PRIMARY KEY(credit_application_business_id)
 ) DEFAULT CHARSET = utf8;
 
-CREATE TABLE company(
-    company_id INT NOT NULL AUTO_INCREMENT,
-	company_name VARCHAR(255) DEFAULT NULL,
-    website VARCHAR(255) DEFAULT NULL,
-    billing_address_street VARCHAR(150) DEFAULT NULL,
-    billing_address_city VARCHAR(100) DEFAULT NULL,
-    billing_address_state VARCHAR(100) DEFAULT NULL,
-    billing_address_postalcode VARCHAR(20) DEFAULT NULL,
-    billing_address_country VARCHAR(255) DEFAULT NULL,
-    shipping_address_street VARCHAR(150) DEFAULT NULL,
-    shipping_address_city VARCHAR(100) DEFAULT NULL,
-    shipping_address_state VARCHAR(100) DEFAULT NULL,
-    shipping_address_postalcode VARCHAR(20) DEFAULT NULL,
-    shipping_address_country VARCHAR(255) DEFAULT NULL,
-    description TEXT DEFAULT NULL,
-    type VARCHAR(50) DEFAULT NULL,
-    industry VARCHAR(50) DEFAULT NULL,
-    company_email VARCHAR(100) DEFAULT NULL,
-    assigned_to int ,
-    date_created DATE NOT NULL,
-    date_modified DATE DEFAULT NULL,
-    created_by int,
+CREATE TABLE `company`(
+    `company_id` INT NOT NULL AUTO_INCREMENT,
+	`company_name` VARCHAR(255) DEFAULT NULL,
+    `website` VARCHAR(255) DEFAULT NULL,
+    `billing_address_street` VARCHAR(150) DEFAULT NULL,
+    `billing_address_city` VARCHAR(100) DEFAULT NULL,
+    `billing_address_state` VARCHAR(100) DEFAULT NULL,
+    `billing_address_postalcode` VARCHAR(20) DEFAULT NULL,
+    `billing_address_country` VARCHAR(255) DEFAULT NULL,
+    `shipping_address_street` VARCHAR(150) DEFAULT NULL,
+    `shipping_address_city` VARCHAR(100) DEFAULT NULL,
+    `shipping_address_state` VARCHAR(100) DEFAULT NULL,
+    `shipping_address_postalcode` VARCHAR(20) DEFAULT NULL,
+    `shipping_address_country` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT DEFAULT NULL,
+    `type` VARCHAR(50) DEFAULT NULL,
+    `industry` VARCHAR(50) DEFAULT NULL,
+    `company_email` VARCHAR(100) DEFAULT NULL,
+    `assigned_to` int ,
+    `date_created` DATE NOT NULL,
+    `date_modified` DATE DEFAULT NULL,
+    `created_by` int,
     PRIMARY KEY(company_id)
 ) DEFAULT CHARSET = utf8; 
 
-CREATE TABLE customer(
-    customer_id INT NOT NULL AUTO_INCREMENT,
-    customer_name VARCHAR(255) DEFAULT NULL,
-	customer_email VARCHAR(255) DEFAULT NULL,
-    date_created DATETIME NOT NULL,
-    customer_phone VARCHAR(100) DEFAULT NULL,
+CREATE TABLE `customer`(
+    `customer_id` INT NOT NULL AUTO_INCREMENT,
+    `customer_name` VARCHAR(255) DEFAULT NULL,
+	`customer_email` VARCHAR(255) DEFAULT NULL,
+    `date_created` DATETIME NOT NULL,
+    `customer_phone` VARCHAR(100) DEFAULT NULL,
 		customer_fax VARCHAR(50) DEFAULT NULL,
     PRIMARY KEY(customer_id)
 ) DEFAULT CHARSET = utf8; 
 
-CREATE TABLE company_relational_customer(
-    company_id INT NOT NULL,
-    customer_id INT NOT NULL
+CREATE TABLE `company_relational_customer`(
+    `company_id` INT NOT NULL,
+    `customer_id` INT NOT NULL
 ) DEFAULT CHARSET = utf8; 
 
 CREATE TABLE interaction_relational_form(
-    interaction_id INT NOT NULL,
-    form_id INT NOT NULL,
+    `interaction_id` INT NOT NULL,
+    `form_id` INT NOT NULL,
     form_type INT NOT NULL
 ) DEFAULT CHARSET = utf8; 
 
@@ -338,12 +338,20 @@ VALUES ("marketing_request_form", 5);
 VALUES ("credit_application_business_form", 6);
 
 
-ALTER TABLE sample_form
-  MODIFY sample_form_id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+ALTER TABLE `sample_form`
+  MODIFY `sample_form_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
+-- Login credentials
+-- admin admin
+-- supervisor1 supervisor1
+-- supervisor2 supervisor2
+-- salesrep1 salesrep1
+-- salesrep2 salesrep2
+-- indesalesrep indesalesrep
 
-INSERT INTO employee (employee_id, first_name, last_name, title, department, work_phone, reports_to, date_entered, date_modified, modified_by, username, STATUS, employee_email, password) VALUES
+-- Employee Data
+INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `STATUS`, `employee_email`, `password`) VALUES
 (9, 'admin', 'admin', 'admin', 'admin', NULL, 9, NULL, '2020/12/08', 9, 'admin', '0', 'admin@nylene.com', '$2y$10$sMIU1N9.NvqwlHFZIy4u4On9UVQMTahliRlbdI0BF0OPFACRFHn7e'),
 (10, 'Supervisor', '1', 'supervisor', '', '1234567890', 9, '2020-12-08', '2020/12/08', 9, 'supervisor1', '0', 'Supervisor1@nylene.com', '$2y$10$eLqbr2UySwK9mDSUV0fqlujywNO53UXzcqqoFe2CfDIX0uI36yNPK'),
 (11, 'Supervisor', '2', 'supervisor', '', '1111111111', 9, '2020-12-08', '2020-12-08', 9, 'supervisor2', '0', 'supervisor2@nylene.com', '$2y$10$qRwKOIRjEnrj8QIqNOaVaOfziFt82ezBQ0So.A75uXR/FJQjlfljO'),
@@ -351,7 +359,8 @@ INSERT INTO employee (employee_id, first_name, last_name, title, department, wor
 (13, 'SalesRep', '2', 'sales_rep', '', '123456789', 11, '2020-12-08', '2020-12-08', 9, 'salesrep2', '0', 'salesrep2@nylene.com', '$2y$10$x/6moexNFeStqULt3mZiYui4MOYx.aTmjH5Zf7gdDpYtdyOybnt3O'),
 (14, 'IndeSalesRep', 'IndeSalesRep', 'ind_rep', '', '1234567890', 11, '2020-12-08', '2020-12-08', 9, 'indesalesrep', '0', 'indesalesrep@nylene.com', '$2y$10$7sEQAfA78iSqmbw/0A2yCOczvChSuK9BnnMmngRWS20AB.y1s0Gge');
 
-INSERT INTO company (company_id, company_name, website, billing_address_street, billing_address_city, billing_address_state, billing_address_postalcode, billing_address_country, shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, shipping_address_country, description, type, industry, company_email, assigned_to, date_created, date_modified, created_by) VALUES
+-- Company Data
+INSERT INTO `company` (`company_id`, `company_name`, `website`, `billing_address_street`, `billing_address_city`, `billing_address_state`, `billing_address_postalcode`, `billing_address_country`, `shipping_address_street`, `shipping_address_city`, `shipping_address_state`, `shipping_address_postalcode`, `shipping_address_country`, `description`, `type`, `industry`, `company_email`, `assigned_to`, `date_created`, `date_modified`, `created_by`) VALUES
 (2, 'Spencers', 'http://www.Spencers.com', '286 Gendron', 'Magog', 'Quebec', 'S5E2W4', 'Canada', '286 Gendron', 'Magog', 'Quebec', 'S5E2W4', 'Canada', '', '', '', 'info@spencers.com', 12, '2020-11-11', '2020-11-29', 12),
 (3, 'Valley Fields', 'http://www.valleyfields.org', '234 Fake Street', 'Ottawa', 'Ontario', 'K1G3B7', 'Canada', '234 Fake Street', 'Ottawa', 'Ontario', 'K1G3B7', 'Canada', '', '', '', 'info@valleyfields.com', 10, '2020-11-11', '2020-11-29', 10),
 (4, 'Algonquin College', 'https://www.algonquincollege.com', '1385 Woodroffe Ave', 'Ottawa', 'Ontario', 'K2G1V8', 'Canada', '1385 Woodroffe Ave', 'Ottawa', 'Ontario', 'K2G1V8', 'Canada', '', '', '', 'info@algonquin.com', 10, '2020-11-11', '2020-11-29', 10),
@@ -367,7 +376,8 @@ INSERT INTO company (company_id, company_name, website, billing_address_street, 
 (14, 'Albert Molds', 'http://albertmolds.com', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '24 junction street', 'Edmonton', 'Alberta', 'K1S8B7', 'Canada', '', '', '', 'info@albertmolds.com', 13, '2020-11-11', '2020-11-29', 13),
 (15, 'ascot', 'http://www.ascot.com', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '7 ascot', 'Newport', 'Vermont', 'J1S9E3', 'United States', '', '', '', 'info@ascot.com', 14, '2020-11-11', '2020-11-29', 14);
 
-INSERT INTO customer (customer_id, customer_name, customer_email, date_created, customer_phone, customer_fax) VALUES
+--Customer Data
+INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_email`, `date_created`, `customer_phone`, `customer_fax`) VALUES
 (1, 'Eliot Moose', 'eliotm@spencers.com', '2020-11-11 00:00:00', '8195648484', '4685497947'),
 (2, 'Redaet Daniel', 'redd@spencers.com', '2020-11-11 00:00:00', '8194658485', ''),
 (3, 'Lorne Waid', 'lwaid@valleyfields.com', '2020-11-11 00:00:00', '6136465252', ''),
@@ -391,7 +401,9 @@ INSERT INTO customer (customer_id, customer_name, customer_email, date_created, 
 (21, 'Brandon Bailey', 'bbailey@bluetrail.com', '2020-11-29 00:00:00', '8196133310', ''),
 (22, 'Zoe Hope', 'zhope@vegetariansunited.com', '2020-11-29 00:00:00', '6136489575', '');
 
-INSERT INTO company_relational_customer (company_id, customer_id) VALUES
+
+--Customer Relational Company Data
+INSERT INTO `company_relational_customer` (`company_id`, `customer_id`) VALUES
 (14, 7),
 (4, 5),
 (15, 19),
@@ -417,29 +429,36 @@ INSERT INTO company_relational_customer (company_id, customer_id) VALUES
 (5, 20),
 (9, 22);
 
-INSERT INTO interaction (interaction_id, company_id, customer_id, employee_id, reason, comments, date_created, status, follow_up_type, follow_up_date) VALUES
+--Interactions
+INSERT INTO `interaction` (`interaction_id`, `company_id`, `customer_id`, `employee_id`, `reason`, `comments`, `date_created`, `status`, `follow_up_type`, `follow_up_date`) VALUES
 (9, 2, 16, 12, 'Distributor Quote', 'This is a test Distributor Quote Form', '2020-12-08', 'open', 'interaction', '2021-01-07'),
 (11, 2, 2, 12, 'Light Truckload Quote', 'This is a test Light Truckload Quote form', '2020-12-08', 'open', 'interaction', '2021-01-07'),
 (12, 2, 8, 12, 'Truckload Quote', 'This is an example truckload quote', '2020-12-08', 'open', 'interaction', '2021-01-07'),
 (13, 2, 16, 12, 'Sample', 'This is a test Sample Request Interaction', '2020-12-08', 'open', 'interaction', '2021-01-07'),
 (14, 2, 16, 12, 'Credit Business Application', 'This is a test Credit Business Application Interaction', '2020-12-08', 'open', 'interaction', '2021-01-07');
 
-INSERT INTO credit_application_business_form (credit_application_business_id, company_name, company_address, contact_name, time_current_address, title, date_business_commenced, phone, nylene_representative, fax, order_pending, order_amount, business_email, bank_name, account_number, bank_address, bank_email, bank_contact_name, bank_fax, bank_phone, ref1_company_name, ref1_company_phone, ref1_company_contact_name, ref1_company_fax, ref1_company_address, ref1_company_email, ref2_company_name, ref2_company_phone, ref2_company_contact_name, ref2_company_fax, ref2_company_address, ref2_company_email, ref3_company_name, ref3_company_phone, ref3_company_contact_name, ref3_company_fax, ref3_company_address, ref3_company_email, got_signature, credit_date) VALUES
+--Credit Form
+INSERT INTO `credit_application_business_form` (`credit_application_business_id`, `company_name`, `company_address`, `contact_name`, `time_current_address`, `title`, `date_business_commenced`, `phone`, `nylene_representative`, `fax`, `order_pending`, `order_amount`, `business_email`, `bank_name`, `account_number`, `bank_address`, `bank_email`, `bank_contact_name`, `bank_fax`, `bank_phone`, `ref1_company_name`, `ref1_company_phone`, `ref1_company_contact_name`, `ref1_company_fax`, `ref1_company_address`, `ref1_company_email`, `ref2_company_name`, `ref2_company_phone`, `ref2_company_contact_name`, `ref2_company_fax`, `ref2_company_address`, `ref2_company_email`, `ref3_company_name`, `ref3_company_phone`, `ref3_company_contact_name`, `ref3_company_fax`, `ref3_company_address`, `ref3_company_email`, `got_signature`, `credit_date`) VALUES
 (1, 'Spencers', 'Magog,Quebec, S5E2W4', 'Jason Waid', '3 Years', 'Manager', '2015-02-03', '8198469898', 'admin admin', '', 1, '500', 'info@spencers.com', 'Cibc', 0x2d1c33dc3480b068c8bc4021242c1b43, '123 Fake Street, Magog Quebec, J1X0M9', 'info@cibc.ca', 'Murphey Downey', '8194684949', '8194685949', 'Spencers', '6479493549', 'Jessica Blue', '6477871648', '485 Bless Ave, Ottawa Ontario, K1G3D8', 'jblue@spencers.ca', 'Logans', '6138494924', 'Alex Wane', '6138493164', '148 avenue Drive, Toronto Ontario, J1S7B6', 'awane@logans.com', 'Dream Molds', '6478491264', 'Petter Griffin', '6479916484', '168 eastwood drive, Kingston Ontario, K1S8H5', 'pgriffin@dreammolds.com', NULL, '2020-12-03');
 
-INSERT INTO distributor_quote_form (distributor_quote_id, quote_date, quote_num, product_name, payment_terms, product_desc, ltl_quantities, annual_vol, special_terms, OEM, application, truck_load, range40up, range2240, range1122, range610, range24) VALUES
+--Distributor Quote
+INSERT INTO `distributor_quote_form` (`distributor_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range40up`, `range2240`, `range1122`, `range610`, `range24`) VALUES
 (1, '2020-12-03', 'DQ4848484', 'Product#34', '60 days', 'Lower Molding', 'FOB Shipping Point, customer pick-up', '100', ' N/A', 'OEM', 'Factory', 2000, '2000.00/lb', '2000.02/lb', '2000.04/lb', '2000.06/lb', '2000.10/lb');
 
-INSERT INTO ltl_quote (ltl_quote_id, quote_date, quote_num, product_name, payment_terms, product_desc, ltl_quantities, annual_vol, special_terms, OEM, application, truck_load, range1522, range1121, range510, range25, range12, range5) VALUES
+--Light Truckload Quote
+INSERT INTO `ltl_quote` (`ltl_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range1522`, `range1121`, `range510`, `range25`, `range12`, `range5`) VALUES
 (1, '2020-12-03', 'LTL8485881', 'Product#45', '30 days', 'Lower Chassis', 'FOB Shipping Point, customer pick-up', '100', ' N/A', 'OEM', 'Factory', 522, '522.16/lb', '522.31/lb', '522.62/lb', '523.31/lb', '524.22/lb', '525.66/lb');
 
-INSERT INTO sample_form (sample_form_id, date_submitted, m_code, customer_code, credit_app_submitted, business_case, match_sample_sub, match_data_sheet, match_description, material_description, customer_proc, customer_supplier, finished_good_app, annual_vol, current_resin_system, target_price, melt_reqs, current_filler_sys, colors, known_additives, ul_reqs, uv_reqs, auto_reqs, fda_reqs, color_specs, response_date, prod_rec, stock_prod_qty, other_doc, sds, coa, sample_qty, sample_req_date, data_sheet, sample_price, sample_frt, other_contact_1, other_contact_2, other_contact_3, other_contact_4) VALUES
+--Sample Form
+INSERT INTO `sample_form` (`sample_form_id`, `date_submitted`, `m_code`, `customer_code`, `credit_app_submitted`, `business_case`, `match_sample_sub`, `match_data_sheet`, `match_description`, `material_description`, `customer_proc`, `customer_supplier`, `finished_good_app`, `annual_vol`, `current_resin_system`, `target_price`, `melt_reqs`, `current_filler_sys`, `colors`, `known_additives`, `ul_reqs`, `uv_reqs`, `auto_reqs`, `fda_reqs`, `color_specs`, `response_date`, `prod_rec`, `stock_prod_qty`, `other_doc`, `sds`, `coa`, `sample_qty`, `sample_req_date`, `data_sheet`, `sample_price`, `sample_frt`, `other_contact_1`, `other_contact_2`, `other_contact_3`, `other_contact_4`) VALUES
 (33, '2020-12-02', 'A-Auto', '16', 1, 'Placeholder business case', 1, 1, 1, 'Material Description, Special Handling or Label Request PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'Black, Brown', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', '2020-12-03', 1, 1, '', 1, 1, '20', '2020-12-11', 1, '500', '20', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER', 'PLACEHOLDER');
 
-INSERT INTO tl_quote (tl_quote_id, quote_date, quote_num, product_name, payment_terms, product_desc, ltl_quantities, annual_vol, special_terms, OEM, application, truck_load, range40plus, range2240, range1022, range610, range46, range24) VALUES
+--Truck Load Quote
+INSERT INTO `tl_quote` (`tl_quote_id`, `quote_date`, `quote_num`, `product_name`, `payment_terms`, `product_desc`, `ltl_quantities`, `annual_vol`, `special_terms`, `OEM`, `application`, `truck_load`, `range40plus`, `range2240`, `range1022`, `range610`, `range46`, `range24`) VALUES
 (1, '2020-12-03', 'TL48124818', 'Product#45', '1%/10, Net 30 days', 'Lawnmower lower chassis', 'Ex-Works', '500', ' N/A', 'OEM', 'Factory', 2000, '2000.00/lb', '2000.02/lb', '2000.04/lb', '2000.06/lb', '2000.08/lb', '2000.16/lb');
 
-INSERT INTO interaction_relational_form (interaction_id, form_id, form_type) VALUES
+--Interaction_Relational_Form
+INSERT INTO `interaction_relational_form` (`interaction_id`, `form_id`, `form_type`) VALUES
 (9, 1, 4),
 (12, 1, 3),
 (11, 1, 2),
