@@ -18,16 +18,10 @@
     $query_samples_results = $conn->query($query_samples);
     $qsr = mysqli_fetch_array($query_samples_results);
     
-    // echo $qsr['m_code'];
-    // $_SESSION['field']=$qsr[sample_form_id];
-    
+
     /* Check required variables for value, if none input 0 */
     $m_code = $qsr['m_code'];
-    //$credit_app_submitted = $qsr['credit_app_submitted'];
     $business_case = $qsr['business_case'];
-    //$match_sample_sub = $_POST['match_sample_sub'];
-    //$match_data_sheet = $_POST['match_data_sheet'];
-    //$match_description = $_POST['match_description'];
     $material_description = $qsr['material_description'];
     $customer_proc = $qsr['customer_proc'];
     $customer_supplier = $qsr['customer_supplier'];
@@ -45,26 +39,16 @@
     $fda_reqs = $qsr['fda_reqs'];
     $color_specs = $qsr['color_specs'];
     $response_date = $qsr['response_date'];
-    //$prod_rec = $_POST['prod_rec'];
-    //$stock_prod_qty = $_POST['stock_prod_qty'];
     $other_doc = $qsr['other_doc'];
-    //$sds = $_POST['sds'];
-    //$coa = $_POST['coa'];
     $sample_qty = $qsr['sample_qty'];
-    $sample_req_date = $qsr['sample_req_date'];;
-    //$data_sheet = $_POST['data_sheet'];
+    $sample_req_date = $qsr['sample_req_date'];
     $sample_price = $qsr['sample_price'];
     $sample_frt = $qsr['sample_frt'];
     $other_contact_1 = $qsr['other_contact_1'];
     $other_contact_2 = $qsr['other_contact_2'];
     $other_contact_3 = $qsr['other_contact_3'];
     $other_contact_4 = $qsr['other_contact_4'];
-    
-    /* if (isset($_POST['m_code'])) {
-        $m_code = $_POST['m_code'];
-        // $m_code = htmlspecialchars(strip_tags($_POST['m_code']));
-    } */
-    
+
     if (isset($_POST['credit_app_submitted'])) {
        $credit_app_submitted = htmlspecialchars(strip_tags($_POST['credit_app_submitted']));
     }

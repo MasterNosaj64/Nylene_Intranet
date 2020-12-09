@@ -1,6 +1,6 @@
 <?php
 /*
- * FileName: creditBusiness_TCPDF.php
+ * FileName: creditBusinessApp_TCPDF.php
  * Version Number: 1.0
  * Date Modified: 11/29/2020
  * Author: Jason Waid
@@ -357,6 +357,6 @@ $pdf_obj->lastPage();
 
 ob_end_clean();
 
-$pdf_obj->Output($companyRow['company_name'] . "-Credit Application For Business Account", "I");
+$pdf_obj->Output($companyRow['company_name'] . "-Credit Application For Business Account.pdf", "I");
 
 ?>

@@ -39,11 +39,10 @@ function ValidateForm(frm) {
 	if (frm.last_name.value == "") { alert('Last name is required.'); frm.last_name.focus(); return false; }
 	if (frm.title.value == "") { alert('Title is required.'); frm.title.focus(); return false; }
 	if (frm.work_phone.value == "") { alert('Work Phone is required.'); frm.work_phone.focus(); return false; }
-	if (frm.date_entered.value == "") { alert('Date entered is required.'); frm.date_entered.focus(); return false; }
-	if (frm.date_modified.value == "") { alert('Date modified is required.'); frm.date_modified.focus(); return false; }
-	if (frm.modified_by.value == "") { alert('Modified by is required.'); frm.modified_by.focus(); return false; }
+	if (frm.reports_to.value == "") { alert('Reports to field is required.'); frm.reports_to.focus(); return false; }	
 	if (frm.username.value == "") { alert('Username is required.'); frm.username.focus(); return false; }
-	if (frm.employee_email.value == "") { alert('Email address is required.'); employee_email.focus(); return false; }
+	if (frm.STATUS.value == "") { alert('STATUS is required.'); frm.STATUS.focus(); return false; }
+	if (frm.employee_email.value == "") { alert('Email address is required.'); frm.employee_email.focus(); return false; }
 	if (frm.employee_email.value.indexOf("@") < 1 || frm.employee_email.value.indexOf(".") < 1) { alert('Please enter a valid email address.'); frm.employee_email.focus(); return false; }
 	if (frm.password.value == "") { alert('Password is required.'); frm.password.focus(); return false; }
 	return true; 
@@ -108,7 +107,7 @@ function myFunction() {
 <tr>
 	<td><label for="work_phone">Work Phone *</label><br /> 
 	<input name="work_phone" type="text" maxlength="50" /></td>
-	<td>Reports to <select id="employee" name="reports_to">
+	<td>Reports to * <select id="employee" name="reports_to">
 	<?php
 	if ($accessLevel == admin) {
 		$sql = "SELECT * FROM employee WHERE title='admin' OR title='supervisor'";
@@ -138,7 +137,7 @@ function myFunction() {
 	<input name="username" type="text" /></td>
 </tr>
 <tr>
-	<td colspan="2" style="width: 100%"><label for="Status">Status</label><br />
+	<td colspan="2" style="width: 100%"><label for="Status">Status *</label><br />
 	<input name="STATUS" type="text" maxlength="100" /></td>
 </tr>
 <tr>
