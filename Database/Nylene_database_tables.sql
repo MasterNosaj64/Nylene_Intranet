@@ -342,7 +342,7 @@ ALTER TABLE `sample_form`
   MODIFY `sample_form_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
-INSERT INTO `employee` (`employee_id`, `first_name`, `last_name`, `title`, `department`, `work_phone`, `reports_to`, `date_entered`, `date_modified`, `modified_by`, `username`, `STATUS`, `employee_email`, `password`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin', NULL, NULL, NULL, NULL, NULL,'admin', NULL, NULL, 'admin');
-
+INSERT INTO employee (employee_id, first_name, last_name, title, department, work_phone, reports_to, date_entered, date_modified, modified_by, username, STATUS, employee_email, password) VALUES
+(1, 'admin', 'admin', 'admin', 'admin', NULL, 1, NULL, '2020/12/08', 1, 'admin', '0', 'admin@nylene.com', '$2y$10$sMIU1N9.NvqwlHFZIy4u4On9UVQMTahliRlbdI0BF0OPFACRFHn7e'),
 
 
