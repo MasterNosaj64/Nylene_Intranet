@@ -24,16 +24,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
 
-    $myFile = "../key.txt";
-    $file = fopen($myFile, "r");
-
-    if ($file) {
-        while (! feof($file)) {
-            $key = fgets($file);
-        }
-
-        fclose($file);
-    }
+    
+    $key = getEncriptionKey();
+     
 
     /* Selection statement for employee that created the form */
     $userInformation = "SELECT * FROM employee

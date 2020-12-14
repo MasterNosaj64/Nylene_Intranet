@@ -14,17 +14,7 @@ include '../Database/connect.php';
 $conn = getDBConnection();
 
 
-$myFile = "../key.txt";
-$file = fopen($myFile, "r");
-
-if($file){
-    while(!feof($file)){
-        $key = fgets($file);
-    }
-    
-    fclose($file);
-}
-
+$key = getEncriptionKey();
 /* Check the connection */
 if ($conn->connect_error) {
 

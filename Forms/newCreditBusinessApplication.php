@@ -8,16 +8,7 @@ session_start();
 include '../Database/connect.php';
 
 
-$myFile = "../key.txt";
-$file = fopen($myFile, "r");
-
-if($file){
-while(!feof($file)){
-    $key = fgets($file);
-}
-
-fclose($file);
-}
+$key = getEncriptionKey();
 // getDBConnection to get connection
 $conn = getDBConnection();
 
