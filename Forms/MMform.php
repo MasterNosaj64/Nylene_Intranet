@@ -49,32 +49,32 @@
         <table border="1" cellpadding="5" cellspacing="1" class="form-table">          
         <tr>
                 <!--Requester Name - Mandatory-->
-            <td style="width :50%"><label for="Requester_Name"> <b>Requester Name*</b> </label></td>
-            <td ><input type="text" id="Requester_Name" name="Requester_Name" maxlength="250" style="width: 260px" required> </td>
+            <td ><label for="Requester_Name"> <b>Requester Name*</b> </label></td>
+            <td ><input type="text" id="Requester_Name" name="Requester_Name" maxlength="250" style="width: 500px" required> </td>
 
                  <!--Market Segment - Mandatory-->
             <td ><label for="Market_Segment"> <b>Market Segment*</b> </label></td>
-            <td ><input type="text" id="Market_Segment" name="Market_Segment" maxlength="250" style="width: 260px" required></td>
+            <td ><input type="text" id="Market_Segment" name="Market_Segment" maxlength="250" style="width: 500px" required></td>
     </tr> 
 
      <tr>
                  <!--Sales Territory-->
             <td ><label for="Sales_Territory"> <b>Sales Territory </b></label></td>
-            <td ><input type="text" id="Sales_Territory" name="Sales_Territory" maxlength="250" style="width: 260px"></td>
+            <td ><input type="text" id="Sales_Territory" name="Sales_Territory" maxlength="250" style="width: 500px"></td>
 
                  <!--Email - Mandatory-->
              <td ><label for="Email"> <b>Email* </b></label></td>
-                    <td ><input type="text" id="Email" name="Email" maxlength="250" style="width: 260px" required></td>
+                    <td ><input type="text" id="Email" name="Email" maxlength="250" style="width: 500px" required></td>
      </tr>
 
       <tr>
                  <!--Phone -->
             <td ><label for="Phone"> <b>Phone</b></label></td>
-            <td ><input type="text" id="Phone" name="Phone" maxlength="250" style="width: 260px"></td>
+            <td ><input type="text" id="Phone" name="Phone" maxlength="250" style="width: 500px"></td>
 
                  <!-- Date -->
             <td ><label for="Date"> <b>Today's Date </b></label></td>
-            <td ><input type="date" id="Date" name="Date" maxlength="250" style="width: 260px"></td> </tr>
+            <td ><input type="date" id="Date" name="Date" maxlength="250" style="width: 500px"></td> </tr>
         
         </table>
         <table border="1" cellpadding="5" cellspacing="1" class="form-table">
@@ -88,14 +88,14 @@
      <tr> <td colspan = "2">
                   <!--Name of Project-->
           <label for="Name_of_Project"><b>Name of Project or Piece </b></label>
-          <input name="Name_of_Project" type="text" maxlength="500" style="width: 535px" />
+          <input name="Name_of_Project" type="text" maxlength="200" style="width: 1300px" />
           </td>  
      </tr>
 
     <tr> <td border="1">
                   <!--Type of Project-->
-         <label for="type_of_project"></label> <b>Type of Project or Piece</b><br>if known<br>If multiple communication are needed,choose all that apply.
-         <input name="type_of_project">
+         <label for="type_of_project"></label> <b>Type of Project or Piece</b><br>If known<br>If multiple communication are needed,choose all that apply.
+       
          </td>
 
         <td>
@@ -186,7 +186,6 @@
         <tr> <td border="1">
                                  <!--Is the project new or updated?-->
                         <label for="project_content"><b>Is this project:</b></label></td>
-                        <input name="project_content" id="project_content">
         <td><table class="form-table">
                     <tr>
                                  <!--Checkbox-New-->
@@ -199,14 +198,14 @@
                             <label for="update_info">Update from a previous piece.<br/>If updated from a previous piece,provide the title, reference number, or webpage link below:<br/>
 
                                  <!--Textbox for Update Information-->
-                            <textarea name="update_info" rows="1" column="500"></textarea></label></tr></table>
+                            <textarea name="update_info" rows="1" column="100"></textarea></label></tr></table>
          </td></tr>
         </table>
             <table border="1" cellpadding="5" cellspacing="1" class="form-table">
-                    <tr>
+                   <thead><tr>
 
-                    <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences:</b></td>
-        </tr></table>
+                    <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Target Audiences</b></td>
+                       </tr></thead></table>
 
         <table border="1" cellpadding="5" cellspacing="0" class="form-table">
             <tr> <td border="1">
@@ -267,49 +266,38 @@
             <br/>
             <br/>
             <br/>
-        <table cellpadding="5" cellspacing="1" class="form-table">
-        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
-
-            <td id="column_heading" colspan="2" border="0" style="text-align: left;">--><b>Purpose</b><br/>
-        </tr>
+        <table cellpadding="5" cellspacing="1" class="form-table"><thead>
+            <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Purpose</b><br/>
+            </thead>
             <tr><td>
                              <!--Textbox-Purpose-->
                     <textarea name="purpose" rows="6" cols="120"></textarea>
         </td></tr></table>
 
-            <table cellpadding="5" cellspacing="1" class="form-table">
-
-        <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
-            <b>Key Messages</b><br/>
-
-          </tr>
+            <table cellpadding="5" cellspacing="1" class="form-table"><thead>
+            <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Key Messages</b><br/>
+                </thead>
                 <tr><td>
                              <!--Textbox for Key Messages-->
                         <textarea name="key_messages" rows="6" cols="120"></textarea>
         </td></tr></table>
             
-            <table cellpadding="5" cellspacing="1" class="form-table">
-
-            <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
-            <b>Supporting Information:</b><br/>
-                </tr>
+            <table cellpadding="5" cellspacing="1" class="form-table"><thead>
+            <td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Supporting Information</b><br/>
+                </thead>
             <tr><td>
                              <!--Textbox for Supporting Infromation-->
-                        <textarea name="support" rows="6" cols="120"></textarea></td></tr></table>
+                        <textarea name="support" rows="6" cols="120"></textarea></td></tr></table>.
+            
          <table cellpadding="5" cellspacing="1" class="form-table">
-
-           <tr id="column_heading" colspan="2" border="0" style="text-align: left;">
+           <thead><td id="column_heading" colspan="2" border="0" style="text-align: left;"><b>Is photography needed?</b>
                
-                                     <!--Checkbox for is photography needed-->
-                            <label for="is_photography_needed" ><b>Is photography needed?</b></label>
-                            <input name="is_photography_needed" id="is_photography_needed">
-       
                             <input type="radio"  name="is_photography_needed" value="Yes">
                             <i><label for="Yes">Yes</label></i>
 
                             <input type="radio"  name="is_photography_needed" value="No">
                             <i><label for="No">No</label></i><br/>
-            </tr>
+             </thead>
             <tr><td >
                                  <!--Textbox for Photography-->
                         <textarea name="needed_photography" rows="6" cols="120"></textarea></td></tr></table>
