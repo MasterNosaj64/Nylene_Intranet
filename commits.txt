@@ -1,0 +1,3586 @@
+commit 26816ec951b3337ad7daeb0ada55e3f3ada2cc2a
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 14 15:38:22 2020 -0500
+
+    Create README.md
+    
+    Basic overview of product and features
+
+commit d9aded35b3b9d743aab6bb0cd13dd4a5adcc1c4a
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Dec 14 00:19:59 2020 -0500
+
+    Updated the look and feel
+
+commit 802d00a4c9e43a63d35cf16bdacc3ba72494ed9e
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sun Dec 13 19:22:02 2020 -0500
+
+    moved Isha's encription code to a function call contained in connect.php
+    
+    did this to allow Nylene an easier method of updating the file path for the file should it be required.
+
+commit 12f43831db660768e9fb72269cb9c75f845ac795
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sun Dec 13 17:56:42 2020 -0500
+
+    updated for final release
+
+commit 2b4f2128ffb16826f2838bd94ab3d8eb5064fa3a
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 12 19:39:44 2020 -0500
+
+    moved files
+
+commit ee9bd22539637cda4219ea287abab827f37dd214
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Wed Dec 9 09:25:27 2020 -0500
+
+    fixed missing title
+
+commit c35106e94a130bedafbc9c7dcde5ea40625263e3
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Wed Dec 9 09:01:18 2020 -0500
+
+    fixed db file
+
+commit 2afc7b2b4bae5a7cbd4b9f95e990e1d639023042
+Merge: bf77633 9126d3e
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Wed Dec 9 08:22:24 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit bf77633dc63a066e726c6d201195fc24243bf895
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Wed Dec 9 08:22:22 2020 -0500
+
+    sample data
+    
+    incl.
+    users
+    companies
+    customers
+    interactions (look at Spencers company)
+    forms (except marketing)
+    relational tables
+
+commit 9126d3e941282c52404f1f4494113e6981fb56e8
+Merge: 6542447 f392145
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Dec 9 08:05:01 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 65424472cde2e4efa1ef19d7c3afa1e7664c452a
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Dec 9 08:04:44 2020 -0500
+
+    removed some commented code
+
+commit f3921458a602ffa05303a3b2279791b83aaa3aec
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Tue Dec 8 23:36:00 2020 -0500
+
+    Update Nylene_database_tables_DEMO.sql
+
+commit ddf17e5dfcaa85a1f796471d2242e43ec1ea1813
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Tue Dec 8 23:03:10 2020 -0500
+
+    Create Nylene_database_tables_DEMO.sql
+
+commit aca7a79b3fb614b52b718e6457a7b3f460d9606e
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Dec 8 21:15:53 2020 -0500
+
+    deleted comment
+
+commit 70e7dc9b69a479fa9014a57b712be81e2804f9f9
+Merge: 90f76c6 c07a09f
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 8 19:12:11 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 90f76c6d752f3950334b6f6124094d71eaf5ac63
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 8 19:12:07 2020 -0500
+
+    fixed the bug of alert popup if email not entered also made reports_to and status mandatory fields
+
+commit c07a09f5df0bfad5cde57f87ad81f8a028b2f781
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Tue Dec 8 19:07:44 2020 -0500
+
+    removed old files, fixed export to pdf bug
+
+commit 8fc93774b8c0399f35abb044be891add919184ae
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 8 18:36:42 2020 -0500
+
+    removed commented code
+
+commit f8948c93ea591296d5717a1bb7b37cb000ba3030
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 8 18:29:02 2020 -0500
+
+    set connection to databse acc. to standard for login
+
+commit 4019b3092c4f7d2cefd9d476c8c195f1c9f8949a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Dec 8 16:12:25 2020 -0500
+
+    fixed css for forms
+
+commit c048cfc3fb32b5ac984277f0740258bdd3681218
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Tue Dec 8 12:31:33 2020 -0500
+
+    Minor bug fix
+
+commit 2307ac948ed5b2fb3c364b5d4f8cf335481f2505
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 21:47:06 2020 -0500
+
+    Update creditBusinessApp_TCPDF.php
+
+commit b10984156b0a15a51415ad312e2758f48c4b693c
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Dec 7 19:12:59 2020 -0500
+
+    Commented
+
+commit b7b6faffb8147e42bd32934dc2c8653b23fa1648
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 19:07:18 2020 -0500
+
+    more headers
+
+commit 69531992a59d7aaf2c25cc74639c52e79576013d
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:58:11 2020 -0500
+
+    more headers
+
+commit ca43dc4e0f42cf7feced50a64b081d155a2c747e
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:50:54 2020 -0500
+
+    more headers and small bug fix
+
+commit a9d94e6568a8774c721c63ded828cad8124e8c7b
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:43:35 2020 -0500
+
+    put old db file back, turns out its not removed
+
+commit f24645cbdb539e30a83a271ab8398387a1252ebf
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:36:50 2020 -0500
+
+    added missing headers, removed olf connect file. removed commented code for login
+
+commit c1295821c2029e8363841c5a8e1d82b4935da3b0
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:24:04 2020 -0500
+
+    removed marketing request pdf from view interaction
+
+commit cbce7bde57076b03191ec84ea92184ed8d911c69
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 18:04:36 2020 -0500
+
+    added index.html to each folder to avoid users navigating our file system
+
+commit 5d47426a51bd83f384c9427f0f84ec8e7bded7fd
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 17:55:40 2020 -0500
+
+    fix css
+
+commit 3f3d5e1eed25abee5d925f69eb136cf5b7ebee1e
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 17:39:21 2020 -0500
+
+    updated function headers and created function for reused table
+
+commit 88028a5971fdc440438eca1e6aac6ef7d6facc19
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 16:48:56 2020 -0500
+
+    optimized code
+
+commit 807434f89836ff324b78684fe001f5bc0ebaa7d4
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Mon Dec 7 16:07:52 2020 -0500
+
+    fix button layout
+
+commit 91f85aa84f5bc400a10a87421a5cd32907b01cec
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Dec 6 21:41:33 2020 -0500
+
+    comments
+
+commit d8f5cc0bdd9b4201b0d0c2a2c0998844c4d29aae
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Dec 6 21:40:12 2020 -0500
+
+    updated query for notificaitons visibility on salesrep calendar to only see their supervisors interactions if it pertains to a company the salesrep is assigned to (instead of all their supervisors interactions)
+
+commit 9d8ce08ba58bd3c316a87a34ae9d2a115a613612
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Dec 6 11:42:53 2020 -0500
+
+    fixed autofill to zero in newSampleForm
+
+commit 75d7b88a729e8295ff0029db60e9784b7252ee32
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Dec 6 11:27:55 2020 -0500
+
+    Added sample_req_date back in. Required for followup notifications
+
+commit 6a5287b43228946dcd7ebcba9efae702ce35b586
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 22:40:41 2020 -0500
+
+    refixed nav bar item
+
+commit ed826d286363965bd87b7e4e917dec638ac93465
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 22:39:38 2020 -0500
+
+    css tweaks
+
+commit a812d4b5b0fb3e2370f413df8e91da636380328f
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sat Dec 5 22:24:18 2020 -0500
+
+    edit sample css and bugs fixed
+
+commit e9e4eba74a88cb5b54cb708d77d27329c9501f4c
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 21:24:08 2020 -0500
+
+    fixed simicolons
+
+commit e2fc1ebc8a71582e759ebfbb40eb78e49c19ec32
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 21:22:55 2020 -0500
+
+    bug fixes
+    
+    - fixed css for drop down on searchComapny.php
+    - fixed user nav bar item alignment
+
+commit 6dbc99e08c7e64718c11d30f8280ce7ec5304cef
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 20:56:29 2020 -0500
+
+    added file header
+
+commit bc16401ab32e0a587a6e6203f326f2a982db0084
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Sat Dec 5 20:45:40 2020 -0500
+
+    fixed border on disabled buttons
+
+commit 82eb596e0c4999e4b8f6ff50015b2e743b5c0938
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sat Dec 5 17:23:35 2020 -0500
+
+    databse connection fixed,formatted
+
+commit 2eab274887f381406646623accb0dd4e19481b6d
+Merge: df5b8c1 4d2747d
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Dec 4 19:51:57 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit df5b8c121e8c8a0d02838f90d2246ab368b5d596
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Dec 4 19:16:14 2020 -0500
+
+    formatted and commented SearchCompany,listBuffer
+
+commit 4d2747d0d91c71587626e4f174ef88710588d43e
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Fri Dec 4 16:01:42 2020 -0500
+
+    fixed nav bar for edit user and view profile
+
+commit 056a1a5af5c7df97f2803b34ce6249fb495b7b65
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Fri Dec 4 15:45:55 2020 -0500
+
+    fixed filename for conv to pdf
+
+commit 37f0d7c5b750ad7bb28e01b8c19a2733c9115446
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Fri Dec 4 15:39:22 2020 -0500
+
+    fixed bugs on searchCompany
+
+commit c35a926faa4f67df3e7cb67b10cfe291e1283e62
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Fri Dec 4 15:14:07 2020 -0500
+
+    fixed a few bugs
+
+commit 3520ceb8621cb814a9cf0489a58df615cf202550
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Dec 4 11:00:43 2020 -0500
+
+    user Role hierarchy is working through buffer
+    
+    ...
+
+commit 64a6fff121053ce4bda2b98a1ab330000f111b57
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Dec 2 10:20:36 2020 -0500
+
+    Commented and Formatted MMForm
+
+commit 00f0aca800b9d56786be8e3f71f7e59ad346e629
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Dec 2 09:05:49 2020 -0500
+
+    a very small ';' bug in searchCompany
+    
+    ....
+
+commit 4705d4225959a457af848d4a380b082d1e7d67c9
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Dec 2 09:05:06 2020 -0500
+
+    added title after name in reoprts to option
+    
+    ....
+
+commit 2de248053a391a4a021c5a94f414b45b46c2d905
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Dec 2 08:17:55 2020 -0500
+
+    Update AuthenticateUser.php
+
+commit 5964aec5766ebeb1f59de71b37848663e2002393
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Dec 2 08:10:17 2020 -0500
+
+    user role hierarchy in interactions through searchCompany
+    
+    it is manipulating searchCompany and not the bufferList.
+
+commit 6354a39c22089667b1776c2ef1e8c3e3085aed4f
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Dec 1 21:59:16 2020 -0500
+
+    implemented autocommenting and followup of edit form
+
+commit c77de150812d1474a91a8c07ba30fa5fbc8de426
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Dec 1 19:25:28 2020 -0500
+
+    fixed check box of editSample
+
+commit 90c99e80f87c88b6362bbc98cad62aeb5e1ff6e5
+Merge: 7ec790e 7ee0b9c
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 1 17:33:42 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 7ee0b9c75099d72d3e8b0bf4bd51e60891a7f444
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Dec 1 17:25:09 2020 -0500
+
+    fixed for trailing zeros in ltl form
+
+commit 7ec790e1d9636252197896c60368e2f329080f90
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Dec 1 16:36:01 2020 -0500
+
+    editSample/editSampleDatabse
+    
+    just creditbusniessapp checkbox and
+    Material Description, Special Handling or Label Request - input not working
+
+commit de6fd8967c645fa84b63a9370248fcca438d36dd
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Dec 1 11:27:49 2020 -0500
+
+    added missing quotes
+
+commit 8db158a6f3fbdfef35bd534910dc89562b50ec29
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Dec 1 09:59:41 2020 -0500
+
+    db fixed
+
+commit 0ce4303be7d927aa11ebd8441b3e3b19976caf44
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Dec 1 08:55:26 2020 -0500
+
+    Db updates
+    
+    some minor fixes
+
+commit 0c907ddfb8e29f06260bd4ed447635b8584732a6
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 30 23:24:11 2020 -0500
+
+    removed autofill
+
+commit 624de45b052cd087f7459636dc89ed54de5379e8
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 30 23:05:53 2020 -0500
+
+    export to pdf implemented
+
+commit 69b9f70f58460414b27559a73ed447b087d4d5c5
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 30 21:57:35 2020 -0500
+
+    Update creditBusinessApp_TCPDF.php
+
+commit 5dfc2297ce6b535d4f700677d9270988080edca4
+Merge: e68ab38 2f2892d
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 21:53:32 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit e68ab38104243d9ea1dc1135a734597c9f7a103e
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 21:53:13 2020 -0500
+
+    Updated the credit form
+    
+    now the email, fax and phone also gets pre filled in the form
+
+commit 2f2892d12aa78ca96f334a759a76df4297d15858
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 30 21:44:05 2020 -0500
+
+    more pdf progress
+
+commit 420165f50d33e47dccca05bb962402bfe0c1bb51
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 30 20:22:26 2020 -0500
+
+    view summary
+    
+    more pdf progress
+    fixed company search bar
+
+commit 1ac01191863d35dff37b6b70a16e6ca7a5908d5a
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 30 19:35:05 2020 -0500
+
+    Updated common look and feel
+
+commit 930b55cd26764115197ecfcaa38cb8e9ddd25253
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 19:13:00 2020 -0500
+
+    for consistency on addEvent
+
+commit 79884362e65876e7a80c5c4406ff6afeb95fdb98
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 19:01:08 2020 -0500
+
+    for consistancy in the options on editEvent
+
+commit a3327f6ce51a72487bc259ccac472b1bb965bf0b
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 18:57:19 2020 -0500
+
+    updated editEvent for event_visibility
+
+commit 8c50fce7f0e5fc33bd1ee9a375236f97c85a5ae4
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 18:20:14 2020 -0500
+
+    redo + some changes for sales/indrep on addEvent and editEvent
+
+commit 6ecfea04570e2d1ec9f4f97ec4286cd39542eaa7
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 30 18:04:09 2020 -0500
+
+    Revert "Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet"
+    
+    This reverts commit 8ff7f312e7290390b0fb61fc897435765a14b18a, reversing
+    changes made to f54a3450083de175a871dff64b3e9087d9bd8043.
+
+commit 8ff7f312e7290390b0fb61fc897435765a14b18a
+Merge: f54a345 3e7e1da
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 30 18:02:40 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit f54a3450083de175a871dff64b3e9087d9bd8043
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 30 18:01:56 2020 -0500
+
+    Create editMMform.php
+
+commit 3e7e1daf710e08391788045278067d3ed4c613b9
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 17:53:31 2020 -0500
+
+    update for_all event visibility for supervisor role
+
+commit abd0bc13f31427ca926bc8d93065682eb4a4bd82
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 30 17:44:33 2020 -0500
+
+    Update Nylene_database_tables_V8.sql
+
+commit 19a91f5578c226695655024dfbf80877d9cd4d7c
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 14:24:35 2020 -0500
+
+    Fix Bug on AuthenticateUser
+
+commit 5fe77f102debf6f06def06f0295dd3c9c677f21f
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 14:05:00 2020 -0500
+
+    Fixed a bug in the newSampleForm
+    
+    curr_filler_sys was mispelled curr_filter_sys
+
+commit da7408a88f0ec9714c90a0b665edd7cf29dfce1d
+Merge: 22f3ec1 aa05a1c
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 13:40:47 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 22f3ec16a33fc7d0fe313d7545a7766d854d1124
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 13:40:34 2020 -0500
+
+    Updated DB file
+    
+    is_administrator column removed
+
+commit aa05a1c06b116022102f902cff7ca6913cf4ac6d
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 13:32:03 2020 -0500
+
+    Delete Nylene_database_tables_V9.sql
+
+commit aa7650e432e5183c742f53c48c41cdfb9d2ed21b
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 13:31:44 2020 -0500
+
+    Add files via upload
+
+commit 45b928363d737ee73bb28f0b02681cae214dbcfb
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 13:26:04 2020 -0500
+
+    just some formatting in the editSample
+
+commit 3c84f40c2a94603f4d1b41b7c757d2f8d3fe22d3
+Merge: b86009f 5d318da
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 13:18:55 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit b86009f858d0aefa015c1736a9ed68941d187474
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 30 13:18:34 2020 -0500
+
+    Bug for Sample View fixed
+
+commit 5d318da0db2bdf45dcc347f4d3aad741ebdce9d8
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 13:04:01 2020 -0500
+
+    Update AuthenticateUser.php
+
+commit 5b6e43229172a48e4c8fa28676ef20b2e712feb5
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 13:03:35 2020 -0500
+
+    Update Employee.php
+
+commit acf6c5608cdd4413786fa900a8130a64569db1d3
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 13:02:41 2020 -0500
+
+    Update searchCompany.php
+
+commit 32f1d849aba31253e41b2ed00714152096273519
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 20:26:11 2020 -0500
+
+    Fixed the credit business order pending bug
+
+commit 4aef28d823e26928aadd3152e2609d6a63f8e265
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 20:11:30 2020 -0500
+
+    formatted the code
+
+commit 504e04a134a70b0f38f4d6c4e01f7a3c8d8e7a70
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 20:06:49 2020 -0500
+
+    fixed the CSS on TLQuote Form
+
+commit 4cc0d57c28dc089c050c193e62859c9b57ad9af0
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 19:55:03 2020 -0500
+
+    Fixed the afterEditUser bug and edited the code
+
+commit 38b6efeb284b97397c4d058646a554e35c2a3668
+Merge: c4f9be1 e70644e
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 19:20:59 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit e70644e5229e7cbaecda3a7a15da3183a62e9f01
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 08:16:42 2020 -0500
+
+    Add files via upload
+
+commit 251c25cb3583a8f7978c30b2cb05b65adca9b53b
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 30 08:16:08 2020 -0500
+
+    Add files via upload
+
+commit b87a96d556b4c2430cf22685ae8306d5b5b5c8ef
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 30 00:04:08 2020 -0500
+
+    updated date for 4/6 forms + update interaction (for +30 date calc)
+
+commit 420be26685ca6e0cd0712bef9dd8370c8d0c4275
+Merge: 44a2248 9a0e55f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 23:26:47 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 44a2248809d1e315f673a01d2671835f21bbd045
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 23:26:46 2020 -0500
+
+    started credit business app conv to pdf
+
+commit 9a0e55fe1fc4e3159fd1a87ba18e06934e0ade74
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 23:03:04 2020 -0500
+
+    just a comment or two
+
+commit 25597c4f9abb96e2c6a200266795543ec340e69f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 22:44:03 2020 -0500
+
+    exported my db
+    
+    customer
+    company
+    relationship table
+
+commit 5334bdc9deadd0294a1c660ee9dbb5861d964612
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 22:23:23 2020 -0500
+
+    event user visibility
+
+commit 8b75a84101631965255b8d419a0f2ff4cfa74bae
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 20:58:07 2020 -0500
+
+    original file for editSampleDatabase
+
+commit 61bd8e1b9cf092ae09a169303dffdb07607d32e8
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 20:49:39 2020 -0500
+
+    fix redirect when editing interaction to include default sorting algorithm
+
+commit 33ad9d336e558bed97bbc3677ecac24f6e4c6865
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 20:41:55 2020 -0500
+
+    fixed redirect for edit forms
+    
+    now includes default sorting algorithm
+
+commit 1b774fc29026d81d0f42ff0d3589a79be2ed8dba
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 20:38:27 2020 -0500
+
+    view summary
+    
+    - Fixed all redirects to companyHistory from form creation to include default sorting algorithm
+    - searchCompany bug fix for non admin users
+    - other tweaks
+
+commit dff24ff3fb5ca18e857fe6100ed0ba18d0f8911e
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 20:15:11 2020 -0500
+
+    added event visibility for ind_rep
+
+commit f14627d1b83c35583f1b8ff6ee48f32e05337f57
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 19:47:13 2020 -0500
+
+    tweaks
+
+commit e616f8653d2380b669495582f3462b4053a4ba41
+Merge: 4c0defa 127e4dc
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 19:23:29 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 4c0defa08275df2a4f93fa23569992cab6f3b271
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 19:23:27 2020 -0500
+
+    added to search bar functionality
+    
+    entered items for search stay
+    added JS to handle clear search event
+
+commit c4f9be15a5349ca0e315e74e2a90dc94eb1f653b
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 19:20:55 2020 -0500
+
+    removed some commented code
+
+commit 127e4dcba4cf3d289883c22bb4e215e8fff9a03b
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 19:09:16 2020 -0500
+
+    finished supervisor and admin visibility on notifications on calendar
+
+commit 5c8dd925e6fca58cee531afd8aa52e62678f6fba
+Merge: 20d8331 0117512
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 18:50:04 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 20d8331c10cca4cb0896a2a5091b18c013c1833a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 18:49:56 2020 -0500
+
+    fix edit company bug
+    
+    had postal code and state swapped
+
+commit 0117512a59c48a02e28e9ed52e0bab67d9b81d56
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 18:42:57 2020 -0500
+
+    updated notifications visibility on calendar for sales_rep
+
+commit 86cbb264e3cd44d06824acd2b765eb231eb4dd1d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 18:12:08 2020 -0500
+
+    updated page styles
+
+commit 59f236b6d7e44eb6b9bc67ce6cf74df934605c13
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 16:46:14 2020 -0500
+
+    ind_rep notification vibility implemented
+
+commit 6683b14f19643ca1a00cb9b4bb9ae11a434a1293
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 16:00:46 2020 -0500
+
+    updated maxlength on comments from editCredit to autopopulate on interaction
+
+commit b34baa97b88ccdd64e5e82cd898106d469113946
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 15:55:43 2020 -0500
+
+    edit customer bugs fixed
+
+commit 87108c27a1a8a465c5be73d4812ecd06bcf7ed6f
+Merge: 2a26fe3 81605e4
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 15:29:33 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 2a26fe3ed0b080dbd8c405d32592c4f4a2baaba3
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 15:29:27 2020 -0500
+
+    Encryption complete
+    
+    Encryption works and the key is stored in  a text file
+
+commit 81605e437f4617835d7b4e0f80bab682e456ec86
+Merge: 990d00c 63d18d1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 14:50:06 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 990d00ccb7feda790719a845bba569cc810f5eeb
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 14:49:58 2020 -0500
+
+    add customer fixed
+    
+    - now checks for matching data in db first before inserting
+    - user will have to edit info before insertion can happen
+
+commit 63d18d1cf02ad5e441f227b5474b4677fce08dd5
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 14:30:15 2020 -0500
+
+    updated maxlength check for comment appending for edit mm form
+
+commit 88e47a1527f3e75f4377a4cfee77ee53565a98b3
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 14:25:26 2020 -0500
+
+    updated maxlength check for comment appending for ltl form
+
+commit cd16801790871c49b596ecc3ec25917b2c423460
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 14:21:54 2020 -0500
+
+    customer fixes
+    
+    - updated style
+    - updated check for existing info logic
+
+commit 9b2408c2c7e9e4cb7eb772ed44f12f02d1a8cde4
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 14:20:04 2020 -0500
+
+    updated maxlength check for comments for autoupdate from tl form
+
+commit 53b46b671595660f3644974b79134a4168f02316
+Merge: 332ed5f 43cdc5a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 14:04:12 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 332ed5f1d994deabc2ab21aefe11dafd2ee96e50
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 14:04:04 2020 -0500
+
+    fix edit company
+
+commit 43cdc5a546d7b2fe7625e111595bc5fff445a56a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 14:02:42 2020 -0500
+
+    updated max length of comment check on edit dist form
+
+commit c3b0ba223cb54ee86f4753e66780b148ff293532
+Merge: f979c8b 869a28d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 13:37:12 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit f979c8bdabc8549055bd0384e1b96ed718aa15fb
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 13:37:05 2020 -0500
+
+    addCompany fix
+    
+    fixed scenario when data already exists in db
+
+commit 869a28d93f5f7373d555a67d49db1d3967788ab0
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Sun Nov 29 13:32:53 2020 -0500
+
+    Updated Calendar
+    
+    removed comment section in follup up, and removed toronto time
+
+commit d6ab561059b4858d4fcda0f8dd968e45f899afb0
+Merge: 5eb3557 a932fe9
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 12:43:08 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 5eb3557e2f2c9c1c9946905ab124b81ce7fd0fac
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 12:42:58 2020 -0500
+
+    view summary
+    
+    - correctly implemented connect.php on madhav and karandeeps files
+    - Added title tag on several pages
+    - Updated redirect when adding comapany to include sorting
+    - Added TODO's for madhav (refrenceing old db file)
+    - updated addCompany.php&&editCompany.php check for existing data (not fixed - currently broken)
+    - updated addCustomer.php&&editCustomer.php check for existing data (not fixed - currently broken)
+
+commit a932fe97206f1ad7e70e751ee2a30265fbc4f8f2
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 12:24:18 2020 -0500
+
+    added date_default_timezone_set('America/Toronto'); to db connection function
+
+commit 3a34667220dfb45f21136f06a039d6eeba875636
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 11:51:34 2020 -0500
+
+    added timezone for date modified on interaction comments
+
+commit 071c79976382cb2450b6961ac1b0463be64809a0
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 10:54:46 2020 -0500
+
+    fixed code I uncommented a while back - and recommented
+
+commit a9c6c2024e342da1d8ef031f5f2ec7606cbd9113
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 29 09:11:54 2020 -0500
+
+    testing
+    
+    encryption
+
+commit 36fc8aa2c95a6e10af036685c9141fc488939271
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 01:24:28 2020 -0500
+
+    updated page style
+
+commit 83580aeca976c2c88ae3d46023e54fb6e7018a98
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 01:08:22 2020 -0500
+
+    added some titles and bug fixes
+
+commit 38a47e948ad5af50b3fb804a34f5381d68159b9c
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 29 00:42:16 2020 -0500
+
+    fixed icon
+
+commit ac6997faee6a9b469a88ad3281f277720bfd5fd5
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 29 00:13:42 2020 -0500
+
+    done autoupdate comment on editmm form for interaction
+    
+    needed to update to sssssssssiiiiiiiiiiiiiiiiisiiiiissssssssssssi, as some were mislabelled
+
+commit 5828e226776ac4db46671331655cac23d7c8e6ad
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 21:23:50 2020 -0500
+
+    done autoedit on editCreditForm
+    
+    still need to check for varchar max for comment field
+
+commit eeb4f0b156f49ba730a5e59f867e4a563368b2b7
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 19:41:02 2020 -0500
+
+    done autoupdate on editltl form to interaction
+    
+    still need to do check for varchar max for comment field
+
+commit 3009d2d8b12d6d26d2c0c5a93dd20933c75ba794
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 28 19:25:44 2020 -0500
+
+    Sample conv to PDF complete
+    
+    + other conv to pdf tweaks
+
+commit ac4db897772172660a19c540daba429ba9ea9285
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 18:30:00 2020 -0500
+
+    done autoupdate on edit tl form
+    
+    except varchar length check
+
+commit 82818847c421f4cdca2291c0e853de69747772f6
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 18:04:50 2020 -0500
+
+    done auto update on distributor form
+    
+    only missing check for exceding varchar length in db
+
+commit 36f356514fe7a20d2868d98ca2ef8037d6fdf272
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 17:01:06 2020 -0500
+
+    more code for auto-updated comments on distributor for interaction
+
+commit 0f95cf93d9132e5a42abcfff00437db1b2561ddf
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 28 16:15:10 2020 -0500
+
+    Distributor Quote conv to pdf complete
+    
+    also fixed typo in outro
+
+commit d262d5d786df05b2d567fb4016007a3722a593e0
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 28 14:16:55 2020 -0500
+
+    moved terms and conditions text to function
+
+commit 6b0aa0565858a15a7813430a6adc63f281a3b805
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 28 14:09:16 2020 -0500
+
+    added outro data following table
+    
+    Missed this prior to double checking supplied php files
+
+commit c8c6b1b0bc2303b2eb5f76cf0612f9958f1f2bc5
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 28 13:49:22 2020 -0500
+
+    view description
+    
+    - fixed db error (syntax error line 347)
+    - exported my company, customer and relational tables for easy database recreation
+    - ltlquote conv to pdf complete
+
+commit 9a42fca93e0d81b69d55a2fef23cf850bbeaa349
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 28 12:36:02 2020 -0500
+
+    Added PDL for auto-update for comments
+
+commit d15b0c4d90f09a363a5ede2fe0e81ec21b95fee2
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 27 15:18:50 2020 -0500
+
+    missed an s
+
+commit 5c0039801b79b03ca7a97633251388863f615316
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 27 14:57:38 2020 -0500
+
+    updated editforms to update follow up date
+    
+    changed follow date on mmform from request_date to date_needed, updated newSample, sample , and viewSample changed date to s, updated REQ to required
+
+commit 7a8627dd5971fd9479a913c3a069aba864d8b86c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 27 11:15:06 2020 -0500
+
+    missing ends
+
+commit 1d8316d11208bbe97db15caff245c96f945668cb
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Fri Nov 27 10:42:01 2020 -0500
+
+    Add files via upload
+    
+    finished editLtlQuoteform
+
+commit 4e1c7406c72e1ca328fc3a637613b06b7a415266
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Fri Nov 27 09:52:52 2020 -0500
+
+    Add files via upload
+    
+    finish editTlQuoteform
+
+commit c931d3e7a62410e5cf8d28d1af3af880bea3eae3
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Nov 26 23:18:48 2020 -0500
+
+    finished edit Distributor form
+
+commit be8a4e441e4791a39e8208236bc43adb1d611b86
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Nov 26 22:24:49 2020 -0500
+
+    added id fields
+
+commit 48da376e9c4626a68462382e054d8495019be03d
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Thu Nov 26 19:28:06 2020 -0500
+
+    Add files via upload
+
+commit 1306dee4a9fdc8f3a5edd393747b81b1b7dc70bb
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Thu Nov 26 10:38:38 2020 -0500
+
+    Add files via upload
+
+commit e41e9d5686b00fee3a9f0318c39a309ca4642cc4
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Nov 25 16:58:09 2020 -0500
+
+    Implementation of the follow_up
+    
+    clicking on the date with both events and follow_up date shows up, Interaction button directs to the specific interaction! Still need to fix how follow_up is shown on calendar??
+
+commit 59ce0e3e62d371ff93be08eda337ba611f377763
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 25 11:28:35 2020 -0500
+
+    editCreditApplicationBusiness
+    
+    completed
+
+commit 28f1a92ba88cd5d428c02fa4e0fa00a7b8011479
+Merge: dd462e0 fb4c921
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 25 09:15:48 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit dd462e072e61dd62fefce7b7030a99403838a4a1
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 25 09:15:34 2020 -0500
+
+    Update editCreditBusinessApplicationDatabase.php
+
+commit fb4c921940cbe5b48ca88cff3a10b61c1be75d03
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Nov 25 08:26:52 2020 -0500
+
+    Add files via upload
+
+commit 57bb20268d94e6c292ad355909c72cbb9daec6af
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 25 07:24:21 2020 -0500
+
+    Add files via upload
+
+commit f088025781eb194dfb5e95aea354ffb2e518bd60
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 25 07:11:28 2020 -0500
+
+    Add files via upload
+
+commit 8de3893ff39e3077a8966b281c756aa2cbcc6721
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 25 07:10:58 2020 -0500
+
+    Add files via upload
+
+commit df7fb64b6414a6eca6c80a26500b53491b1ae8f1
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 25 05:42:20 2020 -0500
+
+    Add files via upload
+
+commit 309f3fcba0c62deaa5ce19f30f63361aa0a445f9
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Nov 25 00:07:04 2020 -0500
+
+    Started editDistributor Form - just need to add functionality of checkbox generation and update query for db
+
+commit d6ea8df755d0e1c1c8430f0a90908cbb633fbaf2
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 24 23:19:36 2020 -0500
+
+    finished editInteraction
+
+commit d8ee852df2b0575164cf4bd1a053b79a42f281e9
+Merge: cdce10b 79f942e
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 24 21:35:18 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit cdce10b5103a8f0fe79cd87bbef79bb6166c1085
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 24 21:35:02 2020 -0500
+
+    update editCreditApplication
+
+commit 79f942e4a7c2f41df78f040f277709c596af0b44
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 24 19:57:37 2020 -0500
+
+    updated redirect
+
+commit 34bd6ceb3c52e0971e013ee7529333f09ac0dd58
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 24 15:19:12 2020 -0500
+
+    edit credit form
+
+commit 0c3c84e8e390358b68b0003d29746804cb8656c6
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 24 14:19:11 2020 -0500
+
+    edit credit application
+    
+    testing needs to be done
+
+commit f80d07eb10bdd815dfdab4faa0d43b7a030f4fc2
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 23 19:54:38 2020 -0500
+
+    Add files via upload
+
+commit 960b8482311ca05cbcc1d121a493bf5b726701d6
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Nov 23 17:25:21 2020 -0500
+
+    Added rough implementation of the followup interaction
+    
+    initerraction follow_up shows on the calendar, with fileds filled in, need to fix layout of the calendar and loading the interaction button to the specific view_interaction page
+
+commit a5a819add79f9274c60e37d59a867657a06e9ed0
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 22 22:31:54 2020 -0500
+
+    comment update
+
+commit 82ed31fbfc1a03d1b872258779837c902c5a04ac
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 22 22:30:52 2020 -0500
+
+    editInteraction works - except for updating follow_up_date
+    
+    still need update statement for form if type changed to form
+
+commit 2b5dcd7ffb1a02507df611c7643d6209e820d894
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 20:38:15 2020 -0500
+
+    updated testing interface
+
+commit 49a24378211b7e1917fc2d5f6066cdc8da7b2ad7
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 20:02:13 2020 -0500
+
+    functioning truck load quote
+
+commit 8931cdb31df0da62bb8181bb5d99049cd0fc0efb
+Merge: de2e24c 857fa60
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 19:57:29 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit de2e24cf87c827569bcece80d42c61524c8037f0
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 19:57:26 2020 -0500
+
+    connected tl quote pdf to data base
+
+commit 857fa6023063a4bce51479073ea61811b3002f74
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 22 17:58:33 2020 -0500
+
+    updated for dynamic value for editInteraction
+
+commit e2cf54a05b0070b27f33a665fc34b33e9e1fef81
+Merge: 24daf7f d47c222
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 17:33:45 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 24daf7fff289aa7f8fdaba3c67338db0e5396067
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 17:32:55 2020 -0500
+
+    More TCPDG progress + removed duplicate method in Employee
+
+commit d47c2220cad4760833bb4e5899a0ff2516b22bb1
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 22 17:28:06 2020 -0500
+
+    added in view form buttons on view Interaction
+
+commit f831edcf97440fdab4dd999a85c53a94822cd695
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 15:53:25 2020 -0500
+
+    TCPDF foundation start + completed Employee obj methods
+    
+    also incl source files provided by client for forms and other source file refinements.
+
+commit e74e7ddbd955a1a0c4c80f201e6c7dfc6d06f6d7
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 22 00:15:06 2020 -0500
+
+    Update jasonTestFile.php
+
+commit e2c77e9acdb4680b885d12e96808ee66787a094e
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 23:59:54 2020 -0500
+
+    fixed header bug
+    
+    logo now displays on all pages.
+    Performance impact when generating the pdf.
+
+commit 9a4c7d971eaf9443fa4104b2e1a9bf4d1ee1cd30
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 22:49:55 2020 -0500
+
+    added terms and conditions
+
+commit 497f5a25609a30ef8066c6e1d119ee35c9a8d6c0
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 22:20:44 2020 -0500
+
+    Added header to pdf (incl. logo)
+    
+    Overided TCPDF header function to accomplish this
+
+commit e787c0e16d6f06f8dc541c3fb8e8bf940876862e
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 21 20:59:34 2020 -0500
+
+    fixed date
+
+commit e83403e8900cf38c94af3ea26bac6625be451e74
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 21 19:50:31 2020 -0500
+
+    worked on the followupdate - still statically assign interactionID
+
+commit 4949c8ae48227eb9b58b8f0b21dfbde3cc5818d1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 19:11:44 2020 -0500
+
+    added website icon
+
+commit e9b367406193ad45c1818a264b3bbcf8a02365d4
+Merge: 5d97e68 a583a02
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 18:23:36 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 5d97e68d9ab26c651ef51d712107729dac59c989
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 18:23:18 2020 -0500
+
+    TCPDF doesnt like input fields
+
+commit a583a0202aa5d7a3e37de70317ddd408831f302c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 21 18:17:32 2020 -0500
+
+    editInteraction framework - doesn't work yet
+    
+    still lots to do with functionality and properly passing the interaction_id, but here is some of the basics
+
+commit 0c31c4906336f40ce691ec43622f2c7a3a6d2c63
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 18:12:54 2020 -0500
+
+    slight adjustment
+    
+    edit customer still has issues
+    not a priority atm
+
+commit 9b3f1b18753b2d91cc1481b546f49f8e30ac570d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 17:59:53 2020 -0500
+
+    added missing title tags + test conv form to pdf
+
+commit f148c0d2b215b443fc7fafa3cd8edf523210d534
+Merge: 3f27e5d 87ff4bc
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 16:55:22 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 3f27e5d24110e86b468575b24559348e498c9ee1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Nov 21 16:55:11 2020 -0500
+
+    working conv to pdf test file
+
+commit 87ff4bcba0061f2ac716792206510d9e0256f24e
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Nov 21 13:31:10 2020 -0500
+
+    updated addInteraction to disable form selection if the reason is not a form
+
+commit ce870060c0b17a59d4a50f8454a3ba66318d03f7
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Sat Nov 21 10:13:54 2020 -0500
+
+    Add files via upload
+
+commit 85527a9a7d92a1d1ecb28719cbbd7415b27fa6e1
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 20 21:55:40 2020 -0500
+
+    updated comments
+
+commit 31fbfe952107640b5628365d90bee923c71fec72
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 20 21:53:38 2020 -0500
+
+    implements viewInteraction follow_up notification functionality
+
+commit 3037666d8c7b7b904b84cb4da544ed22a4eaed11
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 20 20:54:55 2020 -0500
+
+    fixed sort bug, updated dynamic serach on interaction
+
+commit e59e317feb4c7607ca07e66ee98267abaef7fe36
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 20 20:04:37 2020 -0500
+
+    updated companyHistory with status field
+
+commit 94e0bd3f9e6fb27baf70809493f24bf5df9fc153
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 20 17:34:21 2020 -0500
+
+    fixed comma
+
+commit a6fa833a758b2215d1e26b366627018b33e08631
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Nov 20 17:30:48 2020 -0500
+
+    Add files via upload
+
+commit 131bd37abc36dfb22f9b72a4124df2bfa98947b4
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Nov 20 17:29:44 2020 -0500
+
+    Add files via upload
+
+commit 2bb818719a52d8f9c9680aec24d3777d4ad9c32a
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Nov 20 17:18:35 2020 -0500
+
+    Add files via upload
+
+commit 54d909678f4bb1b29abc2d2217512196b437ab1c
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Fri Nov 20 16:58:15 2020 -0500
+
+    Update newAddEvent.php
+
+commit e6c118301ed3040f586e4a3f2779ebb69fd47fef
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Fri Nov 20 16:57:33 2020 -0500
+
+    added additions of event visability to the calendar pages
+    
+    there is an error aftter trying to add event with  both admin and employee...
+
+commit f839de50085f6ac385c26ccc599e5fc94a452a38
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Thu Nov 19 23:46:04 2020 -0500
+
+    Add files via upload
+    
+    missed a field in the last commit.
+
+commit b5624ce189ad7c5a988119eeab256344ba0ede77
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Thu Nov 19 23:24:14 2020 -0500
+
+    Add files via upload
+
+commit a13c08ad2a6fe60e6eee0041ffd6176c46e36b3d
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Nov 18 17:26:12 2020 -0500
+
+    whoops - table fixed
+
+commit 77eaf286f914cefe9f93b378e07549fa81536383
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Nov 18 17:16:03 2020 -0500
+
+    added follow_up update to interaction form, had to add a credit_date field to base the notifaction date off of
+
+commit 8cc8028791d4845a4a79263006ae5efa27b1861a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Nov 18 10:26:32 2020 -0500
+
+    restored line 274 in db file
+
+commit d5784aff6481375b0c675417abb229393ab4e890
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Nov 18 10:16:51 2020 -0500
+
+    Add files via upload
+
+commit 1e64e545250b36073f78f6344dbddb3f94274bee
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Nov 18 10:15:53 2020 -0500
+
+    Add files via upload
+    
+    the logic for adding and retrieving checkboxes have been added. its just giving me some undefined index errors in my MMform_database. But won't be long.
+
+commit c85966ec0d35a54476c3ecb6b0d19d3b11d3ae7d
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Nov 18 10:15:40 2020 -0500
+
+    missed a comment
+
+commit 3ab963f471c311731e5fbafab27c1556b33a9a41
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Nov 18 06:00:38 2020 -0500
+
+    Update addEvent.php
+    
+    implemented addEvent for event visability, still need to implement into editEvent.php
+
+commit 369ac57ecb70217e58331362841e98030dcc27da
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Nov 18 05:22:26 2020 -0500
+
+    Update calendar.php
+    
+    Update button visibility to add/edit events for all users
+
+commit 2e38b85af1e531243b51f43d36f99420434fbbb2
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 17 21:38:57 2020 -0500
+
+    follow up date updated in interaction table when type of follow_up is 'form' selected
+    
+    Still need to test a little. still need to do credit business and materials request.
+
+commit 82f1506c70d1109794a1d7fa9db6c3bc8399fee9
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 17 20:17:01 2020 -0500
+
+    added functionality to add follow up notification to addInteraction
+    
+    still need to implement code for the form date insert, view company history, and view interaction
+
+commit adaf8c3f127996548168f3aeffe0948537de9063
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 16 22:33:10 2020 -0500
+
+    TCPDF library with test file
+    
+    Doesn't work
+
+commit 3838d9fc89308768e1c7d781272e8ec7b61d09c0
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Nov 16 18:40:33 2020 -0500
+
+    Add files via upload
+    
+    the checkboxes are not working, everything else is.
+
+commit 63747e8ebe665d14f03b3d9e61dfaa6912a33855
+Merge: c71b8f6 f6ad3d0
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Nov 16 18:11:25 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit c71b8f6c53243cdc629cb123c639261c472d308a
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Nov 16 18:11:22 2020 -0500
+
+    Update Nylene_database_tables_V8.sql
+    
+    Add event_visibility on calendar table in database
+
+commit f6ad3d03b04f63931f882437af2ff491c47d486f
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 15:36:45 2020 -0500
+
+    Update newCreditBusinessApplication to insert into interaction_relational_form
+
+commit 496e7be387855554dbfad608b0651d2ac773b2d2
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 14:06:22 2020 -0500
+
+    formatting done
+    
+    removed the commented code
+
+commit d48db4213621283968c9e070e52b99c2ae81e5b9
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 14:04:03 2020 -0500
+
+    Credit Business Application form
+    
+    Security features Complete
+    encryption and decryption works
+    protection from sql injection
+
+commit be8795301106d88e695cddfa4f04e83390f24e19
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 13:05:21 2020 -0500
+
+    fix Credit form
+
+commit 27f9d56abd2bc00333b62d7e503c4f097686e2c8
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 16 10:42:23 2020 -0500
+
+    Fixed $key
+
+commit 54aa9eb179d975ab813933d3aa1fa377e32f6dad
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 09:53:49 2020 -0500
+
+    Update viewCreditBusinessApplication.php
+
+commit 1e8b9575233790e927e711ccd972badfa1f92c39
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 16 09:06:37 2020 -0500
+
+    added the prepared statements for sql injection and some other minor fixes
+    
+    still needs testing
+
+commit 691da55c1bab087dc6c3072f44552e4376fb5ef1
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 15 21:02:47 2020 -0500
+
+    Updated interaction table with new fields, added them to interaction.php
+    
+    Only thing I didn't update in interaction.php is the dynamic sort
+
+commit c0278daad55f66777e971f7e138d64a0a46d775a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 15 20:11:18 2020 -0500
+
+    Updated interaction_relational_form insert query to accomodate multiple users
+    
+    updated $formID to use $conn's last inserted id (which is the formID in this case)
+
+commit f9384c784bd9364b18675669c275aa32355868d7
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 19:49:11 2020 -0500
+
+    javascript updates
+    
+    - fixed table headers javascript
+    - current sorted column still has minor bug
+
+commit 2db4e59f8b4c5aa25dfee821b3dd8678eafed642
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 19:20:05 2020 -0500
+
+    Updated css of search button
+
+commit 286e97402b74f922f1e3dfcc58a7e3b851243464
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 19:15:23 2020 -0500
+
+    Added javascript
+    
+    When user clicks search button the text changes to hide search, and vise versa
+
+commit 481dbf6431044abca6762e9e516d076ae9fd8b1d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 18:33:59 2020 -0500
+
+    shrunk buffer size
+
+commit c56de4d46440232d3282b9256de4408c321f8a2d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 18:30:08 2020 -0500
+
+    Interface tweaks
+    
+    modified next and previous buttons
+
+commit 069a1da3ea2ad095baca15aaa560b7834cf56509
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 18:00:49 2020 -0500
+
+    minor updates
+    
+    - Interaction searchId now returns obj instead of stmt
+    - added mossing coma's for company address on several pages
+
+commit b50f9a3df5583918afb018a13347db3955a1a299
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 17:35:24 2020 -0500
+
+    code tweaks
+    
+    - tweaked some navbar syntax
+    - corrected ASC and DESC date_created sorting
+    - more doccumentation
+    - by default all pages now sort by col 1
+
+commit 93c3c932c6662a933b9e769a721211d9c3d0239d
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 15 17:14:28 2020 -0500
+
+    updated to have payment_terms and ltl_quantities as datalist
+
+commit e393be9d96074122c633e4effbd6ce940490ebbf
+Merge: bff3ad8 3cdfa41
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 15 15:28:33 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit bff3ad8e9da469f08377238ce505327128577df6
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 15 15:28:19 2020 -0500
+
+    credit business
+
+commit 3cdfa415429944225956f89efd34d329d76c44b2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 15:20:03 2020 -0500
+
+    Interaction sorting complete
+    
+    both ASC and DESC.
+    added simple js to highlight table headers during mouse over event
+
+commit cf523cd4a21c48cf2414da2e9853dbab5192fd29
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Nov 15 14:47:32 2020 -0500
+
+    fixed a bug for order_pending checkbox  - changed it to a radio and added value to it
+    
+    still needs to be fixed on the viewForm to display the value
+
+commit 4d1f008b4e3fd64c4e58655c371b0e6de8a261f8
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 14:15:14 2020 -0500
+
+    customer sorting complete
+    
+    both ASC and DESC.
+    added simple js to highlight table headers during mouse over event
+
+commit d79f7e2c1ad865aed9a412382840c1fe10084c8b
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Sun Nov 15 11:40:30 2020 -0500
+
+    credit business
+
+commit 66e9835aa769321ced9268c7273158d036a902b0
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Sun Nov 15 11:39:39 2020 -0500
+
+    Update calendar.php
+    
+    added feature when clicking on event. It buggy on eclipse, but works fine on chrome...might need to look into that?
+
+commit 4f42d668a836330159b7a9d5a3b8dd1b58a9bd87
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Sun Nov 15 01:12:42 2020 -0500
+
+    Update calendar.php
+    
+    fixed capital case issue with navigation bar
+
+commit 3a1f2990ce0d061898e30ff8bb40b3db49ae4933
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Nov 15 00:23:28 2020 -0500
+
+    company sorting complete
+    
+    both ASC and DESC.
+    added simple js to highlight table headers during mouse over event
+
+commit 9344d3cbcef54adef5ad9bc3c0ac239cb8ae39c3
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 13 11:53:50 2020 -0500
+
+    renamed date_created to quote_date in dist, tl, and ltl forms, update db
+    
+    to reduce confusion with form notifications in future
+
+commit c1814fc72a8e26c292f0b714e7ee86d97a8b209f
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Nov 12 23:04:42 2020 -0500
+
+    updated comments
+
+commit 55699935f4b291124d11580c79fc49eecf156141
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Nov 12 22:52:15 2020 -0500
+
+    Updated 'employee info' pull from database to rely on formId (created by) instead of current user SessionID
+
+commit 1782b4dac515e3ae1ec8adba001df948af9693b4
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Nov 11 22:12:29 2020 -0500
+
+    sorting functions created and tested
+    
+    also updated all object "searchById()" functions to return the object instead of stmt.
+
+commit 15eab726b879c5e909b5d8753b0f72a8d1085d77
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 11 11:54:54 2020 -0500
+
+    update mmform
+
+commit c59b0528585700b5b379bada2569f2980e9cf249
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 11 11:30:34 2020 -0500
+
+    update
+
+commit f54c0fbc96e4f15da3d79623079ceb51335ce39b
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 11 09:07:07 2020 -0500
+
+    update
+
+commit d251f68ff3ffada6ce9a5c1e24500cb5a1836582
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Nov 11 08:44:26 2020 -0500
+
+    Add files via upload
+
+commit a5a20ad632a13a5d198bfb9be75185710d1a0b2d
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 11 07:14:20 2020 -0500
+
+    Update editUser.php
+
+commit 76acf2c3c48b848958c6ffbc4b757b0376069e52
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 11 06:08:33 2020 -0500
+
+    Update AuthenticateUser.php
+
+commit af3742907976bb73abf2cb581df3ad489055cba2
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 11 06:07:29 2020 -0500
+
+    Update editUserDatabase.php
+
+commit b31cea166c2d2702748b5686e9a217b9ece714c4
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 11 06:06:59 2020 -0500
+
+    Update editUser.php
+
+commit 0d6c04ffcf2b75349f7eb0991ea9386cde9659ac
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Nov 11 06:06:26 2020 -0500
+
+    Update afterEditUser.php
+
+commit 959579b62a5cdb93da25ee338a05fa98dc71400d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Nov 10 22:09:13 2020 -0500
+
+    Update viewMMForm.php
+
+commit 685578d3269500844deac4b772d8e2842ba450ed
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 10 20:48:17 2020 -0500
+
+    fixed date created and modified fields in browser
+
+commit f5e49c58623486d2bd0ca28a9b7a1654fa7c6197
+Merge: e66b15f f5c3bb7
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Nov 10 20:05:02 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit e66b15f5524bcfe53da7675e7f67c14893e1a361
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Nov 10 20:05:00 2020 -0500
+
+    fixed next10/prev10 bug
+
+commit f5c3bb7248d0b25c57d1e367f6c7beaa5ea7d328
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Nov 10 20:01:04 2020 -0500
+
+    Update editUserDatabase.php
+
+commit 79d0e7308519b5ef76c4fa928bc476653f347815
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Nov 10 20:00:35 2020 -0500
+
+    Update editUser.php
+
+commit ee69d1f8ad4b9f5775e7790b493b4e9ddfb97b52
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Tue Nov 10 20:00:13 2020 -0500
+
+    Update afterEditUser.php
+
+commit 7feb5254f35bc23278dc891edbd152f729ce6fed
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Nov 11 00:51:04 2020 -0500
+
+    Update calendar.php
+    
+    cleaned up file, added more documentation and comments
+
+commit 5cc21bbfafd9996dca8f2afeb90b2f56e4bccbec
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Tue Nov 10 19:24:24 2020 -0500
+
+    Add files via upload
+
+commit dc1f0e50a6c26863c3263ca1dba389796f055f36
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Nov 10 17:42:51 2020 -0500
+
+    fixed a comment
+
+commit 4d47d6d3dc6538d3ae100ceb838c5d3ba49a2868
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 10 13:43:45 2020 -0500
+
+    encryption and decryption working
+
+commit 074e9f70dd7d1574dab39b163f3e9ee57f319095
+Merge: fc20aec 7a81fdb
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 10 11:25:00 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit fc20aec8cc1c84e98f761e0bb5d457893e4315fb
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Nov 10 11:23:32 2020 -0500
+
+    update
+
+commit 7a81fdbbd9f2155f1e69bfae303309ba46f57322
+Merge: a5c6edb 2a97870
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 9 22:41:23 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit a5c6edbea080370d790882d78d8106613cd74543
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 9 22:41:20 2020 -0500
+
+    more sorting work
+
+commit 2a978703e7932651edc1b2fab6da88afde41adb5
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 9 21:00:12 2020 -0500
+
+    Update AuthenticateUser.php
+
+commit df08144773ad842ad1a8721d62a5829b14bf4b82
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Nov 9 20:59:30 2020 -0500
+
+    Update login.php
+
+commit 706e7de1601c89ae54b25fb54761ce576fbbfd21
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 9 20:52:09 2020 -0500
+
+    beginings of sorting
+    
+    god help me
+
+commit 2cb32dc4ce17dfd3c70fa3c8dc8e07b06ebab243
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Nov 9 19:14:03 2020 -0500
+
+    fixed navpanel include
+
+commit e25fbb7eaefa1aaa7bc3df0c9207362ecd9ae191
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 9 09:09:18 2020 -0500
+
+    Updated db connection
+
+commit 091cd663ed99873c3010faef337877a564cfb42d
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Nov 9 08:45:19 2020 -0500
+
+    UPDATED DATABASE
+
+commit aea09643cef8da708ee75670cea7e859e0676df8
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 6 16:42:33 2020 -0500
+
+    added $conn db assignment
+
+commit 3264d07779157221e45281a855ddb189831b072f
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 6 15:40:12 2020 -0500
+
+    Updated minor fix with visability with events and buttons
+
+commit 233a54a8b942bca54aaa29413c013f3221877298
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 6 15:16:46 2020 -0500
+
+    Updated dates to be in timezone
+
+commit b0399f9726557da67efa9a31935e7889bd57fe1f
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Fri Nov 6 14:46:34 2020 -0500
+
+    Updated how value is retrived form edit button on calendar
+
+commit 2d555fd3e0b602c653a40ec79cde9c6df3f1ed87
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Fri Nov 6 18:04:51 2020 -0500
+
+    moved calendar to its own folder
+    
+    moved calendar.php to its own folder, fixed connectioon
+
+commit 068014c20d71dbab94388361f5ef0f2db4265eb3
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Fri Nov 6 18:00:30 2020 -0500
+
+    Update calendar.php
+    
+    populates the calendar when event is created, can view multiple events.
+    
+    need to fix edit button upon clicking events...
+
+commit 9c2552b0f4c15d8683f6ddbd74c79e8324552744
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Nov 5 14:30:18 2020 -0500
+
+    Updated dbConnection on my files!
+
+commit 37bb829ed989ff7d2abb972786f6f6006b2ab0c3
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Nov 5 13:34:28 2020 -0500
+
+    Assigned more TODOs
+
+commit ad0a0f1427c85c69feea62336b0b1ce402933e3a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Nov 5 13:33:06 2020 -0500
+
+    assigned TODOs
+
+commit 42c1ed577712ae8e7136e9176266037fca349399
+Merge: 0528be4 1f8f6b8
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 4 11:00:18 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 0528be405c771d9bbdf5fc5f43df03965bbc1f10
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Nov 4 10:58:00 2020 -0500
+
+    encryption
+    
+    decryption doesn't work at the moment
+
+commit 1f8f6b8f8fe020a28ff2dda78db4851cc50fe80c
+Merge: ba7f480 6ca645c
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Nov 3 22:45:40 2020 -0500
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit ba7f480215fae0314b9f501b268f33956278f57a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Nov 3 22:45:37 2020 -0500
+
+    complete buffer integration/object integration
+    
+    all pages use objects and all pages with a "list" have been updated to use a buffer. sorting will come next
+
+commit 6ca645c5e4416482b6469520fe49389b561e7dba
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 2 22:50:17 2020 -0500
+
+    completed the insert file for the editEvent.php file
+
+commit f1fd34b0fc5720ee13255233987d4273160c9a4a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 2 22:15:56 2020 -0500
+
+    finished editEvent.php - still needs to be connected to calendar
+    
+    updateEvent.php (the insert file) needs to be completed in order to work
+    changed checked box to radio button
+
+commit eed2a251788ff7117cee838ba61b72e57ecf396c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Nov 2 15:22:14 2020 -0500
+
+    started editEvent.php action
+    
+    just need to fill in queries for it
+
+commit 8147ef47f93b9165628de30e4b1d774b0fb7eb07
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 23:59:02 2020 -0400
+
+    updated yes/no checkbox to be more 'user' friendly
+    
+    successfully redirect to addEvent.php from button, and adds event to database once form filled out
+
+commit 36f7cabcbf5696e18435952301cf3153fe984bcf
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 23:43:58 2020 -0400
+
+    Added addEvent.php and insert into db. Need to clean up a couple more things on the addEvent.php page
+    
+    Successfully adds event to database. updated button on calendar with redirect to page. Changed a minor thing in the the database v7(changed value from int to varchar)
+
+commit 77b134e1df95044a5e64611ae2ce926e7f17c3e0
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 22:14:29 2020 -0400
+
+    updated prepared statements for insert query in forms
+    
+    added htmlspecialchars and strip_tags of insert form files
+
+commit dc77014471364cbbdcac608ddfd6be4283f90a5c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 21:08:37 2020 -0400
+
+    added more code for the addEvent insert code for db
+
+commit 30b04d16bc988ece23d34d90726d5004046716d6
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 20:57:00 2020 -0400
+
+    updated code for addEvent.php file
+
+commit 23a3efe66d46ff3369336930b3fc48fdf58fd293
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 17:38:56 2020 -0400
+
+    laid the ground work for customer and interaction buffer controllers
+
+commit f1abcc8e14fd178e542936b7c429893adc72826c
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 17:34:15 2020 -0400
+
+    implemented session controller file
+
+commit 945898020136895dc397de30a6a77ce6a47eb18d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 16:53:15 2020 -0400
+
+    code tweaks
+
+commit 8ed752b0dfa1977ce8479ea2726e5dd50293a311
+Merge: 741ea80 03a9bac
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 16:45:31 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 741ea805745e6eb6436d9e45d743154a0576b341
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 16:45:05 2020 -0400
+
+    finished next/prev 10 buttons
+    
+    including disabled next/prev when at begining or end of list
+
+commit 03a9bacac8c4c4f3180fa97e9a67ec3d36c23848
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 31 16:33:05 2020 -0400
+
+    Created addEvent .php files - added a little code to it
+
+commit b7a8f43072111c49212efac68ba2bce525fe4e98
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 14:50:11 2020 -0400
+
+    Added //TODO: tasks to help organize workload
+
+commit c6ac7bfee26ff03ad5642bb51ecbeba2bb051058
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 14:24:49 2020 -0400
+
+    maintenance
+
+commit 4fe6d2040fbab213d92946ecbf2980de90903c56
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 14:21:28 2020 -0400
+
+    small code tweaks
+
+commit 21df1255158f08d7cb63afc94bfd1174325fa67d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 14:15:52 2020 -0400
+
+    implemented serialize to fix storage bug in linked list
+
+commit 18d1399e27381de275ef1e0b0b7347b678c7723f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 31 13:42:37 2020 -0400
+
+    implemented linked list for searching companies
+
+commit 7e70cfc6a4fe27170f71d3f110fa8f84daeff186
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Oct 30 16:48:41 2020 -0400
+
+    comments
+
+commit da50b701610c6d95341e187a0ff9a8358895811b
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Oct 29 20:06:01 2020 -0400
+
+    Added foreign key for employee_id to .sql version7
+
+commit 0d1c342141039a6d81784464204d8637e8d03b5a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Oct 29 19:45:48 2020 -0400
+
+    Updated calendar field in the .sql database file, and added new folder named calendar
+
+commit fa5529882c4a6bf9fb8c518f488402c28ebde8bd
+Merge: ddd364e d8267c4
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Oct 26 18:15:08 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit ddd364ee34d37b0009de05d8d7d54cbd4f6307ba
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Oct 26 18:14:41 2020 -0400
+
+    Update calendar.php
+    
+    added the "add event" button and events, still need to format them
+
+commit d8267c48342741315cb79f22afa808d78d9a949e
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Oct 26 17:56:13 2020 -0400
+
+    Add files via upload
+    
+    Addition with the requester's name field.
+
+commit 1b6f6fcde2efe366e1cc3b94ef13fec0fb17d12c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 25 18:23:16 2020 -0400
+
+    Updated database .sql file - added calendar table
+
+commit ea2cf3bff7d0e9dc589b74de1f010f2fca9ffca9
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Oct 12 23:34:03 2020 -0400
+
+    attempted to get editCustomer working
+
+commit 6fae75ff9ce0fb225c4b68a8d768c6795af38a84
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Oct 12 22:50:33 2020 -0400
+
+    more object oriented conversion
+    
+    add customer
+    add company
+    edit company
+    
+    WIP edit customer (broken atm)
+    
+    Added more methods to objects
+
+commit af3edffd77e3c8d026b0ee45c921518b9d723e23
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Oct 12 01:07:06 2020 -0400
+
+    added headers and comments
+
+commit 1315cec831545cbb5d796161a6aacad76ef71cad
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Oct 12 00:46:37 2020 -0400
+
+    implemented object for adding customers and company
+
+commit d1c177733b0bc02ea505a2ca96787694302a8be2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 21:56:03 2020 -0400
+
+    added objects
+    
+    customer, interaction
+
+commit b37b2e7b4f9404e795550563128e6f3ade2f3b6f
+Merge: 8b83416 30be6a3
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 18:22:54 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 8b83416688ce6c9016f9148624f8f76bdc19d17f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 18:22:51 2020 -0400
+
+    used employee objects for search menu
+    
+    next 10 previous 10 is incompatible with this version of the page.
+
+commit 30be6a3ef462e01bb112e0e9f19ade5bf8606c2c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 11 18:11:50 2020 -0400
+
+    Commented Emmett's sample forms + update prepared statement to fix date
+
+commit 359dd5833355ef38386dad1e84f4356bb6d2ae07
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 11 17:48:32 2020 -0400
+
+    Updated comments on viewQuote forms
+
+commit 4910128a77dc5c121bba955e31ff529767c2b716
+Merge: 3a484d7 6236461
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 17:17:51 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 3a484d7c6c6dcdc01872a76c75474bc8b0034d9f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 17:17:37 2020 -0400
+
+    fixed employee data in searchCompany
+
+commit 62364612dfdbe75c1c8e1c35a28a3c845622d5f5
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 11 17:12:05 2020 -0400
+
+    Updated comments on newQuote forms (inserting into the database)
+
+commit c9c8411be10ac823f4d4eaf128fc37dc8a98bd9b
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 15:41:18 2020 -0400
+
+    New get functions
+    
+    added some company get functions
+    figured out why employees info crashed in searchCompany, working on a fix
+    
+    included test file
+
+commit 2dfad97ee933ea6924f1836a5ae2d0d1d4daddce
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 14:50:10 2020 -0400
+
+    new files and more search updates
+    
+    Created a employee object file
+    added search functions to company object file
+    ****employee info still broken on searchCompany
+
+commit 63605c6f208fb0d8bdd88437ec5b8f3338a23641
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 03:09:05 2020 -0400
+
+    implemented object based search
+    
+    still some bugs with the employee info, will fix this later.
+
+commit 0b489d0d10cf99ab271daa22a96f8f87768f7737
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 11 00:06:43 2020 -0400
+
+    search function still unfinished
+
+commit d3129f5f69650a3885c26eb057a502883de0fd1d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 10 18:05:46 2020 -0400
+
+    colapsible search menu
+    
+    - does not work yet
+    + extra search options
+
+commit 263d3403709e37552206d1849ecc1403ef77c3e3
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Oct 10 14:58:52 2020 -0400
+
+    moved navigation.php back to Navpanel dir and refactored effected includes
+
+commit 551903d4138ee9549c60141a84659e403b49db0e
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Oct 9 21:37:49 2020 -0400
+
+    bug fix + swapped id's for names
+
+commit 1aeb46ed86dc8de8b3f61242d9648f20482527ef
+Merge: 34728cf 3cbd7f2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Oct 9 21:06:54 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 34728cfb36967fa1803c26900b1ef8d2b2e8cc43
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Oct 9 21:06:38 2020 -0400
+
+    added created by and assigned to
+
+commit 3cbd7f2cb96018ba0fcf62433f42b40d5d1ceee5
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Fri Oct 9 18:44:42 2020 -0400
+
+    comments
+
+commit d96293921d7c0c694acd6718c3db61616977f50d
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Oct 7 22:23:09 2020 -0400
+
+    Update creditBusinessApplication.php
+
+commit d9f4ea44198ee7ff5c564ef38ce45cbd04b66810
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Oct 7 10:17:49 2020 -0400
+
+    updated redirect
+
+commit f5aeca9c317ba0ec0fc696b46bc07f0670375973
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Oct 7 09:11:14 2020 -0400
+
+    Add files via upload
+
+commit 4cb1da47d753cb04c8b4248689457b0bd40f21d7
+Merge: a046930 acd115e
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Oct 7 08:53:07 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit a0469304cae2a258c59f9ce7dc0fa597fc02dcb4
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Oct 7 08:52:52 2020 -0400
+
+    Update MMForm
+
+commit acd115ee6d32cf60b8287c7b67ca68b85c6bcbd8
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Oct 7 08:36:20 2020 -0400
+
+    Add files via upload
+
+commit ba6c2c9991ab5783e6f99e021872f7d8e5014a6c
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Wed Oct 7 08:07:55 2020 -0400
+
+    Add files via upload
+
+commit 395013392c5cb660efd59bf967a6688f6e6dd1c7
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Tue Oct 6 23:29:07 2020 -0400
+
+    Calendar fixed
+    
+    formatted the cells to look even, have it start by monday now
+
+commit a8884ec470ac2b49cc653d30bb111a030123f59f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Oct 6 16:53:49 2020 -0400
+
+    updated version number
+
+commit 5cf849cd7648886dbe3f075b3a5455a03382de5e
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Oct 6 16:48:47 2020 -0400
+
+    updated redirect to MMform
+
+commit 924a88f5d2c35578a8686534b500b508e2eaf000
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Oct 6 12:01:33 2020 -0400
+
+    update credit form
+
+commit 78443e34e7b6f648934abb1caf800f082378ccc9
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Mon Oct 5 21:09:48 2020 -0400
+
+    Updated comments on input files for quote forms
+
+commit afd797b81961d03ad3667ed7d64c1b12d309280a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Oct 5 16:07:59 2020 -0400
+
+    Update MMform_Database.php
+
+commit bf9e7a977d54b29e40807bd4261ea9effb3ca54c
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Oct 5 15:06:46 2020 -0400
+
+    Update creditBusinessApplication.php
+
+commit a97d98362cc844b48f107cecc693913d2c120f62
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Mon Oct 5 13:51:09 2020 -0400
+
+    Add files via upload
+
+commit 86c41ac81a3849c48510210a36321b2fe83fac3f
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Oct 5 06:27:23 2020 -0400
+
+    Implemented Calendar
+    
+    Added the calendar to the homepage, it highlights the current day and can navigate forward and backwartd.
+
+commit 328a0bffbdc3c09d042d62e005ecb71761f98d10
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sun Oct 4 22:22:14 2020 -0400
+
+    Add files via upload
+
+commit 4895bf8e491b6095ebc8631c439356819795629e
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sun Oct 4 21:47:18 2020 -0400
+
+    Add files via upload
+
+commit aecc70e39b4e161bb7257b44a909fdf054cb256e
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sun Oct 4 21:46:56 2020 -0400
+
+    Add files via upload
+
+commit cb9696b371d3c619a63cb8f9ab776a2538246307
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 20:36:57 2020 -0400
+
+    last of the comments
+
+commit c7e25c45cf889138b7c19f7edf6a20d37031e65b
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 20:10:22 2020 -0400
+
+    More comments on my code
+
+commit 8fa0b851b51eb75b090860d524d764c704e0c0a1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 19:14:49 2020 -0400
+
+    Started adding comments to my code
+
+commit 5d5a5c986f90b5a2fdfa3b6c6ee9420c7bd85613
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 17:59:20 2020 -0400
+
+    small bug fix
+
+commit dfffb6f444fec2c7fa7dd0ff7698a481cf3904b1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 17:30:15 2020 -0400
+
+    name alignment for drop down menu
+
+commit 6bfd27138086825686a59b9cf25bcd114ba81fc5
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Oct 4 17:24:55 2020 -0400
+
+    bug fix
+    
+    Updated redirect to link to correct file
+    fixed database connection variable in form
+
+commit 4461cfb9873673171d3ef305f93d88b27edb09b3
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 4 15:07:23 2020 -0400
+
+    Minor update for prepared date type for quote forms
+    
+    i to s
+
+commit f101dff6eb2e24ac8b1ad0edb5bdf6ec24530c7b
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 4 14:24:11 2020 -0400
+
+    Updated TL form to allow quote calculation
+    
+    also formated quote with '/lb'
+
+commit 77943ad1d549cf08a393833817d2a3135ccb9a47
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Oct 4 14:08:35 2020 -0400
+
+    Updated ltl form to allow quote calculation
+
+commit 3bddf46fe5def9c8ce67f0c3e59757a1585f6b37
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Oct 3 21:38:37 2020 -0400
+
+    Updated distributor form to allow quote calculation
+    
+    Added checkbox enabler in event text is typed in another field. If checkbox checked, values are auto calculated in other fields
+
+commit e73acc196eab50e533474ce264c2f69f9b55c7d6
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Sat Oct 3 19:27:08 2020 -0400
+
+    Add files via upload
+
+commit f7eb181c8311ffa02708a5da5b61d398bcf29c2c
+Author: Karandeep1999 <47190510+Karandeep1999@users.noreply.github.com>
+Date:   Thu Oct 1 10:10:13 2020 -0400
+
+    Add files via upload
+
+commit ab0b82e5e2a6b2ba85adcf028db21579cdd7f56a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Oct 1 09:57:25 2020 -0400
+
+    fixed bug with adding customer
+
+commit a83b8cf577e4829f8e2a028b6a2950aad35a30eb
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Thu Oct 1 09:40:04 2020 -0400
+
+    Add files via upload
+
+commit c23da2e5ede951ec4439ff314661419f110773d5
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 22:04:25 2020 -0400
+
+    Finished preparing insert statements for sample form
+
+commit 0c028b2aee30561fc42d84b47a551df437f87d53
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 21:31:08 2020 -0400
+
+    Finished preparing insert statements for Distributor, TL and LTL Quote forms
+
+commit 81f6d30a95711ffb7622633d8b01fae72fa0442f
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 20:24:41 2020 -0400
+
+    Updated distributor_quote_form, tl_quote and ltl_quote form variables in the .sql database file
+
+commit 6550905e60e5d1ee922b8bcbd00d640a663158af
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 19:51:31 2020 -0400
+
+    Updated variables in TL form for terms calculation
+
+commit 80db0cd2a5f8d3ff35c37732442d794b14ff2ee8
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 19:37:25 2020 -0400
+
+    Updated variable in LTL form for terms calculation
+    
+    changed truck_load to int instead of text
+
+commit 60ba9c4d31452ea26d5f417e865d3481a0f60a77
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 18:56:13 2020 -0400
+
+    Updated variables in Distributor Quote Form for terms calculation
+
+commit b4c6ae28143ca5551226ac98fb883d89b2e59808
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Wed Sep 30 18:13:17 2020 -0400
+
+    Renamed a variable in the LTL Quote Form
+    
+    Renamed it in the db as well from tl_quote_id to ltl_quote_id for LTL Quote Form.... will update the .sql file once I have added in most of the changes to the db. Note: the LTL form wont work until i post new .sql file
+
+commit 8ff612d71b3e800345dfa442cd1af0613a621e6f
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Sep 30 14:42:37 2020 -0400
+
+    Update employee_database.php
+
+commit 9e82fb3d75b560258d764df2bff5c06dab5cf82a
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Sep 30 11:42:00 2020 -0400
+
+    Updated credit forms
+
+commit 8ecf61b3e6a2a7f869883f7aa8a6bf72b09c26dc
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Sep 30 11:35:53 2020 -0400
+
+    Credit Business Application Forms
+
+commit 32cce8ef0eb2d572276a76bd8893b0eb22184124
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Wed Sep 30 11:30:21 2020 -0400
+
+    Update Nylene_database_tables_V4.sql
+
+commit 1f891814976e0b506a0198a80cc5b500233227fe
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Tue Sep 29 21:07:21 2020 -0400
+
+    Added prepared statement to LTL Quote Form
+    
+    Prepared the main insert statement for inserting into db. Still need to do the select statements for updating interaction manager and relational table
+
+commit caa0164bbf0ce1e9f82b4706a7c9711a8ee46e9e
+Merge: 89e4407 e9e2f40
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Sep 29 11:49:39 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 89e44078ba5c521dbea7ef028f2ab760d26134cb
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Tue Sep 29 11:49:27 2020 -0400
+
+    Updated Database File
+
+commit e9e2f402d296474d753c66c488f7fcfa7dcf3ad2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 28 17:35:49 2020 -0400
+
+    moved viewMarketRequest to OLD
+
+commit a65a4e73ae5b9246092625185c5b6d79d1f36cfb
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 28 17:30:32 2020 -0400
+
+    fixed connect.php variable name
+    
+    $conn got switched to $connect, switch it back to $conn
+
+commit 74ecdfaad2a5ad163e77968edd22cccf8afa6c45
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 28 17:23:31 2020 -0400
+
+    moved old db file back
+    
+    this is temporary until authenticate user is migrated to other db file
+
+commit 2cf20725eadde9ac84ce027965ffe8c634582619
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 28 17:22:01 2020 -0400
+
+    moved obsolete db connection files
+
+commit 334337eada6fa7ba2e63d31a864ea76a778fbecf
+Merge: 2d31d87 c03b092
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Sep 28 16:48:18 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 2d31d87810a2e5b06def45c491d42bbcc57ce694
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Mon Sep 28 16:48:13 2020 -0400
+
+    test
+
+commit c03b09247527f508fa03ae507a4a0cfb01e6f169
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 16:18:27 2020 -0400
+
+    Add files via upload
+
+commit f98960b24b98ee891ab66e1eb206fd469ca23557
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 13:51:03 2020 -0400
+
+    Add files via upload
+
+commit 26ec6dc896826b5bdea4947e69be9c1a91e92689
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 13:50:32 2020 -0400
+
+    Add files via upload
+
+commit 0e60e6f99719b3c35d777fea4705821dc6087a5c
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 13:49:54 2020 -0400
+
+    Add files via upload
+
+commit 6ee55adf47f0c50d2838aceaa9c555295e4cf3c6
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 13:49:29 2020 -0400
+
+    Add files via upload
+
+commit f797119e445f3785f7e28ccb673f9f6f30581748
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Sep 28 13:49:01 2020 -0400
+
+    Add files via upload
+
+commit 2c47ea3ccfbc38ed40dd62905bbc1cfc85d0db71
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Sep 27 22:04:52 2020 -0400
+
+    Added prepared statement to Distributor Quote Form
+    
+    Prepared the main insert statement for inserting into db. Still need to do the select statements for updating interaction manager and relational table
+    
+    **Need to update database .sql form ltl_quantities should be text not int
+
+commit ea4d1ada2511ed9f760543c80c32bdd9122371b4
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Sep 27 18:52:45 2020 -0400
+
+    more sql injection
+    
+    add customer still broken
+
+commit 67ffb8841b9e2b3a34a988b0added1ef6244ce78
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Sep 27 17:41:26 2020 -0400
+
+    more sql injection
+    
+    add customer is broken
+
+commit 0ebf2bf64599c71c20828994bbef77fac8645f34
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Sep 27 16:40:37 2020 -0400
+
+    implemented basic preparedSQL
+    
+    attempt to protect from SQL injection
+
+commit 4038c5659cc9f3d54543edf04be927151ab02082
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Sep 27 15:52:53 2020 -0400
+
+    updated db stuff
+    
+    implemtned code for handling failed connections
+    implemented code to close said connection when its no longer needed
+
+commit b89654bb1686471656c79f4d2c3d0c08c2e53735
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Sep 27 14:27:10 2020 -0400
+
+    interaction manager update
+    
+    implemented options for new forms to be added.
+    
+    Also fixed broken redirect when no user detected
+
+commit 0215e5a430a259d47b4af2adcf705b59c43a1704
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Sep 26 18:34:41 2020 -0400
+
+    Renamed Emmett's insert.php to newSampleForm.php
+    
+    for clarity when dealing with the forms
+
+commit 29c30579d3be3cc93db9bd6facdc55c26a29bb4c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Sep 26 18:18:33 2020 -0400
+
+    Added reset functionality to input quote forms
+
+commit 19c5bd5b6e2c182cc89d20f5df40ab7ff2a68091
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Sep 26 18:04:41 2020 -0400
+
+    Updated Truckload Forms to connect.php
+
+commit f5214f87262131b47b6f224e8975f846c25d673a
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Sep 26 17:45:33 2020 -0400
+
+    Updated Light Truckload Quote Forms to connect.php
+
+commit 91426ae6f56a7bed6eea81a899722c43b3bcfdc6
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sat Sep 26 17:35:15 2020 -0400
+
+    Updated Distributor Quote Forms to connect.php
+
+commit e3348f00c8428e1c5c5afc0f6ca3a1d897d64640
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 21 17:30:11 2020 -0400
+
+    test
+
+commit 66f7aeeb451cb200966a5fdd62b0ea007070581a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 21 17:14:56 2020 -0400
+
+    mayve fixed .project file
+
+commit a4e858de170c733a1a7a6e453c6e80e85bfe8edb
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 21 17:11:21 2020 -0400
+
+    test
+
+commit 2de44f4381a96edba554911faa8fa3086dcf2d2f
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Sep 21 17:06:37 2020 -0400
+
+    test
+
+commit 6052d35ab52243c9151c49fec920f7a2ef15c09c
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Sun Sep 20 20:47:18 2020 -0400
+
+    Update distributorQuoteForm.php
+    
+    KB testing re-worked git/eclipse connection
+
+commit f69b7b663651a036c83c550709f1711bd0f34d3a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Sep 19 16:19:34 2020 -0400
+
+    Minor changes
+    
+    fixed name of Company.Employee to Company.Customer
+    Fixed CSS error for login page
+
+commit d68984d8ec226e82395973d32cdf2c9a0406dc19
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sat Sep 19 16:14:09 2020 -0400
+
+    Updated All my files to include Kaitlyn's connect.php file
+
+commit 02b68dc3e288196a2b6d1d8a2cac76160c36ca52
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Sep 18 18:41:41 2020 -0400
+
+    Migrated File System
+    
+    Admin: User acct manipulation
+    Company.Employee: All company profile and customer sub-profile management
+    CSS: all CSS
+    DataBase: All database related files
+    Forms: All forms
+    Graphics: As the title suggests
+    Home: Home page
+    Interactions: interaction managers
+    NavPanel: empty for now nvm this
+    OLD: old unused source files
+
+commit 7169eb2449ecae362dc0af6a9b2ee7d421dea331
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 15 18:22:14 2020 -0400
+
+    removed nasty headers
+
+commit fcb77b63c58a38858f9db074ce6db5aa7c815076
+Merge: 6255407 c120b7b
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 15 18:08:05 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 62554071afea7c6d62f51eeaff8fe00fa79c7db9
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 15 18:07:53 2020 -0400
+
+    bug fix
+    
+    fixed search company next 10 bug and date string format in viewCompany
+
+commit c120b7be4fe8398dc438d0ffacd52562267b62b9
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Apr 15 17:55:14 2020 -0400
+
+    updated header
+    
+    added consistent header to company history
+
+commit 3e4e927fd84ddb5d987557e5739254db8b92d46a
+Merge: 7a2375d 904b73e
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 15 17:48:01 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 7a2375dc09fc2b9b49bb6e9a5906dda05e2c54d1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 15 17:47:42 2020 -0400
+
+    menu bug fix for edituser
+
+commit 904b73e937a836fbd09efc3192c64d9da0d6cd04
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Apr 15 17:41:00 2020 -0400
+
+    removed repeated truckload option
+
+commit 8c92ec73e99b2ef3250684bfb30f45cccd9c6f4b
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Apr 15 17:09:28 2020 -0400
+
+    Update editUser.php
+
+commit 126db3dfdcd036d0bfbe53f244f18a11738c69b5
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Apr 15 16:09:33 2020 -0400
+
+    Update createUser.php
+    
+    extra option panel gone
+
+commit d69bca0876a5d8623cc464a1bd5468847f69dc76
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Wed Apr 15 16:05:00 2020 -0400
+
+    fixed pages and bugs
+    
+    fixed the layout of the cuustomer pages.
+    
+    interaction button coloured
+    
+    varchar duump in viewLtl commented
+    
+    worked on the edit user page
+
+commit 9a8c320d8faf4326329245783d99bfb2a14d30a2
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Wed Apr 15 02:26:23 2020 -0400
+
+    Add files via upload
+
+commit 26333d272ee1d598c8de909af8045037edc41fc1
+Author: Emmett Janssens <47871937+papaboxz@users.noreply.github.com>
+Date:   Wed Apr 15 00:08:33 2020 -0400
+
+    Fixed date issues
+
+commit 10def05ac19b42b29758205f33bd86bc9d893a96
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Tue Apr 14 22:00:29 2020 -0400
+
+    update update
+
+commit a735c6e1cf53367b845c75314d5eb1be4d80b1e1
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Tue Apr 14 20:00:10 2020 -0400
+
+    update interaction
+    
+    fixed the dropdown and layout of the interaction pages
+
+commit f20e03afcfde641749c382ed730a584562908da3
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 19:21:54 2020 -0400
+
+    Update createUser.php
+    
+    bug fix
+
+commit 0831b477c2217367b88b9fa403e9256c79f39b37
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 19:02:05 2020 -0400
+
+    bug fix
+
+commit d4e2065d4d8d948aeee8d8a154eef52eba9f6adf
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:53:46 2020 -0400
+
+    fixed another menu bug
+
+commit 95facdd0ece1388c9aeeb42765a6f9070cd72ace
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Tue Apr 14 18:46:55 2020 -0400
+
+    updated forms styling
+    
+    updated form
+
+commit 8cc7b01606b4eb79fe40de3ca4ff055edbe3c645
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:40:13 2020 -0400
+
+    Update AddInteraction.php
+    
+    removed marketing request form
+
+commit dcd7ef9e816778bf510cfa81ea10a087df0e7ef2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:37:34 2020 -0400
+
+    create user bug fix
+
+commit 17e78226218ff38cd92bec921b5130a7186fbe9d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:29:37 2020 -0400
+
+    menu update and bug fix
+
+commit cdec8a92342c3ed8f611edaf12e3acd2c46aff33
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:22:53 2020 -0400
+
+    added redirect for create user and ali's updates
+    
+    ali had issues updating repository
+
+commit 2f42884eed56dc843805e8305d6a21bb0db9547d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 18:19:02 2020 -0400
+
+    menu upgrades and new logo
+
+commit e2ba6ab22052df8a04df07e10d0663dff31cb5cc
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 17:35:33 2020 -0400
+
+    update menu
+    
+    added user icon
+
+commit f383dab3ac39c9dec636108a408636986e739a94
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:54:58 2020 -0400
+
+    Update addCustomer.php
+    
+    fixed menu bug
+
+commit 657525730f774a537db3f361786edf91a1bdfe70
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:50:12 2020 -0400
+
+    updated menu and added logo
+
+commit 3fd736f7ade6f6c27fb8b49ab6d9bc14f1c2a7ad
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:23:56 2020 -0400
+
+    fixed design flaw in table to fill blank space
+
+commit 81fad1e4f7833197bfe9f7c746297b97a662f2c7
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:17:31 2020 -0400
+
+    fixed style bug in user menu
+
+commit 26796627d3e90fe9e8e17b09df891456bcb7eaa0
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:14:20 2020 -0400
+
+    modified menu
+    
+    user menu now appears on far right
+    updates SQL, put admin emlpoyee insert back in
+
+commit adb8b1415359beacaae3bf791445d29687a8005a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 16:00:58 2020 -0400
+
+    moved Create user to its own menu option
+    
+    Admin Panel created in nav-bar
+
+commit a79df23297f188f6cc0935fef59e4d9bf469f5aa
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 14 15:51:35 2020 -0400
+
+    Update AuthenticateUser.php
+    
+    added a few lines of logic for a basic string compare for our basic admin accounts we created, before hashing was implemented
+
+commit 7b774be26adbdaf678d6b9673c4ababa4ef3e6d0
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Apr 13 21:15:18 2020 -0400
+
+    updated password
+    
+    in order to login you will have to navigate to createuser.php and create a user first since hashing will not allow our old method of logging in
+
+commit 833a9bab4afdba7ae68908436a24d8ae932f277f
+Merge: eccb098 902bac4
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Mon Apr 13 21:00:30 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit eccb098573afcaa73a52c6d2e62db0825f6ceb56
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Mon Apr 13 21:00:18 2020 -0400
+
+    update
+
+commit 902bac46bfd6451cbfd67812f83b60302a6258e5
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Mon Apr 13 16:59:59 2020 -0400
+
+    database
+
+commit 94b60fdc310f5d216f649e2485878cd14932745f
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 16:15:44 2020 -0400
+
+    Add files via upload
+
+commit 414c0f6a9f3799eeddcb22a5882c49b2da223fd2
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 15:53:10 2020 -0400
+
+    Delete createUser.html
+
+commit 166028e9d74698b9b3453b9e0705fc2bb10425ea
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 15:52:43 2020 -0400
+
+    Add files via upload
+
+commit 9504f31e96c8653e5ce4d9a8b828edded7dd66d7
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 15:16:10 2020 -0400
+
+    Add files via upload
+
+commit d9b0a108d5ecf425dad13a5c0bee80eb5e5d8e5e
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 15:15:22 2020 -0400
+
+    Add files via upload
+
+commit 02db228966fe54b0e4ec1ceb2856faa1de299308
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 14:23:47 2020 -0400
+
+    Add files via upload
+
+commit 833dc2b846d6fdf240c2d5594f1c77bb366458ef
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 14:15:53 2020 -0400
+
+    Add files via upload
+
+commit d15a47853e28cb3f5166180fd80871b0fc85801d
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 14:14:51 2020 -0400
+
+    Add files via upload
+
+commit 92cbc78491fdbf6feab08909b40c7e57ac1e89ce
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 14:06:27 2020 -0400
+
+    Add files via upload
+
+commit cbc1987bfc7fb70a92c19c9405a6a8f00d273dad
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 13:30:51 2020 -0400
+
+    Add files via upload
+
+commit 1dcdb46d544699a8b0c93a41fded38dc6778744d
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 13:29:45 2020 -0400
+
+    Add files via upload
+
+commit 8e0ad20ad41215dcbabb337c5382a1f9a6527567
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Mon Apr 13 13:25:15 2020 -0400
+
+    Add files via upload
+
+commit 7b61bed3141a2b0f02407a473151ac4904f1abed
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Fri Apr 10 19:10:31 2020 -0400
+
+    Add files via upload
+
+commit 1809e1a276e6448cee3a0790b05bd2e255fdae40
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Fri Apr 10 19:08:20 2020 -0400
+
+    Update DeleteCompany.php
+
+commit 71b331faf49d62885b6346ed67daf737c0a5ca1b
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Fri Apr 10 19:05:11 2020 -0400
+
+    Add files via upload
+
+commit a6c9d1de4af9cf0c4c41cfab3019a495003c0cfe
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Fri Apr 10 19:01:00 2020 -0400
+
+    Update Company.php
+
+commit abab6903164cf73134d8ee335f56355dd5f360e5
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Apr 10 18:58:46 2020 -0400
+
+    Create DeleteCompany.php
+    
+    posted on kimmy's behalf
+
+commit 5027178f7ad4ff9ce711b30fa4aaedffe6c24c89
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Apr 10 14:36:50 2020 -0400
+
+    deleted unused files
+
+commit 3ffe40833019da81348daa55ebae66fbd187687a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Apr 10 14:19:00 2020 -0400
+
+    nav into forms
+    
+    removed redundant comments and implemented navigation into forms
+
+commit bec645cef816052b0e67af1f0ea207c3a61367ba
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Fri Apr 10 14:17:31 2020 -0400
+
+    removed redundant files
+
+commit 39aa42ac48440d888fbd501a59ef3be2a450ba0e
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Thu Apr 9 21:14:51 2020 -0400
+
+    Add files via upload
+
+commit bf080abed778c7b9046013c6936ba02eee2db02d
+Merge: 406eb33 e059e60
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 20:57:57 2020 -0400
+
+    Merge branch 'Ali's-Branch'
+
+commit e059e60a6289e1532cd6f351e69edceadcdf9a46
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Thu Apr 9 20:27:24 2020 -0400
+
+    Style updated
+    
+    styled more of the forms
+
+commit 406eb33fe1758919d751559b7436b482f370609e
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 20:23:38 2020 -0400
+
+    Madhav's create user v1
+    
+    will be changed
+
+commit 5136e3cd26d1bc4fba2186d5c0052c02854d4fae
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 04:00:35 2020 -0400
+
+    fixed a bug i created in menu again
+
+commit b19c2057844a31596ada5f4fa166c7d314e2e9fc
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 03:36:22 2020 -0400
+
+    Update viewCompany.php
+    
+    added buttons on page into table
+
+commit e61372e4ca9b6c9892b420789c7f8b2df396b213
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 03:30:43 2020 -0400
+
+    bug fix and functionality
+    
+    fixed bug, where creating a customer didnt redirect to the correct page
+    Also implemented viewCompany to 10 customers per page, with next and previous buttons
+
+commit 71bce54c901b54a09d942e4f6c894199ca8fc89a
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 02:51:41 2020 -0400
+
+    Update CreateCompany.php
+
+commit 6ccc98d1d1521478d1266516c29b53f807167174
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 02:44:15 2020 -0400
+
+    Update Company.php
+
+commit ab090475585efccded0a9256a0403b46c4150ec7
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 02:42:03 2020 -0400
+
+    Create CreateCompany.php
+
+commit 66cf6e58e475bb3d0789a0ebf15587732ab876c1
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 02:38:18 2020 -0400
+
+    Update searchCompany.php
+    
+    implemented next and previous buttons for search company, groups of 10.
+    Still need to make this work with search by name and website though...
+
+commit bae617812daf882874401ee862fa60a381531eb8
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 02:20:37 2020 -0400
+
+    Update companyHistory.php
+    
+    Implemented next 10 and previous 10 button
+
+commit 745bc50eaaf23e7bb0b58da346436a90487470a6
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 01:20:24 2020 -0400
+
+    Create Company.php
+
+commit 199ea23c7539a7b73fe66e9400bf85fd052ace0a
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 01:19:47 2020 -0400
+
+    Create Database.php
+
+commit a039ca517f309c73dc663420b9cce072f4ab1d76
+Author: jimmytam1 <46762497+jimmytam1@users.noreply.github.com>
+Date:   Thu Apr 9 01:18:32 2020 -0400
+
+    Create ReadCompanies.php
+
+commit 1f7c343f6e4330cfd184782fbe70dee119e1e0f4
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 01:07:25 2020 -0400
+
+    implemented substring search
+    
+    substring search for companies works for name and website
+
+commit 7441d8b6d6639bcf9bbb60809fa597f88ba4d2cd
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 00:44:07 2020 -0400
+
+    fixed a bug i made
+    
+    sorry
+
+commit 855133ea31febe362c0af0a57177b30b5a8e4a6d
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Thu Apr 9 00:36:51 2020 -0400
+
+    menu bug fix
+    
+    fixed menu bug
+    fixed error when no form exists for an interaction
+
+commit 92c9a83f317a0e8b3252dae71cc4040b2864cdc6
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Apr 8 21:47:28 2020 -0400
+
+    forms done and menu tweak
+    
+    implemented the rest of the forms ***Marketing request form to be commented out***
+    Also added menu options for comapny history and view company to help with navigation
+
+commit e86782f5f7a7417abcc75f6e12e53964ba113680
+Merge: 7b02e23 13ea9ec
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 7 23:46:47 2020 -0400
+
+    Merge branch 'master' of https://github.com/waid0005/Nylene_Intranet
+
+commit 7b02e230fb9a4ab465a204f5aea8d473fe878f0a
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Tue Apr 7 23:42:52 2020 -0400
+
+    implemented some forms
+    
+    create and view interaction prototype with form functionality
+    Not all forms yet working
+    Sample and LTL form wokring
+    added fax number for customers
+
+commit 13ea9ece3a401b79fcef8e70b7dfe8013c42c776
+Merge: 909132c 52c850b
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Tue Apr 7 20:14:08 2020 -0400
+
+    Merge pull request #1 from waid0005/Ali's-Branch
+    
+    Ali's branch
+
+commit 909132ce56384bae8b841e4a17a10b4aed88b025
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Apr 6 21:26:59 2020 -0400
+
+    Update test.txt
+
+commit 52c850b9f0a0128a110eecaf2773a62b943b0b35
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Apr 6 21:23:01 2020 -0400
+
+    Add files via upload
+    
+    Updated with Emmett's Sample form working
+    I added a Sample on the navigation as a placeholder to test the form!
+
+commit c8366c744d7dced9ba4f2e4bb9da490687d6d563
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Apr 6 17:13:34 2020 -0400
+
+    Add files via upload
+    
+    added changes to the styling of the pages
+
+commit bb5ec626ad1f84be6b87d478d02a3ddb65e9667e
+Author: Ahmad Syed <52643809+ahmadalisyed@users.noreply.github.com>
+Date:   Mon Apr 6 15:59:45 2020 -0400
+
+    Add files via upload
+    
+    re-upload to make sure it works
+
+commit e31eb3ade175973e90b7de3d47c3d90b14f045ea
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Sun Apr 5 22:29:46 2020 -0400
+
+    workspace migration
+
+commit f48f10762617afa44c9d4864bf92cc8d1189d726
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Thu Feb 20 13:09:58 2020 -0500
+
+    Madhav Sachdeva
+
+commit 051eff6c2c2da14e716849e977b02e6567474ee3
+Author: kaitlynbreker <52720569+kaitlynbreker@users.noreply.github.com>
+Date:   Thu Feb 20 12:08:50 2020 -0500
+
+    Update test.txt
+
+commit 0e57d8fcb7252ba604d2d9d2118baff9830ae7c6
+Author: Emmett Janssens <47871937+papaboxz@users.noreply.github.com>
+Date:   Thu Feb 20 11:42:06 2020 -0500
+
+    I make change
+    
+    I added my name
+
+commit d50455469ad4b25efda001af2e8eb6b9d35ea9dc
+Author: Isha <ishamittal2018@gmail.com>
+Date:   Thu Feb 20 11:39:52 2020 -0500
+
+    Update test.txt
+
+commit 8e4a3d02f2bc9466f5aec5a0709b8fcf5c6c29e2
+Author: waid0005 <waid0005@algonquinlive.com>
+Date:   Wed Feb 19 22:21:22 2020 -0500
+
+    Create test.txt
