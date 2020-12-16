@@ -23,7 +23,6 @@ function getDBConnection()
     return $conn;
 }
 
-
 /*
  * Function: getEncriptionKey
  * Author: Isha Isha
@@ -46,5 +45,4 @@ function getEncriptionKey(){
     
     return $key;
 }
-
 ?>

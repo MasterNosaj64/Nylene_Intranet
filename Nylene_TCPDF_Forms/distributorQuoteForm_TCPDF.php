@@ -14,108 +14,101 @@ include '../Nylene_TCPDF_Forms/TCPDF_getHTML.php';
 
 $conn = getDBConnection();
 
-// test variables
-
+// Gets the form_id from html string: ?id=x
 $form_id = $_GET['id'];
 
 /* Check the connection */
 if ($conn->connect_error) {
-    
+
     die("Connection failed: " . $conn->connect_error);
 } else {
-    
+
     /* Selection statement for employee that created the form */
     $userInformation = "SELECT * FROM employee
                             INNER JOIN interaction ON interaction.employee_id = employee.employee_id
                                     INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
                                         INNER JOIN distributor_quote_form ON distributor_quote_form.distributor_quote_id = interaction_relational_form.form_id
                                             WHERE distributor_quote_id = " . $form_id;
-    
+
     $userResult = $conn->query($userInformation);
     $userRow = mysqli_fetch_array($userResult);
-    
+
     /* Selection statement for form */
     $distributorQuery = "SELECT * FROM distributor_quote_form
-								WHERE distributor_quote_id = ". $form_id;
-    
+								WHERE distributor_quote_id = " . $form_id;
+
     $distributorResults = $conn->query($distributorQuery);
     $distRow = mysqli_fetch_array($distributorResults);
-    
+
     /* Selection statement for customer passed from interaction */
-    $customerInformation	= "SELECT * FROM customer
+    $customerInformation = "SELECT * FROM customer
 									INNER JOIN company_relational_customer ON company_relational_customer.customer_id = customer.customer_id
 										INNER JOIN company ON company.company_id = company_relational_customer.company_id
 											INNER JOIN interaction ON interaction.company_id = company.company_id
 												INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 													INNER JOIN distributor_quote_form ON distributor_quote_form.distributor_quote_id = interaction_relational_form.form_id
-														WHERE interaction_relational_form.form_type = 4 AND interaction_relational_form.form_id = ". $form_id;
-    
+														WHERE interaction_relational_form.form_type = 4 AND interaction_relational_form.form_id = " . $form_id;
+
     $customerResult = $conn->query($customerInformation);
     $customerRow = mysqli_fetch_array($customerResult);
-    
+
     $companyInformation = "SELECT * FROM company
 								INNER JOIN interaction ON interaction.company_id = company.company_id
 									INNER JOIN interaction_relational_form ON interaction_relational_form.interaction_id = interaction.interaction_id
 										INNER JOIN distributor_quote_form ON distributor_quote_form.distributor_quote_id = interaction_relational_form.form_id
 											WHERE interaction_relational_form.form_type = 4 AND interaction_relational_form.form_id =" . $form_id;
-    
+
     $companyResult = $conn->query($companyInformation);
     $companyRow = mysqli_fetch_array($companyResult);
-    
+
     $conn->close();
 }
-
-// get customer_id, employee_id, company_id, form_id, interaction_id
-
 // create new PDF document obj
 $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
+// Creator is default
 $pdf_obj->SetCreator(PDF_CREATOR);
+// Author will use created_by from database
 $pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
-$pdf_obj->SetTitle($companyRow['company_name']." - Distributor Quote");
+// the title of the page (the name of the window / tab)
+$pdf_obj->SetTitle($companyRow['company_name'] . " - Distributor Quote");
+// the subject
 $pdf_obj->SetSubject("Distributor Quote");
 
-// Header and Footer Fonts
-$pdf_obj->setHeaderFont(Array(
-    PDF_FONT_NAME_MAIN,
-    '',
-    PDF_FONT_SIZE_MAIN
-    ));
+// Footer Fonts
+// defaults are used in this case
 $pdf_obj->setFooterFont(array(
     PDF_FONT_NAME_DATA,
     '',
     PDF_FONT_SIZE_DATA
 ));
 
-// set default monospaced font
-$pdf_obj->SetDefaultMonospacedFont('helvetica');
-
 // set margins
+// margin of 35 is used instead of the default because of our custom header.
 $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '35', PDF_MARGIN_RIGHT);
-$pdf_obj->SetHeaderMargin(PDF_MARGIN_HEADER);
+// Default
 $pdf_obj->SetFooterMargin(PDF_MARGIN_FOOTER);
 
+// enabled the header and the footer
 $pdf_obj->setPrintHeader(true);
 $pdf_obj->setPrintFooter(true);
 
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
 // set auto page breaks
+// in this case we use defaults
 $pdf_obj->SetAutoPageBreak(True, PDF_MARGIN_BOTTOM);
 
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// add a page
+// adds a page ready for use
+// P for portrait
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// set font
-$pdf_obj->SetFont('helvetica', 'B', 20);
+// set font, style and size
+$pdf_obj->SetFont('helvetica', '', 12);
 
+// the html markup for page 1
 $page1 = '';
 
+// first page is broken down into segments, veiw function comments for more details
 $page1 .= create_EmployeeHTML($userRow['employee_id']);
 
 $page1 .= create_CustomerHTML($customerRow['customer_id']);
@@ -124,15 +117,13 @@ $page1 .= create_CompanyHTML($companyRow['company_id']);
 
 $page1 .= create_QuoteIntroHTML($customerRow['customer_id']);
 
-// set font
-$pdf_obj->SetFont('helvetica', '', 12);
-
-// output the HTML content
+// output the HTML content onto the page
 $pdf_obj->writeHTML($page1, true, false, true, false, '');
 
 // add a page
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
+// html markup for the next page
 $content .= '
     		<table border="1">
     			<thead>
@@ -219,19 +210,19 @@ $content .= '
     				<td> ' . $distRow['range24'] . '</td>
     			</tr>
     		</table>';
-
+// see function comment for more details
 $content .= create_QuoteOutroHTML($userRow['employee_id']);
 
 // set font
 $pdf_obj->SetFont('helvetica', '', 12);
 
-// output the HTML content
+// output the HTML content to page
 $pdf_obj->writeHTML($content, true, false, true, false, '');
 
-// add a page
+// add a new page
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// Terms and conditions
+// Terms and conditions html mark up
 $terms .= "";
 
 $terms .= create_QuoteTermsAndConditionsHTML();
@@ -245,8 +236,9 @@ $pdf_obj->writeHTML($terms, true, false, true, false, '');
 // reset pointer to the last page
 $pdf_obj->lastPage();
 
+// this must be done in order to view the PDF file in browser right away before downloading
 ob_end_clean();
 
+// outputs the file,
 $pdf_obj->Output($companyRow['company_name'] . "-Distributor Quote.pdf", "I");
-
 ?>

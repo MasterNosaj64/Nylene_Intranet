@@ -2,7 +2,7 @@
 /*
  * FileName: creditBusinessApp_TCPDF.php
  * Version Number: 1.0
- * Date Modified: 11/29/2020
+ * Date Modified: 12/15/2020
  * Author: Jason Waid
  * Purpose:
  * Creates PDF file for credit Business Application
@@ -14,8 +14,7 @@ include '../Nylene_TCPDF_Forms/TCPDF_getHTML.php';
 
 $conn = getDBConnection();
 
-// test variables
-
+//Gets the form_id from html string: ?id=x
 $form_id = $_GET['id'];
 
 /* Check the connection */
@@ -77,42 +76,38 @@ if ($conn->connect_error) {
 $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
+//Creator is default
 $pdf_obj->SetCreator(PDF_CREATOR);
+//Author will use created_by from database
 $pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
+//the title of the page (the name of the window / tab)
 $pdf_obj->SetTitle($companyRow['company_name'] . " - Credit Application For Business Account");
+//the subject
 $pdf_obj->SetSubject("Credit Application For Business Account");
 
-// Header and Footer Fonts
-$pdf_obj->setHeaderFont(Array(
-    PDF_FONT_NAME_MAIN,
-    '',
-    PDF_FONT_SIZE_MAIN
-));
+//Header and Footer Fonts
+//defaults are used in this case
 $pdf_obj->setFooterFont(array(
     PDF_FONT_NAME_DATA,
     '',
     PDF_FONT_SIZE_DATA
 ));
 
-// set default monospaced font
-$pdf_obj->SetDefaultMonospacedFont('helvetica');
+
 
 // set margins
+//margin of 35 is used instead of the default because of our custom header.
 $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '35', PDF_MARGIN_RIGHT);
-$pdf_obj->SetHeaderMargin(PDF_MARGIN_HEADER);
+//Default
 $pdf_obj->SetFooterMargin(PDF_MARGIN_FOOTER);
 
+//enabled the header and the footer
 $pdf_obj->setPrintHeader(true);
 $pdf_obj->setPrintFooter(true);
 
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
 // set auto page breaks
+//in this case we use defaults
 $pdf_obj->SetAutoPageBreak(True, PDF_MARGIN_BOTTOM);
-
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // add a page
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
@@ -128,6 +123,7 @@ if ($creditBusinessRow['order_pending'] == '1') {
     $orderPending = "No";
 }
 
+//the html markup for page 1
 
 // Business Contact Info
 $content .= '
@@ -339,7 +335,7 @@ $content .= '
 			</tr>
             </table>';
 
-// set font
+// set font, style and size
 $pdf_obj->SetFont('helvetica', '', 10);
 
 // output the HTML content
@@ -348,8 +344,10 @@ $pdf_obj->writeHTML($content, true, false, true, false, '');
 // reset pointer to the last page
 $pdf_obj->lastPage();
 
+//this must be done in order to view the PDF file in browser right away before downloading
 ob_end_clean();
 
+//outputs the file,
 $pdf_obj->Output($companyRow['company_name'] . "-Credit Application For Business Account.pdf", "I");
 
 ?>

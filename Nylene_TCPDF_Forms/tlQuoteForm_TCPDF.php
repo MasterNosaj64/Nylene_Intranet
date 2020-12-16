@@ -14,6 +14,7 @@ include '../Nylene_TCPDF_Forms/TCPDF_getHTML.php';
 
 $conn = getDBConnection();
 
+// Gets the form_id from html string: ?id=x
 $form_id = $_GET['id'];
 
 /* Check the connection */
@@ -67,51 +68,45 @@ if ($conn->connect_error) {
 $pdf_obj = new TCPDF_NYLENE('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
+// Creator is default
 $pdf_obj->SetCreator(PDF_CREATOR);
+// Author will use created_by from database
 $pdf_obj->SetAuthor($userRow['first_name'] . " " . $userRow['last_name']);
-$pdf_obj->SetTitle($companyRow['company_name']." - Truckload Quote");
+// the title of the page (the name of the window / tab)
+$pdf_obj->SetTitle($companyRow['company_name'] . " - Truckload Quote");
+// the subject
 $pdf_obj->SetSubject("Truck Load Quote");
 
-// Header and Footer Fonts
-$pdf_obj->setHeaderFont(Array(
-    PDF_FONT_NAME_MAIN,
-    '',
-    PDF_FONT_SIZE_MAIN
-));
+// Footer Fonts
+// defaults are used in this case
 $pdf_obj->setFooterFont(array(
     PDF_FONT_NAME_DATA,
     '',
     PDF_FONT_SIZE_DATA
 ));
 
-// set default monospaced font
-$pdf_obj->SetDefaultMonospacedFont('helvetica');
-
 // set margins
+// margin of 35 is used instead of the default because of our custom header.
 $pdf_obj->SetMargins(PDF_MARGIN_LEFT, '35', PDF_MARGIN_RIGHT);
-$pdf_obj->SetHeaderMargin(PDF_MARGIN_HEADER);
+// Default
 $pdf_obj->SetFooterMargin(PDF_MARGIN_FOOTER);
 
+// enabled the header and the footer
 $pdf_obj->setPrintHeader(true);
 $pdf_obj->setPrintFooter(true);
 
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
 // set auto page breaks
+// in this case we use defaults
 $pdf_obj->SetAutoPageBreak(True, PDF_MARGIN_BOTTOM);
 
-// set image scale factor
-$pdf_obj->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-// add a page
+// adds a page ready for use
+// P for portrait
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// set font
-$pdf_obj->SetFont('helvetica', 'B', 20);
-
+// the html markup for page 1
 $page1 = '';
 
+// first page is broken down into segments, veiw function comments for more details
 $page1 .= create_EmployeeHTML($userRow['employee_id']);
 
 $page1 .= create_CustomerHTML($customerRow['customer_id']);
@@ -120,15 +115,16 @@ $page1 .= create_CompanyHTML($companyRow['company_id']);
 
 $page1 .= create_QuoteIntroHTML($customerRow['customer_id']);
 
-// set font
+// set font, style and size
 $pdf_obj->SetFont('helvetica', '', 12);
 
-// output the HTML content
+// output the HTML content onto the page
 $pdf_obj->writeHTML($page1, true, false, true, false, '');
 
 // add a page
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
+// html markup for the next page
 $content .= '
     		<table border="1">
     			<thead>
@@ -220,20 +216,21 @@ $content .= '
     			</tr>
     		</table>';
 
+// see function comment for more details
 $content .= create_QuoteOutroHTML($userRow['employee_id']);
 
 // set font
 $pdf_obj->SetFont('helvetica', '', 12);
 
-// output the HTML content
+// output the HTML content to page
 $pdf_obj->writeHTML($content, true, false, true, false, '');
 
 // add a page
 $pdf_obj->AddPage('P', PDF_PAGE_FORMAT, false, false);
 
-// Terms and conditions
+// Terms and conditions html mark up
 $terms .= "";
-    
+
 $terms .= create_QuoteTermsAndConditionsHTML();
 
 // set font
@@ -245,8 +242,10 @@ $pdf_obj->writeHTML($terms, true, false, true, false, '');
 // reset pointer to the last page
 $pdf_obj->lastPage();
 
+// this must be done in order to view the PDF file in browser right away before downloading
 ob_end_clean();
 
-$pdf_obj->Output($companyRow['company_name']."-Truckload Quote.pdf", "I");
+// outputs the file,
+$pdf_obj->Output($companyRow['company_name'] . "-Truckload Quote.pdf", "I");
 
 ?>
