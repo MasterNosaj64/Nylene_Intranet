@@ -101,9 +101,9 @@ class Company
 
         // query to insert record
         $query = "INSERT INTO
-                nylene.company (company_name, website, shipping_address_street,shipping_address_city,shipping_address_state,shipping_address_postalcode,
-				shipping_address_country,billing_address_street,billing_address_city,billing_address_state, billing_address_postalcode,
-				billing_address_country,description,type,industry, company_email, assigned_to, date_created, created_by)
+                nylene.company (company_name, website, billing_address_street, billing_address_city, billing_address_state,  billing_address_postalcode, 
+				billing_address_country,  shipping_address_street, shipping_address_city, shipping_address_state, shipping_address_postalcode, 
+				shipping_address_country, description, type, industry, company_email, assigned_to, date_created, created_by)
             VALUES(
               ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -130,10 +130,12 @@ class Company
         $created_by = htmlspecialchars(strip_tags($created_by));
 
         $stmt->bind_param("ssssssssssssssssisi", $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
-
+        
         if (! $stmt->execute()) {
+            $stmt->close();
             return false;
         }
+        $stmt->close();
         return true;
     }
 
@@ -740,6 +742,30 @@ class Company
     function getShippingAddressCountry()
     {
         return $this->shipping_address_country;
+    }
+    
+    /*
+     * Function Name: getDateCreated
+     * Version: 1.0
+     * Date Modified: 12/17/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the Date Created
+     */
+    function getDateCreated()
+    {
+        return $this->date_created;
+    }
+    
+    /*
+     * Function Name: getDateModified
+     * Version: 1.0
+     * Date Modified: 12/17/2020
+     * Author: Jason Waid
+     * Purpose: Function returns the Date Modified
+     */
+    function getDateModified()
+    {
+        return $this->date_created;
     }
 
     /*
