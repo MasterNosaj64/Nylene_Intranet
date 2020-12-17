@@ -260,7 +260,7 @@ session_start();
         </ul>
              </td>
                         <!--Audience Personal Information -->
-         <td colspan="2"><textarea name="Info" rows="11" width="1000px" cols="70" value="<?php echo $row['audiance_personal_info']?>"></textarea></td>
+         <td colspan="2"><input type="text" name="Info" rows="11" width="1000px" cols="70" value="<?php echo $row['audiance_personal_info']?>"></td>
 
         <br/>
         <br/>
@@ -270,19 +270,19 @@ session_start();
                         <!--Purpose -->
           <table cellpadding="5" cellspacing="1" class="form-table"><thead>
               <tr id="purpose"><td id="column_heading"  border="0" style="text-align: left;"><b>Purpose</b></td></tr></thead>
-              <tr><td colspan="2"><textarea name="purpose" rows="6" cols="120" value="<?php echo $row['purpose'];?>"></textarea></td>
+              <tr><td colspan="2"><input type="text" name="purpose" rows="6" cols="120" value="<?php echo $row['purpose'];?>"></td>
         </tr> </table>
 
                         <!--Key Messages -->
        <table cellpadding="5" cellspacing="1" class="form-table"><thead>
            <tr id="key_messages"><td id="column_heading"  border="0" style="text-align: left;"><b>Key Messages</b></td></tr></thead>
-           <tr><td colspan="2"><textarea name="key_messages" rows="6" cols="120" value="<?php echo $row['key_message'];?>"></textarea></td>
+           <tr><td colspan="2"><input type = "text" name="key_messages" rows="6" cols="120" value="<?php echo $row['key_message'];?>"></td>
         </tr> </table>
 
                         <!--Supporting Information -->
           <table cellpadding="5" cellspacing="1" class="form-table"><thead>
               <tr id="support"><td id="column_heading"  border="0" style="text-align: left;"><b>Supporting Information</b></td></tr></thead>
-              <tr><td colspan="2"><textarea name="support" rows="6" cols="120" value="<?php echo $row['supporting_info'];?>"></textarea></td>
+              <tr><td colspan="2"><input type="text" name="support" rows="6" cols="120" value="<?php echo $row['supporting_info'];?>"></td>
         </tr> </table>
          
                         <!--Radio Button for Needed Phorography? -->
@@ -304,7 +304,7 @@ session_start();
                     <!--Needed Photography -->
         <table cellpadding="5" cellspacing="1" class="form-table">
             <tr id="needed_photography">
-            <tr><td colspan="2"><textarea name="needed_photography" rows="6" cols="120" value="<?php echo $row['needed_photography'];?>"></textarea></td>
+            <tr><td colspan="2"><input type="text" name="needed_photography" rows="6" cols="120" value="<?php echo $row['needed_photography'];?>"></td>
         </tr> </table>
              
                     <!--Estimated Quantity -->
