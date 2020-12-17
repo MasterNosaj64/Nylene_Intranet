@@ -91,6 +91,7 @@ $employee_email=$rows['employee_email'];
 	<input name="work_phone" type="user" value="<?php echo $work_phone; ?>" maxlength="50" /></td>
 	<td><label for="reports_to">Reports to</label><br />	
 <?php
+if($reports_to!=NULL){
 	$sql="SELECT * FROM employee";
 	$query=mysqli_query($conn, $sql);
 	$sqlvalue = "SELECT first_name,last_name FROM employee WHERE employee_id=$reports_to";
@@ -98,6 +99,9 @@ $employee_email=$rows['employee_email'];
 	while ($rowvalue = mysqli_fetch_array($queryvalue)) {
 		echo '<input name="reports_to" type="user" value="' . $rowvalue['first_name'] . " " . $rowvalue['last_name'] .'" />';
 	}
+}else{
+	echo '<input name="reports_to" type="user" value=" "/>';
+}
 ?>
 	</select>
 	</td>
