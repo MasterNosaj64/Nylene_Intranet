@@ -1,3 +1,33 @@
+commit abdad70368f0212bc7ec199dc4c9aa7529476396
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Dec 18 04:26:50 2020 -0500
+
+    PhpUnit test filr for Employee.php
+    
+    Methods tested are read(), getId, search(), create()
+
+commit be02df98460f223b7e02abc9de77869ee4b24f61
+Author: Madhav00786 <46637049+Madhav00786@users.noreply.github.com>
+Date:   Fri Dec 18 04:24:53 2020 -0500
+
+    added create method to Employee because already had created the test for it.
+
+commit 385b7becbc1b15986bcc0fd5b1d4a9fc8f6a0886
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Thu Dec 17 23:21:59 2020 -0500
+
+    final adjustments
+    
+    removal of test code and prefilled sql files
+
+commit e59c6112ea31cb2144d197b7e74436ca662e81f2
+Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
+Date:   Thu Dec 17 23:14:12 2020 -0500
+
+    Update log.txt
+    
+    final comit log
+
 commit 50a41e7d28588aaac0a28420df1f1c2896ddc9a9
 Author: Jason Waid <47893817+waid0005@users.noreply.github.com>
 Date:   Thu Dec 17 23:12:00 2020 -0500
