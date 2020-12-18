@@ -2,7 +2,7 @@
 
 /*
  * FileName: Employee.php
- * Author: Jason Waid
+ * Author: Jason Waid (later modified by Madhav Sachdeva)
  * Version: 1.0
  * Date Modified: 12/07/2020
  * Purpose:
@@ -232,7 +232,7 @@ class Employee
     function getPassword()
     {
 
-        // return $this->password;
+        //return $this->password;
         return "";
     }
 
@@ -254,7 +254,57 @@ class Employee
 
         return $stmt;
     }
- 
+
+    /*
+     * Function Name: create
+     * Version: 1.0
+     * Date Modified: 12/17/2020
+     * Author: Jason Waid (later modified by Madhav Sachdeva)
+     * Function: creates a employee with the supplied parameters
+     * Return: bool on failure or success
+     */
+    function create($first_name, $last_name, $title, $department, $work_phone, $reports_to, $modified_by, $username, $STATUS, $employee_email, $password)
+    {
+        $query = "INSERT INTO
+                nylene.employee (first_name,
+				last_name,
+				title,
+				department, 
+				work_phone,
+				reports_to,
+				date_entered,
+				modified_by,
+				username, 
+				STATUS,
+				employee_email,
+				password)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $first_name = htmlspecialchars(strip_tags($first_name));
+        $last_name = htmlspecialchars(strip_tags($last_name));
+        $title = htmlspecialchars(strip_tags($title));
+        $department = htmlspecialchars(strip_tags($department));
+        $work_phone = htmlspecialchars(strip_tags($work_phone));
+        $reports_to = htmlspecialchars(strip_tags($reports_to));
+        $date_created = date("Y-m-d", time());
+        $modified_by = htmlspecialchars(strip_tags($modified_by));
+        $username = htmlspecialchars(strip_tags($username));
+        $STATUS = htmlspecialchars(strip_tags($STATUS));
+        $employee_email = htmlspecialchars(strip_tags($employee_email));
+        $password = password_hash($password,PASSWORD_BCRYPT);
+        
+        $stmt->bind_param("sssssisissss", $first_name, $last_name, $title, $department, $work_phone, $reports_to, $date_created, $modified_by, $username, $STATUS, $employee_email, $password);
+        
+        if (!$stmt->execute()) {
+            return false;
+        }else{
+			return true;
+		}
+    }
+    
+    
     /*
      * Function Name: searchById
      * Version: 1.0
