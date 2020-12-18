@@ -202,7 +202,21 @@ function testEdit($id)
             array_push($failedParams, $created_by . " != " . $companyTest->getCreatedBy());
         }
     }
-    return $failedParams;
+
+    if (count($failedParams) > 0) {
+
+        echo "<h1>Company Search Mismatches</h1>";
+
+        for ($i = 0; $i < count($failedParams); $i ++) {
+
+            echo $failedParams[$i] . "<br>";
+        }
+    } else {
+        echo "<h1>Company Edit Pass</h1>";
+        return 1;
+    }
+
+    return - 1;
 }
 
 // test object code
@@ -216,6 +230,8 @@ function test_cx_Insert($id, $customer_name, $customer_email, $date_created, $cu
         echo "Customer Search Action Failed";
         return false;
     } else {
+
+        echo "<h1>Customer Search Passed</h1>";
 
         $failedParams = array();
 
@@ -250,7 +266,7 @@ function test_cx_Edit($id)
 
     if ($customerTest == false) {
         echo "Customer Edit Action Failed";
-        return false;
+        return - 1;
     } else {
 
         $test_Conn = getDBConnection();
@@ -273,44 +289,60 @@ function test_cx_Edit($id)
             array_push($failedParams, $customer_fax . " != " . $customerTest->getFax());
         }
     }
+
+    if (count($failedParams) > 0) {
+
+        echo "<h1>Customer Edit Mismatches</h1>";
+
+        for ($i = 0; $i < count($failedParams); $i ++) {
+            echo $failedParams[$i] . "<br>";
+        }
+        return - 1;
+    } else {
+        echo "<h1>Customer Edit Pass</h1>";
+    }
+
     return $failedParams;
 }
 
-$test_Conn = getDBConnection();
+function createCompany()
+{
+    $test_Conn = getDBConnection();
 
-$companyTest = new Company($test_Conn);
-$companyTestDescription = "";
-$companyTest;
-// Test Criteria
-$company_name = "test_company_name";
-$website = "test_website";
-$billing_address_street = "test_billing_street";
-$billing_address_city = "test_billing_city";
-$billing_address_state = "test_billing_state";
-$billing_address_postalcode = "test_billing_postal";
-$billing_address_country = "test_billing_country";
-$shipping_address_street = "test_shipping_street";
-$shipping_address_city = "test_shipping_city";
-$shipping_address_state = "test_shipping_state";
-$shipping_address_postalcode = "test_shipping_postal";
-$shipping_address_country = "test_shipping_country";
-$description = "test_description";
-$type = "test_type";
-$industry = "test_industry";
-$company_email = "test_company_email";
-$assigned_to = 9;
-$date_created = date("Y-m-d", time());
-$created_by = 9;
+    $companyTest = new Company($test_Conn);
 
-$companyTest = $companyTest->create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
+    // Test Criteria
+    $company_name = "test_company_name";
+    $website = "test_website";
+    $billing_address_street = "test_billing_street";
+    $billing_address_city = "test_billing_city";
+    $billing_address_state = "test_billing_state";
+    $billing_address_postalcode = "test_billing_postal";
+    $billing_address_country = "test_billing_country";
+    $shipping_address_street = "test_shipping_street";
+    $shipping_address_city = "test_shipping_city";
+    $shipping_address_state = "test_shipping_state";
+    $shipping_address_postalcode = "test_shipping_postal";
+    $shipping_address_country = "test_shipping_country";
+    $description = "test_description";
+    $type = "test_type";
+    $industry = "test_industry";
+    $company_email = "test_company_email";
+    $assigned_to = 9;
+    $date_created = date("Y-m-d", time());
+    $created_by = 9;
 
-if ($companyTest == false) {
-    echo "Company Create Action Failed";
-} else {
+    $companyTest = $companyTest->create($company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
 
-    echo "<h1>Company Insert Pass</h1>";
+    if ($companyTest == false) {
+        echo "Company Create Action Failed";
+        return - 1;
+    } else {
 
-    $company_id = $test_Conn->insert_id;
+        echo "<h1>Company Create Pass</h1>";
+
+        $company_id = $test_Conn->insert_id;
+    }
 
     $insertTest = testInsert($company_id, $company_name, $website, $billing_address_street, $billing_address_city, $billing_address_state, $billing_address_postalcode, $billing_address_country, $shipping_address_street, $shipping_address_city, $shipping_address_state, $shipping_address_postalcode, $shipping_address_country, $description, $type, $industry, $company_email, $assigned_to, $date_created, $created_by);
 
@@ -322,32 +354,18 @@ if ($companyTest == false) {
 
             echo $insertTest[$i] . "<br>";
         }
+        return - 1;
     } else {
         echo "<h1>Company Search Pass</h1>";
     }
+
+    return $company_id;
 }
 
-if ($companyTest == false) {
-    echo "<h1>Company Insert/Search Fail</h1>";
-    echo $companyTestDescription;
-}
-
-// edit test
-$editTest = testEdit($company_id);
-
-if (count($editTest) > 0) {
-
-    echo "<h1>Company Search Mismatches</h1>";
-
-    for ($i = 0; $i < count($editTest); $i ++) {
-
-        echo $editTest[$i] . "<br>";
-    }
-} else {
-    echo "<h1>Company Edit Pass</h1>";
+function create_Customer($company_id)
+{
 
     // begin testing customer
-
     $test_Conn = getDBConnection();
     $customer_Test = new Customer($test_Conn);
 
@@ -361,6 +379,7 @@ if (count($editTest) > 0) {
 
     if ($customer_Test == false) {
         echo "Create Customer Failed<br>";
+        return - 1;
     } else {
         echo "<h1>Customer Create Pass</h1>";
         $customer_id = $test_Conn->insert_id;
@@ -374,6 +393,7 @@ if (count($editTest) > 0) {
             for ($i = 0; $i < count($insert_test); $i ++) {
                 echo $insert_test[$i] . "<br>";
             }
+            return - 1;
         } else {
 
             if (updateRelationTable($company_id, $customer_id) == false) {
@@ -392,39 +412,82 @@ if (count($editTest) > 0) {
                     echo "<h1>Customer Delete Pass</h1>";
                 }
                 $stmt->close();
-            } else {
-                $edit_Test = test_cx_Edit($customer_id);
-
-                if (count($edit_Test) > 0) {
-
-                    echo "<h1>Customer Edit Mismatches</h1>";
-
-                    for ($i = 0; $i < count($edit_Test); $i ++) {
-                        echo $edit_Test[$i] . "<br>";
-                    }
-                } else {
-                    echo "<h1>Customer Edit Pass</h1>";
-
-                    // start interaction testing
-                }
+                return - 1;
             }
         }
     }
+    return $customer_id;
 }
-// delete company
-$test_Conn = getDBConnection();
-$deleteQuery = "DELETE FROM nylene.company_relational_customer WHERE company_id = ?";
 
-$stmt = $test_Conn->prepare($deleteQuery);
-$stmt->bind_param("i", $company_id);
-$stmt->execute();
-$test_Conn->close();
+function delete_Company($company_id)
+{
+    // delete company
+    $test_Conn = getDBConnection();
+    $deleteQuery = "DELETE FROM nylene.company WHERE company_id = ?";
 
-if ($stmt->affected_rows > 0) {
-    echo "<h1>Company Delete Pass</h1>";
+    $stmt = $test_Conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $company_id);
+    $stmt->execute();
+    $test_Conn->close();
+
+    if ($stmt->affected_rows > 0) {
+        echo "<h1>Company Delete Pass</h1>";
+    } else {
+        echo "<h1>Company Delete FAIL</h1>";
+    }
+    $stmt->close();
 }
-$stmt->close();
+
+function delete_Customer($customer_id)
+{
+    // delete Customer
+    $test_Conn = getDBConnection();
+    $deleteQuery = "DELETE FROM nylene.customer WHERE customer_id = ?";
+
+    $stmt = $test_Conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $customer_id);
+    $stmt->execute();
+    $test_Conn->close();
+
+    if ($stmt->affected_rows > 0) {
+        echo "<h1>Customer Delete Pass</h1>";
+    } else {
+        echo "<h1>Customer Delete FAIL</h1>";
+    }
+    $stmt->close();
+}
+
+function create_Interaction($comapny_id, $customer_id)
+{}
+
+/*
+ * Testing begins here
+ */
+
+$company_id = createCompany();
+
+// if company creation passed
+if ($company_id != - 1) {
+
+    // if edit test passed
+    if (testEdit($company_id) != - 1) {
+
+        $customer_id = create_Customer($company_id);
+
+        // if create customer passed
+        if ($customer_id != - 1) {
+
+            // if edit customer passed
+            if (test_cx_Edit($customer_id) != - 1) {
+
+                $interaction_id = create_Interaction($comapny_id, $customer_id);
+            }
+
+            delete_Customer($customer_id);
+        }
+    }
+
+    delete_Company($company_id);
+}
 
 ?>
-
-
