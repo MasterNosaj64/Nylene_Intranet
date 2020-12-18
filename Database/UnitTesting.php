@@ -617,49 +617,45 @@ function delete_Interaction($interaction_id)
     $stmt->close();
 }
 
-
-
-function unitTesting(){
+function unitTesting()
+{
     /*
      * Testing begins here
      */
-    
     $company_id = createCompany();
-    
+
     // if company creation Passed
     if ($company_id != - 1) {
-        
+
         // if edit test Passed
         if (testEdit($company_id) != - 1) {
-            
+
             $customer_id = create_Customer($company_id);
-            
+
             // if create customer Passed
             if ($customer_id != - 1) {
-                
+
                 // if edit customer Passed
                 if (test_cx_Edit($customer_id) != - 1) {
-                    
+
                     $interaction_id = create_Interaction($company_id, $customer_id);
-                    
+
                     // if create interaction Passed
                     if ($interaction_id != - 1) {
-                        
+
                         // if edit interaction Passed
                         if (test_Interaction_Edit($interaction_id) != - 1) {}
-                        
+
                         delete_Interaction($interaction_id);
                     }
                 }
-                
+
                 delete_Customer($customer_id);
             }
         }
-        
+
         delete_Company($company_id);
     }
-    
 }
-
 
 ?>
