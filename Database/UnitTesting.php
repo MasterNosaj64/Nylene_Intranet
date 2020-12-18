@@ -212,7 +212,7 @@ function testEdit($id)
             echo $failedParams[$i] . "<br>";
         }
     } else {
-        echo "<h1>Company Edit Pass</h1>";
+        echo "<h1>Company Edit Passed</h1>";
         return 1;
     }
 
@@ -250,6 +250,61 @@ function test_cx_Insert($id, $customer_name, $customer_email, $date_created, $cu
         }
     }
     return $failedParams;
+}
+
+function test_interaction_Insert($interaction_id, $company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date)
+{
+    $test_Conn = getDBConnection();
+    $interactionTest = new Interaction($test_Conn);
+    $interactionTest = $interactionTest->searchId($interaction_id);
+
+    if ($interactionTest == false) {
+        echo "Interaction Search Action Failed";
+        return false;
+    } else {
+
+        echo "<h1>Interaction Search Passed</h1>";
+
+        $failedParams = array();
+
+        // check if all params match what was entered
+        if ($company_id != $interactionTest->getCompanyId()) {
+            array_push($failedParams, $company_id . " != " . $interactionTest->getCompanyId());
+        }
+        if ($interactionTest->getCustomerId() != $customer_id) {
+            array_push($failedParams, $customer_id . " != " . $interactionTest->getCustomerId());
+        }
+        if ($interactionTest->getCreatedBy() != $created_by) {
+            array_push($failedParams, $created_by . " != " . $interactionTest->getCreatedBy());
+        }
+        if (strcmp($interactionTest->getReason(), $reason) != 0) {
+            array_push($failedParams, $reason . " != " . $interactionTest->getReason());
+        }
+        if (strcmp($interactionTest->getReason(), $reason) != 0) {
+            array_push($failedParams, $reason . " != " . $interactionTest->getReason());
+        }
+        if (strcmp($interactionTest->getComments(), $comments) != 0) {
+            array_push($failedParams, $comments . " != " . $interactionTest->getComments());
+        }
+        if (strcmp($interactionTest->getStatus(), $status) != 0) {
+            array_push($failedParams, $status . " != " . $interactionTest->getStatus());
+        }
+        if (strcmp($interactionTest->getFollowUpType(), $follow_up_type) != 0) {
+            array_push($failedParams, $follow_up_type . " != " . $interactionTest->getFollowUpType());
+        }
+
+        if (count($failedParams) > 0) {
+
+            echo "<h1>Interaction Search Mismatches</h1>";
+
+            for ($i = 0; $i < count($failedParams); $i ++) {
+                echo $failedParams[$i] . "<br>";
+            }
+            return - 1;
+        }
+    }
+    return 1;
+    ;
 }
 
 // test object code
@@ -299,10 +354,10 @@ function test_cx_Edit($id)
         }
         return - 1;
     } else {
-        echo "<h1>Customer Edit Pass</h1>";
+        echo "<h1>Customer Edit Passed</h1>";
     }
 
-    return $failedParams;
+    return 1;
 }
 
 function createCompany()
@@ -339,7 +394,7 @@ function createCompany()
         return - 1;
     } else {
 
-        echo "<h1>Company Create Pass</h1>";
+        echo "<h1>Company Create Passed</h1>";
 
         $company_id = $test_Conn->insert_id;
     }
@@ -356,7 +411,7 @@ function createCompany()
         }
         return - 1;
     } else {
-        echo "<h1>Company Search Pass</h1>";
+        echo "<h1>Company Search Passed</h1>";
     }
 
     return $company_id;
@@ -381,7 +436,7 @@ function create_Customer($company_id)
         echo "Create Customer Failed<br>";
         return - 1;
     } else {
-        echo "<h1>Customer Create Pass</h1>";
+        echo "<h1>Customer Create Passed</h1>";
         $customer_id = $test_Conn->insert_id;
 
         $insert_test = test_cx_Insert($customer_id, $customer_name, $customer_email, $date_created, $customer_phone, $customer_fax);
@@ -409,7 +464,7 @@ function create_Customer($company_id)
                 $test_Conn->close();
 
                 if ($stmt->affected_rows > 0) {
-                    echo "<h1>Customer Delete Pass</h1>";
+                    echo "<h1>Customer Delete Passed</h1>";
                 }
                 $stmt->close();
                 return - 1;
@@ -417,6 +472,92 @@ function create_Customer($company_id)
         }
     }
     return $customer_id;
+}
+
+function create_Interaction($company_id, $customer_id)
+{
+
+    // begin testing customer
+    $test_Conn = getDBConnection();
+    $interaction_Test = new Interaction($test_Conn);
+
+    // test inputs
+    $company_id = $company_id;
+    $customer_id = $customer_id;
+    $created_by = 9;
+    $reason = "General";
+    $comments = "Test_Comment";
+    $date_created = date("Y-m-d", time());
+    $status = "open";
+    $follow_up_type = "none";
+    $follow_up_date = "";
+
+    $interaction_Test = $interaction_Test->create($company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date);
+
+    if ($interaction_Test == false) {
+        echo "Create Interaction Failed<br>";
+        return - 1;
+    } else {
+        echo "<h1>Interaction Create Passed</h1>";
+        $interaction_id = $test_Conn->insert_id;
+
+        $insert_test = test_interaction_Insert($interaction_id, $company_id, $customer_id, $created_by, $reason, $comments, $date_created, $status, $follow_up_type, $follow_up_date);
+
+        if ($insert_test == - 1) {
+            return - 1;
+        }
+    }
+    return $interaction_id;
+}
+
+// test object code
+function test_Interaction_Edit($interaction_id)
+{
+    $comments = "Edit_Comment";
+    $status = "closed";
+    $follow_up_type = "interaction";
+    $follow_up_date = "";
+
+    $test_Conn = getDBConnection();
+    $interactionTest = new Interaction($test_Conn);
+    $interactionTest = $interactionTest->modify($interaction_id, $comments, $status, $follow_up_type, $follow_up_date);
+
+    if ($interactionTest == false) {
+        echo "Interaction Edit Action Failed";
+        return - 1;
+    } else {
+
+        $test_Conn = getDBConnection();
+        $interactionTest = new Interaction($test_Conn);
+        $interactionTest = $interactionTest->searchId($interaction_id);
+
+        $failedParams = array();
+
+        // check if all params match what was entered
+        if (strcmp($interactionTest->getComments(), $comments) != 0) {
+            array_push($failedParams, $comments . " != " . $interactionTest->getComments());
+        }
+        if (strcmp($interactionTest->getStatus(), $status) != 0) {
+            array_push($failedParams, $status . " != " . $interactionTest->getStatus());
+        }
+        if (strcmp($interactionTest->getFollowUpType(), $follow_up_type) != 0) {
+            array_push($failedParams, $follow_up_type . " != " . $interactionTest->getFollowUpType());
+        }
+    }
+
+    if (count($failedParams) > 0) {
+
+        echo "<h1>Interaction Edit Mismatches</h1>";
+
+        for ($i = 0; $i < count($failedParams); $i ++) {
+            echo $failedParams[$i] . "<br>";
+        }
+        return - 1;
+    } else {
+        echo "<h1>Interaction Edit Passed</h1>";
+    }
+
+    return 1;
 }
 
 function delete_Company($company_id)
@@ -431,7 +572,7 @@ function delete_Company($company_id)
     $test_Conn->close();
 
     if ($stmt->affected_rows > 0) {
-        echo "<h1>Company Delete Pass</h1>";
+        echo "<h1>Company Delete Passed</h1>";
     } else {
         echo "<h1>Company Delete FAIL</h1>";
     }
@@ -450,44 +591,75 @@ function delete_Customer($customer_id)
     $test_Conn->close();
 
     if ($stmt->affected_rows > 0) {
-        echo "<h1>Customer Delete Pass</h1>";
+        echo "<h1>Customer Delete Passed</h1>";
     } else {
         echo "<h1>Customer Delete FAIL</h1>";
     }
     $stmt->close();
 }
 
-function create_Interaction($comapny_id, $customer_id)
-{}
+function delete_Interaction($interaction_id)
+{
+    // delete Customer
+    $test_Conn = getDBConnection();
+    $deleteQuery = "DELETE FROM nylene.interaction WHERE interaction_id = ?";
 
-/*
- * Testing begins here
- */
+    $stmt = $test_Conn->prepare($deleteQuery);
+    $stmt->bind_param("i", $interaction_id);
+    $stmt->execute();
+    $test_Conn->close();
 
-$company_id = createCompany();
-
-// if company creation passed
-if ($company_id != - 1) {
-
-    // if edit test passed
-    if (testEdit($company_id) != - 1) {
-
-        $customer_id = create_Customer($company_id);
-
-        // if create customer passed
-        if ($customer_id != - 1) {
-
-            // if edit customer passed
-            if (test_cx_Edit($customer_id) != - 1) {
-
-                $interaction_id = create_Interaction($comapny_id, $customer_id);
-            }
-
-            delete_Customer($customer_id);
-        }
+    if ($stmt->affected_rows > 0) {
+        echo "<h1>Interaction Delete Passed</h1>";
+    } else {
+        echo "<h1>Interaction Delete FAIL</h1>";
     }
-
-    delete_Company($company_id);
+    $stmt->close();
 }
+
+
+
+function unitTesting(){
+    /*
+     * Testing begins here
+     */
+    
+    $company_id = createCompany();
+    
+    // if company creation Passed
+    if ($company_id != - 1) {
+        
+        // if edit test Passed
+        if (testEdit($company_id) != - 1) {
+            
+            $customer_id = create_Customer($company_id);
+            
+            // if create customer Passed
+            if ($customer_id != - 1) {
+                
+                // if edit customer Passed
+                if (test_cx_Edit($customer_id) != - 1) {
+                    
+                    $interaction_id = create_Interaction($company_id, $customer_id);
+                    
+                    // if create interaction Passed
+                    if ($interaction_id != - 1) {
+                        
+                        // if edit interaction Passed
+                        if (test_Interaction_Edit($interaction_id) != - 1) {}
+                        
+                        delete_Interaction($interaction_id);
+                    }
+                }
+                
+                delete_Customer($customer_id);
+            }
+        }
+        
+        delete_Company($company_id);
+    }
+    
+}
+
 
 ?>

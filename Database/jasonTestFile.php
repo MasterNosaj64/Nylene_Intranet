@@ -1,4 +1,6 @@
 <?php
+include './UnitTesting.php';
+
 if (isset($_POST['submit'])) {
 
     switch ($_POST['formType']) {
@@ -74,3 +76,8 @@ if (isset($_POST['submit'])) {
 		</tr>
 	</table>
 </form>
+
+<h2>Unit Testing</h2>
+<?php 
+unitTesting();
+?>
